@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Assignment 1 | Web Applications" />
+  <meta name="keywords" content="HTML5" />
+  <meta name="author" content="Anthony Kakolyris"  />
+  <link href="styles/style.css" rel="stylesheet"/>
+  <title>Hyrule Restaurant</title>
+</head>
+
+<body>
+    <header>
+        <h1>Hyrule Restaurant</h1>
+        <!--Logo image source: https://zelda.gamepedia.com/Royal_Crest -->
+        <img src="images/hyrule_logo.png" height="100" width="150" alt="Hyrule Logo" title="Filesize 91kb" id="logo"/>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Index</a></li>
+            <li><a href="product.html">Product</a></li>
+            <li><a href="enquire.html">Enquire</a></li>
+            <li><a href="about.html" >About</a></li>
+        </ul>
+    </nav>
+    <p id="complaint_description">Here at the Hyrule Restaurant we take issues with our food <strong>very</strong> seriously, if you believe the food or service wasnt at the expected standard
+       please fill out this form and we will discuss a potential refund and attempt to improve on the mistakes in the future.
+    </p>
+    <h2>Complaints</h2> 
+    <form id="complaint" action="https://mercury.swin.edu.au/it000000/formtest.php" method="post">
+        <fieldset>
+        <legend>Personal Details</legend>
+        <p><label for="name">Given Name</label>
+        <input type="text" id="name" name="name" pattern="^[a-zA-Z]+$" maxlength="25" required="required">
+        <label for="family_name">Family Name</label>
+        <input type="text" id="family_name" name="family_name" maxlength="25" required="required"></p>
+        </fieldset>
+    <fieldset>
+        <legend>Address</legend>
+        <p><label for="street_address">Street Address</label>
+        <input type="text" id="street_address" name="address" pattern="^[a-zA-Z]+$" maxlength="40" required="required">
+        <label for="suburb">Suburb</label>
+        <input type="text" id="suburb" name="suburb" pattern="^[a-zA-Z]+$" maxlength="20" required="required">
+        <label for="state">State</label>
+        <select id="state" required="required">
+            <option value="" selected="selected">Please Select</option>
+            <option value="gerudo">Gerudo</option>
+            <option value="faron">Faron</option>
+            <option value="necluda">Necluda</option>
+            <option value="lanayru">Lanayru</option>
+            <option value="eldin">Eldin</option>
+            <option value="akkala">Akkala</option>
+            <option value="central_hyrule">Central Hyrule</option>
+        </select>
+        <label for="postcode">Postcode</label>
+        <input type="text" id="postcode" name="postcode" pattern="\d{4}" maxlength="4" required="required">
+        </p>
+    </fieldset>
+    <fieldset>
+        <legend>Contact Detals</legend>
+        <p><label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="name@domain.com" required="required">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="(##) ####-####" pattern="\(\d{2}\) \d{4}-\d{4}"></p>
+        <label>Preferred Contact:</label>
+        <label><input type="radio" name="contact" value="post" required="required"/>Post</label>
+        <label><input type="radio" name="contact" value="email"/>Email</label>
+        <label><input type="radio" name="contact" value="phone"/>Phone</label>
+    </fieldset>
+    <fieldset>
+        <legend>Food</legend>
+        <p><label for="food">Specific Food Enquiry</label>
+            <select id="food" required="required">
+            <option value="" selected="selected">Please Select</option>
+            <option value="carrot_stew">Carrot Stew</option>
+            <option value="meat_rice">Meat and Rice Bowl</option>
+            <option value="clam_chowder">Clam Chowder</option>
+            <option value="spicy_seafood">Spicy Pepepred Seafood</option>
+            <option value="stuffed_pumpkins">Meat-Stuffed Pumpkins</option>
+            <option value="salt_meat">Salt-Grilled Meat</option>
+            <option value="apple_pie">Applie Pie</option>
+            <option value="fried_bananas">Fried Bananas</option>
+            <option value="honey_candy">Honey Candy</option>
+        </select></p>
+        
+        <p><strong>Issue:</strong>
+        <label for="service">Bad Service</label>
+        <input id="service" type="checkbox" value="service">
+        <label for="rotten">Rotten Food</label>
+        <input id="rotten" type="checkbox" value="rotten">
+        <label for="taste">Poor Taste</label>
+        <input id="taste" type="checkbox" value="taste">
+        <label for="other">Other</label>
+        <input id="other" type="checkbox" value="other"></p>
+        <p><label for="comment">Comments</label></p>
+        <p><textarea id="comment" name="comments" rows="5" cols="150" placeholder="If you would like to elaborate on the issue, or selected 'Other' please type here"></textarea></p>
+    </fieldset>
+
+    <input type= "submit" value="Enquire"/>
+	<input type= "reset" value="Reset Enquiry"/>
+    </form>
+<footer>
+    <hr />
+    <p>Hyrule Restaurant | Assignment 1</p>
+</footer>
+</body>
