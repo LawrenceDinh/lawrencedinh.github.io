@@ -4,13 +4,16 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'Poppins', sans-serif;
-  color: #222;
+  color: #222; 
+  padding-top: 25px; 
 }
 
+
 .navbar {
-  padding: .8rem;
+    display: inline-block;
 }
 .navbar-nav li {
+  display: inline-block;
   padding-right: 20px;
 }
 .nav-link {
