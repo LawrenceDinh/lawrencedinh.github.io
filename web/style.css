@@ -66,19 +66,25 @@ html, body {
   margin-top: .3rem;
   margin-bottom: 1rem; 
 }
-.fa-code {
-  color: #e54d26;
+
+.fa-python, .fa-java, .fa-file-pdf {
+  color: #FFD43B;
 }
-.fa-bold {
-  color: #563d7c;
+
+.fa-file-pdf {
+ color: #0055A2
+ } 
+ 
+.fa-project-diagram  {
+  color: #6441a5;
 }
-.fa-css3 {
-  color: #2163af;
-}
-.fa-code, .fa-bold, .fa-css3 {
+
+.fa-python, .fa-java, .fa-file-pdf, .fa-project-diagram {
   font-size: 4em;
   margin: 1rem;
 }
+
+
 .fun {
   width: 100%;
   margin-bottom: 2rem;
