@@ -90,7 +90,10 @@
 			</div>
 		</div>
 				<div class="col-lg-6">
-				<img src="https://github.com/LawrenceDinh/lawrencedinh.github.io/raw/master/web/imgsrc/squared.png" class="mx-auto d-block profile-img-container avatar-img rounded-circle"></div>
+				<div id="image">
+    <img id="preload" onload="fadeIn(this)" src="https://github.com/LawrenceDinh/lawrencedinh.github.io/raw/master/web/imgsrc/squared.png" style="display:none;" class="mx-auto d-block profile-img-container avatar-img rounded-circle" />
+</div>
+		</div>
 		</div>
 		</div>
 		</div>
@@ -159,6 +162,7 @@
 
 <!--- Connect -->
 <div class="container-fluid padding">
+
 	<div class="row text-center padding">
 		<div class="col-12">
 			<h1 class ="display-4">Connect</h1>
@@ -195,8 +199,8 @@
 			<div class="col-12">
 		</div>
 	</div>
+<script src="imageload.js"></script>
 </footer>
-
 </body>
 </html>
 
