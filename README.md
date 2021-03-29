@@ -1,1 +1,1 @@
-My personal portfolio website. Implemented in Bootstrap, CSS and HTML.
+My personal portfolio website. Implemented in Javascript, Bootstrap, CSS and HTML.
