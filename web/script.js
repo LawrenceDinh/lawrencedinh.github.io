@@ -226,7 +226,7 @@
     const desc = stat.querySelector('p').textContent.trim();
     
     if (text.includes('7+')) {
-      stat.setAttribute('data-tooltip', 'Road racing\nAutocross\nDrifting');
+      stat.setAttribute('data-tooltip', 'Closed Circuit Racing\nAutocross\nDrifting');
     } else if (text.includes('2+')) {
       stat.setAttribute('data-tooltip', 'Autonomous vehicles\nServiceNow');
     } else if (text === 'NVIDIA') {
