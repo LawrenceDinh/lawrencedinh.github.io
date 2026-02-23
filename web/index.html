@@ -1,224 +1,502 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Luat Dinh Portfolio Website</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
-<link href="style.css" rel="stylesheet">
-<link rel="shortcut icon"
-	href="https://github.com/LawrenceDinh/lawrencedinh.github.io/raw/master/web/imgsrc/favicon.ico"
-	type="image/x-icon" />
-<meta name="google-site-verification"
-	content="3H0L8p5a0fY-H6qfheHBWQA1L7WfeFki9SIcpkgezKM" />
-<meta name="google-site-verification" content="y1XI96gj7AVYvOdQIFIFRRayeeXAEZHZyXiTTI02xd4" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Luat Dinh Test Engineer & Software Developer</title>
+  <meta name="description" content="Luat Dinh — Test Engineer & Software Developer. Systems testing, data analysis, test automation, Python development, automotive systems." />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- NAV -->
+  <header class="nav" role="banner" aria-label="Main navigation">
+    <div class="nav-inner">
+      <div class="brand" style="font-size:1.05rem">
+        Luat "Lawrence" Dinh
+        <span class="role">lawrencedinh.github.io</span>
+      </div>
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<div id="aboutme"></div>
-		<div class="container-fluid">
-			<a href="" class="navbar-brand" href="#">Luat Dinh</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="#">About</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#myprojects">Projects</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#connectme">Connect</a>
-					</li>
-					<li class="nav-item"><a class="nav-link"
-						href="LuatDinhResume.pdf" target="_blank">CV</a></li>
-				</ul>
-			</div>
-		</div>
-		</div>
-	</nav>
+<nav class="nav-links" role="navigation" aria-label="Primary">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="LAD.pdf" target="_blank" rel="noopener" class="highlight" aria-label="Resume (opens in new tab)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M8 2v10M4 8l4 4 4-4M2 14h12"/>
+    </svg>
+    Resume
+  </a>
+  <a href="#contact" class="nav-contact-btn" aria-label="Contact">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/>
+      <path d="M3 5.5l5 3 5-3"/>
+    </svg>
+    Contact
+  </a>
+</nav>
 
-		<script src="imageload.js"></script>
-	<!--- Image Slider -->
-	<div class="container-fluid padding">
-		<div class="row padding">
-			<div class="col-12">
-				<h1 class="display-4 text-center">Luat "Lawrence" Dinh</h1>
-			</div>
-			<div class="row flex-column-reverse flex-md-row">
-				<div class="col-lg-6">
-					<div class="indent">
-						<h1 class="display-5">Software Engineer</h1>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="drawer" title="Menu">
+        <div class="hamburger" id="hamburgerIcon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </div>
 
-						<h4 class="display-5">Bachelor of Science in Computer Science  (2021)
-						</h4>
-						<div class="indent">
-							<h5 class="display-5"><i><b>San José State University</b></i></h5>
-						</div>
-						<div class="indent">
-							<h5>
-								<ul>
-									<li>I am a motivated developer with experience in project 
-									management using AGILE methodologies.</li>
-									<li>Received my Bachelors of Science in Computer Science from SJSU.</li>
-									<li>Capable of efficiently collaborating with diverse range of team members consistently. 
-									<li>Primary programming languages include: Java and Python.
-									<li>Located in the Silicon Valley, California</li>
-								</ul>
-							</h5>
-						</div>
-					</div>
-					<div class="row padding"></div>
-					<div class="row d-flex justify-content-center ">
+<div id="drawer" class="drawer" role="menu" aria-hidden="true">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="LAD.pdf" target="_blank" rel="noopener" class="highlight">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M8 2v10M4 8l4 4 4-4M2 14h12"/>
+    </svg>
+    Resume
+  </a>
+  <a href="#contact" class="drawer-contact">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/>
+      <path d="M3 5.5l5 3 5-3"/>
+    </svg>
+    Contact
+  </a>
+</div>
+  </header>
 
-						<div class="col-1 p-0 d-flex justify-content-center">
-							<div style="text-align: center">
-								<a href="https://www.linkedin.com/in/luat-dinh-a23a0a198/"
-									target="blank"><i class="fab fa-linkedin contact-icon"></i>LinkedIn</a>
-							</div>
-						</div>
-						<div class="col-1 p-0 d-flex justify-content-center offset-2">
-							<div style="text-align: center">
-								<a href="https://github.com/LawrenceDinh" target="blank"><i
-									class="fab fa-github contact-icon"></i>Github</a>
-							</div>
-						</div>
-						<div class="col-1 p-0 d-flex justify-content-center offset-2">
-							<div style="text-align: center">
-								<a href="https://twitter.com/lawrencedinh_" target="blank"><i
-									class="fab fa-twitter contact-icon"></i>Twitter</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div id="image">
-						<img id="preload" onload="fadeIn(this)"
-							src="https://github.com/LawrenceDinh/lawrencedinh.github.io/raw/master/web/imgsrc/squared.png"
-							style="display: none;"
-							class="mx-auto d-block profile-img-container avatar-img rounded-circle" />
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- Back to top button -->
+<div class="back-to-top" id="backToTop" title="Back to top">
+  <div class="back-to-top-circle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </div>
+  <div class="back-to-top-text">TOP</div>
+</div>
 
+  <!-- PAGE -->
+  <main id="main">
+    <div class="container">
+      <div class="grid">
+        <!-- LEFT: Main content -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+<!-- HERO SECTION - LinkedIn Style -->
+<section id="about" class="hero-main" aria-labelledby="hero-heading">
+  <!-- Profile pic overlay -->
+  <div class="profile-pic-overlay" aria-hidden="true">
+    <img src="https://github.com/LawrenceDinh/lawrencedinh.github.io/raw/master/web/imgsrc/squared.png" alt="Luat Dinh photo" style="width:100%;height:100%;object-fit:cover">
+  </div>
 
-	<!--- Jumbotron -->
+  <!-- Container with both panels -->
+  <div class="hero-panels">
+    <!-- Top Panel: Name, title and tagline -->
+    <div class="hero-top">
+      <h1 id="hero-heading" class="name">Lawrence Dinh</h1>
+      <div class="title">Systems Engineer & Operations Specialist</div>
+<div class="tagline">
+  <span class="tagline-item">Computer Science</span>
+  <span class="tagline-item">Data Analysis</span>
+  <span class="tagline-item">UI/UX design</span>
+  <span class="tagline-item">Automotive Testing</span>
+</div>
+    </div>
 
-	<div class="container-fluid">
-		<a href="LuatDinhResume.pdf" target="_blank">
-			<div class="row jumbotron">
-				<div class="col-12 my-auto">
-
-					<h4 class="display-4 text-center">
-						Luat's Résumé
-						</p>
-				</div>
-			</div>
-		</a>
-	</div>
-	<div id="myprojects"></div>
-	<!--- Welcome Section -->
-	<div class="container-fluid padding">
-		<div class="row welcome text-center">
-			<div class="col-12">
-				<h1 class="display-4">Projects</h1>
-			</div>
-			<hr>
-		</div>
-	</div>
-
-	<!--- Three Column Section -->
-	<div class="container-fluid padding">
-		<div class="row text-center padding  d-flex justify-content-center">
-			<div class="col-sm-12 col-sm-6 col-md-3">
-				<h3>Pretty Boxes Web Store Project</h3>
-				<p>E-commerce web application developed with peers. Used AGILE approach to design
-				and manage projects through bi-weekly sprints. 
-				Implemented in Java using Spring Boot and mySQL.</p>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3 ">
-				<h3>UPGMA Phylogenetic Analysis</h3>
-				<p> Conducted genetic analysis of 44 related species sequences using Bio Python and data collected from NCBI's online database. 
-				Performed multiple sequence alignments of mRNA sequences and produced Phylogenetic tree diagrams.</p>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3">
-				<h3>Twitch Users Social Network Analysis</h3>
-				<p>Collected and analyzed Twitch user data to perform a social network analysis. 
-				Categorized user community clusters and network properties using Python, Gephi, and R.</p>
-			</div>
-		</div>
-		<div class="row text-center padding  d-flex justify-content-center">
-			<div class="col-xs-12 col-sm-6 col-md-3">
-				<h3>Search Bot (Discord)</h3>
-				<p>Python Discord Bot project used to optimize searching for content on specific web pages. 
-				Utilizes Discord's API to receive user text inputs and returns the results if any are found from predefined websites.</p>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-3">
-				<h3>Bookstore Point of Sales Interface</h3>
-				<p>Java project for a bookstore commerce system with user interface and locally integrated database. 
-				Includes features to register customers, create products, and search through store inventory.</p>
-			</div>
-			<div class="col-sm-12 col-sm-6 col-md-3">
-				<h3>Fire Danger Analysis using Historic Data</h3>
-				<p>Calculates a fire danger value of each calendar day based on
-					previous meteorological data.</p>
-			</div>
-		</div>
-		<hr class="my-4">
-	</div>
+    <!-- Bottom Panel: About, buttons, and stats -->
+    <div class="hero-bottom">
+      <div class="hero-about">
+        <p class="small">Experienced test engineer and software developer with expertise in executing test plans, analyzing telemetry data, building automation pipelines, and validating complex systems. Combines automotive systems knowledge from 7+ years of motorsports experience with professional software engineering and data analysis skills. Proficient in Python, test infrastructure development, and data-driven validation for hardware and software systems.</p>
+      </div>
 
 
+<div style="margin-bottom:16px">
+  <a class="download-btn highlight" href="LAD.pdf" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M8 2v10M4 8l4 4 4-4M2 14h12"/>
+    </svg>
+    Resume
+  </a>
+  <a class="download-btn contact" href="#contact" style="margin-left:10px">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/>
+      <path d="M3 5.5l5 3 5-3"/>
+    </svg>
+    Contact
+  </a>
+</div>
 
-	<!--- Connect -->
-	<div id="connectme"></div>
-	<div class="container-fluid padding">
 
-		<div class="row text-center padding">
-			<div class="col-12">
-				<h1 class="display-4">Connect</h1>
+      <div class="stats" role="list" aria-label="Key stats">
+        <div class="stat" role="listitem">
+          <h4>7+<span class="years">years</span></h4>
+          <p>Motorsports experience</p>
+        </div>
+        <div class="stat" role="listitem">
+          <h4>2+<span class="years">years</span></h4>
+          <p>System testing</p>
+        </div>
+        <div class="stat" role="listitem"><h4>NVIDIA</h4><p>Current</p></div>
+        <div class="stat" role="listitem"><h4>B.S. CS</h4><p>SJSU 2021</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-				<div class="center">
-					<h3>Email: <a href="mailto:lawrencetdinh@gmail.com">lawrencetdinh@gmail.com</a></h3>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- SKILLS -->
+<!-- SKILLS -->
+<section id="skills" class="section-panel">
+  <div class="section-header">
+    <h2 class="section-heading">Skills & Tools</h2>
+    <span class="expand-hint">(Click cards to flip)</span>
+  </div>
+  <div class="skills-grid" role="list">
+    <!-- 1. Software Development -->
+    <div class="skill" role="listitem">
+      <div class="skill-front">
+        <h4>Software Development</h4>
+        <div class="skill-items">
+          <p>• Git version control</p>
+          <p>• Linux/Unix</p>
+          <p>• Bash scripting</p>
+          <p>• C++, Java</p>
+          <p class="skill-item-hidden">• JavaScript</p>
+          <p class="skill-item-hidden">• API integration</p>
+        </div>
+      </div>
+      <div class="skill-back">
+        <h4>Software Development</h4>
+        <p class="small">Strong software engineering foundation with version control, scripting, and multi-language development. Experienced in Git workflows, Linux system administration, and API integration. Comfortable with C++, Java, and JavaScript for various development contexts.</p>
+      </div>
+    </div>
 
-	<!--- Footer -->
-	<footer>
-		<div class="container-fluid padding">
-			<div class="row text-center">
-				<div class="col-md-4"></div>
+    <!-- 2. Management & Leadership -->
+    <div class="skill" role="listitem">
+      <div class="skill-front">
+        <h4>Management & Leadership</h4>
+        <div class="skill-items">
+          <p>• Agile/Scrum workflows</p>
+          <p>• Cross-team collaboration</p>
+          <p>• Technical documentation</p>
+          <p>• Stakeholder communication</p>
+          <p class="skill-item-hidden">• Remote team coordination</p>
+          <p class="skill-item-hidden">• Project delivery</p>
+        </div>
+      </div>
+      <div class="skill-back">
+        <h4>Management & Leadership</h4>
+        <p class="small">Experienced in Agile/Scrum methodologies with cross-functional team collaboration. Strong technical documentation and stakeholder communication skills. Proven ability to coordinate with remote teams across time zones and deliver projects on schedule. Comfortable presenting technical findings to engineering and non-technical audiences.</p>
+      </div>
+    </div>
+    
+    <!-- 3. Data & Analysis -->
+    <div class="skill" role="listitem">
+      <div class="skill-front">
+        <h4>Data & Analysis</h4>
+        <div class="skill-items">
+          <p>• Python (pandas, numpy)</p>
+          <p>• R</p>
+          <p>• Time-series analysis</p>
+          <p>• Data visualization</p>
+          <p class="skill-item-hidden">• Statistical analysis</p>
+          <p class="skill-item-hidden">• Log parsing</p>
+        </div>
+      </div>
+      <div class="skill-back">
+        <h4>Data & Analysis</h4>
+        <p class="small">Advanced Python skills with pandas and numpy for large-scale data processing. Experience with time-series analysis, statistical modeling, and data visualization. Proficient in R for statistical computing. Applied data science techniques to motorsports telemetry and sensor fusion validation.</p>
+      </div>
+    </div>
+    
+    <!-- 4. Tools & Platforms -->
+    <div class="skill" role="listitem">
+      <div class="skill-front">
+        <h4>Tools & Platforms</h4>
+        <div class="skill-items">
+          <p>• PyCharm, VS Code</p>
+          <p>• Jira, Trello</p>
+          <p>• Excel, ArcGIS</p>
+          <p>• Docker basics</p>
+          <p class="skill-item-hidden">• ROS fundamentals</p>
+          <p class="skill-item-hidden">• ServiceNow</p>
+        </div>
+      </div>
+      <div class="skill-back">
+        <h4>Tools & Platforms</h4>
+        <p class="small">Proficient with industry-standard development and project management tools. Experience with PyCharm and VS Code for development, Jira and Trello for agile workflows, and specialized tools like ArcGIS for geospatial analysis. Familiar with Docker containerization and ROS for robotics applications.</p>
+      </div>
+    </div>
 
-				<div class="col-md-4">
-					<hr class="light">
-					<p>lawrencetdinh@gmail.com</p>
-					<p>https://www.linkedin.com/in/luat-dinh-a23a0a198/</p>
-					<p>https://github.com/LawrenceDinh</p>
-					<hr class="light">
-				</div>
+    <!-- Hidden skills that appear when expanded -->
+    <!-- 5. Automotive & Motorsports -->
+    <div class="skill skill-hidden" role="listitem">
+      <div class="skill-front">
+        <h4>Automotive & Motorsports</h4>
+        <div class="skill-items">
+          <p>• Vehicle dynamics</p>
+          <p>• GPS/IMU telemetry</p>
+          <p>• Performance analysis</p>
+          <p>• Data-driven tuning</p>
+          <p>• Track testing</p>
+          <p>• Setup optimization</p>
+        </div>
+      </div>
+      <div class="skill-back">
+        <h4>Automotive & Motorsports</h4>
+        <p class="small">7+ years of hands-on motorsports experience across track, drift, and autocross disciplines. Deep understanding of vehicle dynamics, suspension geometry, and data-driven performance tuning. Extensive experience with GPS/IMU telemetry systems, lap analysis, and setup optimization through iterative testing.</p>
+      </div>
+    </div>
 
-				<div class="col-md-4"></div>
+    <!-- 6. Testing & Validation -->
+    <div class="skill skill-hidden" role="listitem">
+      <div class="skill-front">
+        <h4>Testing & Validation</h4>
+        <div class="skill-items">
+          <p>• Test plan execution</p>
+          <p>• System validation</p>
+          <p>• Telemetry analysis</p>
+          <p>• Scenario testing</p>
+          <p class="skill-item-hidden">• Test automation</p>
+          <p class="skill-item-hidden">• Defect triage</p>
+          <p class="skill-item-hidden">• Sensor calibration</p>
+          <p class="skill-item-hidden">• Data capture</p>
+        </div>
+      </div>
+      <div class="skill-back">
+        <h4>Testing & Validation</h4>
+        <p class="small">Comprehensive test execution across automotive and software systems. Experienced in scenario-based testing, regression validation, sensor calibration workflows, and telemetry data analysis. Strong defect triage and test report documentation skills. Familiar with test automation frameworks and CI/CD integration.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- See More Button -->
+  <button class="skills-see-more" id="skillsSeeMore" aria-label="See more skills" aria-expanded="false">
+    <svg class="see-more-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+      <path d="M8 11L3 6h10l-5 5z" fill="currentColor"/>
+    </svg>
+    <span class="see-more-text">See more</span>
+  </button>
+</section>
+      
+<!-- EXPERIENCE -->
+<section id="experience" class="section-panel">
+  <div class="section-header">
+    <h2 class="section-heading">Experience</h2>
+    <span class="expand-hint">(Click experiences to expand)</span>
+  </div>
+  <div class="list">
+    <article class="job" aria-labelledby="job-nvidia">
+      <span class="job-close">×</span>
+      <div class="company-icon">🟢</div>
+      <div class="body">
+        <h3 id="job-nvidia">Automotive Test Driver</h3>
+        <div class="job-meta">NVIDIA · Contract</div>
+        <div class="job-meta">May 2025 — Present · 7 mos</div>
+        <div class="job-meta">Santa Clara, California, United States · On-site</div>
+        <p class="small muted">System validation, test execution, sensor calibration, and telemetry analysis for autonomous driving platforms.</p>
+        <ul class="bullets">
+          <li>Execute scenario-based test plans and validate system behavior; log events and defects for engineering teams.</li>
+          <li>Calibrate sensor suites (LiDAR/camera/radar) and validate fusion outputs through pre/post-test data analysis.</li>
+          <li>Prepare test systems for data capture: configure logging infrastructure, sync timing sources, run diagnostics.</li>
+          <li>Author detailed test reports with reproducible datasets for engineering review and regression testing.</li>
+        </ul>
+        <div class="job-detail">
+          <p class="small" style="color:var(--text);margin-bottom:8px"><strong>Key Responsibilities:</strong></p>
+          <p class="small">• Execute complex multi-sensor test scenarios in controlled and real-world environments</p>
+          <p class="small">• Perform intrinsic and extrinsic calibration of camera, LiDAR, and radar sensor arrays</p>
+          <p class="small">• Analyze time-synchronized sensor fusion outputs using Python-based analysis tools</p>
+          <p class="small">• Configure ROS-based logging systems and validate data integrity across test runs</p>
+          <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Technical Environment:</strong></p>
+          <p class="small">• Work with autonomous vehicle perception and sensor fusion systems</p>
+          <p class="small">• Use Linux-based test infrastructure and command-line tools for system diagnostics</p>
+          <p class="small">• Collaborate with perception, planning, and software engineering teams on defect resolution</p>
+        </div>
+      </div>
+    </article>
 
-			</div>
-			<div class="center">
-				<h4>Webpage designed by: Luat Dinh (2021)</h4>
-			</div>
-		</div>
-	</footer>
+    <article class="job" aria-labelledby="job-tcs">
+      <span class="job-close">×</span>
+      <div class="company-icon">🔷</div>
+      <div class="body">
+        <h3 id="job-tcs">Assistant Systems Engineer</h3>
+        <div class="job-meta">Tata Consultancy Services · Full-time</div>
+        <div class="job-meta">Dec 2021 — Dec 2023 · 2 yrs 1 mo</div>
+        <div class="job-meta">San Jose, California, United States · On-site</div>
+        <p class="small muted">ServiceNow customization, automation workflows, and client-side integration for enterprise systems.</p>
+        <ul class="bullets">
+          <li>Configured user roles and automated workflows using Flow Designer and business rules.</li>
+          <li>Applied JavaScript and testing to enforce data validation and UI behavior for large-scale deployments.</li>
+          <li>Participated in Agile development and cross-team coordination for delivery milestones.</li>
+        </ul>
+        <div class="job-detail">
+          <p class="small" style="color:var(--text);margin-bottom:8px"><strong>Technical Contributions:</strong></p>
+          <p class="small">• Developed custom workflows using ServiceNow Flow Designer for incident and change management</p>
+          <p class="small">• Implemented JavaScript business rules and client scripts for data validation and automation</p>
+          <p class="small">• Created role-based access controls and custom UI policies for enterprise security requirements</p>
+          <p class="small">• Performed integration testing and quality assurance for ServiceNow module deployments</p>
+          <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Project Highlights:</strong></p>
+          <p class="small">• Reduced manual ticket processing time by 40% through automated workflow implementations</p>
+          <p class="small">• Worked in Agile sprints with cross-functional teams to deliver platform enhancements</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="job" aria-labelledby="job-shapescape">
+      <span class="job-close">×</span>
+      <div class="company-icon">🎮</div>
+      <div class="body">
+        <h3 id="job-shapescape">3D Digital Environment Designer</h3>
+        <div class="job-meta">Shapescape ApS · Contract</div>
+        <div class="job-meta">Feb 2016 — Feb 2019 · 3 yrs 1 mo</div>
+        <div class="job-meta">Remote</div>
+        <p class="small muted">Large scale 3D environments, scripting, QA and collaboration with remote teams.</p>
+        <ul class="bullets">
+          <li>Built interactive worlds and automated features with scripts; performed QA and bug triage.</li>
+          <li>Produced visuals and documentation that communicated system behavior to stakeholders.</li>
+        </ul>
+        <div class="job-detail">
+          <p class="small" style="color:var(--text);margin-bottom:8px"><strong>Design & Development:</strong></p>
+          <p class="small">• Designed and implemented large-scale 3D environments for interactive virtual experiences</p>
+          <p class="small">• Developed custom scripts for interactive elements and automated gameplay features</p>
+          <p class="small">• Performed comprehensive QA testing and documented bugs with reproduction steps</p>
+          <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Collaboration:</strong></p>
+          <p class="small">• Worked remotely with international team across multiple time zones</p>
+          <p class="small">• Created technical documentation and visual mockups for stakeholder review</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+      <!-- PROJECTS -->
+      <!-- PROJECTS -->
+<section id="projects" class="section-panel">
+  <div class="section-header">
+    <h2 class="section-heading">Selected Projects</h2>
+    <span class="expand-hint">(Click projects to expand)</span>
+  </div>
+        <div class="projects">
+          <article class="proj" aria-labelledby="proj-motorsports">
+            <span class="proj-close">×</span>
+            <h4 id="proj-motorsports">Motorsports Driver — Telemetry-driven vehicle dynamics</h4>
+            <p class="muted">2017 — Present</p>
+            <p class="small">Collected GPS, speed, and IMU telemetry across 7+ years of track, drift, and autocross events. Built Python analysis scripts to compare lap performance, tuning changes, and driver inputs. Applied data-driven insights to optimize vehicle setup and improve handling under varying conditions.</p>
+            <div class="proj-detail">
+              <p class="small" style="color:var(--text);margin-bottom:8px"><strong>Technical Implementation:</strong></p>
+              <p class="small">• Deployed AIM Solo 2 DL and RaceBox Mini data loggers for high-frequency GPS/IMU capture (10-100Hz)</p>
+              <p class="small">• Developed Python analysis pipeline using pandas for lap comparison, speed trace analysis, and G-force visualization</p>
+              <p class="small">• Created custom metrics for corner entry/exit performance and consistency analysis across sessions</p>
+              <p class="small">• Integrated weather and track condition metadata to normalize performance across different test days</p>
+              <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Key Results:</strong></p>
+              <p class="small">• Achieved consistent 2-3 second lap time improvements through data-driven suspension tuning</p>
+              <p class="small">• Identified optimal brake points and throttle application zones using velocity vs. distance plots</p>
+              <p class="small">• Developed predictive models for tire degradation based on temperature and G-loading patterns</p>
+            </div>
+          </article>
+
+          <article class="proj" aria-labelledby="proj-phylo">
+            <span class="proj-close">×</span>
+            <h4 id="proj-phylo">Python Phylogenetic Analysis</h4>
+            <p class="muted">CS 123B – Bioinformatics II, 2021</p>
+            <p class="small">Conducted multiple sequence alignments of mRNA data from 44 species using BioPython. Generated phylogenetic trees and applied data parsing, cleaning, and validation techniques to infer evolutionary relationships from genomic data.</p>
+            <div class="proj-detail">
+              <p class="small" style="color:var(--text);margin-bottom:8px"><strong>Technical Approach:</strong></p>
+              <p class="small">• Processed 44 mRNA sequences using BioPython's SeqIO and AlignIO modules</p>
+              <p class="small">• Implemented ClustalW multiple sequence alignment with parameter optimization</p>
+              <p class="small">• Applied neighbor-joining and maximum likelihood methods for phylogenetic tree construction</p>
+              <p class="small">• Validated sequence quality with custom Python scripts for contamination detection</p>
+              <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Key Findings:</strong></p>
+              <p class="small">• Successfully reconstructed evolutionary relationships with 92% bootstrap support</p>
+              <p class="small">• Identified conserved motifs across species indicating functional constraint</p>
+              <p class="small">• Demonstrated proficiency in bioinformatics data pipelines and reproducible analysis</p>
+            </div>
+          </article>
+
+          <article class="proj" aria-labelledby="proj-twitch">
+            <span class="proj-close">×</span>
+            <h4 id="proj-twitch">Twitch.tv Users Network Analysis</h4>
+            <p class="muted">CS 185C – Social Network Analysis, 2020</p>
+            <p class="small">Collected and analyzed Twitch.tv user data using Python and R. Applied network metrics, clustering algorithms, and Gephi visualizations to uncover behavioral patterns and identify community structures within the platform.</p>
+            <div class="proj-detail">
+              <p class="small" style="color:var(--text);margin-bottom:8px"><strong>Data Collection & Analysis:</strong></p>
+              <p class="small">• Scraped Twitch API to build network dataset of 10,000+ user interactions</p>
+              <p class="small">• Calculated centrality metrics (degree, betweenness, eigenvector) to identify influential users</p>
+              <p class="small">• Applied Louvain community detection algorithm to identify 15 distinct user clusters</p>
+              <p class="small">• Used R's igraph package for statistical analysis and Python's NetworkX for data processing</p>
+              <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Visualization & Insights:</strong></p>
+              <p class="small">• Created interactive network visualizations in Gephi with Force Atlas 2 layout</p>
+              <p class="small">• Identified power-law distribution in follower counts, confirming scale-free network properties</p>
+              <p class="small">• Discovered gaming genre-based community structures and cross-community influencers</p>
+            </div>
+          </article>
+
+          <article class="proj" aria-labelledby="proj-bookstore">
+            <span class="proj-close">×</span>
+            <h4 id="proj-bookstore">Bookstore Prototype System</h4>
+            <p class="muted">CS 160 – Software Engineering, 2019</p>
+            <p class="small">Developed a Java-based e-commerce system with file-based data persistence. Implemented user registration/authentication, product management, exception handling, and inventory search functionality following software engineering best practices.</p>
+            <div class="proj-detail">
+              <p class="small" style="color:var(--text);margin-bottom:8px"><strong>System Architecture:</strong></p>
+              <p class="small">• Designed MVC architecture with separation of concerns for business logic and presentation layers</p>
+              <p class="small">• Implemented custom file-based database using serialization for user and inventory persistence</p>
+              <p class="small">• Created modular authentication system with password hashing and session management</p>
+              <p class="small">• Built search functionality with filtering by title, author, genre, and price range</p>
+              <p class="small" style="color:var(--text);margin:12px 0 8px"><strong>Software Engineering Practices:</strong></p>
+              <p class="small">• Applied SOLID principles and design patterns (Factory, Observer, Singleton)</p>
+              <p class="small">• Comprehensive exception handling with custom exception classes for error scenarios</p>
+              <p class="small">• JUnit test suite achieving 85% code coverage for critical business logic</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT: Sidebar / Contact -->
+    <aside style="position:relative">
+      <div class="section-panel" id="contactPanel" style="position:sticky;top:88px">
+        <h2 class="section-heading" id="contact">Contact</h2>
+
+        <div class="contact-grid">
+          <div class="contact-item" onclick="window.location.href='mailto:lawrencetdinh@gmail.com'">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v11A2.5 2.5 0 0119.5 20h-15A2.5 2.5 0 012 17.5v-11z" stroke="currentColor" stroke-width="1.2"></path><path d="M3.5 6.7l8.2 5.2a1 1 0 001.06 0l8.2-5.2" stroke="currentColor" stroke-width="1.2"></path></svg>
+            <div><div class="small muted">Email</div><a href="mailto:lawrencetdinh@gmail.com">lawrencetdinh@gmail.com</a></div>
+          </div>
+
+          <div class="contact-item" onclick="window.open('https://lawrencedinh.github.io/web/LuatDinhResume.pdf', '_blank')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.2"></path><path d="M8 9h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path><path d="M8 13h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path></svg>
+            <div><div class="small muted">Resume</div><a href="https://lawrencedinh.github.io/web/LuatDinhResume.pdf" target="_blank" rel="noopener">DinhResume.pdf</a></div>
+          </div>
+
+          <div class="contact-item" onclick="window.open('https://www.linkedin.com/in/lawrence-dinh-profile/', '_blank')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20" stroke="currentColor" stroke-width="1.2"></path><path d="M4 7h16" stroke="currentColor" stroke-width="1.2"></path></svg>
+            <div><div class="small muted">LinkedIn</div><a href="https://www.linkedin.com/in/lawrence-dinh-profile/" target="_blank" rel="noopener">https://www.linkedin.com/in/lawrence-dinh-profile/</a></div>
+          </div>
+
+          <div class="contact-item" onclick="window.open('https://github.com/LawrenceDinh', '_blank')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" stroke-width="1.2"></path><path d="M8 12h8" stroke="currentColor" stroke-width="1.2"></path></svg>
+            <div><div class="small muted">GitHub</div><a href="https://github.com/LawrenceDinh" target="_blank" rel="noopener">https://github.com/LawrenceDinh</a></div>
+          </div>
+        </div>
+
+        <div class="location-text" onclick="window.open('https://www.google.com/maps/place/San+Jose,+CA', '_blank')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <div>
+            <div class="small muted">Location</div>
+            <div>San Jose, California, USA</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    © 2025 Luat Dinh — Portfolio & Projects. All rights reserved.
+  </footer>
+</div>
+</main>
+  <script src="script.js"></script>
 </body>
 </html>
-
