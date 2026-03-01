@@ -1,1 +1,3 @@
-My personal portfolio website. Implemented in Javascript, Bootstrap, CSS and HTML.
+https://lawrencedinh.github.io/
+
+My personal portfolio website featuring skills, experience, and projects.
