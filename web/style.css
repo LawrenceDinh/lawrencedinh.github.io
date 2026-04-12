@@ -50,6 +50,20 @@ img{max-width:100%;display:block}
 }
 .nav-inner{width:100%;max-width:var(--maxw);padding:12px 20px;display:flex;align-items:center;gap:16px}
 .brand{font-weight:700;letter-spacing:0.6px}
+.brand-link{
+  display:inline-block;
+  color:var(--text);
+  cursor:pointer;
+  transition:color 0.2s ease, opacity 0.2s ease;
+}
+.brand-link:hover{
+  opacity:0.92;
+}
+.brand-link:focus-visible{
+  outline:2px solid rgba(47,158,216,0.75);
+  outline-offset:6px;
+  border-radius:6px;
+}
 .brand .role{display:block;font-weight:500;font-size:0.9rem;color:var(--muted)}
 .nav-links{margin-left:auto;display:flex;gap:18px;align-items:center}
 .nav-links a{color:var(--muted);font-weight:600;font-size:0.95rem;padding:6px 8px;border-radius:8px;transition: all 0.2s ease;}
@@ -137,6 +151,7 @@ img{max-width:100%;display:block}
   .nav-links{display:none}
   .nav-toggle{display:block;margin-left:auto}
   .nav-contact-link{display:block;}
+  .brand-link{min-width:0}
 }
 @media (min-width:901px){
   .drawer{display:none !important}
@@ -268,6 +283,69 @@ img{max-width:100%;display:block}
   color: var(--text);
   margin: 0;
   opacity: 0.95;
+}
+
+.bio-summary{
+  display:block;
+  cursor:pointer;
+}
+.bio-summary:focus-visible{
+  outline:2px solid rgba(47,158,216,0.75);
+  outline-offset:6px;
+  border-radius:6px;
+}
+.bio-summary-hint{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  margin-left:0.45rem;
+  position:relative;
+  top:-1px;
+  color:rgba(47,158,216,0.92);
+  font-weight:600;
+  font-size:0.95em;
+  white-space:nowrap;
+  line-height:1;
+  vertical-align:middle;
+  transition:color 0.2s ease;
+}
+.bio-summary:hover .bio-summary-hint,
+.bio-summary:focus-visible .bio-summary-hint{
+  color:#d7edf9;
+}
+.bio-summary-hint-label{
+  display:inline-block;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:0.16em;
+  text-decoration-color:rgba(47,158,216,0.32);
+  transition:text-decoration-color 0.2s ease;
+}
+.bio-summary:hover .bio-summary-hint-label,
+.bio-summary:focus-visible .bio-summary-hint-label{
+  text-decoration-color:rgba(47,158,216,0.7);
+}
+.bio-summary-hint-icon{
+  width:10px;
+  height:10px;
+  flex-shrink:0;
+  opacity:0.9;
+}
+.bio-summary-full{
+  display:none;
+}
+.bio-summary-hint-expanded{
+  display:none;
+}
+.bio-summary.is-expanded .bio-summary-preview,
+.bio-summary.is-expanded .bio-summary-hint-preview{
+  display:none;
+}
+.bio-summary.is-expanded .bio-summary-full{
+  display:inline;
+}
+.bio-summary.is-expanded .bio-summary-hint-expanded{
+  display:inline;
 }
 
 /* Stats positioning */

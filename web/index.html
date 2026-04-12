@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Luat Dinh Test Engineer & Software Developer</title>
   <meta name="description" content="Luat Dinh — Test Engineer & Software Developer. Systems testing, data analysis, test automation, Python development, automotive systems." />
-  <link rel="stylesheet" href="style.css?v=20260412-2">
+  <link rel="stylesheet" href="style.css?v=20260412-3">
 </head>
 <body>
   <!-- NAV -->
   <header class="nav" role="banner" aria-label="Main navigation">
     <div class="nav-inner">
-      <div class="brand" style="font-size:1.05rem">
+      <a class="brand brand-link" id="brandLink" href="index.html" aria-label="Go to the top of the page" style="font-size:1.05rem">
         Luat "Lawrence" Dinh
         <span class="role">lawrencedinh.github.io</span>
-      </div>
+      </a>
 
 <nav class="nav-links" role="navigation" aria-label="Primary">
   <a href="#about">About</a>
@@ -110,7 +110,22 @@
     <!-- Bottom Panel: About, buttons, and stats -->
     <div class="hero-bottom">
       <div class="hero-about">
-        <p class="small">Experienced test engineer and software developer with expertise in executing test plans, analyzing telemetry data, building automation pipelines, and validating complex systems. Combines automotive systems knowledge from 7+ years of motorsports experience with professional software engineering and data analysis skills. Proficient in Python, test infrastructure development, and data-driven validation for hardware and software systems.</p>
+        <p class="small bio-summary" id="bioSummary" role="button" tabindex="0" aria-expanded="false">
+          <span class="bio-summary-preview">Experienced test engineer and software developer with expertise in executing test plans, analyzing telemetry data, building automation pipelines, and validating complex systems.</span>
+          <span class="bio-summary-hint bio-summary-hint-preview" aria-hidden="true">
+            <span class="bio-summary-hint-label">See More</span>
+            <svg class="bio-summary-hint-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3.5 6l4.5 4 4.5-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="bio-summary-full">Experienced test engineer and software developer with expertise in executing test plans, analyzing telemetry data, building automation pipelines, and validating complex systems. Combines automotive systems knowledge from 7+ years of motorsports experience with professional software engineering and data analysis skills. Proficient in Python, test infrastructure development, and data-driven validation for hardware and software systems.</span>
+          <span class="bio-summary-hint bio-summary-hint-expanded" aria-hidden="true">
+            <span class="bio-summary-hint-label">Hide Text</span>
+            <svg class="bio-summary-hint-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M3.5 10l4.5-4 4.5 4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </p>
       </div>
 
 
@@ -521,6 +536,6 @@
   </footer>
 </div>
 </main>
-  <script src="script.js?v=20260412-2"></script>
+  <script src="script.js?v=20260412-3"></script>
 </body>
 </html>
