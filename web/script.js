@@ -53,6 +53,233 @@
   // Initial check
   checkContactPanelPosition();
 
+  const copyResetTimers = new WeakMap();
+  const emailResetTimers = new WeakMap();
+
+  async function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch (err) {
+        // Fall back to the legacy clipboard path below.
+      }
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    try {
+      const success = document.execCommand('copy');
+      if (!success) {
+        throw new Error('Copy command failed');
+      }
+      return Promise.resolve();
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  }
+
+  function flashCopyButton(button, label) {
+    const originalLabel = button.dataset.originalLabel || button.getAttribute('aria-label') || 'Copy email';
+    if (!button.dataset.originalLabel) {
+      button.dataset.originalLabel = originalLabel;
+    }
+
+    button.classList.add('copied');
+    button.setAttribute('aria-label', label);
+
+    const existingTimer = copyResetTimers.get(button);
+    if (existingTimer) {
+      clearTimeout(existingTimer);
+    }
+
+    const timer = setTimeout(() => {
+      button.classList.remove('copied');
+      button.setAttribute('aria-label', button.dataset.originalLabel || 'Copy email');
+      copyResetTimers.delete(button);
+    }, 1400);
+
+    copyResetTimers.set(button, timer);
+  }
+
+  function clearEmailResetTimer(valueEl) {
+    const timers = emailResetTimers.get(valueEl);
+    if (!timers) return;
+
+    if (timers.fadeTimer) {
+      clearTimeout(timers.fadeTimer);
+    }
+    if (timers.restoreTimer) {
+      clearTimeout(timers.restoreTimer);
+    }
+
+    emailResetTimers.delete(valueEl);
+  }
+
+  function flashEmailCopyState(valueEl, message) {
+    const originalText = valueEl.dataset.originalText || valueEl.textContent;
+    if (!valueEl.dataset.originalText) {
+      valueEl.dataset.originalText = originalText;
+    }
+
+    clearEmailResetTimer(valueEl);
+
+    valueEl.classList.remove('is-copy-fading');
+    valueEl.classList.add('is-copy-active');
+    valueEl.textContent = message;
+
+    const fadeTimer = setTimeout(() => {
+      valueEl.classList.add('is-copy-fading');
+
+      const restoreTimer = setTimeout(() => {
+        valueEl.textContent = valueEl.dataset.originalText || originalText;
+        requestAnimationFrame(() => {
+          valueEl.classList.remove('is-copy-fading', 'is-copy-active');
+        });
+        emailResetTimers.delete(valueEl);
+      }, 180);
+
+      emailResetTimers.set(valueEl, { fadeTimer, restoreTimer });
+    }, 2000);
+
+    emailResetTimers.set(valueEl, { fadeTimer });
+  }
+
+  async function copyEmailAddress() {
+    const copyText = (emailRow && emailRow.dataset.copyText) || (copyEmailButton && copyEmailButton.dataset.copyText) || '';
+    if (!copyText) return;
+
+    try {
+      await copyTextToClipboard(copyText);
+      if (copyEmailButton) {
+        flashCopyButton(copyEmailButton, 'Copied to clipboard!');
+      }
+      if (emailValue) {
+        flashEmailCopyState(emailValue, 'Copied to clipboard!');
+      }
+    } catch (err) {
+      if (copyEmailButton) {
+        flashCopyButton(copyEmailButton, 'Copy failed!');
+      }
+      if (emailValue) {
+        flashEmailCopyState(emailValue, 'Copy failed!');
+      }
+    }
+  }
+
+  function syncEmailValueWidth() {
+    if (!emailValue) return;
+
+    const currentText = emailValue.textContent;
+    const basisText = emailValue.dataset.defaultText || emailValue.dataset.originalText || currentText;
+
+    emailValue.style.width = 'auto';
+    emailValue.style.minWidth = '0px';
+    emailValue.textContent = basisText;
+    const width = Math.ceil(emailValue.getBoundingClientRect().width);
+    emailValue.style.width = `${width}px`;
+    emailValue.style.minWidth = `${width}px`;
+    emailValue.textContent = currentText;
+  }
+
+  // Let users drag to select contact text, while keeping normal clicks navigable.
+  document.querySelectorAll('.contact-item').forEach(item => {
+    let pointerDown = false;
+    let dragged = false;
+    let startX = 0;
+    let startY = 0;
+
+    item.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      pointerDown = true;
+      dragged = false;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    item.addEventListener('pointermove', (e) => {
+      if (!pointerDown) return;
+      const dx = Math.abs(e.clientX - startX);
+      const dy = Math.abs(e.clientY - startY);
+      if (dx > 6 || dy > 6) {
+        dragged = true;
+      }
+    });
+
+    const clearPointerState = () => {
+      pointerDown = false;
+    };
+
+    item.addEventListener('pointerup', clearPointerState);
+    item.addEventListener('pointercancel', clearPointerState);
+    item.addEventListener('click', (e) => {
+      if (item.classList.contains('contact-item-email')) {
+        if (dragged) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragged = false;
+          return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+        copyEmailAddress();
+        return;
+      }
+
+      if (dragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragged = false;
+        return;
+      }
+
+    });
+
+    if (item.classList.contains('contact-item-email')) {
+      const itemCopyButton = item.querySelector('.copy-email-btn');
+      if (itemCopyButton) {
+        itemCopyButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (dragged) {
+            dragged = false;
+            return;
+          }
+
+          copyEmailAddress();
+        });
+      }
+    }
+  });
+
+  const emailRow = document.querySelector('.contact-item-email');
+  const copyEmailButton = document.querySelector('.copy-email-btn');
+  const emailValue = document.querySelector('.contact-value-email');
+
+  if (emailRow) {
+    emailRow.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyEmailAddress();
+      }
+    });
+  }
+
+  syncEmailValueWidth();
+  window.addEventListener('resize', syncEmailValueWidth);
+
   // Close drawer when clicking outside on mobile
   document.addEventListener('click', (e) => {
     if(window.innerWidth <= 900 && drawer.style.display === 'flex') {

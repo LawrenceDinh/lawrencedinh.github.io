@@ -643,40 +643,173 @@ ul.bullets li{margin-bottom:6px}
 .contact-item{
   display:flex;
   gap:12px;
-  align-items:center;
+  align-items:flex-start;
   padding:14px;
   border-radius:10px;
   background:var(--card);
-  border:1px solid rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
   cursor:pointer;
   transition: all 0.2s ease;
   min-width:0;
+  text-decoration:none;
+  color:inherit;
+}
+.contact-item-email{
+  cursor:copy;
 }
 .contact-item:hover{
   background:rgba(255,255,255,0.03);
-  border-color:rgba(255,255,255,0.06);
-  transform:translateX(4px);
+  border-color:rgba(255,255,255,0.1);
+  transform:translateY(-2px);
 }
 .contact-copy{
   min-width:0;
   flex:1 1 auto;
   display:flex;
   flex-direction:column;
-  gap:2px;
+  gap:4px;
 }
-.contact-item a{
+.contact-email-row{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex-wrap:nowrap;
+  width:max-content;
+  max-width:100%;
+  align-self:flex-start;
+  overflow:visible;
+}
+.contact-value{
   display:block;
-  font-weight:700;
-  color:var(--text);
-  pointer-events:none;
-}
-.contact-link{
   width:100%;
   min-width:0;
-  overflow:hidden;
+  color:var(--text);
+  font-size:1.02rem;
+  font-weight:700;
+  line-height:1.2;
   white-space:nowrap;
-  text-overflow:ellipsis;
-  line-height:1.15;
+  user-select:text;
+  -webkit-user-select:text;
+  text-decoration:none;
+}
+.contact-item-email .contact-value{
+  width:auto;
+  flex:0 1 auto;
+}
+.contact-value-email{
+  display:inline-block;
+  width:auto;
+  min-width:0;
+  transition:opacity 0.2s ease, transform 0.2s ease;
+}
+.contact-value-email.is-copy-active{
+  text-align:center;
+}
+.contact-value-email.is-copy-fading{
+  opacity:0;
+  transform:translateY(-1px);
+}
+.contact-value--url{
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+.contact-action{
+  display:block;
+  width:100%;
+  min-width:0;
+  color:var(--text);
+  font-size:1.02rem;
+  font-weight:700;
+  line-height:1.2;
+  white-space:nowrap;
+  user-select:text;
+  -webkit-user-select:text;
+}
+.copy-email-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:100%;
+  height:100%;
+  padding:0;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.03);
+  color:var(--muted);
+  appearance:none;
+  -webkit-appearance:none;
+  font:inherit;
+  line-height:1;
+  cursor:copy;
+  transition:color 0.2s ease, transform 0.2s ease, opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  white-space:nowrap;
+  opacity:0.9;
+  position:relative;
+}
+.copy-email-btn::before{
+  content:'';
+  position:absolute;
+  inset:3px;
+  background-color:currentColor;
+  -webkit-mask: url("imgsrc/copyicon.png") center/contain no-repeat;
+  mask: url("imgsrc/copyicon.png") center/contain no-repeat;
+}
+.copy-email-btn:hover{
+  color:var(--text);
+  background:rgba(255,255,255,0.06);
+  border-color:rgba(255,255,255,0.14);
+  opacity:1;
+}
+.copy-email-btn:focus-visible{
+  outline:2px solid rgba(255,255,255,0.18);
+  outline-offset:2px;
+  opacity:1;
+}
+.copy-email-btn:active{
+  transform:scale(0.98);
+}
+.copy-email-btn.copied{
+  color:#d5fbe9;
+  background:rgba(213,251,233,0.08);
+  border-color:rgba(213,251,233,0.18);
+  opacity:1;
+}
+.copy-email-control{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:22px;
+  height:22px;
+  overflow:visible;
+}
+.copy-email-control::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  left:50%;
+  top:calc(100% + 8px);
+  transform:translateX(-50%) translateY(4px);
+  background:var(--card);
+  color:var(--text);
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:0.82rem;
+  line-height:1;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.2s ease, transform 0.2s ease;
+  box-shadow:0 4px 12px rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.06);
+  z-index:1000;
+}
+.copy-email-control:hover::after,
+.copy-email-control:focus-within::after{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
 .location-text{
@@ -876,6 +1009,43 @@ code{background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:6px;font-fa
 
 /* small touches */
 .inline-icon{width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:8px;opacity:0.95;object-fit:contain;flex-shrink:0}
+.contact-item .inline-icon{margin-top:2px}
+
+@media (max-width:600px){
+  .contact-item{
+    padding:12px;
+    gap:10px;
+  }
+
+  .contact-copy{
+    gap:3px;
+  }
+
+  .contact-email-row{
+    gap:4px;
+  }
+
+  .contact-value{
+    font-size:0.98rem;
+  }
+  .contact-action{
+    font-size:0.96rem;
+  }
+  .copy-email-btn{
+    border-radius:50%;
+  }
+  .copy-email-control{
+    width:20px;
+    height:20px;
+  }
+  .copy-email-btn::before{
+    inset:3px;
+  }
+  .copy-email-control::after{
+    font-size:0.8rem;
+    top:calc(100% + 6px);
+  }
+}
 
 /* Mobile hero adjustments */
 @media (max-width:600px){
