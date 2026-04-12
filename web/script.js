@@ -246,26 +246,11 @@
 
     });
 
-    if (item.classList.contains('contact-item-email')) {
-      const itemCopyButton = item.querySelector('.copy-email-btn');
-      if (itemCopyButton) {
-        itemCopyButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-
-          if (dragged) {
-            dragged = false;
-            return;
-          }
-
-          copyEmailAddress();
-        });
-      }
-    }
   });
 
   const emailRow = document.querySelector('.contact-item-email');
   const copyEmailButton = document.querySelector('.copy-email-btn');
+  const copyEmailControl = document.querySelector('.copy-email-control');
   const emailValue = document.querySelector('.contact-value-email');
 
   if (emailRow) {
@@ -274,6 +259,26 @@
         e.preventDefault();
         copyEmailAddress();
       }
+    });
+  }
+
+  if (copyEmailControl) {
+    copyEmailControl.addEventListener('pointerleave', () => {
+      copyEmailControl.classList.remove('tooltip-suppressed');
+    });
+  }
+
+  if (copyEmailButton) {
+    copyEmailButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (e.detail > 0 && copyEmailControl) {
+        copyEmailControl.classList.add('tooltip-suppressed');
+        copyEmailButton.blur();
+      }
+
+      copyEmailAddress();
     });
   }
 

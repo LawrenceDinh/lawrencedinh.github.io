@@ -807,9 +807,13 @@ ul.bullets li{margin-bottom:6px}
   z-index:1000;
 }
 .copy-email-control:hover::after,
-.copy-email-control:focus-within::after{
+.copy-email-control:has(.copy-email-btn:focus-visible)::after{
   opacity:1;
   transform:translateX(-50%) translateY(0);
+}
+.copy-email-control.tooltip-suppressed::after{
+  opacity:0 !important;
+  transform:translateX(-50%) translateY(4px) !important;
 }
 
 .location-text{
