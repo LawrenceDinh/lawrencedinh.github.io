@@ -588,9 +588,6 @@ ul.bullets li{margin-bottom:6px}
   -moz-transform-style:preserve-3d;
   -webkit-transform-style:preserve-3d;
   transform-style:preserve-3d;
-  -moz-backface-visibility:hidden;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
   position:relative;
   min-height:203px;
   will-change:transform;
