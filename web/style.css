@@ -884,6 +884,12 @@ ul.bullets li{margin-bottom:6px}
   border:1px solid rgba(255,255,255,0.06);
   z-index:1000;
 }
+@media (hover:hover) and (pointer:fine){
+  .contact-item-email:hover .copy-email-control:not(.tooltip-suppressed)::after{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+}
 .copy-email-control.tooltip-visible::after{
   opacity:1;
   transform:translateX(-50%) translateY(0);

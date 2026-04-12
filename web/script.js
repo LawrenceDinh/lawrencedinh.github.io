@@ -8,7 +8,6 @@
   const bioSummary = document.getElementById('bioSummary');
   const grid = document.querySelector('.grid');
   const contactPanel = document.getElementById('contactPanel');
-  const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)');
 
   function scrollPageToTop() {
     window.scrollTo({
@@ -132,6 +131,19 @@
     copyResetTimers.set(button, timer);
   }
 
+  function resetCopyButton(button) {
+    if (!button) return;
+
+    const existingTimer = copyResetTimers.get(button);
+    if (existingTimer) {
+      clearTimeout(existingTimer);
+      copyResetTimers.delete(button);
+    }
+
+    button.classList.remove('copied');
+    button.setAttribute('aria-label', button.dataset.originalLabel || 'Copy email');
+  }
+
   function clearEmailResetTimer(valueEl) {
     const timers = emailResetTimers.get(valueEl);
     if (!timers) return;
@@ -144,6 +156,31 @@
     }
 
     emailResetTimers.delete(valueEl);
+  }
+
+  function getEmailCopyState(valueEl) {
+    if (!valueEl) return 'idle';
+    if (valueEl.classList.contains('is-copy-fading')) return 'restoring';
+    if (valueEl.classList.contains('is-copy-active')) return 'message';
+    return 'idle';
+  }
+
+  function restoreEmailCopyState(valueEl) {
+    if (!valueEl) return;
+
+    const originalText = valueEl.dataset.originalText || valueEl.dataset.defaultText || valueEl.textContent;
+    clearEmailResetTimer(valueEl);
+    valueEl.classList.add('is-copy-fading');
+
+    const restoreTimer = setTimeout(() => {
+      valueEl.textContent = originalText;
+      requestAnimationFrame(() => {
+        valueEl.classList.remove('is-copy-fading', 'is-copy-active');
+      });
+      emailResetTimers.delete(valueEl);
+    }, 180);
+
+    emailResetTimers.set(valueEl, { restoreTimer });
   }
 
   function flashEmailCopyState(valueEl, message) {
@@ -159,17 +196,7 @@
     valueEl.textContent = message;
 
     const fadeTimer = setTimeout(() => {
-      valueEl.classList.add('is-copy-fading');
-
-      const restoreTimer = setTimeout(() => {
-        valueEl.textContent = valueEl.dataset.originalText || originalText;
-        requestAnimationFrame(() => {
-          valueEl.classList.remove('is-copy-fading', 'is-copy-active');
-        });
-        emailResetTimers.delete(valueEl);
-      }, 180);
-
-      emailResetTimers.set(valueEl, { fadeTimer, restoreTimer });
+      restoreEmailCopyState(valueEl);
     }, 2000);
 
     emailResetTimers.set(valueEl, { fadeTimer });
@@ -195,6 +222,22 @@
         flashEmailCopyState(emailValue, 'Copy failed!');
       }
     }
+  }
+
+  function handleEmailRowActivation() {
+    const emailState = getEmailCopyState(emailValue);
+
+    if (emailState === 'restoring') {
+      return;
+    }
+
+    if (emailState === 'message') {
+      restoreEmailCopyState(emailValue);
+      resetCopyButton(copyEmailButton);
+      return;
+    }
+
+    copyEmailAddress();
   }
 
   function syncEmailValueWidth() {
@@ -253,7 +296,7 @@
 
         e.preventDefault();
         e.stopPropagation();
-        copyEmailAddress();
+        handleEmailRowActivation();
         return;
       }
 
@@ -277,7 +320,7 @@
     emailRow.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        copyEmailAddress();
+        handleEmailRowActivation();
       }
     });
   }
@@ -399,24 +442,8 @@
   }
 
   if (bioSummary) {
-    bioSummary.addEventListener('pointerenter', (e) => {
-      if (e.pointerType === 'mouse') {
-        setBioExpanded(true);
-      }
-    });
-
     bioSummary.addEventListener('click', () => {
-      if (bioSummary.classList.contains('is-expanded')) {
-        setBioExpanded(false);
-      } else if (!supportsHover.matches) {
-        setBioExpanded(true);
-      }
-    });
-
-    bioSummary.addEventListener('focus', () => {
-      if (!bioSummary.classList.contains('is-expanded')) {
-        setBioExpanded(true);
-      }
+      setBioExpanded(!bioSummary.classList.contains('is-expanded'));
     });
 
     bioSummary.addEventListener('keydown', (e) => {
