@@ -263,22 +263,39 @@
   }
 
   if (copyEmailControl) {
+    copyEmailControl.addEventListener('pointerenter', () => {
+      if (!copyEmailControl.classList.contains('tooltip-suppressed')) {
+        copyEmailControl.classList.add('tooltip-visible');
+      }
+    });
+
     copyEmailControl.addEventListener('pointerleave', () => {
-      copyEmailControl.classList.remove('tooltip-suppressed');
+      copyEmailControl.classList.remove('tooltip-visible', 'tooltip-suppressed');
+    });
+
+    copyEmailControl.addEventListener('focusin', () => {
+      if (!copyEmailControl.classList.contains('tooltip-suppressed')) {
+        copyEmailControl.classList.add('tooltip-visible');
+      }
+    });
+
+    copyEmailControl.addEventListener('focusout', () => {
+      copyEmailControl.classList.remove('tooltip-visible');
     });
   }
 
   if (copyEmailButton) {
-    copyEmailButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (e.detail > 0 && copyEmailControl) {
+    copyEmailButton.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && copyEmailControl) {
         copyEmailControl.classList.add('tooltip-suppressed');
-        copyEmailButton.blur();
+        copyEmailControl.classList.remove('tooltip-visible');
       }
+    });
 
-      copyEmailAddress();
+    copyEmailButton.addEventListener('click', (e) => {
+      if (e.detail === 0 && copyEmailControl) {
+        copyEmailControl.classList.remove('tooltip-visible');
+      }
     });
   }
 
