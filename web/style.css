@@ -426,16 +426,24 @@ h2.section-heading{font-size:1.25rem;margin:0;color:var(--text);font-weight:800}
   background:var(--expanded-bg);
 }
 .job .company-icon{
-  width:48px;
+  width:86px;
   height:48px;
-  min-width:48px;
-  border-radius:8px;
+  min-width:86px;
+  border-radius:10px;
   background:rgba(255,255,255,0.04);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:24px;
+  padding:0;
   border:1px solid rgba(255,255,255,0.06);
+  overflow:hidden;
+  flex-shrink:0;
+}
+.job .company-icon img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 .job .body{flex:1}
 .job .body h3{margin:0 0 4px;font-size:1rem}
@@ -642,13 +650,34 @@ ul.bullets li{margin-bottom:6px}
   border:1px solid rgba(255,255,255,0.02);
   cursor:pointer;
   transition: all 0.2s ease;
+  min-width:0;
 }
 .contact-item:hover{
   background:rgba(255,255,255,0.03);
   border-color:rgba(255,255,255,0.06);
   transform:translateX(4px);
 }
-.contact-item a{font-weight:700;color:var(--text);pointer-events:none}
+.contact-copy{
+  min-width:0;
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.contact-item a{
+  display:block;
+  font-weight:700;
+  color:var(--text);
+  pointer-events:none;
+}
+.contact-link{
+  width:100%;
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  line-height:1.15;
+}
 
 .location-text{
   display:flex;
@@ -846,7 +875,7 @@ code{background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:6px;font-fa
 }
 
 /* small touches */
-.inline-icon{width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:8px;opacity:0.95}
+.inline-icon{width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:8px;opacity:0.95;object-fit:contain;flex-shrink:0}
 
 /* Mobile hero adjustments */
 @media (max-width:600px){
@@ -874,7 +903,7 @@ code{background:rgba(255,255,255,0.02);padding:4px 8px;border-radius:6px;font-fa
 justify-content: center;
 }
 .job{flex-direction:row;align-items:flex-start}
-.job .company-icon{width:40px;height:40px;min-width:40px;font-size:20px}
+.job .company-icon{width:72px;height:40px;min-width:72px;padding:0}
 /* Hide cards 4-6 initially on mobile */
 .job .body .job-meta {
   color: var(--muted);
