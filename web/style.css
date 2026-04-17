@@ -693,19 +693,24 @@ ul.bullets li{margin-bottom:6px}
   will-change:transform, opacity;
 }
 .skill-front{
+  background:rgba(255,255,255,0.01);
   transform:rotateY(0deg) translateZ(1px);
   opacity:1;
   z-index:2;
 }
 .skill-back{
   transform:rotateY(180deg) translateZ(1px);
-  background:transparent;
+  background:linear-gradient(180deg, rgba(47,158,216,0.05), rgba(47,158,216,0.02));
+  box-shadow:inset 0 0 0 1px rgba(47,158,216,0.08);
   overflow-y:auto;
   scrollbar-width:thin;
   scrollbar-color:rgba(47,158,216,0.3) transparent;
   opacity:0;
   pointer-events:none;
   z-index:1;
+}
+.skill.flipped{
+  border-color:rgba(47,158,216,0.1);
 }
 .skill.flipped .skill-front{
   transform:rotateY(-180deg) translateZ(1px);
