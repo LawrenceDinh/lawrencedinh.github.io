@@ -289,6 +289,16 @@ img{max-width:100%;display:block}
   display:block;
   cursor:pointer;
 }
+.bio-summary-preview{
+  display:inline;
+}
+.bio-summary-preview-fade{
+  display:inline-block;
+  color:transparent;
+  background:linear-gradient(90deg, rgba(230,238,246,0.95) 0%, rgba(230,238,246,0.95) 52%, rgba(230,238,246,0.55) 78%, rgba(230,238,246,0) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+}
 .bio-summary:focus-visible{
   outline:2px solid rgba(47,158,216,0.75);
   outline-offset:6px;
@@ -575,7 +585,6 @@ ul.bullets li{margin-bottom:6px}
   grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   gap:16px;
   perspective:1200px;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skill{
@@ -584,13 +593,14 @@ ul.bullets li{margin-bottom:6px}
   border-radius:12px;
   border:1px solid rgba(255,255,255,0.02);
   cursor:pointer;
-  transition:transform 0.6s, background 0.3s ease, min-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), border 0.3s ease, box-shadow 0.3s ease;
+  transition:transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   -moz-transform-style:preserve-3d;
   -webkit-transform-style:preserve-3d;
   transform-style:preserve-3d;
   position:relative;
   min-height:203px;
   will-change:transform;
+  contain:paint;
 }
 .skill:hover{
   border-color:rgba(47,158,216,0.3);
@@ -612,7 +622,7 @@ ul.bullets li{margin-bottom:6px}
   padding:20px;
   border-radius:12px;
   overflow:hidden; /* ADD THIS HERE INSTEAD */
-  transition:opacity 0.18s ease;
+  transition:opacity 0.16s ease;
 }
 .skill-front{
   transform:rotateY(0deg) translateZ(1px);
@@ -659,7 +669,6 @@ ul.bullets li{margin-bottom:6px}
   overflow-y:visible;
   scrollbar-width:thin;
   scrollbar-color:rgba(47,158,216,0.3) transparent;
-  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   padding-bottom: 8px;
 }
 .skills-expanded .skill-items{
@@ -1406,11 +1415,10 @@ margin: 20px -18px -28px -18px;
 .skill-hidden {
 display: none;
 opacity: 0;
-transform: scale(0.95) translateY(20px);
 }
 .skills-expanded .skill-hidden {
 display: block;
-animation: fadeInScaleUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+animation: fadeInSkillCard 0.28s ease forwards;
 }
 /* Stagger the two hidden skill cards */
 .skills-expanded .skill-hidden:nth-child(5) {
@@ -1419,13 +1427,11 @@ animation-delay: 0.1s;
 .skills-expanded .skill-hidden:nth-child(6) {
 animation-delay: 0.2s;
 }
-@keyframes fadeInScaleUp {
+@keyframes fadeInSkillCard {
 0% {
 opacity: 0;
-transform: scale(0.95) translateY(20px);
 }
 100% {
 opacity: 1;
-transform: scale(1) translateY(0);
 }
 }
