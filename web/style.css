@@ -754,9 +754,13 @@ ul.bullets li{margin-bottom:6px}
 .skill-back-list p.small{
   line-height:1.55;
 }
-.skills-expanded .skill-items{
+.skills-expanded .skill-front .skill-items{
   max-height:170px;
   overflow-y:auto;
+}
+.skills-expanded .skill-back .skill-items{
+  max-height:none;
+  overflow-y:visible;
 }
 .skill-items::-webkit-scrollbar{width:6px;}
 .skill-items::-webkit-scrollbar-track{background:transparent;}
