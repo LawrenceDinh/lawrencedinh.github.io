@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Bashseekers | Decals Demo</title>
+  <meta name="description" content="Bashseekers static demo page for decals, drift graphics, garage style, and underground sticker-shop energy.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="print-noise" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="site-header" aria-label="Bashseekers navigation">
+    <div class="header-brand-group">
+      <a class="brand" href="index.html" aria-label="Bashseekers home">
+        <img class="brand-logo" src="56777.webp" alt="Bashseekers">
+      </a>
+      <div class="nav-socials" aria-label="Bashseekers social links">
+        <a class="nav-social-link" href="https://www.youtube.com/@bashseekers" target="_blank" rel="noopener noreferrer" aria-label="Watch Bashseekers on YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 14.9V9.1l5.1 2.9L10 14.9Z"/>
+          </svg>
+        </a>
+        <a class="nav-social-link" href="https://www.instagram.com/bashseekers/" target="_blank" rel="noopener noreferrer" aria-label="Follow Bashseekers on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.7 2.2a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6ZM12 7.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 2a2.9 2.9 0 1 0 0 5.8 2.9 2.9 0 0 0 0-5.8Z"/>
+          </svg>
+        </a>
+        <a class="nav-social-link" href="#contact" aria-label="Contact Bashseekers">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 5h16a2 2 0 0 1 2 2v9.5a2 2 0 0 1-2 2H9.1L4.7 22v-3.5H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v9.5h2.7v1.3l1.7-1.3H20V7H4Zm3.2 2.6h9.6v1.8H7.2V9.6Zm0 3.2h6.8v1.8H7.2v-1.8Z"/>
+          </svg>
+        </a>
+      </div>
+      <button class="mobile-menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" data-mobile-menu-toggle>
+        Menu
+      </button>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="Page sections">
+      <a href="#home">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#about">About Us</a>
+      <a href="#gallery">View Gallery</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <a href="https://bsauto.bigcartel.com/cart">Cart (0)</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-label="Bashseekers landing">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" data-hero-video></video>
+      <div class="hero-poster" aria-label="Bashseekers hero image slideshow">
+        <div class="poster-slideshow" data-hero-slideshow></div>
+        <div class="poster-stamp">VINYL PRODUCE & DESIGN SHOP</div>
+        <img class="hero-card-logo-img" src="bs.png" alt="Bashseekers">
+        <div class="poster-logo poster-logo-script">garage bs</div>
+        <div class="poster-note">SINCE 2019 / STREET STYLE / GRASSROOTS DRIFT</div>
+        <div class="hero-stripe"></div>
+        <div class="poster-dots" aria-label="Hero image slides" data-hero-dots></div>
+      </div>
+
+      <div class="hero-copy">
+        <p class="kicker">BASHSEEKERS / DRIFT TEAM / VINYL DESIGN</p>
+        <div class="tagline hero-desc-lines" aria-label="RAW GRASSROOTS DRIFTING. UNDERGROUND STREET STYLE. GARAGE-BUILT ARTWORK.">
+          <span class="hero-line hero-line-1">RAW GRASSROOTS DRIFTING.</span>
+          <span class="hero-line hero-line-2">UNDERGROUND STREET STYLE.</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#products">Shop Decals</a>
+          <a class="btn btn-secondary" href="#gallery">Gallery</a>
+          <a class="btn btn-secondary" href="#contact">Contact</a>
+        </div>
+        <div class="hero-products-preview" aria-labelledby="hero-products-heading">
+          <div class="hero-preview-head">
+            <h2 id="hero-products-heading">Featured Decals</h2>
+            <a href="#products">View all designs &rarr;</a>
+          </div>
+          <div class="hero-preview-grid">
+            <a class="hero-preview-item" href="https://bsauto.bigcartel.com/product/garage-bs">
+              <span class="hero-preview-main">
+                <span class="hero-preview-thumb">
+                  <img src="https://assets.bigcartel.com/product_images/424645107/IMG_5632.PNG?auto=format&fit=max&w=2000" alt="GARAGE BS decal product artwork">
+                </span>
+                <strong class="hero-preview-title">GARAGE BS</strong>
+              </span>
+              <span class="hero-preview-meta">
+                <span class="hero-preview-label">Decal</span>
+                <span>$6-$20</span>
+              </span>
+            </a>
+            <a class="hero-preview-item" href="https://bsauto.bigcartel.com/product/bs-v-6">
+              <span class="hero-preview-main">
+                <span class="hero-preview-thumb">
+                  <img src="https://assets.bigcartel.com/product_images/424645029/IMG_5629.PNG?auto=format&fit=max&w=2000" alt="BS VER. 6 decal product artwork">
+                </span>
+                <strong class="hero-preview-title">BS VER. 6</strong>
+              </span>
+              <span class="hero-preview-meta">
+                <span class="hero-preview-label">Decal</span>
+                <span>$6</span>
+              </span>
+            </a>
+            <a class="hero-preview-item" href="https://bsauto.bigcartel.com/product/bs-auto-supply">
+              <span class="hero-preview-main">
+                <span class="hero-preview-thumb">
+                  <img src="https://assets.bigcartel.com/product_images/424645197/IMG_5631.PNG?auto=format&fit=max&w=2000" alt="BS-AUTO-STYLE decal product artwork">
+                </span>
+                <strong class="hero-preview-title">BS-AUTO-STYLE</strong>
+              </span>
+              <span class="hero-preview-meta">
+                <span class="hero-preview-label">Decal</span>
+                <span>$8-$20</span>
+              </span>
+            </a>
+            <a class="hero-preview-item" href="https://bsauto.bigcartel.com/product/b-style-v-3">
+              <span class="hero-preview-main">
+                <span class="hero-preview-thumb">
+                  <img src="https://assets.bigcartel.com/product_images/424645398/IMG_5628.PNG?auto=format&fit=max&w=2000" alt="B-STYLE VER. 3 decal product artwork">
+                </span>
+                <strong class="hero-preview-title">B-STYLE VER. 3</strong>
+              </span>
+              <span class="hero-preview-meta">
+                <span class="hero-preview-label">Decal</span>
+                <span>$6-$20</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Bashseekers style ticker">
+      <div class="ticker-track">
+        <span class="ticker-sequence">
+          <span class="ticker-item">GARAGE BS</span>
+          <span class="ticker-item">BS AUTO SUPPLY</span>
+          <span class="ticker-item">B STYLE</span>
+          <span class="ticker-item">BASH STYLE</span>
+          <span class="ticker-item">TEAM BASH</span>
+          <span class="ticker-item">BASHSEEKERS</span>
+          <span class="ticker-item">MORE COMING SOON...</span>
+        </span>
+        <span class="ticker-sequence">
+          <span class="ticker-item">GARAGE BS</span>
+          <span class="ticker-item">BS AUTO SUPPLY</span>
+          <span class="ticker-item">B STYLE</span>
+          <span class="ticker-item">BASH STYLE</span>
+          <span class="ticker-item">TEAM BASH</span>
+          <span class="ticker-item">BASHSEEKERS</span>
+          <span class="ticker-item">MORE COMING SOON...</span>
+        </span>
+        <span class="ticker-sequence">
+          <span class="ticker-item">GARAGE BS</span>
+          <span class="ticker-item">BS AUTO SUPPLY</span>
+          <span class="ticker-item">B STYLE</span>
+          <span class="ticker-item">BASH STYLE</span>
+          <span class="ticker-item">TEAM BASH</span>
+          <span class="ticker-item">BASHSEEKERS</span>
+          <span class="ticker-item">MORE COMING SOON...</span>
+        </span>
+        <span class="ticker-sequence">
+          <span class="ticker-item">GARAGE BS</span>
+          <span class="ticker-item">BS AUTO SUPPLY</span>
+          <span class="ticker-item">B STYLE</span>
+          <span class="ticker-item">BASH STYLE</span>
+          <span class="ticker-item">TEAM BASH</span>
+          <span class="ticker-item">BASHSEEKERS</span>
+          <span class="ticker-item">MORE COMING SOON...</span>
+        </span>
+      </div>
+    </section>
+
+    <section class="section products-section" id="products" aria-labelledby="products-heading">
+      <div class="section-heading">
+        <p class="kicker">Shop / Designs</p>
+        <h2 id="products-heading">VINYL CUTS AND DECALS</h2>
+        <p class="section-copy">Bashseekers decals linked to the live shop.</p>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-art">
+            <img src="https://assets.bigcartel.com/product_images/424645107/IMG_5632.PNG?auto=format&fit=max&w=2000" alt="GARAGE BS decal product artwork">
+            <a class="product-link" href="https://bsauto.bigcartel.com/product/garage-bs">View item</a>
+          </div>
+          <div class="product-meta">
+            <div class="product-topline">
+              <h3>GARAGE BS</h3>
+            </div>
+            <p class="sizes">Small 8&quot; x 2&quot; / Large 24&quot; x 6&quot;</p>
+            <p class="options">Gloss White, Gloss White - 24&quot;, Chrome, Chrome - 24&quot;</p>
+            <p class="product-copy">Price of the large size is also including shipping. Designed and illustrated by BASHSEEKERS. All orders come with extras!!</p>
+            <div class="product-card-actions">
+              <div class="product-card-meta">
+                <span class="product-badge">DECAL</span>
+                <span class="product-price">$6.00 - $20.00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-art">
+            <img src="https://assets.bigcartel.com/product_images/424645029/IMG_5629.PNG?auto=format&fit=max&w=2000" alt="BS VER. 6 decal product artwork">
+            <a class="product-link" href="https://bsauto.bigcartel.com/product/bs-v-6">View item</a>
+          </div>
+          <div class="product-meta">
+            <div class="product-topline">
+              <h3>BS VER. 6</h3>
+            </div>
+            <p class="sizes">7.5&quot; x 2.5&quot;</p>
+            <p class="options">White, Chrome, Gold Chrome</p>
+            <p class="product-copy">Version 6 of the classic BS logo. Bullshit, boy scouts, bashseekers?? You decide!! Designed and illustrated by BASHSEEKERS. All orders come with extras!!</p>
+            <div class="product-card-actions">
+              <div class="product-card-meta">
+                <span class="product-badge">DECAL</span>
+                <span class="product-price">$6.00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card is-sale">
+          <div class="product-art">
+            <img src="https://assets.bigcartel.com/product_images/424645197/IMG_5631.PNG?auto=format&fit=max&w=2000" alt="BS-AUTO-STYLE decal product artwork">
+            <a class="product-link" href="https://bsauto.bigcartel.com/product/bs-auto-supply">View item</a>
+          </div>
+          <div class="product-meta">
+            <div class="product-topline">
+              <h3>BS-AUTO-STYLE</h3>
+            </div>
+            <p class="sizes">Small 12&quot; x 2.75&quot; / Large 24&quot; x 6&quot;</p>
+            <p class="options">Chrome, Chrome - 24&quot;, Gloss White, Gloss White - 24&quot;</p>
+            <p class="product-copy">Style up your machine with BS AUTO SUPPLY!! Designed and illustrated by BASHSEEKERS. All orders come with extras!!</p>
+            <div class="product-card-actions">
+              <div class="product-card-meta">
+                <span class="product-badge">DECAL</span>
+                <span class="product-price">$8.00 - $20.00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-art">
+            <img src="https://assets.bigcartel.com/product_images/424645398/IMG_5628.PNG?auto=format&fit=max&w=2000" alt="B-STYLE VER. 3 decal product artwork">
+            <a class="product-link" href="https://bsauto.bigcartel.com/product/b-style-v-3">View item</a>
+          </div>
+          <div class="product-meta">
+            <div class="product-topline">
+              <h3>B-STYLE VER. 3</h3>
+            </div>
+            <p class="sizes">Small 8&quot; x 2.5&quot; / Large 24&quot; x 6&quot;</p>
+            <p class="options">Gloss White, Gloss White - 24&quot;, Chrome, Chrome - 24&quot;</p>
+            <p class="product-copy">Version 3 of the B-Style design... Bash style forever!!! Designed and illustrated by BASHSEEKERS. All orders come with extras!!</p>
+            <div class="product-card-actions">
+              <div class="product-card-meta">
+                <span class="product-badge">DECAL</span>
+                <span class="product-price">$6.00 - $20.00</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about" aria-labelledby="about-heading">
+      <video class="about-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="hero-vid/bashseekers-bg-vhs-15sec-1min.mp4" type="video/mp4">
+      </video>
+      <div class="about-bg-overlay" aria-hidden="true"></div>
+      <div class="mag-layout">
+        <div class="mag-cover">
+          <span class="mag-cover-label">BS AUTO PRODUCE</span>
+          <strong>
+            <span class="mag-cover-title-line">BASH</span>
+            <span class="mag-cover-title-line">SEEKERS</span>
+          </strong>
+          <span class="mag-cover-subtitle">VINYL / DESIGN / STREET STYLE</span>
+        </div>
+        <div class="mag-copy">
+          <p class="kicker">About Us</p>
+          <h2 id="about-heading">Built from friends, driving, and local shredders.</h2>
+          <div class="about-copy">
+            <div class="about-copy-panel">
+              <h3>HOW IT STARTED</h3>
+              <p>Bashseekers started in early 2019 as a couple of friends pushing the limits of their driving. Artwork and digital design were always part of the vision, with the idea to grow Bashseekers beyond just stickers over time.</p>
+            </div>
+            <div class="about-copy-panel">
+              <h3>WHAT IT IS</h3>
+              <p>The main focus is still driving — raw, aggressive, and exhilarating street style shared with talented local shredders. Bashseekers is built around that underground drift scene, the people around it, and the things created from it.</p>
+            </div>
+          </div>
+          <p class="about-copy-emphasis">Keep driving. Keep creating. Keep seeking.</p>
+          <div class="about-cta-group" aria-label="Bashseekers links">
+            <a class="gallery-channel-link about-channel-link" href="https://www.youtube.com/@bashseekers" target="_blank" rel="noopener noreferrer">
+              <svg class="about-cta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 14.9V9.1l5.1 2.9L10 14.9Z"/>
+              </svg>
+              <span>Watch Team-Bash &rarr;</span>
+            </a>
+            <a class="gallery-channel-link about-channel-link" href="https://www.instagram.com/bashseekers/" target="_blank" rel="noopener noreferrer">
+              <svg class="about-cta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.7 2.2a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6ZM12 7.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 2a2.9 2.9 0 1 0 0 5.8 2.9 2.9 0 0 0 0-5.8Z"/>
+              </svg>
+              <span>Follow Us &rarr;</span>
+            </a>
+            <a class="gallery-channel-link about-channel-link" href="#contact">
+              <svg class="about-cta-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 5h16a2 2 0 0 1 2 2v9.5a2 2 0 0 1-2 2H9.1L4.7 22v-3.5H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v9.5h2.7v1.3l1.7-1.3H20V7H4Zm3.2 2.6h9.6v1.8H7.2V9.6Zm0 3.2h6.8v1.8H7.2v-1.8Z"/>
+              </svg>
+              <span>Contact &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section" id="gallery" aria-labelledby="gallery-heading">
+      <div class="section-heading">
+        <p class="kicker">Gallery</p>
+        <h2 id="gallery-heading">BASHSEEKERS media.</h2>
+        <div class="gallery-link-row">
+          <a class="gallery-channel-link" href="media.html">View full archive &rarr;</a>
+        </div>
+      </div>
+
+      <div class="gallery-wall" data-gallery-grid data-gallery-scope="featured" data-gallery-limit="9"></div>
+      <p class="gallery-empty" data-gallery-empty hidden>No archive media in this lane yet.</p>
+    </section>
+
+    <section class="section services-section" id="services" aria-labelledby="services-heading">
+      <div class="section-heading">
+        <p class="kicker">Services</p>
+        <h2 id="services-heading">BASHSEEKERS SERVICES.</h2>
+      </div>
+      <div class="service-list">
+        <article class="service-card">
+          <div class="service-card-head">
+            <span class="service-num">01</span>
+            <span class="service-tag">Design</span>
+          </div>
+          <div class="service-title-area">
+            <h3>Digital Design</h3>
+          </div>
+          <div class="service-copy">
+            <p>Custom digital design since 2019 for business logos, personal marks, sticker ideas, visual concepts, and digital magazine-style scans.</p>
+            <p class="service-note">Best for logos, sticker ideas, visual concepts, and custom design work.</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-head">
+            <span class="service-num">02</span>
+            <span class="service-tag">Audio</span>
+          </div>
+          <div class="service-title-area">
+            <h3>Audio Installation</h3>
+          </div>
+          <div class="service-copy">
+            <p>Affordable installation for stereos, subwoofers, car video, and in-car audio/visual setups that need to work cleanly.</p>
+            <p class="service-note">Send the car, parts, and setup goal before asking about availability.</p>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card-head">
+            <span class="service-num">03</span>
+            <span class="service-tag">Fabrication</span>
+          </div>
+          <div class="service-title-area">
+            <h3>Custom Part Fabrication</h3>
+          </div>
+          <div class="service-copy">
+            <p>Custom part fabrication and garage project inquiries for one-off ideas, fitment needs, and practical car projects.</p>
+            <p class="service-note">Message with the part, fitment issue, or fabrication idea first.</p>
+          </div>
+        </article>
+      </div>
+      <div class="service-inquiry-panel" aria-labelledby="service-inquiry-heading">
+        <div class="service-inquiry-copy">
+          <p class="kicker">Service Inquiries</p>
+          <h3 id="service-inquiry-heading">Start a service inquiry.</h3>
+          <p>Have an idea, install, or garage project in mind? Send the details, what car or parts are involved, and what you need handled.</p>
+        </div>
+        <div class="service-inquiry-actions">
+          <a class="btn btn-primary" href="https://bsauto.bigcartel.com/contact" target="_blank" rel="noopener noreferrer">Go to live contact page</a>
+          <a class="btn btn-secondary" href="https://www.instagram.com/bashseekers/" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+        </div>
+      </div>
+      <figure class="service-proof service-proof-panel is-collapsed" data-service-proof>
+        <div class="service-proof-frame service-proof-image-wrap">
+          <img src="service-images/audio-installation.png" alt="Audio installation work with subwoofer equipment">
+        </div>
+        <button class="service-proof-toggle" type="button" aria-expanded="false" data-service-proof-toggle>EXPAND IMAGE &darr;</button>
+      </figure>
+    </section>
+
+    <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-card">
+        <p class="kicker">Contact</p>
+        <h2 id="contact-heading">Ready to talk decals, installs, media, or collabs?</h2>
+        <p class="contact-copy">Reach out through the live contact page or Instagram.<br>Send the project, idea, or collab you have in mind.</p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="https://bsauto.bigcartel.com/contact" target="_blank" rel="noopener noreferrer">Go to live contact page</a>
+          <a class="btn btn-secondary" href="https://www.instagram.com/bashseekers/" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+          <a class="btn btn-secondary" href="https://www.youtube.com/@bashseekers" target="_blank" rel="noopener noreferrer">Watch YouTube</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-home-link" href="../web/index.html">Back to Lawrence Dinh</a>
+    <span class="footer-credit">Designed by Lawrence Dinh</span>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top" aria-hidden="true" tabindex="-1" data-back-to-top>
+    <span class="back-to-top-mark" aria-hidden="true">↑</span>
+    <span class="back-to-top-text">Top</span>
+  </button>
+
+  <div class="video-modal" data-video-modal hidden>
+    <div class="video-modal-backdrop" data-video-modal-close></div>
+    <div class="video-modal-panel" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+      <div class="video-modal-head">
+        <p class="kicker">Bashseekers / TEAM-BASH</p>
+        <h2 id="video-modal-title">Bashseekers video</h2>
+        <button class="video-modal-close" type="button" aria-label="Close video" data-video-modal-close>&times;</button>
+      </div>
+      <div class="video-modal-frame" data-video-modal-frame></div>
+      <a class="video-modal-fallback" href="https://www.youtube.com/@bashseekers" target="_blank" rel="noopener noreferrer" data-video-modal-fallback>Watch video on YouTube &rarr;</a>
+    </div>
+  </div>
+
+  <script src="hero-media.js"></script>
+  <script src="media-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
