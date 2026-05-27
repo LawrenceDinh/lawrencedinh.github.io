@@ -63,7 +63,7 @@ const GALLERY_ITEMS = [
     thumbnail: "https://img.youtube.com/vi/m4ioCUxh5LI/hqdefault.jpg"
   },
   {
-    featured: false,
+    featured: true,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "RAW STREET",
@@ -72,7 +72,7 @@ const GALLERY_ITEMS = [
     thumbnail: "https://img.youtube.com/vi/TSW8tvN4xME/hqdefault.jpg"
   },
   {
-    featured: false,
+    featured: true,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "TRACK DAY",
@@ -81,7 +81,7 @@ const GALLERY_ITEMS = [
     thumbnail: "https://img.youtube.com/vi/map7IL9CNII/hqdefault.jpg"
   },
   {
-    featured: false,
+    featured: true,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "GARAGE TECH",

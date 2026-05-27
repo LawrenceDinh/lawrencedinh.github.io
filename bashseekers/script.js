@@ -21,12 +21,26 @@ const siteNav = document.querySelector("#site-nav");
 const galleryItems = typeof GALLERY_ITEMS !== "undefined" && Array.isArray(GALLERY_ITEMS) ? GALLERY_ITEMS : [];
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-if (siteHeader && mobileMenuToggle && siteNav) {
-  const setMobileMenuOpen = (isOpen) => {
-    siteHeader.classList.toggle("is-menu-open", isOpen);
-    mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
-  };
+const getNavScrollOffset = () => {
+  const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
+  return Math.ceil(headerHeight + 12);
+};
 
+const updateNavScrollOffset = () => {
+  document.documentElement.style.setProperty("--nav-scroll-offset", `${getNavScrollOffset()}px`);
+};
+
+const setMobileMenuOpen = (isOpen) => {
+  if (!siteHeader || !mobileMenuToggle) {
+    return;
+  }
+
+  siteHeader.classList.toggle("is-menu-open", isOpen);
+  mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
+  updateNavScrollOffset();
+};
+
+if (siteHeader && mobileMenuToggle && siteNav) {
   mobileMenuToggle.addEventListener("click", () => {
     setMobileMenuOpen(!siteHeader.classList.contains("is-menu-open"));
   });
@@ -48,6 +62,61 @@ if (siteHeader && mobileMenuToggle && siteNav) {
   });
 }
 
+updateNavScrollOffset();
+window.addEventListener("load", updateNavScrollOffset);
+window.addEventListener("resize", updateNavScrollOffset);
+
+const scrollToSection = (target, behavior = reduceMotionQuery.matches ? "auto" : "smooth") => {
+  const targetId = target.getAttribute("id");
+
+  if (targetId === "home") {
+    window.scrollTo({ top: 0, behavior });
+    return;
+  }
+
+  const top = target.getBoundingClientRect().top + window.scrollY - getNavScrollOffset();
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior
+  });
+};
+
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const sectionId = link.hash ? decodeURIComponent(link.hash.slice(1)) : "";
+    const target = sectionId ? document.getElementById(sectionId) : null;
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    setMobileMenuOpen(false);
+
+    window.requestAnimationFrame(() => {
+      updateNavScrollOffset();
+      scrollToSection(target);
+
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", link.hash);
+      } else {
+        window.location.hash = link.hash;
+      }
+    });
+  });
+});
+
+if (window.location.hash) {
+  window.addEventListener("load", () => {
+    const sectionId = decodeURIComponent(window.location.hash.slice(1));
+    const target = sectionId ? document.getElementById(sectionId) : null;
+
+    if (target) {
+      window.requestAnimationFrame(() => scrollToSection(target, "auto"));
+    }
+  });
+}
+
 const navSectionLinks = siteNav ? Array.from(siteNav.querySelectorAll('a[href^="#"]')) : [];
 
 if (navSectionLinks.length) {
@@ -60,8 +129,6 @@ if (navSectionLinks.length) {
     .filter(Boolean);
 
   if (trackedNavItems.length) {
-    const getHeaderOffset = () => Math.ceil(siteHeader ? siteHeader.getBoundingClientRect().height : 0);
-
     const setActiveNavSection = (activeSectionId) => {
       trackedNavItems.forEach(({ link, sectionId }) => {
         const isActive = sectionId === activeSectionId;
@@ -76,7 +143,7 @@ if (navSectionLinks.length) {
     };
 
     const getActiveSectionId = () => {
-      const headerOffset = getHeaderOffset();
+      const headerOffset = getNavScrollOffset();
       const topThreshold = Math.max(24, headerOffset * 0.45);
 
       if (window.scrollY <= topThreshold) {
@@ -94,7 +161,7 @@ if (navSectionLinks.length) {
         return lastItem.sectionId;
       }
 
-      const probeY = headerOffset + Math.min(window.innerHeight * 0.32, 240);
+      const probeY = headerOffset + Math.min(window.innerHeight * 0.14, 140);
       let activeSectionId = trackedNavItems[0].sectionId;
 
       trackedNavItems.forEach(({ section, sectionId }) => {
@@ -124,7 +191,7 @@ if (navSectionLinks.length) {
 
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(queueActiveNavUpdate, {
-        rootMargin: `-${getHeaderOffset() + 8}px 0px -55% 0px`,
+        rootMargin: `-${getNavScrollOffset()}px 0px -62% 0px`,
         threshold: [0, 0.18, 0.4, 0.65]
       });
 
@@ -132,7 +199,10 @@ if (navSectionLinks.length) {
     }
 
     window.addEventListener("scroll", queueActiveNavUpdate, { passive: true });
-    window.addEventListener("resize", queueActiveNavUpdate);
+    window.addEventListener("resize", () => {
+      updateNavScrollOffset();
+      queueActiveNavUpdate();
+    });
     queueActiveNavUpdate();
   }
 }
@@ -221,6 +291,7 @@ const heroDots = heroDotsContainer ? heroDotsContainer.querySelectorAll(".poster
 if (heroSlides.length > 1 && heroDots.length) {
   let activeSlide = 0;
   let slideTimer;
+  let swipeState = null;
 
   const showHeroSlide = (index) => {
     activeSlide = (index + heroSlides.length) % heroSlides.length;
@@ -248,12 +319,111 @@ if (heroSlides.length > 1 && heroDots.length) {
     }, 5000);
   };
 
+  const goToNextHeroSlide = () => {
+    showHeroSlide(activeSlide + 1);
+    startHeroSlideshow();
+  };
+
+  const goToPreviousHeroSlide = () => {
+    showHeroSlide(activeSlide - 1);
+    startHeroSlideshow();
+  };
+
   heroDots.forEach((dot) => {
     dot.addEventListener("click", () => {
       showHeroSlide(Number(dot.dataset.slideIndex));
       startHeroSlideshow();
     });
   });
+
+  const heroSwipeTarget = heroSlideshow.closest(".hero-poster") || heroSlideshow;
+
+  if (window.PointerEvent && heroSwipeTarget) {
+    const swipeThreshold = 52;
+    const swipeIntentThreshold = 12;
+    const horizontalRatio = 1.25;
+    const interactiveSelector = "a, button, input, textarea, select, summary, [role='button'], [tabindex]";
+
+    const resetSwipeState = () => {
+      swipeState = null;
+    };
+
+    heroSwipeTarget.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse" || event.button !== 0 || event.target.closest(interactiveSelector)) {
+        return;
+      }
+
+      swipeState = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        currentX: event.clientX,
+        currentY: event.clientY,
+        isHorizontalSwipe: false,
+        hasChangedSlide: false
+      };
+
+      heroSwipeTarget.setPointerCapture(event.pointerId);
+    });
+
+    heroSwipeTarget.addEventListener("pointermove", (event) => {
+      if (!swipeState || event.pointerId !== swipeState.pointerId) {
+        return;
+      }
+
+      swipeState.currentX = event.clientX;
+      swipeState.currentY = event.clientY;
+
+      const deltaX = swipeState.currentX - swipeState.startX;
+      const deltaY = swipeState.currentY - swipeState.startY;
+      const absDeltaX = Math.abs(deltaX);
+      const absDeltaY = Math.abs(deltaY);
+
+      if (
+        !swipeState.isHorizontalSwipe &&
+        absDeltaX >= swipeIntentThreshold &&
+        absDeltaX > absDeltaY * horizontalRatio
+      ) {
+        swipeState.isHorizontalSwipe = true;
+      }
+
+      if (swipeState.isHorizontalSwipe && event.cancelable) {
+        event.preventDefault();
+      }
+    });
+
+    heroSwipeTarget.addEventListener("pointerup", (event) => {
+      if (!swipeState || event.pointerId !== swipeState.pointerId) {
+        return;
+      }
+
+      swipeState.currentX = event.clientX;
+      swipeState.currentY = event.clientY;
+
+      const deltaX = swipeState.currentX - swipeState.startX;
+      const deltaY = swipeState.currentY - swipeState.startY;
+      const absDeltaX = Math.abs(deltaX);
+      const absDeltaY = Math.abs(deltaY);
+
+      if (
+        !swipeState.hasChangedSlide &&
+        absDeltaX >= swipeThreshold &&
+        absDeltaX > absDeltaY * horizontalRatio
+      ) {
+        if (deltaX > 0) {
+          goToNextHeroSlide();
+        } else if (deltaX < 0) {
+          goToPreviousHeroSlide();
+        }
+
+        swipeState.hasChangedSlide = true;
+      }
+
+      resetSwipeState();
+    });
+
+    heroSwipeTarget.addEventListener("pointercancel", resetSwipeState);
+  }
 
   startHeroSlideshow();
 }
