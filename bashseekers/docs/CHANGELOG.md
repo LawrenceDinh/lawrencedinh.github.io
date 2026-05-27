@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-05-27 - Update preview metadata
+
+Changed:
+
+- `index.html`: updated the page title, description, OpenGraph, and Twitter preview metadata.
+
+Why:
+
+- Social previews should show the concise `BASHSEEKERS | TEAM-BASH` title and static demo description.
+
+Verified:
+
+- `node --check bashseekers/script.js`
+- `node --check bashseekers/hero-media.js`
+- `node --check bashseekers/media-data.js`
+- `git diff --check`
+- Confirmed the old preview title and description no longer appear in `index.html`.
+
+Follow-up:
+
+- None.
+
 ## 2026-05-27 - Fix hero mobile swipe direction
 
 Changed:
