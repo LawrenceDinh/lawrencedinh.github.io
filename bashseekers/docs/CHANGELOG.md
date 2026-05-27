@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-05-27 - Fix hero mobile swipe direction
+
+Changed:
+
+- `script.js`: made the hero slideshow swipe mapping explicit so finger-right advances to the next slide and finger-left goes to the previous slide.
+- `docs/CURRENT_STATE.md`: noted the intentional mobile swipe direction.
+- `docs/ITERATION_NOTES.md`: recorded the direction as a design decision to avoid future reversal.
+
+Why:
+
+- The mobile hero card sequence is intended to read left-to-right, so its finger-swipe mapping should stay finger-right = next.
+
+Verified:
+
+- `node --check bashseekers/script.js`
+- `node --check bashseekers/hero-media.js`
+- `node --check bashseekers/media-data.js`
+- `git diff --check`
+
+Follow-up:
+
+- Manually confirm on a touch device that finger-right advances and finger-left goes back.
+
 ## 2026-05-27 - Add contact social icons
 
 Changed:

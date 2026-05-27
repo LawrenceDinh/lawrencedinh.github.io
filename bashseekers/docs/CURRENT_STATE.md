@@ -33,7 +33,7 @@ Bashseekers is currently a static GitHub Pages demo with one homepage and one me
 - Mobile menu.
 - Normal browser scrolling.
 - Sticky-header-aware nav smooth-scroll and scrollspy.
-- Hero video injection, slideshow dots, autoplay, and swipe.
+- Hero video injection, slideshow dots, autoplay, and mobile swipe with finger-right = next and finger-left = previous.
 - Data-driven media cards, filters, and modal previews.
 - Services proof image expand/collapse.
 - Back-to-top button.

@@ -410,7 +410,10 @@ if (heroSlides.length > 1 && heroDots.length) {
         absDeltaX >= swipeThreshold &&
         absDeltaX > absDeltaY * horizontalRatio
       ) {
-        if (deltaX > 0) {
+        const isFingerMovingRight = deltaX > 0;
+
+        // Intentional: the hero card sequence treats finger-right as next.
+        if (isFingerMovingRight) {
           goToNextHeroSlide();
         } else if (deltaX < 0) {
           goToPreviousHeroSlide();
