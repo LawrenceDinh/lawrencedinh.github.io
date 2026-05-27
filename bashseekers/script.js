@@ -538,9 +538,17 @@ if (galleryGrid && videoModal && videoModalFrame && videoModalTitle) {
 
   const galleryScope = galleryGrid.dataset.galleryScope || "featured";
   const galleryLimit = Number(galleryGrid.dataset.galleryLimit) || Infinity;
-  const visibleGalleryItems = galleryItems
+  const scopedGalleryItems = galleryItems
     .filter((item) => !item.hidden)
-    .filter((item) => galleryScope === "all" || item.featured)
+    .filter((item) => galleryScope === "all" || item.featured);
+  const orderedGalleryItems = galleryScope === "featured"
+    ? scopedGalleryItems.slice().sort((firstItem, secondItem) => {
+        const firstOrder = Number.isFinite(firstItem.homeOrder) ? firstItem.homeOrder : Number.MAX_SAFE_INTEGER;
+        const secondOrder = Number.isFinite(secondItem.homeOrder) ? secondItem.homeOrder : Number.MAX_SAFE_INTEGER;
+        return firstOrder - secondOrder;
+      })
+    : scopedGalleryItems;
+  const visibleGalleryItems = orderedGalleryItems
     .slice(0, galleryLimit);
 
   const renderGalleryItems = (activeFilter = "all") => {

@@ -2424,6 +2424,22 @@ h2 {
   align-items: center;
 }
 
+.contact-actions .btn {
+  gap: 0.52rem;
+}
+
+.btn-icon,
+.btn-icon svg {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+}
+
+.btn-icon svg {
+  fill: currentColor;
+}
+
 .site-footer {
   display: flex;
   align-items: center;
@@ -2605,11 +2621,11 @@ h2 {
   }
 
   .gallery-section .archive-panel:nth-child(2) {
-    grid-area: side;
+    grid-area: wide;
   }
 
   .gallery-section .archive-panel:nth-child(3) {
-    grid-area: wide;
+    grid-area: side;
   }
 
   .gallery-section .archive-panel:nth-child(4) {

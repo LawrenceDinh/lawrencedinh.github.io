@@ -1,5 +1,51 @@
 # Changelog
 
+## 2026-05-27 - Add contact social icons
+
+Changed:
+
+- `index.html`: added decorative Instagram and YouTube inline SVG icons to the matching Contact section buttons.
+- `styles.css`: added scoped icon spacing and sizing for Contact section buttons.
+
+Why:
+
+- The Contact actions should match the site's existing social icon language without changing button text, links, or layout.
+
+Verified:
+
+- `node --check bashseekers/script.js`
+- `node --check bashseekers/hero-media.js`
+- `node --check bashseekers/media-data.js`
+- `git diff --check`
+
+Follow-up:
+
+- None.
+
+## 2026-05-27 - Curate homepage media order
+
+Changed:
+
+- `media-data.js`: added homepage-only ordering for featured media so card 1 uses the previous card 2 media and card 7 uses the previous card 5 media.
+- `script.js`: sorted only the homepage featured gallery by `homeOrder`; the full archive keeps the main media order.
+- `styles.css`: swapped the desktop top-row wide/side grid slots so visible numbers read left-to-right.
+- `docs/ITERATION_NOTES.md`: noted that homepage media cards need readable thumbnails and visual-order numbering.
+
+Why:
+
+- The previous homepage Media/Gallery order made the yellow card numbers read out of order and put unclear thumbnails in prominent slots.
+
+Verified:
+
+- `node --check bashseekers/script.js`
+- `node --check bashseekers/media-data.js`
+- `node --check bashseekers/hero-media.js`
+- `git diff --check`
+
+Follow-up:
+
+- Manually confirm the curated homepage thumbnails read clearly at desktop and mobile sizes.
+
 ## 2026-05-27 - Featured sale badge
 
 Changed:

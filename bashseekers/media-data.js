@@ -8,6 +8,7 @@
 const GALLERY_ITEMS = [
   {
     featured: true,
+    homeOrder: 8,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "RAW STREET",
@@ -18,6 +19,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 1,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "TOUGE",
@@ -27,6 +29,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 2,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "LOCAL SHREDDERS",
@@ -37,6 +40,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 4,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "VHS SESSION",
@@ -46,6 +50,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 7,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "NA8 STREET",
@@ -55,6 +60,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 3,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "STREET FUN",
@@ -64,6 +70,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 9,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "RAW STREET",
@@ -73,6 +80,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 5,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "TRACK DAY",
@@ -82,6 +90,7 @@ const GALLERY_ITEMS = [
   },
   {
     featured: true,
+    homeOrder: 6,
     type: "youtube",
     sourceLabel: "YOUTUBE",
     category: "GARAGE TECH",

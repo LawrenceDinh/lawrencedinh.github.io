@@ -6,6 +6,7 @@
 - Desktop section rhythm matters; equal height is a guide, not a reason to damage the layout.
 - Media/Gallery should feel like an intentional magazine/zine spread, not a random thumbnail grid.
 - Media thumbnails should fill cards with cover-style cropping; black letterboxing is not acceptable.
+- Homepage Media/Gallery cards should use readable thumbnails in prominent slots, and visible yellow numbers should follow the visual reading order.
 - Services image preview should remain visible in collapsed state, focus on the top of the image, and animate both expand and hide.
 - Normal browser scrolling is the preferred default.
 - Navbar smooth-scroll and scrollspy remain, but natural wheel/trackpad/scrollbar movement should not be hijacked.
