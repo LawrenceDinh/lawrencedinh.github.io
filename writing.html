@@ -38,7 +38,7 @@
   }
   </script>
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
-  <link rel="stylesheet" href="style.css?v=20260719-12" />
+  <link rel="stylesheet" href="style.css?v=20260720-9" />
   <link rel="stylesheet" href="writing.css?v=20260720-1" />
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
@@ -53,17 +53,15 @@
       <div class="enhanced-header-content">
         <nav class="nav-links" aria-label="Primary">
           <div class="nav-primary-rail">
-            <a href="index.html#about">About</a>
-            <a href="index.html#projects">Featured</a>
+            <div class="nav-about" data-about-menu>
+              <a class="nav-about-link" href="index.html#about">About</a>
+              <button class="nav-about-toggle" type="button" aria-label="Open About destinations" aria-expanded="false" aria-controls="aboutMenuDesktop"><span aria-hidden="true">&#9662;</span></button>
+              <div class="nav-about-menu" id="aboutMenuDesktop" hidden><a href="index.html#about">Overview</a><a href="index.html#projects">Featured</a></div>
+            </div>
             <a href="index.html#experience">Experience</a>
             <a href="index.html#skills">Skills</a>
-            <div class="nav-portfolio" data-portfolio-menu="desktop">
-              <button class="nav-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuDesktop" aria-current="page">Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span></button>
-              <div class="nav-portfolio-menu" id="portfolioMenuDesktop" data-portfolio-panel hidden>
-                <a href="projects.html">Projects</a>
-                <a href="writing.html" aria-current="page">Writing</a>
-              </div>
-            </div>
+            <a class="nav-primary-destination nav-primary-destination--first" href="projects.html">Projects</a>
+            <a class="nav-primary-destination" href="writing.html" aria-current="page">Writing</a>
           </div>
           <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight" aria-label="Resume (opens in new tab)">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>Resume
@@ -78,18 +76,14 @@
       </div>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="drawer" title="Menu"><span class="hamburger" id="hamburgerIcon"><span></span><span></span><span></span></span></button>
     </div>
-    <div id="drawer" class="drawer" role="menu" aria-hidden="true">
+    <nav id="drawer" class="drawer" aria-label="Mobile navigation" aria-hidden="true">
       <div class="display-mode-toggle display-mode-toggle--drawer" data-presentation-mode-toggle role="group" aria-label="Portfolio presentation style">
         <button class="display-mode-option" type="button" data-portfolio-mode-value="simple" aria-pressed="false">SIMPLE</button><span class="display-mode-divider" aria-hidden="true">|</span><button class="display-mode-option" type="button" data-portfolio-mode-value="enhanced" aria-pressed="false">ENHANCED</button>
       </div>
-      <a href="index.html#about">About</a><a href="index.html#projects">Featured</a><a href="index.html#experience">Experience</a><a href="index.html#skills">Skills</a>
-      <div class="drawer-portfolio" data-portfolio-menu="mobile">
-        <button class="drawer-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuMobile" aria-current="page">Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span></button>
-        <div class="drawer-portfolio-submenu" id="portfolioMenuMobile" data-portfolio-panel hidden><a href="projects.html">Projects</a><a href="writing.html" aria-current="page">Writing</a></div>
-      </div>
+      <div class="drawer-about"><a href="index.html#about">About</a><div class="drawer-about-submenu"><a href="index.html#about">Overview</a><a href="index.html#projects">Featured</a></div></div><a href="index.html#experience">Experience</a><a href="index.html#skills">Skills</a><a href="projects.html">Projects</a><a href="writing.html" aria-current="page">Writing</a>
       <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>Resume</a>
       <a href="index.html#contact" class="drawer-contact"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/><path d="M3 5.5l5 3 5-3"/></svg>Contact</a>
-    </div>
+    </nav>
   </header>
   <main id="writing-content" class="writing-shell writing-archive-shell">
     <header class="writing-archive-header portfolio-page-hero">
@@ -127,7 +121,8 @@
       </section>
     </div>
   </main>
-<script src="navigation.js?v=20260719-4"></script>
+<script src="navigation.js?v=20260720-4"></script>
 <script src="writing.js?v=20260720-1"></script>
+<script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

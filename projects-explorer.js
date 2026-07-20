@@ -3,16 +3,17 @@
 
   const explorer = document.querySelector('[data-project-feature-explorer]');
   if (!explorer) return;
+  const mobileFeatureQuery = window.matchMedia('(max-width: 760px)');
 
   // This is the one ordered source for the index, viewer, counter, controls,
   // hash activation, and image preloading.
   const projectFeatures = [
     {
       id: 'osint-weather-heading',
-      domain: 'Weather Imagery',
-      title: 'Radar and Satellite View',
-      description: 'NOAA precipitation and cloud layers provide animated regional awareness while preserving the map controls needed to inspect changing weather.',
-      caption: 'Imagery, playback state, and map controls remain visible in the full capture.',
+      domain: 'Weather',
+      title: 'Weather Imagery Playback',
+      description: 'Displays NOAA radar and cloud imagery with current and archived frames.',
+      caption: 'Stored imagery supports regional weather review beyond a single current frame.',
       src: 'imgsrc/projects/osint/optimized/weather-radar-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/weather-radar-960.webp 960w, imgsrc/projects/osint/optimized/weather-radar-1600.webp 1600w',
       width: 1599,
@@ -22,9 +23,9 @@
     {
       id: 'osint-forecast-heading',
       domain: 'Weather',
-      title: 'Forecast Visualization',
-      description: 'Hourly and daily temperature trends combine with station-pressure context to make changing conditions easier to compare before a route or event.',
-      caption: 'The complete chart range and supporting controls remain in frame.',
+      title: 'Forecast Trends',
+      description: 'Shows hourly and daily temperature changes with nearby station context.',
+      caption: 'Charts make changing conditions easier to compare across the planned period.',
       src: 'imgsrc/projects/osint/optimized/forecast-charts-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/forecast-charts-960.webp 960w, imgsrc/projects/osint/optimized/forecast-charts-1600.webp 1600w',
       width: 1599,
@@ -33,10 +34,10 @@
     },
     {
       id: 'osint-route-heading',
-      domain: 'Caltrans',
-      title: 'Route Intelligence Map',
-      description: 'Configured corridors bring camera locations, incidents, closures, message signs, and route activity into one operational map for pre-drive review.',
-      caption: 'Corridor, provider, and roadway state remain visible in one complete application view.',
+      domain: 'Traffic',
+      title: 'Route & Camera Map',
+      description: 'Configured routes combine camera locations, incidents, closures, message signs, and recent activity.',
+      caption: 'Regional route configuration keeps traffic information tied to the drive being planned.',
       src: 'imgsrc/projects/osint/optimized/camera-route-map-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/camera-route-map-960.webp 960w, imgsrc/projects/osint/optimized/camera-route-map-1600.webp 1600w',
       width: 1600,
@@ -45,10 +46,10 @@
     },
     {
       id: 'osint-cameras-heading',
-      domain: 'Cameras',
+      domain: 'Traffic',
       title: 'Traffic Camera Monitor',
-      description: 'Filterable Caltrans CCTV views prioritize the feeds nearest a selected corridor so visual roadway checks do not require searching separate provider pages.',
-      caption: 'Relevant live feeds remain readable at their complete dashboard scale.',
+      description: 'Filters and ranks Caltrans camera feeds around the selected location and route.',
+      caption: 'Route proximity and camera status reduce the need to search an unfiltered statewide feed.',
       src: 'imgsrc/projects/osint/optimized/traffic-camera-grid-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/traffic-camera-grid-960.webp 960w, imgsrc/projects/osint/optimized/traffic-camera-grid-1600.webp 1600w',
       width: 1600,
@@ -57,10 +58,10 @@
     },
     {
       id: 'osint-intelligence-heading',
-      domain: 'CHP Intelligence',
-      title: 'CHP Intelligence Feed',
-      description: 'Official enforcement updates are normalized into grouped, filterable records that support faster driver-focused review than an undifferentiated news stream.',
-      caption: 'Filters, status, and enforcement periods remain visible without cropping.',
+      domain: 'Alerts',
+      title: 'CHP Alerts & Enforcement',
+      description: 'Groups official CHP notices and enforcement periods with status filters.',
+      caption: 'Time-sensitive public notices remain separate from general traffic activity.',
       src: 'imgsrc/projects/osint/optimized/chp-enforcement-news-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/chp-enforcement-news-960.webp 960w, imgsrc/projects/osint/optimized/chp-enforcement-news-1600.webp 1600w',
       width: 1600,
@@ -70,9 +71,9 @@
     {
       id: 'osint-events-heading',
       domain: 'Planning',
-      title: 'Event Planning Calendar',
-      description: 'Bulk schedule import, upcoming-event review, and calendar planning share a structured workflow for coordinating regional travel and preparation.',
-      caption: 'Import controls, event records, and calendar context remain legible together.',
+      title: 'Event Calendar',
+      description: 'Supports event import, review, editing, duplicate checks, and calendar planning.',
+      caption: 'Regional events and preparation dates stay connected to the same application.',
       src: 'imgsrc/projects/osint/optimized/event-calendar-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/event-calendar-960.webp 960w, imgsrc/projects/osint/optimized/event-calendar-1600.webp 1600w',
       width: 1600,
@@ -82,16 +83,31 @@
     {
       id: 'osint-checklists-heading',
       domain: 'Operations',
-      title: 'Checklist Pipeline',
-      description: 'Reusable preparation templates open into a detailed check-off workflow with completion state and required-item tracking for repeatable event readiness.',
-      caption: 'Templates and their active packlists stay connected in one workflow.',
+      title: 'Preparation Checklists',
+      description: 'Reusable templates open into check-off workflows with required-item state.',
+      caption: 'Recurring event, vehicle, safety, and travel preparation stays in one workflow.',
       src: 'imgsrc/projects/osint/optimized/reusable-checklists-960.webp',
       srcset: 'imgsrc/projects/osint/optimized/reusable-checklists-960.webp 960w, imgsrc/projects/osint/optimized/reusable-checklists-1600.webp 1600w',
       width: 1600,
       height: 1215,
       alt: 'Reusable preparation checklist templates beside a detailed event packlist'
+    },
+    {
+      id: 'osint-regional-weather-heading',
+      domain: 'Weather',
+      title: 'Regional Weather',
+      description: 'Combines current conditions, forecasts, alerts, air quality, and source status by location.',
+      caption: 'Configured locations provide a consistent weather view across the region.',
+      src: 'imgsrc/projects/osint/optimized/weather-overview-960.webp',
+      srcset: 'imgsrc/projects/osint/optimized/weather-overview-960.webp 960w, imgsrc/projects/osint/optimized/weather-overview-1600.webp 1600w',
+      width: 1600,
+      height: 1197,
+      alt: 'Regional weather dashboard showing locations, current conditions, and source status'
     }
-  ];
+  ].sort((a, b) => {
+    const order = ['osint-route-heading', 'osint-cameras-heading', 'osint-checklists-heading', 'osint-intelligence-heading', 'osint-events-heading', 'osint-regional-weather-heading', 'osint-forecast-heading', 'osint-weather-heading'];
+    return order.indexOf(a.id) - order.indexOf(b.id);
+  });
 
   const index = explorer.querySelector('[role="tablist"]');
   const viewer = explorer.querySelector('[role="tabpanel"]');
@@ -107,6 +123,38 @@
   const mediaViewport = explorer.querySelector('.projects-application-capture__viewport');
   const playback = explorer.querySelector('[data-project-feature-playback]');
   const progress = explorer.querySelector('[data-project-feature-progress]');
+  const progressTrack = progress?.closest('.carousel-progress');
+  const navigation = explorer.querySelector('.projects-feature-explorer__navigation');
+  const navigationCenter = explorer.querySelector('.projects-feature-explorer__navigation-center');
+  const requiredElements = {
+    explorer,
+    index,
+    viewer,
+    initialImage,
+    domain,
+    counter,
+    title,
+    description,
+    caption,
+    dots,
+    previous,
+    next,
+    mediaViewport,
+    playback,
+    progress,
+    progressTrack,
+    navigation,
+    navigationCenter
+  };
+  const missingElements = Object.entries(requiredElements)
+    .filter(([, element]) => !element)
+    .map(([name]) => name);
+  if (missingElements.length) {
+    console.error('[Projects Feature Explorer] Missing required elements:', missingElements);
+    explorer.dataset.featureExplorerReady = 'false';
+    return;
+  }
+
   let activeIndex = 0;
   let renderGeneration = 0;
   let interaction = null;
@@ -123,9 +171,6 @@
     return { element: card, image: cardImage, featureIndex: -1 };
   });
 
-  initialImage.remove();
-  mediaViewport.append(projectTrack);
-
   const indexButtons = projectFeatures.map((feature, featureIndex) => {
     const button = document.createElement('button');
     button.type = 'button';
@@ -136,7 +181,7 @@
     button.tabIndex = -1;
     button.innerHTML = `<span>${String(featureIndex + 1).padStart(2, '0')} / ${feature.domain}</span><strong>${feature.title}</strong>`;
     button.addEventListener('click', () => {
-      if (interaction) interaction.goTo(featureIndex, 'index');
+      requestFeature(featureIndex, 'index');
     });
     index.append(button);
     return button;
@@ -145,49 +190,116 @@
   const dotButtons = projectFeatures.map((feature, featureIndex) => {
     const button = document.createElement('button');
     button.type = 'button';
+    button.dataset.projectFeatureDot = String(featureIndex);
     button.setAttribute('aria-label', `Show ${feature.title}`);
     button.addEventListener('click', () => {
-      if (interaction) interaction.goTo(featureIndex, 'dot');
+      requestFeature(featureIndex, 'dot');
     });
     dots.append(button);
     return button;
   });
+
+  const mobileStatus = document.createElement('span');
+  mobileStatus.className = 'mobile-feature-carousel__status';
+  mobileStatus.setAttribute('aria-live', 'polite');
+  previous.setAttribute('aria-label', 'Show previous feature');
+  next.setAttribute('aria-label', 'Show next feature');
+
+  function syncProjectFeatureDots() {
+    activeIndex = (activeIndex + projectFeatures.length) % projectFeatures.length;
+
+    if (typeof window.syncCompactCarouselDots === 'function') {
+      window.syncCompactCarouselDots({
+        container: dots,
+        dots: dotButtons,
+        activeIndex,
+        enabled: mobileFeatureQuery.matches,
+        unit: mobileFeatureQuery.matches && window.innerWidth <= 340 ? 8 : 9,
+        minCapacity: 5,
+        maxCapacity: 10,
+        preserveEnds: true,
+        ellipsisClass: 'projects-feature-explorer__ellipsis'
+      });
+    }
+
+    dotButtons.forEach(button => {
+      const selected = Number(button.dataset.projectFeatureDot) === activeIndex;
+      button.classList.toggle('is-active', selected);
+      if (selected) {
+        button.hidden = false;
+        button.removeAttribute('aria-hidden');
+        button.setAttribute('aria-current', 'true');
+        if (button.tabIndex < 0) button.removeAttribute('tabindex');
+      } else {
+        button.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function syncMobilePresentation() {
+    const mobile = mobileFeatureQuery.matches;
+    explorer.classList.toggle('mobile-feature-carousel', mobile);
+    index.hidden = mobile;
+    index.inert = mobile;
+    mediaViewport.classList.toggle('mobile-feature-carousel__viewport', mobile);
+    explorer.querySelector('.projects-feature-explorer__rail').classList.toggle('mobile-feature-carousel__caption', mobile);
+    navigation.classList.toggle('mobile-feature-carousel__controls', mobile);
+    dots.classList.toggle('mobile-feature-carousel__dots', mobile);
+    playback.classList.toggle('mobile-feature-carousel__playback', mobile);
+
+    if (mobile) {
+      viewer.removeAttribute('aria-labelledby');
+      viewer.setAttribute('aria-label', 'Projects feature slideshow');
+      previous.textContent = '←';
+      next.textContent = '→';
+      navigationCenter.hidden = true;
+      navigation.replaceChildren(previous, mobileStatus, dots, next, playback, progressTrack);
+    } else {
+      viewer.removeAttribute('aria-label');
+      previous.textContent = '← Previous';
+      next.textContent = 'Next →';
+      navigationCenter.hidden = false;
+      navigationCenter.replaceChildren(dots, playback);
+      navigation.replaceChildren(previous, navigationCenter, next, progressTrack);
+    }
+    window.requestAnimationFrame(syncProjectFeatureDots);
+  }
 
   function syncHash(feature) {
     const nextUrl = `${window.location.pathname}${window.location.search}#${feature.id}`;
     window.history.replaceState(null, '', nextUrl);
   }
 
-  function previewProjectFeature(nextIndex, direction) {
+  function renderFeatureMetadata(nextIndex, direction) {
     const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
     const feature = projectFeatures[normalizedIndex];
     domain.textContent = `${String(normalizedIndex + 1).padStart(2, '0')} / ${feature.domain}`;
+    counter.textContent = `${String(normalizedIndex + 1).padStart(2, '0')} / ${String(projectFeatures.length).padStart(2, '0')}`;
+    mobileStatus.textContent = counter.textContent;
     title.textContent = feature.title;
     description.textContent = feature.description;
     caption.textContent = feature.caption;
-    explorer.classList.remove('is-caption-shifting-next', 'is-caption-shifting-previous');
-    explorer.classList.add(direction === 'previous' ? 'is-caption-shifting-previous' : 'is-caption-shifting-next');
-    window.setTimeout(() => explorer.classList.remove('is-caption-shifting-next', 'is-caption-shifting-previous'), 430);
-  }
-
-  function commitProjectFeature(nextIndex, source, direction) {
-    const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
-    const feature = projectFeatures[normalizedIndex];
-    activeIndex = normalizedIndex;
-    counter.textContent = `${String(normalizedIndex + 1).padStart(2, '0')} / ${String(projectFeatures.length).padStart(2, '0')}`;
-    viewer.setAttribute('aria-labelledby', feature.id);
-    if (source === 'initial') previewProjectFeature(normalizedIndex, direction || 'next');
+    initialImage.src = feature.src;
+    initialImage.srcset = feature.srcset;
+    initialImage.sizes = '(max-width: 760px) 100vw, (max-width: 980px) 94vw, 68vw';
+    initialImage.width = feature.width;
+    initialImage.height = feature.height;
+    initialImage.alt = feature.alt;
+    initialImage.draggable = false;
+    if (mobileFeatureQuery.matches) {
+      viewer.removeAttribute('aria-labelledby');
+      viewer.setAttribute('aria-label', 'Projects feature slideshow');
+    } else {
+      viewer.removeAttribute('aria-label');
+      viewer.setAttribute('aria-labelledby', feature.id);
+    }
 
     indexButtons.forEach((button, buttonIndex) => {
       const selected = buttonIndex === normalizedIndex;
       button.setAttribute('aria-selected', String(selected));
       button.tabIndex = selected ? 0 : -1;
     });
-    dotButtons.forEach((button, buttonIndex) => {
-      const selected = buttonIndex === normalizedIndex;
-      button.classList.toggle('is-active', selected);
-      button.setAttribute('aria-current', selected ? 'true' : 'false');
-    });
+    syncProjectFeatureDots();
 
     const selectedButton = indexButtons[normalizedIndex];
     if (selectedButton && index.scrollWidth > index.clientWidth) {
@@ -195,7 +307,38 @@
       index.scrollTo({ left: Math.max(0, left), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     }
 
-    if (source !== 'initial' && source !== 'hash') syncHash(feature);
+    if (!direction) return;
+    explorer.classList.remove('is-caption-shifting-next', 'is-caption-shifting-previous');
+    explorer.classList.add(direction === 'previous' ? 'is-caption-shifting-previous' : 'is-caption-shifting-next');
+    window.setTimeout(() => explorer.classList.remove('is-caption-shifting-next', 'is-caption-shifting-previous'), 430);
+  }
+
+  function previewProjectFeature(nextIndex, direction) {
+    renderFeatureMetadata(nextIndex, direction);
+  }
+
+  function commitProjectFeature(nextIndex, source, direction) {
+    const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
+    activeIndex = normalizedIndex;
+    renderFeatureMetadata(normalizedIndex, source === 'initial' ? direction || 'next' : null);
+
+    if (source !== 'initial' && source !== 'hash') syncHash(projectFeatures[normalizedIndex]);
+  }
+
+  function activateFeatureImmediately(nextIndex, source, direction) {
+    const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
+    activeIndex = normalizedIndex;
+    renderFeatureMetadata(normalizedIndex, direction || null);
+    if (source !== 'initial' && source !== 'hash') syncHash(projectFeatures[normalizedIndex]);
+  }
+
+  function requestFeature(nextIndex, source, direction) {
+    const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
+    if (interaction) {
+      interaction.goTo(normalizedIndex, source, direction);
+      return;
+    }
+    activateFeatureImmediately(normalizedIndex, source, direction);
   }
 
   function configureTrackCard(card, featureIndex) {
@@ -206,7 +349,7 @@
     card.featureIndex = normalizedIndex;
     card.image.src = feature.src;
     card.image.srcset = feature.srcset;
-    card.image.sizes = '(max-width: 760px) 100vw, 70vw';
+    card.image.sizes = '(max-width: 760px) 100vw, (max-width: 980px) 94vw, 68vw';
     card.image.width = feature.width;
     card.image.height = feature.height;
     card.image.alt = feature.alt;
@@ -242,8 +385,9 @@
   }
 
   function moveFeature(delta, focusTab) {
-    if (interaction) interaction.goTo(activeIndex + delta, 'button', delta > 0 ? 'next' : 'previous');
-    if (focusTab) indexButtons[activeIndex].focus();
+    const targetIndex = (activeIndex + delta + projectFeatures.length) % projectFeatures.length;
+    requestFeature(targetIndex, 'button', delta > 0 ? 'next' : 'previous');
+    if (focusTab) indexButtons[targetIndex].focus();
   }
 
   previous.addEventListener('click', () => moveFeature(-1));
@@ -258,7 +402,7 @@
     if (targetIndex === null) return;
     event.preventDefault();
     const normalizedTarget = (targetIndex + projectFeatures.length) % projectFeatures.length;
-    if (interaction) interaction.goTo(normalizedTarget, 'keyboard', normalizedTarget === (activeIndex + 1) % projectFeatures.length ? 'next' : normalizedTarget === (activeIndex - 1 + projectFeatures.length) % projectFeatures.length ? 'previous' : undefined);
+    requestFeature(normalizedTarget, 'keyboard', normalizedTarget === (activeIndex + 1) % projectFeatures.length ? 'next' : normalizedTarget === (activeIndex - 1 + projectFeatures.length) % projectFeatures.length ? 'previous' : undefined);
     indexButtons[normalizedTarget].focus();
   });
 
@@ -272,39 +416,80 @@
       moveFeature(-1);
     } else if (event.key === 'Home') {
       event.preventDefault();
-      if (interaction) interaction.goTo(0, 'keyboard');
+      requestFeature(0, 'keyboard');
     } else if (event.key === 'End') {
       event.preventDefault();
-      if (interaction) interaction.goTo(projectFeatures.length - 1, 'keyboard');
+      requestFeature(projectFeatures.length - 1, 'keyboard');
     }
   });
 
   window.addEventListener('hashchange', () => {
     const featureIndex = projectFeatures.findIndex(feature => feature.id === window.location.hash.slice(1));
-    if (featureIndex >= 0 && interaction) interaction.goTo(featureIndex, 'hash');
+    if (featureIndex >= 0) requestFeature(featureIndex, 'hash');
   });
 
   const hashedFeatureIndex = projectFeatures.findIndex(feature => feature.id === window.location.hash.slice(1));
   activeIndex = hashedFeatureIndex >= 0 ? hashedFeatureIndex : 0;
+  syncMobilePresentation();
   commitProjectFeature(activeIndex, 'initial', 'next');
-  normalizeProjectTrack(activeIndex);
+  playback.disabled = true;
 
-  if (typeof window.createCarouselInteraction === 'function') {
-    interaction = window.createCarouselInteraction({
-      root: explorer,
-      viewport: mediaViewport,
-      track: projectTrack,
-      count: projectFeatures.length,
-      getIndex: () => activeIndex,
-      prepareTransition: prepareProjectTransition,
-      normalizeTrack: normalizeProjectTrack,
-      preview: previewProjectFeature,
-      commit: commitProjectFeature,
-      pauseButton: playback,
-      progress,
-      isTrackReady: () => projectTrackReady,
-      keyboard: false,
-      isEnabled: () => document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced'
+  async function initializeTrack() {
+    if (typeof window.createCarouselInteraction !== 'function') return;
+    try {
+      await normalizeProjectTrack(activeIndex);
+      mediaViewport.append(projectTrack);
+      interaction = window.createCarouselInteraction({
+        root: explorer,
+        viewport: mediaViewport,
+        track: projectTrack,
+        count: projectFeatures.length,
+        getIndex: () => activeIndex,
+        prepareTransition: prepareProjectTransition,
+        normalizeTrack: normalizeProjectTrack,
+        preview: previewProjectFeature,
+        commit: commitProjectFeature,
+        pauseButton: playback,
+        progress,
+        isTrackReady: () => projectTrackReady,
+        keyboard: false,
+        isEnabled: () => document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced'
+      });
+      if (!interaction) throw new Error('Shared carousel controller did not initialize.');
+      interaction.refresh();
+      initialImage.remove();
+      playback.disabled = false;
+      explorer.classList.add('is-ready');
+      explorer.dataset.featureExplorerReady = 'true';
+    } catch (error) {
+      projectTrack.remove();
+      projectTrackReady = false;
+      interaction = null;
+      playback.disabled = true;
+      explorer.dataset.featureExplorerReady = 'false';
+      console.error('[Projects Feature Explorer] Initialization failed:', error);
+    }
+  }
+
+  void initializeTrack();
+
+  if (window.ProjectImageViewer) {
+    window.ProjectImageViewer.register({
+      trigger: mediaViewport,
+      mode: 'current-image',
+      item: () => {
+        const feature = projectFeatures[activeIndex];
+        return {
+          src: feature.src,
+          srcset: feature.srcset,
+          sizes: '140vw',
+          alt: feature.alt,
+          title: feature.title,
+          description: feature.description
+        };
+      },
+      pause: () => { if (interaction) interaction.pauseAutoplay('viewer'); },
+      resume: () => { if (interaction) interaction.startAutoplay(); }
     });
   }
 
@@ -312,4 +497,14 @@
     if (interaction) interaction.refresh();
   });
   modeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-portfolio-mode'] });
+
+  mobileFeatureQuery.addEventListener('change', () => {
+    syncMobilePresentation();
+    if (interaction) interaction.refresh();
+  });
+  if (typeof ResizeObserver === 'function') {
+    new ResizeObserver(() => {
+      if (mobileFeatureQuery.matches) syncProjectFeatureDots();
+    }).observe(navigation);
+  }
 })();

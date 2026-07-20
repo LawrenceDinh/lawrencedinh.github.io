@@ -4,6 +4,72 @@
   const interactiveSelector = "button, a, input, select, textarea, [role='tab'], [data-own-interaction]";
   const transitionClasses = ['is-transitioning-next', 'is-transitioning-previous', 'is-snapping-back'];
 
+  // Shared compact-dot presentation for responsive carousels. The buttons keep
+  // their full touch target; CSS controls the small visible indicator.
+  window.syncCompactCarouselDots = function syncCompactCarouselDots(options) {
+    const container = options?.container;
+    const dots = Array.from(options?.dots || []);
+    const enabled = Boolean(options?.enabled);
+    if (!container || !dots.length) return;
+
+    const state = container._compactCarouselDotState || (container._compactCarouselDotState = {
+      tabindex: new Map(dots.map(dot => [dot, dot.getAttribute('tabindex')]))
+    });
+    const ellipsisClass = options.ellipsisClass || 'mobile-feature-carousel__ellipsis';
+    Array.from(container.querySelectorAll(`.${ellipsisClass}`)).forEach(node => node.remove());
+
+    dots.forEach(dot => {
+      dot.hidden = false;
+      dot.style.order = '';
+      dot.removeAttribute('aria-hidden');
+      const originalTabindex = state.tabindex.get(dot);
+      if (originalTabindex === null || originalTabindex === undefined) dot.removeAttribute('tabindex');
+      else dot.setAttribute('tabindex', originalTabindex);
+    });
+    if (!enabled) return;
+
+    const activeIndex = Math.max(0, Math.min(Number(options.activeIndex) || 0, dots.length - 1));
+    const unit = Number(options.unit) || 28;
+    const measuredWidth = container.getBoundingClientRect().width || container.parentElement?.getBoundingClientRect().width || 0;
+    const minCapacity = Number(options.minCapacity) || 3;
+    const maxCapacity = Number(options.maxCapacity) || dots.length;
+    const capacity = Math.max(minCapacity, Math.min(dots.length, maxCapacity, Math.floor(Math.max(unit * minCapacity, measuredWidth - 4) / unit)));
+    let visibleIndexes;
+    if (dots.length <= capacity) {
+      visibleIndexes = dots.map((_, index) => index);
+    } else if (options.preserveEnds) {
+      const middle = Math.max(1, capacity - 2);
+      const start = Math.max(1, Math.min(activeIndex - Math.floor(middle / 2), dots.length - 1 - middle));
+      visibleIndexes = [0];
+      for (let index = start; index < start + middle; index += 1) visibleIndexes.push(index);
+      visibleIndexes.push(dots.length - 1);
+    } else {
+      const half = Math.floor(capacity / 2);
+      const start = Math.max(0, Math.min(activeIndex - half, dots.length - capacity));
+      visibleIndexes = Array.from({ length: capacity }, (_, offset) => start + offset);
+    }
+    const visible = new Set(visibleIndexes);
+    dots.forEach((dot, index) => {
+      dot.style.order = String(index * 2 + 1);
+      if (!visible.has(index)) {
+        dot.hidden = true;
+        dot.setAttribute('aria-hidden', 'true');
+        dot.setAttribute('tabindex', '-1');
+      }
+    });
+    const firstVisible = visibleIndexes[0];
+    const lastVisible = visibleIndexes[visibleIndexes.length - 1];
+    [[firstVisible > 0, firstVisible * 2 - 1], [lastVisible < dots.length - 1, lastVisible * 2 + 2]].forEach(([needed, order]) => {
+      if (!needed) return;
+      const ellipsis = document.createElement('span');
+      ellipsis.className = ellipsisClass;
+      ellipsis.setAttribute('aria-hidden', 'true');
+      ellipsis.style.order = String(order);
+      ellipsis.textContent = '…';
+      container.append(ellipsis);
+    });
+  };
+
   window.createCarouselInteraction = function createCarouselInteraction(options) {
     const root = options.root;
     const viewport = options.viewport;
@@ -95,9 +161,9 @@
       if (!pauseButton) return;
       const paused = userPaused || reducedMotion.matches;
       pauseButton.setAttribute('aria-pressed', String(paused));
-      pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      pauseButton.setAttribute('aria-label', paused ? 'Resume slideshow' : 'Pause slideshow');
       pauseButton.setAttribute('aria-disabled', String(reducedMotion.matches));
-      pauseButton.title = reducedMotion.matches ? 'Autoplay disabled by reduced-motion preference' : (paused ? 'Play slideshow' : 'Pause slideshow');
+      pauseButton.title = reducedMotion.matches ? 'Autoplay disabled by reduced-motion preference' : (paused ? 'Resume slideshow' : 'Pause slideshow');
       pauseButton.dataset.playbackState = paused ? 'paused' : 'playing';
     }
 

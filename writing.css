@@ -325,6 +325,7 @@
   tab-size: 2;
 }
 @media (max-width: 600px) {
+  .writing-back-link--scroll { min-height: 44px; }
   .writing-article-body pre.article-diagram { padding: 20px 14px; }
 }
 .writing-article-body hr { height: 1px; margin: 2.5em 0; border: 0; background: rgba(255, 255, 255, .12); }
@@ -385,8 +386,8 @@
   .article-image-viewer { padding: 10px; }
   .article-image-viewer__window { max-width: calc(100vw - 20px); max-height: calc(100dvh - 20px); }
   .article-image-viewer__image { max-height: calc(100dvh - 92px); }
-  .article-image-viewer__close { top: 0; right: 0; width: 36px; height: 36px; }
-  .article-image-viewer__caption { padding-right: 42px; }
+  .article-image-viewer__close { top: 0; right: 0; width: 44px; height: 44px; }
+  .article-image-viewer__caption { padding-right: 50px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .article-image-viewer,

@@ -4,9 +4,11 @@
   const hamburger = document.getElementById('hamburgerIcon');
   const desktopMenu = document.querySelector('[data-portfolio-menu="desktop"]');
   const mobileMenu = document.querySelector('[data-portfolio-menu="mobile"]');
+  const aboutMenu = document.querySelector('[data-about-menu]');
   const portfolioCloseTimers = new WeakMap();
   const fineHoverPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const PORTFOLIO_CLOSE_DELAY_MS = 320;
+  const ABOUT_CLOSE_DELAY_MS = 300;
   const CONTACT = Object.freeze({
     email: 'lawrencetdinh@gmail.com',
     resume: 'Lawrence%20Dinh%20Resume%20Web.pdf',
@@ -17,6 +19,234 @@
     status: 'Open to Work'
   });
   let contactDisclosure = null;
+  let aboutCloseTimer = 0;
+
+  // A fixed descendant of the filtered navbar can use the navbar as its
+  // containing block. Keep the shared drawer contract, but place the live
+  // drawer beside the header so phone geometry is viewport-relative.
+  if (drawer) {
+    const navHeader = drawer.closest('.nav');
+    if (navHeader) navHeader.insertAdjacentElement('afterend', drawer);
+  }
+
+  const phoneConsoleMedia = window.matchMedia('(max-width: 760px)');
+  const drawerSourceNodes = drawer ? Array.from(drawer.childNodes) : [];
+  let phoneConsoleMounted = false;
+
+  function makeDrawerRow(index, label, href, current) {
+    const link = document.createElement('a');
+    link.className = 'drawer-console-row';
+    link.href = href;
+    if (current) link.setAttribute('aria-current', 'page');
+
+    const number = document.createElement('span');
+    number.className = 'drawer-console-row__index';
+    number.textContent = String(index).padStart(2, '0');
+    const text = document.createElement('span');
+    text.className = 'drawer-console-row__label';
+    text.textContent = label;
+    const arrow = document.createElement('span');
+    arrow.className = 'drawer-console-row__arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '→';
+    link.append(number, text, arrow);
+    return link;
+  }
+
+  function getPhoneDrawerPage() {
+    const body = document.body;
+    const isArticle = Boolean(document.getElementById('article-body'));
+    const isWriting = body.classList.contains('writing-page');
+    const isProjects = body.classList.contains('projects-page');
+    const homePrefix = isProjects || isWriting ? 'index.html' : '';
+
+    if (isArticle) {
+      const tocLinks = Array.from(document.querySelectorAll('#writing-toc-list a[href^="#"]'))
+        .filter(link => document.getElementById(link.hash.slice(1)))
+        .map(link => ({ label: link.textContent.trim(), href: link.getAttribute('href') }));
+      return {
+        label: 'In this article',
+        rows: tocLinks,
+        current: 'Writing',
+        secondary: true,
+        article: true
+      };
+    }
+
+    if (isWriting) {
+      return {
+        label: 'On this page',
+        rows: [
+          { label: 'Overview', href: '#writing-content' },
+          { label: 'Featured Writing', href: '#writing-featured' },
+          { label: 'All Writing', href: '#writing-archive-list' }
+        ].filter(row => document.querySelector(row.href)),
+        current: 'Writing',
+        secondary: true
+      };
+    }
+
+    if (isProjects) {
+      return {
+        label: 'On this page',
+        rows: [
+          { label: 'Overview', href: '#projects-content' },
+          { label: 'Local Driving Intelligence', href: '#local-driving-intelligence' },
+          { label: 'Current Projects', href: '#current-projects' },
+          { label: 'Academic Projects', href: '#academic-projects' }
+        ].filter(row => document.querySelector(row.href)),
+        current: 'Projects',
+        secondary: true
+      };
+    }
+
+    return {
+      label: 'On this page',
+      rows: [
+        { label: 'Overview', href: `${homePrefix}#about` },
+        { label: 'Featured', href: `${homePrefix}#projects` },
+        { label: 'Experience', href: `${homePrefix}#experience` },
+        { label: 'Skills', href: `${homePrefix}#skills` }
+      ].filter(row => document.querySelector(row.href.replace(homePrefix, ''))),
+      current: ''
+    };
+  }
+
+  function getDrawerSource(selector) {
+    return drawerSourceNodes.find(node => node.nodeType === Node.ELEMENT_NODE && node.matches(selector))
+      || drawerSourceNodes.find(node => node.nodeType === Node.ELEMENT_NODE && node.querySelector(selector))?.querySelector(selector);
+  }
+
+  function makeDrawerReturn(page) {
+    if (!page.secondary) return null;
+    const link = document.createElement('a');
+    link.className = 'drawer-console-return';
+    link.href = 'index.html#about';
+    link.setAttribute('aria-label', 'Return to the main portfolio');
+    const icon = document.createElement('span');
+    icon.className = 'drawer-console-return__icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = '←';
+    const copy = document.createElement('span');
+    copy.className = 'drawer-console-return__copy';
+    const strong = document.createElement('strong');
+    strong.textContent = 'Main Portfolio';
+    const small = document.createElement('small');
+    small.textContent = 'About · Experience · Skills';
+    copy.append(strong, small);
+    const indicator = document.createElement('span');
+    indicator.className = 'drawer-console-return__indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    indicator.textContent = '↗';
+    link.append(icon, copy, indicator);
+    return link;
+  }
+
+  function makeDrawerBreadcrumb() {
+    const nav = document.createElement('nav');
+    nav.className = 'drawer-console-breadcrumb';
+    nav.setAttribute('aria-label', 'Navigation path');
+    const portfolio = document.createElement('a');
+    portfolio.href = 'index.html#about';
+    portfolio.textContent = 'Main Portfolio';
+    const slashOne = document.createElement('span');
+    slashOne.setAttribute('aria-hidden', 'true');
+    slashOne.textContent = '/';
+    const writing = document.createElement('a');
+    writing.href = 'writing.html';
+    writing.textContent = 'Writing';
+    const slashTwo = document.createElement('span');
+    slashTwo.setAttribute('aria-hidden', 'true');
+    slashTwo.textContent = '/';
+    const article = document.createElement('span');
+    article.setAttribute('aria-current', 'page');
+    article.textContent = 'Article';
+    nav.append(portfolio, slashOne, writing, slashTwo, article);
+    return nav;
+  }
+
+  function renderPhoneDrawerConsole() {
+    if (!drawer || phoneConsoleMounted || !phoneConsoleMedia.matches || !isEnhancedMode()) return;
+    const modeToggle = getDrawerSource('[data-presentation-mode-toggle]');
+    const resume = getDrawerSource('a.highlight');
+    const contact = getDrawerSource('.drawer-contact');
+    if (!modeToggle || !resume || !contact) return;
+
+    const page = getPhoneDrawerPage();
+    const portfolioRows = [
+      { label: 'Projects', href: 'projects.html', current: page.current === 'Projects' },
+      { label: 'Writing', href: 'writing.html', current: page.current === 'Writing' }
+    ];
+    const total = page.rows.length + portfolioRows.length;
+    const heading = document.createElement('header');
+    heading.className = 'drawer-console-heading';
+    const headingTitle = document.createElement('p');
+    headingTitle.className = 'drawer-console-heading__title';
+    headingTitle.textContent = 'Navigation';
+    const headingCount = document.createElement('p');
+    headingCount.className = 'drawer-console-heading__count';
+    headingCount.textContent = `${String(total).padStart(2, '0')} items`;
+    heading.append(headingTitle, headingCount);
+
+    const body = document.createElement('div');
+    body.className = 'drawer-console-body';
+    if (page.article) body.appendChild(makeDrawerBreadcrumb());
+    else if (page.secondary) body.appendChild(makeDrawerReturn(page));
+    const addGroup = (label, rows, startIndex) => {
+      const group = document.createElement('section');
+      group.className = 'drawer-console-group';
+      const groupLabel = document.createElement('p');
+      groupLabel.className = 'drawer-console-group__label';
+      groupLabel.textContent = label;
+      const list = document.createElement('div');
+      list.className = 'drawer-console-list';
+      rows.forEach((row, offset) => list.appendChild(makeDrawerRow(startIndex + offset, row.label, row.href, row.current)));
+      group.append(groupLabel, list);
+      body.appendChild(group);
+    };
+    addGroup(page.label, page.rows, 1);
+    addGroup('Portfolio', portfolioRows, page.rows.length + 1);
+
+    const actions = document.createElement('div');
+    actions.className = 'drawer-console-actions';
+    actions.append(resume, contact);
+    drawer.replaceChildren(heading, modeToggle, body, actions);
+    drawer.setAttribute('role', 'navigation');
+    drawer.setAttribute('aria-label', 'Mobile navigation');
+    phoneConsoleMounted = true;
+  }
+
+  function restorePhoneDrawerSource() {
+    if (!drawer || !phoneConsoleMounted) return;
+    drawer.replaceChildren(...drawerSourceNodes);
+    drawer.removeAttribute('role');
+    phoneConsoleMounted = false;
+  }
+
+  function syncPhoneDrawerConsole() {
+    if (phoneConsoleMedia.matches && isEnhancedMode()) renderPhoneDrawerConsole();
+    else restorePhoneDrawerSource();
+  }
+
+  function refreshPhoneDrawerConsole() {
+    if (!phoneConsoleMounted || !phoneConsoleMedia.matches || !isEnhancedMode()) return;
+    phoneConsoleMounted = false;
+    renderPhoneDrawerConsole();
+  }
+
+  syncPhoneDrawerConsole();
+  phoneConsoleMedia.addEventListener('change', syncPhoneDrawerConsole);
+  new MutationObserver(syncPhoneDrawerConsole).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-portfolio-mode']
+  });
+  const articleBody = document.getElementById('article-body');
+  if (articleBody) {
+    new MutationObserver(() => window.requestAnimationFrame(refreshPhoneDrawerConsole)).observe(articleBody, {
+      childList: true,
+      subtree: true
+    });
+  }
 
   function contactPanelMarkup() {
     return `<div class="nav-contact-panel" id="navContactPanel" role="region" aria-labelledby="navContactTitle" hidden><div class="section-panel" id="contactPanel">
@@ -73,6 +303,11 @@
     panel.hidden = !open;
     trigger.classList.toggle('is-open', open);
     panel.classList.toggle('is-open', open);
+    if (type === 'mobile') {
+      panel.setAttribute('role', open ? 'dialog' : 'region');
+      if (open) panel.setAttribute('aria-modal', 'true');
+      else panel.removeAttribute('aria-modal');
+    }
     const nav = document.querySelector('.nav');
     if (nav) nav.classList.toggle('has-contact-disclosure-open', contactIsOpen('desktop') || contactIsOpen('mobile'));
   }
@@ -113,6 +348,7 @@
         event.stopImmediatePropagation();
         const open = !contactIsOpen(type);
         closePortfolioMenus();
+        setAboutMenuOpen(false);
         closeContactDisclosures(type);
         setContactOpen(type, open);
       });
@@ -278,6 +514,74 @@
     }
   }
 
+  function cancelAboutClose() {
+    if (!aboutCloseTimer) return;
+    window.clearTimeout(aboutCloseTimer);
+    aboutCloseTimer = 0;
+  }
+
+  function scheduleAboutClose() {
+    cancelAboutClose();
+    aboutCloseTimer = window.setTimeout(() => {
+      aboutCloseTimer = 0;
+      const keyboardFocusWithin = aboutMenu && aboutMenu.matches(':focus-within') && aboutMenu.querySelector(':focus-visible');
+      if (!aboutMenu || aboutMenu.matches(':hover') || keyboardFocusWithin) return;
+      setAboutMenuOpen(false);
+    }, ABOUT_CLOSE_DELAY_MS);
+  }
+
+  function setAboutMenuOpen(open, focusFirst) {
+    if (!aboutMenu) return;
+    const toggle = aboutMenu.querySelector('.nav-about-toggle');
+    const panel = aboutMenu.querySelector('.nav-about-menu');
+    if (!toggle || !panel) return;
+    cancelAboutClose();
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close About destinations' : 'Open About destinations');
+    panel.hidden = !open;
+    aboutMenu.classList.toggle('is-open', open);
+    if (open) {
+      closePortfolioMenus();
+      closeContactDisclosures();
+      if (focusFirst) panel.querySelector('a[href]')?.focus();
+    }
+  }
+
+  function bindAboutMenu() {
+    if (!aboutMenu) return;
+    const toggle = aboutMenu.querySelector('.nav-about-toggle');
+    const panel = aboutMenu.querySelector('.nav-about-menu');
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      setAboutMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    toggle.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowDown') return;
+      event.preventDefault();
+      setAboutMenuOpen(true, true);
+    });
+    panel.querySelectorAll('a[href]').forEach(link => {
+      link.addEventListener('click', () => setAboutMenuOpen(false));
+    });
+    aboutMenu.querySelector('.nav-about-link')?.addEventListener('click', () => setAboutMenuOpen(false));
+    aboutMenu.addEventListener('focusout', event => {
+      if (event.relatedTarget && aboutMenu.contains(event.relatedTarget)) return;
+      setAboutMenuOpen(false);
+    });
+    aboutMenu.addEventListener('pointerenter', () => {
+      if (!fineHoverPointer.matches) return;
+      cancelAboutClose();
+      setAboutMenuOpen(true);
+    });
+    aboutMenu.addEventListener('pointerleave', () => {
+      if (!fineHoverPointer.matches) return;
+      scheduleAboutClose();
+    });
+  }
+
   function isDrawerOpen() {
     return Boolean(navToggle && navToggle.getAttribute('aria-expanded') === 'true');
   }
@@ -290,6 +594,7 @@
     drawer.setAttribute('aria-hidden', String(!open));
     drawer.classList.toggle('is-open', open);
     hamburger.classList.toggle('open', open);
+    document.body.classList.toggle('nav-drawer-open', open);
     if (!open) {
       setMenuOpen(mobileMenu, false);
       setContactOpen('mobile', false);
@@ -299,6 +604,7 @@
   bindContactDisclosure();
   bindPortfolioMenu(desktopMenu, true);
   bindPortfolioMenu(mobileMenu, false);
+  bindAboutMenu();
 
   if (navToggle && drawer && hamburger) {
     navToggle.setAttribute('aria-label', 'Open menu');
@@ -307,19 +613,35 @@
     drawer.querySelectorAll('a[href]').forEach(link => {
       link.addEventListener('click', () => setDrawerOpen(false));
     });
+    drawer.addEventListener('click', event => {
+      const link = event.target.closest('a[href]');
+      if (link && !link.classList.contains('drawer-contact')) setDrawerOpen(false);
+    });
   }
 
   document.addEventListener('click', event => {
+    if (aboutMenu && !aboutMenu.contains(event.target)) setAboutMenuOpen(false);
     if (desktopMenu && !desktopMenu.contains(event.target)) setMenuOpen(desktopMenu, false);
     if (mobileMenu && !mobileMenu.contains(event.target)) setMenuOpen(mobileMenu, false);
     if (contactIsOpen('desktop') && !contactDisclosure.desktopHost.contains(event.target)) setContactOpen('desktop', false);
+    if (contactIsOpen('mobile') && !contactDisclosure.mobilePanel.contains(event.target) && !contactDisclosure.mobileTrigger.contains(event.target)) {
+      setContactOpen('mobile', false);
+      contactDisclosure.mobileTrigger.focus({ preventScroll: true });
+    }
     if (window.innerWidth <= 900 && isDrawerOpen() && !drawer.contains(event.target) && !navToggle.contains(event.target)) {
       setDrawerOpen(false);
+      navToggle.focus({ preventScroll: true });
     }
   });
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
+
+    if (aboutMenu && aboutMenu.classList.contains('is-open')) {
+      setAboutMenuOpen(false);
+      aboutMenu.querySelector('.nav-about-toggle')?.focus();
+      return;
+    }
 
     if (isMenuOpen(desktopMenu)) {
       setMenuOpen(desktopMenu, false);
@@ -349,25 +671,18 @@
 
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900 && isDrawerOpen()) setDrawerOpen(false);
+    if (window.innerWidth <= 900) setAboutMenuOpen(false);
     if (window.innerWidth <= 900) setMenuOpen(desktopMenu, false);
     if (window.innerWidth <= 900) setContactOpen('desktop', false);
     else setContactOpen('mobile', false);
   });
 
-  // Shared Enhanced desktop terminal cursor for the complete primary rail,
-  // including the nested Portfolio button used as the current-page control.
+  // Shared Enhanced desktop terminal cursor for the five primary link labels.
   const primaryNavRail = document.querySelector('.nav-primary-rail');
   if (primaryNavRail && primaryNavRail.dataset.characterCursorReady !== 'true') {
     primaryNavRail.dataset.characterCursorReady = 'true';
-    primaryNavRail.querySelectorAll('.nav-portfolio-menu .nav-character-cursor').forEach(cursor => cursor.remove());
-    primaryNavRail.querySelectorAll('.nav-portfolio-menu .nav-label-visual').forEach(label => {
-      label.replaceWith(document.createTextNode(label.textContent));
-    });
-    primaryNavRail.querySelectorAll('.nav-portfolio-menu .nav-label-char').forEach(character => {
-      character.replaceWith(document.createTextNode(character.textContent));
-    });
     const desktopPrimaryNav = window.matchMedia('(min-width: 901px)');
-    const controls = Array.from(primaryNavRail.querySelectorAll(':scope > a, :scope > .nav-portfolio > .nav-portfolio-trigger'));
+    const controls = Array.from(primaryNavRail.querySelectorAll(':scope > a, :scope > .nav-about > .nav-about-link'));
     const records = [];
     let measureFrame = 0;
     let pointerFrame = 0;

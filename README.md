@@ -52,6 +52,12 @@ git diff --check
 
 For manual checks, open the relevant HTML file directly in a browser or serve the repo root with a generic static server.
 
+## Analytics
+
+Cloudflare Web Analytics is loaded by `analytics.js` on the canonical portfolio pages and the standalone Bashseekers pages. The loader accepts only `lawrencedinh.com`, `www.lawrencedinh.com`, and `lawrencedinh.github.io`, so localhost, IP-based previews, file URLs, and other development hosts do not send analytics traffic. The Cloudflare site token is intentionally public client-side configuration.
+
+After deployment, verify the integration on the live site with browser developer tools: confirm `beacon.min.js` loads once, a Cloudflare analytics request is sent without console errors, and the visit later appears in the Cloudflare Web Analytics dashboard. Compatibility redirects under `/web/` are intentionally not instrumented to avoid counting both the redirect and its canonical destination.
+
 ## Deployment summary
 
 Deployment is inferred to be direct static publishing through GitHub Pages:

@@ -1361,7 +1361,7 @@
 
   // Keep same-page navigation semantically synchronized with the section in view.
   // The visual treatment is scoped to Enhanced mode in CSS; this state remains useful to assistive technology in either mode.
-  const navigationSectionIds = ['about', 'projects', 'experience', 'skills'];
+  const navigationSectionIds = ['about', 'experience', 'skills'];
   const sectionNavLinks = navigationSectionIds
     .map(sectionId => {
       const link = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
@@ -1369,13 +1369,22 @@
       return link && target ? { sectionId, link, target } : null;
     })
     .filter(Boolean);
+  const featuredSection = document.getElementById('projects');
+  const aboutNavLink = document.querySelector('.nav-about-link[href="#about"]');
+
+  function setAboutChildCurrent(destination) {
+    document.querySelectorAll('.nav-about-menu [data-about-destination]').forEach(function(link) {
+      if (link.dataset.aboutDestination === destination) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
 
   // Enhanced desktop primary navigation: a measured terminal cursor follows
-  // individual label glyphs without changing the accessible navigation names.
+  // the five direct link labels without changing their accessible names.
   const primaryNavRail = document.querySelector('.nav-primary-rail');
   if (primaryNavRail && primaryNavRail.dataset.characterCursorReady !== 'true') {
     const primaryNavMedia = window.matchMedia('(min-width: 901px)');
-    const primaryNavControls = Array.from(primaryNavRail.querySelectorAll(':scope > a, :scope > .nav-portfolio > .nav-portfolio-trigger'));
+    const primaryNavControls = Array.from(primaryNavRail.querySelectorAll(':scope > a, :scope > .nav-about > .nav-about-link'));
     let primaryNavMeasureFrame = 0;
     let primaryNavPointerFrame = 0;
     let pendingPrimaryNavPointer = null;
@@ -1606,6 +1615,7 @@
     });
 
     const href = link.getAttribute('href');
+    setAboutChildCurrent(href === '#about' ? 'overview' : '');
     document.querySelectorAll(`.drawer a[href="${href}"]`).forEach(drawerLink => {
       drawerLink.setAttribute('aria-current', 'location');
     });
@@ -1623,6 +1633,14 @@
     if (!sectionNavLinks.length) return;
 
     const activationLine = 120;
+    if (featuredSection && aboutNavLink) {
+      const featuredRect = featuredSection.getBoundingClientRect();
+      if (featuredRect.top <= activationLine && featuredRect.bottom > activationLine) {
+        setCurrentSection(aboutNavLink);
+        setAboutChildCurrent('featured');
+        return;
+      }
+    }
     const measuredSections = sectionNavLinks.map(item => ({ ...item, rect: item.target.getBoundingClientRect() }));
     let current = measuredSections.find(item => item.rect.top <= activationLine && item.rect.bottom > activationLine);
 
@@ -1651,6 +1669,11 @@
     sectionNavLinks.forEach(({ link }) => link.addEventListener('click', () => setCurrentSection(link)));
     window.addEventListener('scroll', requestSectionSync, { passive: true });
     window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#projects' && aboutNavLink) {
+        setCurrentSection(aboutNavLink);
+        setAboutChildCurrent('featured');
+        return;
+      }
       const hashMatch = sectionNavLinks.find(({ link }) => link.getAttribute('href') === window.location.hash);
       if (hashMatch) {
         setCurrentSection(hashMatch.link);
@@ -1660,7 +1683,10 @@
     });
     window.addEventListener('resize', requestSectionSync);
     const initialHashMatch = sectionNavLinks.find(({ link }) => link.getAttribute('href') === window.location.hash);
-    if (initialHashMatch) {
+    if (window.location.hash === '#projects' && aboutNavLink) {
+      setCurrentSection(aboutNavLink);
+      setAboutChildCurrent('featured');
+    } else if (initialHashMatch) {
       setCurrentSection(initialHashMatch.link);
     } else {
       syncCurrentSection();
@@ -1675,6 +1701,8 @@
       if (window.innerWidth <= 900 && isDrawerOpen()) {
         setDrawerOpen(false);
       }
+      const overviewTab = document.querySelector('.career-tab[aria-controls="career-panel-overview"]');
+      if (overviewTab && overviewTab.getAttribute('aria-selected') !== 'true') overviewTab.click();
       scrollPageToTop();
     });
   }
@@ -1732,6 +1760,7 @@
   // --- Skills ---
   // Skills flip functionality - FIXED: proper event delegation
   const skillsGrid = document.querySelector('.skills-grid');
+  const legacySkillsEnabled = () => document.documentElement.getAttribute('data-portfolio-mode') !== 'enhanced';
   document.querySelectorAll('.skill-items > p').forEach(item => {
     const textNode = Array.from(item.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim());
     if (!textNode || !textNode.nodeValue.trimStart().startsWith('•')) return;
@@ -1755,24 +1784,29 @@
     skillsGrid.querySelectorAll('.skill').forEach(syncSkillFaces);
 
     skillsGrid.addEventListener('pointerdown', event => {
+      if (!legacySkillsEnabled()) return;
       const skill = event.target.closest('.skill');
       if (!skill) return;
       trackPanelPointerStart(skill, event);
     });
     skillsGrid.addEventListener('pointermove', event => {
+      if (!legacySkillsEnabled()) return;
       const skill = event.target.closest('.skill');
       if (skill) trackPanelPointerMove(skill, event);
     });
     skillsGrid.addEventListener('pointerup', event => {
+      if (!legacySkillsEnabled()) return;
       const skill = event.target.closest('.skill');
       if (!skill) return;
       recordPanelSelectionGesture(skill);
     });
     skillsGrid.addEventListener('pointercancel', event => {
+      if (!legacySkillsEnabled()) return;
       const skill = event.target.closest('.skill');
       if (skill) clearPanelPointer(skill);
     });
     skillsGrid.addEventListener('click', (e) => {
+      if (!legacySkillsEnabled()) return;
       const skill = e.target.closest('.skill');
       if (!skill) return;
       const target = e.target instanceof Element ? e.target : null;
@@ -1785,6 +1819,7 @@
     });
 
     skillsGrid.addEventListener('keydown', e => {
+      if (!legacySkillsEnabled()) return;
       if (e.key !== 'Enter' && e.key !== ' ') return;
       const skill = e.target.closest('.skill');
       if (!skill || e.target !== skill) return;
@@ -1794,33 +1829,113 @@
     });
   }
 
-  const capabilityButtons = Array.from(document.querySelectorAll('.capability-index [data-skill-target]'));
-  capabilityButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetId = button.dataset.skillTarget;
-      const targetRecord = targetId ? document.getElementById(targetId) : null;
-      if (!targetRecord) return;
-
-      capabilityButtons.forEach(item => {
-        const selected = item === button;
-        item.classList.toggle('is-selected', selected);
-        item.setAttribute('aria-pressed', String(selected));
-      });
-      skillsGrid.querySelectorAll('.skill').forEach(skill => {
-        skill.classList.toggle('is-capability-selected', skill === targetRecord);
-      });
-
-      const recordRect = targetRecord.getBoundingClientRect();
-      const visibleTop = 92;
-      const fullyVisible = recordRect.top >= visibleTop && recordRect.bottom <= window.innerHeight;
-      if (!fullyVisible) {
-        targetRecord.scrollIntoView({
-          behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
-          block: 'center'
-        });
+  const skillsCapabilityTabs = Array.from(document.querySelectorAll('.skills-capability-tab'));
+  const skillsCapabilityPanel = document.querySelector('.skills-capability-panel');
+  if (skillsCapabilityTabs.length && skillsCapabilityPanel) {
+    const initialCapabilityMarkup = skillsCapabilityPanel.innerHTML;
+    const skillCapabilities = {
+      'software-automation': {
+        index: '02',
+        title: 'Software & Automation',
+        summary: 'Builds software, workflow automation, and practical tooling that reduce repetitive work and connect operational systems.',
+        methods: [
+          ['01', 'Workflow automation', 'Repeatable operational and delivery workflows'],
+          ['02', 'Software development', 'JavaScript, C++, and Java implementation'],
+          ['03', 'Systems integration', 'API and ServiceNow integration'],
+          ['04', 'Development tooling', 'Version-controlled Linux workflows']
+        ],
+        tools: ['JavaScript', 'C++', 'Java', 'Git', 'Linux / Unix', 'Bash', 'ServiceNow'],
+        evidence: [
+          ['Tata Consultancy Services', 'ServiceNow customization · workflow automation', '#experience', 'View experience'],
+          ['Local Driving Intelligence Platform', 'API integration · application tooling', 'projects.html#local-driving-intelligence', 'View project']
+        ]
+      },
+      'data-analytics': {
+        index: '03',
+        title: 'Data & Analytics',
+        summary: 'Turns telemetry, time-series, and geospatial data into reviewable metrics, visualizations, and operational context.',
+        methods: [
+          ['01', 'Telemetry analysis', 'System, GPS, and IMU behavior review'],
+          ['02', 'Metrics development', 'Structured comparisons and reporting'],
+          ['03', 'Geospatial analysis', 'Regional data and map-based context'],
+          ['04', 'Data preparation', 'Statistical analysis and log parsing']
+        ],
+        tools: ['Python', 'pandas', 'NumPy', 'R', 'Excel', 'ArcGIS'],
+        evidence: [
+          ['Local Driving Intelligence Platform', 'Regional data · maps · visualization', 'projects.html#local-driving-intelligence', 'View project'],
+          ['Performance Driving & Validation', 'Telemetry · metrics · vehicle behavior', '#projects', 'View projects']
+        ]
+      },
+      'interfaces-systems': {
+        index: '04',
+        title: 'Interfaces & Systems',
+        summary: 'Organizes technical information into responsive interfaces and workflows that support review, coordination, and operational decisions.',
+        methods: [
+          ['01', 'Interface design', 'Clear interaction and information hierarchy'],
+          ['02', 'Dashboard systems', 'Focused views for data-dense workflows'],
+          ['03', 'Usability evaluation', 'Navigation and cross-device review'],
+          ['04', 'Operational support', 'Documentation and cross-team communication']
+        ],
+        tools: ['React', 'JavaScript', 'Node.js', 'ServiceNow', 'Git'],
+        evidence: [
+          ['Local Driving Intelligence Platform', 'Dashboard design · operational workflows', 'projects.html#local-driving-intelligence', 'View project'],
+          ['Shapescape', 'Interactive systems · UX review', '#experience', 'View experience'],
+          ['Tata Consultancy Services', 'Enterprise workflows · delivery support', '#experience', 'View experience']
+        ]
       }
+    };
+    let skillsPanelAnimation = null;
+
+    const renderSkillsCapability = capability => {
+      if (capability === 'test-validation') {
+        skillsCapabilityPanel.innerHTML = initialCapabilityMarkup;
+        return;
+      }
+      const record = skillCapabilities[capability];
+      if (!record) return;
+      const methodItems = record.methods.map(method => `<li><span>${method[0]}</span><div><strong>${method[1]}</strong><small>${method[2]}</small></div></li>`).join('');
+      const toolItems = record.tools.map(tool => `<li>${tool}</li>`).join('');
+      const evidenceItems = record.evidence.map(item => `<a href="${item[2]}"><strong>${item[0]}</strong><span>${item[1]}</span><small>${item[3]} →</small></a>`).join('');
+      skillsCapabilityPanel.innerHTML = `<header class="skills-capability-panel__header"><span>${record.index} / Selected Capability</span><h3>${record.title}</h3><p class="skills-capability-panel__summary">${record.summary}</p></header><div class="skills-capability-panel__columns"><section class="skills-capability-methods" aria-labelledby="skills-methods-heading"><h4 id="skills-methods-heading">Methods</h4><ol>${methodItems}</ol></section><section class="skills-capability-tools" aria-labelledby="skills-tools-heading"><h4 id="skills-tools-heading">Toolchain</h4><ul>${toolItems}</ul></section><section class="skills-capability-evidence" aria-labelledby="skills-evidence-heading"><h4 id="skills-evidence-heading">Applied Evidence</h4><div>${evidenceItems}</div></section></div>`;
+    };
+
+    const selectSkillsCapability = (tab, animate) => {
+      if (!tab) return;
+      skillsCapabilityTabs.forEach(item => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+      skillsCapabilityPanel.setAttribute('aria-labelledby', tab.id);
+      renderSkillsCapability(tab.dataset.skillCapability);
+      if (skillsPanelAnimation) skillsPanelAnimation.cancel();
+      skillsPanelAnimation = null;
+      if (animate && !reduceMotionQuery.matches && typeof skillsCapabilityPanel.animate === 'function') {
+        skillsPanelAnimation = skillsCapabilityPanel.animate([
+          { opacity: .7, transform: 'translate3d(0, 4px, 0)' },
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' }
+        ], { duration: 160, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+        skillsPanelAnimation.addEventListener('finish', () => { skillsPanelAnimation = null; }, { once: true });
+      }
+    };
+
+    skillsCapabilityTabs.forEach(tab => tab.addEventListener('click', () => selectSkillsCapability(tab, true)));
+    const skillsTablist = skillsCapabilityTabs[0].closest('[role="tablist"]');
+    skillsTablist.addEventListener('keydown', event => {
+      const currentIndex = skillsCapabilityTabs.indexOf(document.activeElement);
+      if (currentIndex < 0) return;
+      let nextIndex = null;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % skillsCapabilityTabs.length;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + skillsCapabilityTabs.length) % skillsCapabilityTabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = skillsCapabilityTabs.length - 1;
+      if (nextIndex === null) return;
+      event.preventDefault();
+      const nextTab = skillsCapabilityTabs[nextIndex];
+      selectSkillsCapability(nextTab, true);
+      nextTab.focus();
     });
-  });
+  }
 
   // --- Experience ---
   // Job experience expand functionality
@@ -1834,8 +1949,14 @@
       closeControl.setAttribute('aria-label', `Collapse ${roleTitle ? roleTitle.textContent.trim() : 'experience'}`);
     }
     const setJobExpanded = expanded => {
+      const preserveDesktopPosition = document.documentElement.dataset.portfolioMode === 'enhanced'
+        && window.matchMedia('(min-width: 901px)').matches;
+      const scrollTop = preserveDesktopPosition ? window.scrollY : 0;
       job.classList.toggle('expanded', expanded);
       job.setAttribute('aria-expanded', String(expanded));
+      if (preserveDesktopPosition) {
+        window.requestAnimationFrame(() => window.scrollTo({ top: scrollTop, left: window.scrollX, behavior: 'auto' }));
+      }
     };
     job.addEventListener('click', (e) => {
       if (e.target.closest('.job-close')) {
@@ -1951,6 +2072,12 @@
     contactDrawerClose.addEventListener('click', () => setContactDrawerOpen(false));
   }
 
+  document.addEventListener('click', event => {
+    if (!isContactDrawerOpen() || contactPanel.contains(event.target)) return;
+    if (navContactButton?.contains(event.target) || drawerContactButton?.contains(event.target)) return;
+    setContactDrawerOpen(false);
+  });
+
   document.addEventListener('keydown', event => {
     if (!isContactDrawerOpen()) return;
     if (event.key === 'Escape') {
@@ -2038,21 +2165,24 @@
     if (!skillsGrid || !skillsSeeMore) return;
 
     const skillCards = Array.from(skillsGrid.querySelectorAll('.skill'));
-    const columnCount = getRenderedSkillColumnCount(skillsGrid);
     const enhancedMode = document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced';
+    if (enhancedMode) {
+      skillCards.forEach(skill => skill.classList.remove('skill-collapsed-hidden', 'skill-revealed'));
+      skillsSeeMore.hidden = true;
+      return;
+    }
+    const columnCount = getRenderedSkillColumnCount(skillsGrid);
     const expanded = skillsSeeMore.getAttribute('aria-expanded') === 'true';
+    const collapsedCount = Math.min(skillCards.length, getCollapsedSkillCount(columnCount));
 
     skillCards.forEach((skill, index) => {
-      const collapsedCount = Math.min(skillCards.length, getCollapsedSkillCount(columnCount));
-      const hiddenRecord = !enhancedMode && !expanded && index >= collapsedCount;
+      const hiddenRecord = !expanded && index >= collapsedCount;
       skill.classList.toggle('skill-collapsed-hidden', hiddenRecord);
-      skill.classList.toggle('skill-revealed', !enhancedMode && expanded && index >= collapsedCount);
+      skill.classList.toggle('skill-revealed', expanded && index >= collapsedCount);
     });
 
     skillsGrid.dataset.renderedColumns = String(columnCount);
-    skillsSeeMore.hidden = enhancedMode
-      ? !skillsGrid.querySelector('.skill-item-hidden')
-      : skillCards.length <= getCollapsedSkillCount(columnCount);
+    skillsSeeMore.hidden = skillCards.length <= collapsedCount;
   }
   
   if (skillsSeeMore && skillsGrid) {
@@ -2082,7 +2212,7 @@
       
       if (isExpanded) {
         // Collapsing - different behavior for mobile vs desktop
-        const isMobile = window.innerWidth <= 600;
+        const isMobile = window.innerWidth <= 760;
         
         if (isMobile) {
           // Mobile: lock current scroll position, then adjust after collapse
@@ -2519,6 +2649,15 @@
       }
 
       if (shouldFocus) tab.focus({ preventScroll: true });
+      if (window.matchMedia('(max-width: 760px)').matches) {
+        window.requestAnimationFrame(function() {
+          tab.scrollIntoView({
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
+            block: 'nearest',
+            inline: 'center'
+          });
+        });
+      }
       return targetId;
     };
 
@@ -2539,6 +2678,35 @@
         }
       });
     });
+
+    const overviewTab = document.getElementById('career-tab-overview');
+    document.querySelectorAll('a[href="#about"]').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (overviewTab) activateCareerTab(overviewTab, false);
+      }, { capture: true });
+    });
+
+    const restoreOverviewDestination = function(options) {
+      const settings = options || {};
+      const hash = window.location.hash;
+      if (hash !== '#about' && hash !== '#career-snapshot') return;
+
+      if (overviewTab) activateCareerTab(overviewTab, false);
+      if (hash === '#career-snapshot') {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search + '#about');
+      }
+      if (settings.scroll !== false) {
+        window.requestAnimationFrame(function() {
+          document.getElementById('about')?.scrollIntoView({
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
+            block: 'start'
+          });
+        });
+      }
+    };
+
+    restoreOverviewDestination();
+    window.addEventListener('hashchange', restoreOverviewDestination);
 
     document.querySelectorAll('.career-overview-group__action[data-career-tab-target]').forEach(function(action) {
       action.addEventListener('click', function() {
@@ -2586,7 +2754,7 @@
   const osintSlideshow = document.querySelector('[data-osint-slideshow]');
   if (osintSlideshow) {
     const osintSlides = Array.from(osintSlideshow.querySelectorAll('[data-osint-slide]'));
-    const osintDots = Array.from(osintSlideshow.querySelectorAll('[data-osint-dot]'));
+    const osintDotButtons = Array.from(osintSlideshow.querySelectorAll('[data-osint-dot]'));
     const osintPrevious = osintSlideshow.querySelector('[data-osint-previous]');
     const osintNext = osintSlideshow.querySelector('[data-osint-next]');
     const osintStatus = osintSlideshow.querySelector('[data-osint-status]');
@@ -2602,6 +2770,104 @@
     let osintInteraction = null;
     let osintRenderGeneration = 0;
     let osintTrackReady = false;
+    const osintControls = osintSlideshow.querySelector('.osint-slideshow__controls');
+    const osintDots = osintSlideshow.querySelector('[data-osint-dot]')?.parentElement;
+    const osintDotsAnchor = osintDots ? document.createComment('osint-dots-anchor') : null;
+    const mobileSlideshowQuery = window.matchMedia('(max-width: 760px)');
+    const osintOriginalDotState = osintDots ? Array.from(osintDots.querySelectorAll('[data-osint-dot]')).map(function(dot) {
+      return { dot: dot, tabindex: dot.getAttribute('tabindex') };
+    }) : [];
+    let osintMobileEllipses = [];
+    if (osintDots && osintDotsAnchor) osintDots.parentNode.insertBefore(osintDotsAnchor, osintDots);
+
+    const clearOsintMobileDots = function() {
+      osintMobileEllipses.forEach(function(ellipsis) { ellipsis.remove(); });
+      osintMobileEllipses = [];
+      if (osintDots) Array.from(osintDots.querySelectorAll('.osint-slideshow__ellipsis')).forEach(function(ellipsis) { ellipsis.remove(); });
+      osintOriginalDotState.forEach(function(state) {
+        state.dot.hidden = false;
+        state.dot.style.display = '';
+        state.dot.style.order = '';
+        if (state.tabindex === null) state.dot.removeAttribute('tabindex');
+        else state.dot.setAttribute('tabindex', state.tabindex);
+        state.dot.removeAttribute('aria-hidden');
+      });
+      if (osintDots) {
+        osintDots.style.order = '';
+        osintDots.style.display = '';
+      }
+    };
+
+    const syncOsintMobileDots = function() {
+      if (!osintDots || !osintControls || !mobileSlideshowQuery.matches) {
+        if (!mobileSlideshowQuery.matches) restoreOsintDotsForDesktop();
+        return;
+      }
+      if (osintDotsAnchor && osintDotsAnchor.parentNode) osintControls.insertBefore(osintDots, osintNext);
+      if (typeof window.syncCompactCarouselDots === 'function') {
+        window.syncCompactCarouselDots({
+          container: osintDots,
+          dots: osintOriginalDotState.map(function(state) { return state.dot; }),
+          activeIndex: osintSlideIndex,
+          enabled: true,
+          unit: 10,
+          minCapacity: 5,
+          maxCapacity: 10,
+          preserveEnds: true,
+          ellipsisClass: 'osint-slideshow__ellipsis'
+        });
+        return;
+      }
+      clearOsintMobileDots();
+      const dots = osintOriginalDotState.map(function(state) { return state.dot; });
+      const count = dots.length;
+      if (!count) return;
+      const railWidth = Math.max(0, osintDots.getBoundingClientRect().width || osintControls.getBoundingClientRect().width * .42);
+      const capacity = Math.max(5, Math.min(10, Math.floor((railWidth - 4) / 10)));
+      let visible = [];
+      if (count <= capacity) {
+        visible = dots.map(function(_, index) { return index; });
+      } else {
+        const middle = Math.max(1, capacity - 2);
+        const start = Math.max(1, Math.min(osintSlideIndex - Math.floor(middle / 2), count - 1 - middle));
+        visible = [0];
+        for (let index = start; index < start + middle; index += 1) visible.push(index);
+        visible.push(count - 1);
+      }
+      const visibleSet = new Set(visible);
+      dots.forEach(function(dot, index) {
+        dot.style.order = String(index * 2 + 1);
+        if (!visibleSet.has(index)) {
+          dot.style.display = 'none';
+          dot.setAttribute('aria-hidden', 'true');
+          dot.setAttribute('tabindex', '-1');
+        }
+      });
+      if (visible.length > 1 && visible[1] > 1) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'osint-slideshow__ellipsis';
+        ellipsis.setAttribute('aria-hidden', 'true');
+        ellipsis.textContent = '…';
+        ellipsis.style.order = String((visible[1] * 2) - 1);
+        osintDots.appendChild(ellipsis);
+        osintMobileEllipses.push(ellipsis);
+      }
+      if (visible.length > 1 && visible[visible.length - 2] < count - 2) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'osint-slideshow__ellipsis';
+        ellipsis.setAttribute('aria-hidden', 'true');
+        ellipsis.textContent = '…';
+        ellipsis.style.order = String((visible[visible.length - 1] * 2) + 2);
+        osintDots.appendChild(ellipsis);
+        osintMobileEllipses.push(ellipsis);
+      }
+    };
+
+    const restoreOsintDotsForDesktop = function() {
+      if (!osintDots || !osintDotsAnchor || !osintDotsAnchor.parentNode) return;
+      clearOsintMobileDots();
+      osintDotsAnchor.parentNode.insertBefore(osintDots, osintDotsAnchor.nextSibling);
+    };
 
     osintViewport.replaceChildren(osintTrack);
 
@@ -2643,12 +2909,13 @@
         slide.setAttribute('aria-hidden', String(!active));
       });
 
-      osintDots.forEach(function(dot, dotIndex) {
+      osintDotButtons.forEach(function(dot, dotIndex) {
         const active = dotIndex === osintSlideIndex;
         dot.classList.toggle('is-active', active);
         if (active) dot.setAttribute('aria-current', 'true');
         else dot.removeAttribute('aria-current');
       });
+      syncOsintMobileDots();
 
       if (osintStatus) {
         osintStatus.setAttribute('aria-live', source && source !== 'autoplay' ? 'polite' : 'off');
@@ -2689,7 +2956,7 @@
     if (osintNext) osintNext.addEventListener('click', function() {
       if (osintInteraction) osintInteraction.goTo(osintSlideIndex + 1, 'next', 'next');
     });
-    osintDots.forEach(function(dot) {
+    osintDotButtons.forEach(function(dot) {
       dot.addEventListener('click', function() {
         if (osintInteraction) osintInteraction.goTo(Number(dot.dataset.osintDot), 'dot');
       });
@@ -2718,12 +2985,44 @@
       });
     }
 
+    if (window.ProjectImageViewer) {
+      window.ProjectImageViewer.register({
+        trigger: osintViewport,
+        mode: 'current-image',
+        item: function() {
+          const slide = osintSlides[osintSlideIndex];
+          const figureCaption = slide?.querySelector('figcaption');
+          return {
+            image: slide?.querySelector('img'),
+            title: figureCaption?.querySelector('strong')?.textContent || '',
+            description: figureCaption?.querySelector('small')?.textContent || ''
+          };
+        },
+        pause: function() { if (osintInteraction) osintInteraction.pauseAutoplay('viewer'); },
+        resume: function() { if (osintInteraction) osintInteraction.startAutoplay(); }
+      });
+    }
+
+    const syncOsintDotPlacement = function() {
+      if (mobileSlideshowQuery.matches) syncOsintMobileDots();
+      else restoreOsintDotsForDesktop();
+    };
+    mobileSlideshowQuery.addEventListener('change', function() {
+      syncOsintDotPlacement();
+    });
+    if (typeof ResizeObserver === 'function' && osintControls) {
+      new ResizeObserver(function() {
+        if (mobileSlideshowQuery.matches) syncOsintMobileDots();
+      }).observe(osintControls);
+    }
+
     const osintModeObserver = new MutationObserver(function() {
       if (osintInteraction) osintInteraction.refresh();
     });
     osintModeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-portfolio-mode'] });
     commitOsintSlide(0, 'initial');
     prepareOsintTrack(0);
+    syncOsintDotPlacement();
   }
 
   // Open matching full project records from the dedicated project cards.

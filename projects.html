@@ -38,8 +38,8 @@
   }
   </script>
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
-  <link rel="stylesheet" href="style.css?v=20260719-12" />
-  <link rel="stylesheet" href="projects.css?v=20260719-9" />
+  <link rel="stylesheet" href="style.css?v=20260720-21" />
+  <link rel="stylesheet" href="projects.css?v=20260720-11" />
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body class="projects-page">
@@ -54,19 +54,15 @@
       <div class="enhanced-header-content">
         <nav class="nav-links" aria-label="Primary">
           <div class="nav-primary-rail">
-            <a href="index.html#about">About</a>
-            <a href="index.html#projects">Featured</a>
+            <div class="nav-about" data-about-menu>
+              <a class="nav-about-link" href="index.html#about">About</a>
+              <button class="nav-about-toggle" type="button" aria-label="Open About destinations" aria-expanded="false" aria-controls="aboutMenuDesktop"><span aria-hidden="true">&#9662;</span></button>
+              <div class="nav-about-menu" id="aboutMenuDesktop" hidden><a href="index.html#about">Overview</a><a href="index.html#projects">Featured</a></div>
+            </div>
             <a href="index.html#experience">Experience</a>
             <a href="index.html#skills">Skills</a>
-            <div class="nav-portfolio" data-portfolio-menu="desktop">
-              <button class="nav-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuDesktop" aria-current="page">
-                Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span>
-              </button>
-              <div class="nav-portfolio-menu" id="portfolioMenuDesktop" data-portfolio-panel hidden>
-                <a href="projects.html" aria-current="page">Projects</a>
-                <a href="writing.html">Writing</a>
-              </div>
-            </div>
+            <a class="nav-primary-destination nav-primary-destination--first" href="projects.html" aria-current="page">Projects</a>
+            <a class="nav-primary-destination" href="writing.html">Writing</a>
           </div>
           <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight" aria-label="Resume (opens in new tab)">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>
@@ -87,28 +83,22 @@
         <span class="hamburger" id="hamburgerIcon"><span></span><span></span><span></span></span>
       </button>
     </div>
-    <div id="drawer" class="drawer" role="menu" aria-hidden="true">
+    <nav id="drawer" class="drawer" aria-label="Mobile navigation" aria-hidden="true">
       <div class="display-mode-toggle display-mode-toggle--drawer" data-presentation-mode-toggle role="group" aria-label="Portfolio presentation style">
         <button class="display-mode-option" type="button" data-portfolio-mode-value="simple" aria-pressed="false">SIMPLE</button><span class="display-mode-divider" aria-hidden="true">|</span><button class="display-mode-option" type="button" data-portfolio-mode-value="enhanced" aria-pressed="false">ENHANCED</button>
       </div>
-      <a href="index.html#about">About</a>
-      <a href="index.html#projects">Featured</a>
+      <div class="drawer-about"><a href="index.html#about">About</a><div class="drawer-about-submenu"><a href="index.html#about">Overview</a><a href="index.html#projects">Featured</a></div></div>
       <a href="index.html#experience">Experience</a>
       <a href="index.html#skills">Skills</a>
-      <div class="drawer-portfolio" data-portfolio-menu="mobile">
-        <button class="drawer-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuMobile" aria-current="page">Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span></button>
-        <div class="drawer-portfolio-submenu" id="portfolioMenuMobile" data-portfolio-panel hidden>
-          <a href="projects.html" aria-current="page">Projects</a>
-          <a href="writing.html">Writing</a>
-        </div>
-      </div>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="writing.html">Writing</a>
       <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>Resume
       </a>
       <a href="index.html#contact" class="drawer-contact">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/><path d="M3 5.5l5 3 5-3"/></svg>Contact
       </a>
-    </div>
+    </nav>
   </header>
 
   <main id="projects-content" class="projects-shell">
@@ -142,48 +132,48 @@
           <div class="projects-application-capture__viewport">
             <img src="imgsrc/projects/osint/optimized/weather-overview-960.webp" srcset="imgsrc/projects/osint/optimized/weather-overview-960.webp 960w, imgsrc/projects/osint/optimized/weather-overview-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 68vw" width="1600" height="1197" decoding="async" alt="Local Portal dashboard showing regional weather locations and detailed San Jose conditions" />
           </div>
-          <figcaption><strong>Regional Operations Overview</strong><span>One interface coordinates weather, traffic cameras, police intelligence, events, and preparation workflows.</span></figcaption>
+          <figcaption><strong>Regional Driving Overview</strong><span>Weather, route activity, traffic cameras, events, and preparation workflows in one regional interface.</span></figcaption>
         </figure>
         <div class="projects-case-study__summary">
           <p class="projects-section-label">Featured Case Study</p>
-          <h2 id="local-driving-title">Local Driving Intelligence Platform</h2>
-          <p class="projects-case-study__purpose">A self-updating geospatial intelligence platform that collects, normalizes, caches, and visualizes traffic, weather, roadway-camera, incident, environmental, event, and weather-imagery data for regional decision support.</p>
+          <h2 id="local-driving-title">Local Driving Intelligence</h2>
+          <p class="projects-case-study__purpose">A regional data platform built for Bay Area and Northern California drivers. It combines weather, route cameras, traffic activity, events, and preparation workflows while keeping the underlying public feeds inspectable.</p>
           <dl class="projects-facts">
             <div><dt>Stack</dt><dd>React &middot; Node.js &middot; Express &middot; SQLite</dd></div>
-            <div><dt>Focus</dt><dd>Data engineering &middot; Geospatial systems &middot; API integration</dd></div>
-            <div><dt>State</dt><dd>Reliability, imagery, playback, caching, and data-quality refinement in progress</dd></div>
+            <div><dt>Focus</dt><dd>Regional data integration &middot; Route-aware interfaces &middot; Reliability</dd></div>
+            <div><dt>Current Work</dt><dd>Imagery playback &middot; Provider reliability &middot; Cache behavior &middot; Regional coverage</dd></div>
           </dl>
         </div>
       </div>
 
       <div class="projects-case-study__detail">
         <section>
-          <span>01 / Problem</span>
-          <h3>Fragmented regional information</h3>
-          <p>Driving information is distributed across separate public feeds, traffic-camera systems, forecasts, incident sources, and route-planning tools. The project brings those sources into one operational view.</p>
+          <span>01 / Purpose</span>
+          <h3>Before the drive</h3>
+          <p>See weather, route activity, cameras, and event details before leaving.</p>
         </section>
         <section>
-          <span>02 / Architecture</span>
-          <h3>Provider-to-interface pipeline</h3>
-          <p>Provider-specific ingestion and normalization feed consistent internal records into SQLite persistence and bounded caches before the React interface presents route, corridor, and location context.</p>
+          <span>02 / Build</span>
+          <h3>Full-stack system</h3>
+          <p>I built the React interface, Express API, and SQLite data layer.</p>
         </section>
         <section>
-          <span>03 / Resilience</span>
-          <h3>Useful data under imperfect conditions</h3>
-          <p>Deduplication, stale-data handling, provider fallbacks, and persistent caching support continued access while external sources vary in format and availability.</p>
+          <span>03 / Reliability</span>
+          <h3>Recent data stays available</h3>
+          <p>Cached results keep the dashboard useful when a public feed fails.</p>
         </section>
         <section>
           <span>04 / Current Work</span>
-          <h3>Active integration and refinement</h3>
-          <p>Multiple regional providers are integrated. Current development focuses on reliability, historical imagery, playback, caching behavior, and data quality.</p>
+          <h3>More routes and history</h3>
+          <p>Current work adds weather playback and broader Northern California coverage.</p>
         </section>
       </div>
 
       <section class="projects-osint-evidence" aria-labelledby="osint-evidence-heading">
         <header>
           <p class="projects-section-label">Interface Evidence</p>
-          <h3 id="osint-evidence-heading">Operational features in context</h3>
-          <p>Each module turns a separate public source or planning task into a focused, reviewable workflow.</p>
+          <h3 id="osint-evidence-heading">Regional features in context</h3>
+          <p>Each view connects a public data source or preparation task to the route, location, or event being planned.</p>
         </header>
 
         <div class="projects-feature-explorer" data-project-feature-explorer>
@@ -205,7 +195,7 @@
               <button type="button" data-project-feature-previous>← Previous</button>
               <div class="projects-feature-explorer__navigation-center">
                 <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Feature position"></div>
-                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><span aria-hidden="true">II</span></button>
+                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
               </div>
               <button type="button" data-project-feature-next>Next →</button>
               <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
@@ -220,10 +210,10 @@
           <h3 id="architecture-heading">Architecture summary</h3>
         </div>
         <ol>
-          <li><span>01</span><strong>Public data providers</strong><small>Traffic, weather, cameras, incidents, environmental data, events, and imagery</small></li>
-          <li><span>02</span><strong>Ingestion and normalization</strong><small>Provider-specific pipelines converted into consistent records</small></li>
-          <li><span>03</span><strong>Persistence and caching</strong><small>SQLite, bounded caches, deduplication, and stale-data handling</small></li>
-          <li><span>04</span><strong>Regional interface</strong><small>Routes, corridors, locations, maps, cameras, and operational context</small></li>
+          <li><span>01</span><strong>Public data providers</strong><small>Weather, cameras, incidents, closures, message signs, events, stations, and imagery</small></li>
+          <li><span>02</span><strong>Validation and normalization</strong><small>Provider-specific responses converted into consistent application records</small></li>
+          <li><span>03</span><strong>Persistence and refresh</strong><small>SQLite storage, bounded caches, deduplication, scheduled collection, and stale-data handling</small></li>
+          <li><span>04</span><strong>Regional interface</strong><small>Routes, corridors, locations, cameras, alerts, events, and weather shown in context</small></li>
         </ol>
       </section>
     </article>
@@ -294,8 +284,10 @@
       <a href="index.html">Return to main portfolio <span aria-hidden="true">&#8594;</span></a>
     </footer>
   </main>
-<script src="navigation.js?v=20260719-4"></script>
-  <script src="carousel-interaction.js?v=20260719-2"></script>
-  <script src="projects-explorer.js?v=20260719-3"></script>
+<script src="navigation.js?v=20260720-4"></script>
+<script src="carousel-interaction.js?v=20260720-4"></script>
+<script src="project-image-viewer.js?v=20260720-3"></script>
+<script src="projects-explorer.js?v=20260720-5"></script>
+<script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

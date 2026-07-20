@@ -84,7 +84,7 @@
   }
   </script>
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
-  <link rel="stylesheet" href="style.css?v=20260719-12">
+  <link rel="stylesheet" href="style.css?v=20260720-25">
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body>
@@ -99,19 +99,18 @@
 <div class="enhanced-header-content">
 <nav class="nav-links" role="navigation" aria-label="Primary">
   <div class="nav-primary-rail">
-  <a href="#about">About</a>
-  <a href="#projects">Featured</a>
-  <a href="#experience">Experience</a>
-  <a href="#skills">Skills</a>
-  <div class="nav-portfolio" data-portfolio-menu="desktop">
-    <button class="nav-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuDesktop">
-      Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span>
-    </button>
-    <div class="nav-portfolio-menu" id="portfolioMenuDesktop" data-portfolio-panel hidden>
-      <a href="projects.html">Projects</a>
-      <a href="writing.html">Writing</a>
+  <div class="nav-about" data-about-menu>
+    <a class="nav-about-link" href="#about">About</a>
+    <button class="nav-about-toggle" type="button" aria-label="Open About destinations" aria-expanded="false" aria-controls="aboutMenuDesktop"><span class="nav-about-chevron" aria-hidden="true"></span></button>
+    <div class="nav-about-menu" id="aboutMenuDesktop" hidden>
+      <a href="#about" data-about-destination="overview">Overview</a>
+      <a href="#projects" data-about-destination="featured">Featured</a>
     </div>
   </div>
+  <a href="#experience">Experience</a>
+  <a href="#skills">Skills</a>
+  <a class="nav-primary-destination nav-primary-destination--first" href="projects.html">Projects</a>
+  <a class="nav-primary-destination" href="writing.html">Writing</a>
   </div>
 <a href="Lawrence%20Dinh%20Resume%20Web.pdf"
    target="_blank"
@@ -147,25 +146,20 @@
       </button>
     </div>
 
-<div id="drawer" class="drawer" role="menu" aria-hidden="true">
+<nav id="drawer" class="drawer" aria-label="Mobile navigation" aria-hidden="true">
   <div class="display-mode-toggle display-mode-toggle--drawer" data-presentation-mode-toggle role="group" aria-label="Portfolio presentation style">
     <button class="display-mode-option" type="button" data-portfolio-mode-value="simple" aria-pressed="false">SIMPLE</button>
     <span class="display-mode-divider" aria-hidden="true">|</span>
     <button class="display-mode-option" type="button" data-portfolio-mode-value="enhanced" aria-pressed="false">ENHANCED</button>
   </div>
-  <a href="#about">About</a>
-  <a href="#projects">Featured</a>
+  <div class="drawer-about">
+    <a href="#about">About</a>
+    <div class="drawer-about-submenu"><a href="#about">Overview</a><a href="#projects">Featured</a></div>
+  </div>
   <a href="#experience">Experience</a>
   <a href="#skills">Skills</a>
-  <div class="drawer-portfolio" data-portfolio-menu="mobile">
-    <button class="drawer-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuMobile">
-      Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span>
-    </button>
-    <div class="drawer-portfolio-submenu" id="portfolioMenuMobile" data-portfolio-panel hidden>
-      <a href="projects.html">Projects</a>
-      <a href="writing.html">Writing</a>
-    </div>
-  </div>
+  <a href="projects.html">Projects</a>
+  <a href="writing.html">Writing</a>
   <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M8 2v10M4 8l4 4 4-4M2 14h12"/>
@@ -179,7 +173,7 @@
     </svg>
     Contact
   </a>
-</div>
+</nav>
   </header>
 
 <!-- Back to top button -->
@@ -287,7 +281,7 @@
           <div class="career-overview-projects career-project-registry" aria-label="Project summaries">
             <article class="career-project-registry__record career-project-registry__record--featured">
               <div class="career-project-registry__meta"><span class="career-project-index">01 / Data Platform</span><span class="career-project-meta">React · SQLite</span></div>
-              <div class="career-project-registry__content"><strong>Local Driving Intelligence Platform</strong><p>Combines live regional data into one dashboard to support route planning and travel decisions.</p></div>
+              <div class="career-project-registry__content"><strong>Local Driving Intelligence</strong><p>Combines regional weather, route cameras, traffic activity, and event planning for Bay Area and Northern California drives.</p></div>
               <span class="career-project-registry__action"><span class="career-project-registry__domain">Full-Stack Systems</span><span class="career-project-registry__standard-arrow" aria-hidden="true">→</span></span>
             </article>
             <article class="career-project-registry__record">
@@ -327,7 +321,7 @@
           <div class="career-detail-group__body">
         <div class="career-experience-stack" role="list" aria-label="Professional experience">
           <article class="career-experience-card career-experience-card--current" role="listitem">
-            <aside class="career-experience-card__identity"><div class="career-experience-card__identity-main"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/Nvidia_logo.png" alt="" decoding="async"></span><div><span>Autonomous Vehicle Test Expert</span><h3>NVIDIA</h3><h4>AVX</h4><time datetime="2025-05/2026-05">May 2025 – May 2026</time></div><b>AI Validation</b></div></aside>
+            <aside class="career-experience-card__identity"><div class="career-experience-card__identity-main"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/Nvidia_logo.png" alt="" decoding="async"></span><div><span>Autonomous Vehicle Test Expert <small class="career-role-badge">AVX</small></span><h3>NVIDIA</h3><time datetime="2025-05/2026-05">May 2025 – May 2026</time></div><b>AI Validation</b></div></aside>
               <div class="career-experience-card__body"><section class="career-experience-card__scope"><h4>Role Scope</h4><p>Alpamayo AI validation, robotic vehicle testing, automotive safety, and test operations.</p></section><section class="career-experience-card__work"><div><b>01 / Test Execution</b><p>Executed on-vehicle tests for autonomous and robotic systems.</p></div><div><b>02 / System Analysis</b><p>Reviewed telemetry and sensor behavior to document system anomalies.</p></div><div><b>03 / Safe Operations</b><p>Supported controlled testing under automotive and high-voltage safety procedures.</p></div></section><div class="career-experience-card__environment"><b>Environment</b><span>Alpamayo · Robotic vehicle systems · Telemetry · Automotive safety</span></div></div>
           </article>
           <article class="career-experience-card" role="listitem">
@@ -347,7 +341,7 @@
           <h3 class="career-overview-group__heading career-overview-group__heading--action"><button type="button" class="career-overview-group__action career-detail-return" data-career-tab-target="overview"><span>Project Casework</span><span class="career-overview-group__action-label career-detail-return__label"><span aria-hidden="true">←</span> Overview</span></button></h3>
           <div class="career-detail-group__body">
         <div class="career-projects-editorial" aria-label="Featured project portfolio">
-          <section class="career-project-column career-project-column--featured"><h3 class="career-project-column__heading">Featured Case Study</h3><article class="career-project-feature-card career-project-feature-card--dominant"><div class="career-project-feature-card__top"><span>Project 01</span><span>Data Platform · Full-Stack Systems</span></div><span class="career-project-feature-card__status">Active Development</span><h3>Local Driving Intelligence Platform</h3><p>Full-stack regional intelligence dashboard combining live weather, traffic cameras, incidents, routes, and environmental data for regional travel planning.</p><div class="career-project-feature-card__modules"><section><b>Problem</b><p>Regional driving information is fragmented across separate government feeds, traffic-camera systems, forecasts, incident sources, and route-planning tools.</p></section><section><b>Implementation</b><p>01 / Data ingestion<br>02 / SQLite persistence<br>03 / React interface</p></section><section><b>Architecture</b><p>Data providers → ingestion / normalization → SQLite → React interface</p></section><section><b>Current State</b><p>Active development with multiple regional providers integrated; reliability, imagery, playback, caching, and data-quality refinement in progress.</p></section></div><div class="career-project-feature-card__footer"><span><b>Stack</b> React · Node.js · Express · SQLite</span><span class="career-project-feature-card__action" role="button" tabindex="0" data-project-target="proj-local-driving-intelligence" data-project-url="projects.html#local-driving-intelligence">Open Project Detail <span aria-hidden="true">→</span></span></div></article></section>
+          <section class="career-project-column career-project-column--featured"><h3 class="career-project-column__heading">Featured Case Study</h3><article class="career-project-feature-card career-project-feature-card--dominant"><div class="career-project-feature-card__top"><span>Project 01</span><span>Regional Data Platform</span></div><span class="career-project-feature-card__status">Active Development</span><h3>Local Driving Intelligence</h3><p>Built for Bay Area and Northern California drives, combining weather, traffic cameras, route activity, events, and preparation tools in one system.</p><div class="career-project-feature-card__modules"><section><b>Problem</b><p>Regional driving information is split across separate weather, traffic, camera, incident, and event sources.</p></section><section><b>Implementation</b><p>React interface, Express API, SQLite persistence, provider integrations, and configured regional routes.</p></section><section><b>Architecture</b><p>Public feeds → validation and normalization → storage and caching → route-aware interface</p></section><section><b>Current Work</b><p>Provider reliability, weather-imagery playback, cache behavior, data quality, and additional regional coverage.</p></section></div><div class="career-project-feature-card__footer"><span><b>Stack</b> React · Node.js · Express · SQLite</span><span class="career-project-feature-card__action" role="button" tabindex="0" data-project-target="proj-local-driving-intelligence" data-project-url="projects.html#local-driving-intelligence">Open Project Detail <span aria-hidden="true">→</span></span></div></article></section>
           <section class="career-project-column career-project-column--supporting"><h3 class="career-project-column__heading">Supporting Projects</h3><div class="career-project-support-grid"><article class="career-project-support-card"><div class="career-project-support-card__top"><span>02 / Embedded IoT</span><b>Prototype</b></div><h3>Radar + LoRa Traffic Sensor</h3><p>ESP32 prototype that detects passing vehicles and transmits timestamped events over LoRa.</p><div><b>Stack</b> ESP32 · Radar · LoRa</div></article><article class="career-project-support-card"><div class="career-project-support-card__top"><span>03 / Robotics</span><b>Prototype</b></div><h3>Vehicle Proximity System</h3><p>UWB system for live vehicle-spacing measurement and controlled closed-course driver feedback.</p><div><b>Stack</b> ESP32 · UWB · Driver feedback</div></article><article class="career-project-support-card career-project-support-card--wide"><div class="career-project-support-card__top"><span>04 / Motorsports</span><b>Ongoing Practice</b></div><h3>Performance Driving &amp; Validation</h3><p>Closed-course KPI and telemetry validation focused on consistency, handling, and safety.</p><div><b>Focus</b> Telemetry · Vehicle dynamics · Validation</div></article></div></section>
         </div>
           </div>
@@ -407,22 +401,45 @@
   <div class="section-header">
     <div>
       <h2 id="skills-heading" class="section-heading"><span class="skills-heading-simple">Skills &amp; Tools</span><span class="skills-heading-enhanced">Skills</span></h2>
-      <p class="skills-section-description">Capabilities, tools, and applied domains</p>
+      <p class="skills-section-description">Technical capabilities applied across software, testing, data, and physical systems.</p>
     </div>
-    <span class="expand-hint">(Click cards to flip)</span>
+    <span class="expand-hint skills-legacy-only">(Click cards to flip)</span>
   </div>
-  <div class="capability-index" aria-labelledby="capability-index-heading">
-    <h3 id="capability-index-heading">Capability Index</h3>
-    <div class="capability-index__grid">
-      <button type="button" data-skill-target="skill-test-systems" aria-pressed="false"><strong>Test Systems</strong><span>Validation · QA · Integration</span></button>
-      <button type="button" data-skill-target="skill-data-analysis" aria-pressed="false"><strong>Data Analysis</strong><span>Python · Telemetry · Metrics</span></button>
-      <button type="button" data-skill-target="skill-automation-software" aria-pressed="false"><strong>Automation &amp; Software</strong><span>Workflow · Tooling · Scripting</span></button>
-      <button type="button" data-skill-target="skill-technical-operations" aria-pressed="false"><strong>Technical Operations</strong><span>Diagnostics · Execution · Support</span></button>
-      <button type="button" data-skill-target="skill-ui-ux-interfaces" aria-pressed="false"><strong>UI / UX &amp; Interfaces</strong><span>Interfaces · Interaction · Design</span></button>
-      <button type="button" data-skill-target="skill-automotive-systems" aria-pressed="false"><strong>Automotive Systems</strong><span>AV Testing · Vehicle Dynamics</span></button>
+  <div class="skills-enhanced">
+    <div class="skills-explorer">
+      <div class="skills-capability-tabs" role="tablist" aria-label="Core capabilities">
+        <button id="skills-tab-test-validation" class="skills-capability-tab" type="button" role="tab" aria-selected="true" aria-controls="skills-capability-panel" tabindex="0" data-skill-capability="test-validation"><span class="skills-capability-tab__index">01</span><span class="skills-capability-tab__copy"><strong>Test &amp; Validation</strong><small>Testing · Integration · Diagnostics</small></span></button>
+        <button id="skills-tab-software-automation" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="software-automation"><span class="skills-capability-tab__index">02</span><span class="skills-capability-tab__copy"><strong>Software &amp; Automation</strong><small>Development · Workflow · Tooling</small></span></button>
+        <button id="skills-tab-data-analytics" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="data-analytics"><span class="skills-capability-tab__index">03</span><span class="skills-capability-tab__copy"><strong>Data &amp; Analytics</strong><small>Python · Telemetry · Geospatial</small></span></button>
+        <button id="skills-tab-interfaces-systems" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="interfaces-systems"><span class="skills-capability-tab__index">04</span><span class="skills-capability-tab__copy"><strong>Interfaces &amp; Systems</strong><small>Dashboards · UX · Operations</small></span></button>
+      </div>
+
+      <section id="skills-capability-panel" class="skills-capability-panel" role="tabpanel" aria-labelledby="skills-tab-test-validation">
+        <header class="skills-capability-panel__header">
+          <span>01 / Selected Capability</span>
+          <h3>Test &amp; Validation</h3>
+          <p class="skills-capability-panel__summary">Executes structured validation, analyzes system behavior, and produces reviewable technical evidence across software and physical systems.</p>
+        </header>
+        <div class="skills-capability-panel__columns">
+          <section class="skills-capability-methods" aria-labelledby="skills-methods-heading"><h4 id="skills-methods-heading">Methods</h4><ol><li><span>01</span><div><strong>Test execution</strong><small>Structured scenario and test-plan execution</small></div></li><li><span>02</span><div><strong>System analysis</strong><small>Telemetry and observed-behavior review</small></div></li><li><span>03</span><div><strong>Integration testing</strong><small>System and sensor validation</small></div></li><li><span>04</span><div><strong>Issue documentation</strong><small>Reproducible technical findings</small></div></li></ol></section>
+          <section class="skills-capability-tools" aria-labelledby="skills-tools-heading"><h4 id="skills-tools-heading">Toolchain</h4><ul><li>Python</li><li>Linux</li><li>Telemetry tools</li><li>Jira</li><li>Git</li></ul></section>
+          <section class="skills-capability-evidence" aria-labelledby="skills-evidence-heading"><h4 id="skills-evidence-heading">Applied Evidence</h4><div><a href="#experience"><strong>NVIDIA</strong><span>Autonomous-vehicle testing · telemetry review</span><small>View experience →</small></a><a href="#projects"><strong>Performance Driving &amp; Validation</strong><span>Telemetry-based review · controlled testing</span><small>View projects →</small></a></div></section>
+        </div>
+      </section>
     </div>
+
+    <section class="skills-domain-registry" aria-labelledby="skills-domains-heading">
+      <h3 id="skills-domains-heading">Applied Domains</h3>
+      <div><article class="skills-domain-record"><span>01</span><strong>Automotive &amp; AV</strong><small>Autonomous systems · Vehicle validation · Safety</small></article><article class="skills-domain-record"><span>02</span><strong>Robotics &amp; Sensing</strong><small>Sensors · UWB · Embedded prototypes</small></article><article class="skills-domain-record"><span>03</span><strong>Geospatial Systems</strong><small>Regional data · Maps · Public-data integration</small></article><article class="skills-domain-record"><span>04</span><strong>Enterprise Operations</strong><small>ServiceNow · Workflow systems · Delivery support</small></article></div>
+    </section>
+
+    <section class="skills-toolchain" aria-labelledby="skills-technology-heading">
+      <h3 id="skills-technology-heading">Technology Index</h3>
+      <div><article><strong>Development</strong><p>Python · JavaScript · Java · C++</p></article><article><strong>Platforms</strong><p>Linux · Git · Docker · ServiceNow</p></article><article><strong>Data</strong><p>pandas · NumPy · R · SQLite · Excel · ArcGIS</p></article><article><strong>Systems</strong><p>React · Node.js · ESP32 · ROS · Sensor tooling</p></article></div>
+    </section>
   </div>
-  <h3 class="skills-detail-heading">Detailed Skills</h3>
+
+  <div class="skills-legacy">
   <div class="skills-grid" role="list">
     <div class="skill" id="skill-test-systems" data-skill-domain="test-systems" role="listitem" tabindex="0" aria-label="Test Systems skill record; activate to flip">
       <div class="skill-front">
@@ -557,6 +574,7 @@
     <span class="see-more-text">SHOW MORE SKILLS</span>
     <span class="see-fewer-text">SHOW FEWER SKILLS</span>
   </button>
+  </div>
 </section>
 
 <!-- EXPERIENCE -->
@@ -568,14 +586,18 @@
   <div class="list">
     <article class="job" aria-labelledby="job-nvidia" tabindex="0" aria-expanded="false">
       <span class="job-close">×</span>
+      <div class="job-card-header">
       <div class="company-icon company-icon--nvidia" aria-hidden="true">
         <img src="imgsrc/logos/Nvidia_logo.png" alt="" loading="lazy" decoding="async">
       </div>
-      <div class="body">
+      <div class="job-card-identity">
         <h3 id="job-nvidia">Autonomous Vehicle Test Expert</h3>
         <div class="job-meta job-meta--company"><span class="job-meta-company">NVIDIA</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-type">Contract</span></div>
         <div class="job-meta job-meta--period"><span class="job-meta-date">May 2025 — May 2026</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-duration">1 yr</span></div>
-        <div class="job-meta job-meta--place"><span class="job-meta-location">Santa Clara, California, United States</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-arrangement">On-site</span></div>
+        <div class="job-meta job-meta--place"><span class="job-meta-location"><span class="job-meta-location__desktop">Santa Clara, California, United States</span><span class="job-meta-location__mobile" aria-hidden="true">Santa Clara, CA</span></span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-arrangement">On-site</span></div>
+      </div>
+      </div>
+      <div class="job-card-content body">
         <p class="small muted">System validation, test execution, sensor calibration, and telemetry analysis for autonomous driving platforms.</p>
         <div class="job-tags enhanced-only" aria-label="NVIDIA capabilities"><span>System validation</span><span>Sensor calibration</span><span>Telemetry</span><span>Test operations</span></div>
         <span class="job-explore enhanced-only" aria-hidden="true">Explore →</span>
@@ -617,14 +639,18 @@
 
     <article class="job" aria-labelledby="job-tcs" tabindex="0" aria-expanded="false">
       <span class="job-close">×</span>
+      <div class="job-card-header">
       <div class="company-icon company-icon--tcs" aria-hidden="true">
         <img src="imgsrc/logos/tcs_logo.png" alt="" loading="lazy" decoding="async">
       </div>
-      <div class="body">
+      <div class="job-card-identity">
         <h3 id="job-tcs">Assistant Systems Engineer</h3>
         <div class="job-meta job-meta--company"><span class="job-meta-company">Tata Consultancy Services</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-type">Full-time</span></div>
         <div class="job-meta job-meta--period"><span class="job-meta-date">Dec 2021 — Dec 2023</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-duration">2 yrs 1 mo</span></div>
-        <div class="job-meta job-meta--place"><span class="job-meta-location">San Jose, California, United States</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-arrangement">Remote</span></div>
+        <div class="job-meta job-meta--place"><span class="job-meta-location"><span class="job-meta-location__desktop">San Jose, California, United States</span><span class="job-meta-location__mobile" aria-hidden="true">San Jose, CA</span></span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-arrangement">Remote</span></div>
+      </div>
+      </div>
+      <div class="job-card-content body">
         <p class="small muted">ServiceNow customization, automation workflows, and client-side integration for enterprise systems.</p>
         <div class="job-tags enhanced-only" aria-label="Tata Consultancy Services capabilities"><span>Workflow automation</span><span>JavaScript</span><span>Integration testing</span><span>Enterprise UI</span></div>
         <span class="job-explore enhanced-only" aria-hidden="true">Explore →</span>
@@ -664,14 +690,18 @@
 
     <article class="job" aria-labelledby="job-shapescape" tabindex="0" aria-expanded="false">
       <span class="job-close">×</span>
+      <div class="job-card-header">
       <div class="company-icon company-icon--shapescape" aria-hidden="true">
         <img src="imgsrc/logos/shapescapelogo.png" alt="" loading="lazy" decoding="async">
       </div>
-      <div class="body">
+      <div class="job-card-identity">
         <h3 id="job-shapescape">3D Digital Environment Designer</h3>
         <div class="job-meta job-meta--company"><span class="job-meta-company">Shapescape ApS</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-type">Contract</span></div>
         <div class="job-meta job-meta--period"><span class="job-meta-date">Feb 2016 — Feb 2019</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-duration">3 yrs 1 mo</span></div>
         <div class="job-meta job-meta--place"><span class="job-meta-location">Remote</span></div>
+      </div>
+      </div>
+      <div class="job-card-content body">
         <p class="small muted">Large scale 3D environments, scripting, QA and collaboration with remote teams.</p>
         <div class="job-tags enhanced-only" aria-label="Shapescape capabilities"><span>3D environments</span><span>Interactive scripting</span><span>QA &amp; triage</span><span>Documentation</span></div>
         <span class="job-explore enhanced-only" aria-hidden="true">Explore →</span>
@@ -714,92 +744,111 @@
 <section id="projects" class="section-panel featured-system-section">
   <div class="section-header">
     <h2 class="section-heading featured-system-simple">Selected Projects</h2>
-    <h2 class="section-heading featured-system-enhanced">Featured System</h2>
+    <h2 class="section-heading featured-system-enhanced"><span class="featured-system-heading-desktop">Featured System</span><span class="featured-system-heading-mobile">Featured Project</span></h2>
     <span class="expand-hint featured-system-simple">(Click projects to expand)</span>
   </div>
         <div class="projects">
-          <article class="proj proj--featured-system" data-osint-slideshow aria-labelledby="proj-local-driving-intelligence">
+          <article class="proj proj--featured-system" data-osint-slideshow aria-label="Local Driving Intelligence">
             <button class="proj-close" type="button" aria-label="Collapse project">&#215;</button>
             <div class="featured-system-media featured-system-enhanced" role="region" aria-label="Local Driving Intelligence feature slideshow" aria-roledescription="carousel">
               <div class="osint-slideshow">
                 <div class="osint-slideshow__viewport">
                   <figure class="osint-slide is-active" data-osint-slide aria-hidden="false" aria-label="Slide 1 of 8">
                     <img src="imgsrc/projects/osint/optimized/camera-route-map-960.webp" srcset="imgsrc/projects/osint/optimized/camera-route-map-960.webp 960w, imgsrc/projects/osint/optimized/camera-route-map-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1223" loading="lazy" decoding="async" alt="Route map from San Jose to Salinas with primary and alternate corridors, cameras, incidents, and signs" />
-                    <figcaption><span>Cameras / 01</span><strong>Route Intelligence Map</strong><small>Configured corridors combine camera locations, incidents, CMS signs, closures, and route activity.</small></figcaption>
+                    <figcaption><span>Traffic / 01</span><strong>Route &amp; Camera Map</strong><small>Configured routes combine camera locations, incidents, closures, message signs, and recent activity.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 2 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/traffic-camera-grid-960.webp" data-srcset="imgsrc/projects/osint/optimized/traffic-camera-grid-960.webp 960w, imgsrc/projects/osint/optimized/traffic-camera-grid-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1188" loading="lazy" decoding="async" alt="Filterable grid of Caltrans traffic camera feeds near Salinas" />
-                    <figcaption><span>Cameras / 02</span><strong>Traffic Camera Monitor</strong><small>Filterable Caltrans CCTV views prioritize relevant feeds near the selected corridor.</small></figcaption>
+                    <figcaption><span>Traffic / 02</span><strong>Traffic Camera Monitor</strong><small>Filters Caltrans camera feeds around the selected location and driving route.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 3 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/reusable-checklists-960.webp" data-srcset="imgsrc/projects/osint/optimized/reusable-checklists-960.webp 960w, imgsrc/projects/osint/optimized/reusable-checklists-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1215" loading="lazy" decoding="async" alt="Reusable event preparation checklist templates and detailed check-off workflow" />
-                    <figcaption><span>Operations / 03</span><strong>Checklist Pipeline</strong><small>Reusable preparation templates open into a check-off workflow with required-item state.</small></figcaption>
+                    <figcaption><span>Operations / 03</span><strong>Preparation Checklists</strong><small>Reusable templates open into check-off workflows for drives and events.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 4 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/chp-enforcement-news-960.webp" data-srcset="imgsrc/projects/osint/optimized/chp-enforcement-news-960.webp 960w, imgsrc/projects/osint/optimized/chp-enforcement-news-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1191" loading="lazy" decoding="async" alt="CHP news and enforcement alert cards with status filters and enforcement periods" />
-                    <figcaption><span>Intelligence / 04</span><strong>CHP Intelligence Feed</strong><small>Official enforcement alerts are grouped and filtered for fast driver-focused review.</small></figcaption>
+                    <figcaption><span>Alerts / 04</span><strong>CHP Alerts &amp; Enforcement</strong><small>Groups official CHP notices and enforcement periods for quick review.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 5 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/event-calendar-960.webp" data-srcset="imgsrc/projects/osint/optimized/event-calendar-960.webp 960w, imgsrc/projects/osint/optimized/event-calendar-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1209" loading="lazy" decoding="async" alt="Manual motorsport event calendar with bulk import, upcoming events, and calendar grid" />
-                    <figcaption><span>Planning / 05</span><strong>Event Planning Calendar</strong><small>Bulk import, event review, and calendar planning share one structured workflow.</small></figcaption>
+                    <figcaption><span>Planning / 05</span><strong>Event Calendar</strong><small>Supports event import, review, editing, duplicate checks, and calendar planning.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 6 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/weather-overview-960.webp" data-srcset="imgsrc/projects/osint/optimized/weather-overview-960.webp 960w, imgsrc/projects/osint/optimized/weather-overview-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="1197" loading="lazy" decoding="async" alt="Regional weather dashboard with location cards and detailed San Jose conditions" />
-                    <figcaption><span>Weather / 06</span><strong>Regional Weather Overview</strong><small>Location cards combine current conditions, confidence, air quality, and source status.</small></figcaption>
+                    <figcaption><span>Weather / 06</span><strong>Regional Weather</strong><small>Combines current conditions, forecasts, alerts, air quality, and source status.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 7 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/forecast-charts-960.webp" data-srcset="imgsrc/projects/osint/optimized/forecast-charts-960.webp 960w, imgsrc/projects/osint/optimized/forecast-charts-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1599" height="1230" loading="lazy" decoding="async" alt="Hourly and daily temperature forecast charts with pressure station context" />
-                    <figcaption><span>Weather / 07</span><strong>Forecast Visualization</strong><small>Hourly and daily charts expose temperature trends alongside station-pressure context.</small></figcaption>
+                    <figcaption><span>Weather / 07</span><strong>Forecast Trends</strong><small>Shows hourly and daily temperature changes with nearby station context.</small></figcaption>
                   </figure>
                   <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 8 of 8">
                     <img data-src="imgsrc/projects/osint/optimized/weather-radar-960.webp" data-srcset="imgsrc/projects/osint/optimized/weather-radar-960.webp 960w, imgsrc/projects/osint/optimized/weather-radar-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1599" height="1166" loading="lazy" decoding="async" alt="NOAA weather radar with precipitation and cloud layers centered on San Jose" />
-                    <figcaption><span>Weather / 08</span><strong>Radar and Satellite View</strong><small>NOAA precipitation and cloud layers support animated regional weather awareness.</small></figcaption>
+                    <figcaption><span>Weather / 08</span><strong>Weather Imagery Playback</strong><small>Displays NOAA radar and cloud imagery with current and archived frames.</small></figcaption>
                   </figure>
                 </div>
                   <div class="osint-slideshow__controls" role="group" aria-label="Slideshow controls">
                     <button type="button" data-osint-previous aria-label="Show previous feature">&#8592;</button>
                     <span data-osint-status aria-live="off">01 / 08</span>
                     <button type="button" data-osint-next aria-label="Show next feature">&#8594;</button>
-                    <button class="carousel-playback-toggle" type="button" data-osint-playback aria-label="Pause slideshow" aria-pressed="false"><span aria-hidden="true">II</span></button>
+                    <button class="carousel-playback-toggle" type="button" data-osint-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
                   </div>
               </div>
             </div>
             <div class="featured-system-caption featured-system-enhanced">
                 <span class="carousel-progress" aria-hidden="true"><span data-osint-progress></span></span>
                 <div class="osint-caption-rail" aria-hidden="true">
-                  <span data-osint-caption-category>Cameras / 01</span>
-                  <strong data-osint-caption-title>Route Intelligence Map</strong>
-                  <small data-osint-caption-description>Configured corridors combine camera locations, incidents, CMS signs, closures, and route activity.</small>
+                  <span data-osint-caption-category>Traffic / 01</span>
+                  <strong data-osint-caption-title>Route &amp; Camera Map</strong>
+                  <small data-osint-caption-description>Configured routes combine camera locations, incidents, closures, message signs, and recent activity.</small>
                 </div>
                 <div class="osint-slideshow__dots" role="group" aria-label="Choose a feature">
-                  <button class="is-active" type="button" data-osint-dot="0" aria-label="Show Route Intelligence Map" aria-current="true"></button>
+                  <button class="is-active" type="button" data-osint-dot="0" aria-label="Show Route and Camera Map" aria-current="true"></button>
                   <button type="button" data-osint-dot="1" aria-label="Show Traffic Camera Monitor"></button>
-                  <button type="button" data-osint-dot="2" aria-label="Show Checklist Pipeline"></button>
-                  <button type="button" data-osint-dot="3" aria-label="Show CHP Intelligence Feed"></button>
-                  <button type="button" data-osint-dot="4" aria-label="Show Event Planning Calendar"></button>
-                  <button type="button" data-osint-dot="5" aria-label="Show Regional Weather Overview"></button>
-                  <button type="button" data-osint-dot="6" aria-label="Show Forecast Visualization"></button>
-                  <button type="button" data-osint-dot="7" aria-label="Show Radar and Satellite View"></button>
+                  <button type="button" data-osint-dot="2" aria-label="Show Preparation Checklists"></button>
+                  <button type="button" data-osint-dot="3" aria-label="Show CHP Alerts and Enforcement"></button>
+                  <button type="button" data-osint-dot="4" aria-label="Show Event Calendar"></button>
+                  <button type="button" data-osint-dot="5" aria-label="Show Regional Weather"></button>
+                  <button type="button" data-osint-dot="6" aria-label="Show Forecast Trends"></button>
+                  <button type="button" data-osint-dot="7" aria-label="Show Weather Imagery Playback"></button>
                 </div>
             </div>
-            <div class="featured-system-intro">
-              <div class="project-record" aria-hidden="true"><span>Project 01</span><span class="featured-system-simple">Prototype</span><span class="featured-system-enhanced">Active Development</span></div>
-              <h4 id="proj-local-driving-intelligence">Local Driving Intelligence &mdash; Geospatial Operations Platform</h4>
+            <div class="featured-system-intro featured-system-simple">
+              <div class="project-record" aria-hidden="true"><span>Project 01</span><span>Prototype</span></div>
+              <h4 id="proj-local-driving-intelligence-simple">Local Driving Intelligence: Regional Data Platform</h4>
               <p class="muted project-date">2026 &mdash; Present</p>
-              <p class="small project-overview">Built a self-updating geospatial intelligence platform that collects, normalizes, caches, and visualizes traffic, weather, roadway-camera, incident, environmental, event, and weather-imagery data for regional decision support.</p>
+              <p class="small project-overview">Built a regional dashboard for weather, route cameras, traffic activity, events, and preparation workflows across Northern California.</p>
               <div class="project-skills" aria-label="Skills demonstrated">
                 <span class="project-skills__label">Skills demonstrated</span>
                 <div class="project-skills__tags"><span>Data Engineering</span><span>React</span><span>Node.js</span><span>SQLite</span><span>Geospatial Systems</span><span>API Integration</span></div>
                 <span class="project-explore" aria-hidden="true">Explore &rarr;</span>
               </div>
             </div>
+            <div class="featured-system-intro featured-system-enhanced">
+              <div class="project-record" aria-label="2026, active development"><span>2026</span><span>Active Development</span></div>
+              <p class="featured-system-eyebrow">Regional Data Platform</p>
+              <h4 id="proj-local-driving-intelligence" class="featured-system-title"><a class="featured-system-title-link" href="projects.html#local-driving-intelligence" aria-label="Open the Local Driving Intelligence project case study"><span class="featured-system-title-link__text">Local Driving Intelligence</span><span class="featured-system-title-link__arrow" aria-hidden="true">&rarr;</span></a></h4>
+              <p class="project-overview featured-system-value">Combines live weather, route cameras, traffic activity, events, and preparation tools for Bay Area and Northern California drives.</p>
+              <section class="featured-system-points" aria-label="Local Driving Intelligence project overview">
+                <ol>
+                  <li><span class="featured-system-points__label">01 / Purpose</span><p>See weather, route activity, cameras, and event details before leaving.</p></li>
+                  <li><span class="featured-system-points__label">02 / Build</span><p>I built the React interface, Express API, and SQLite data layer.</p></li>
+                  <li><span class="featured-system-points__label">03 / Reliability</span><p>Cached results keep the dashboard useful when a public feed fails.</p></li>
+                  <li><span class="featured-system-points__label">04 / Current Work</span><p>Current work adds weather playback and broader Northern California coverage.</p></li>
+                </ol>
+              </section>
+              <section class="featured-system-highlights" aria-labelledby="featured-system-highlights-heading">
+                <h5 id="featured-system-highlights-heading">Engineering Highlights</h5>
+                <ul>
+                  <li>Route-aware camera matching</li>
+                  <li>Public-feed normalization</li>
+                  <li>SQLite caching and fallback data</li>
+                  <li>Event planning and weather playback</li>
+                </ul>
+              </section>
+            </div>
             <div class="featured-system-evidence featured-system-enhanced">
-              <ul class="featured-system-proof">
-                <li><strong>Data pipelines</strong><span>Multiple public and regional data-provider pipelines</span></li>
-                <li><strong>Persistence and caching</strong><span>SQLite persistence, bounded caching, and stale-data handling</span></li>
-                <li><strong>Route and dashboard systems</strong><span>Route context, regional dashboards, camera feeds, and weather imagery</span></li>
-              </ul>
-              <a class="featured-system-action" href="projects.html#local-driving-intelligence">View case study <span aria-hidden="true">&rarr;</span></a>
+              <p class="featured-system-stack" aria-label="Technology stack: React, Node.js, Express, SQLite">React &middot; Node.js &middot; Express &middot; SQLite</p>
+              <a class="featured-system-action" href="projects.html#local-driving-intelligence">View Project Details <span aria-hidden="true">&rarr;</span></a>
             </div>
             <div class="proj-detail"><div class="project-detail-grid">
               <section class="project-module"><h5><span>01</span> Provider pipelines</h5>
@@ -1048,8 +1097,10 @@
   </footer>
 </div>
 </main>
-<script src="navigation.js?v=20260719-4"></script>
-  <script src="carousel-interaction.js?v=20260719-2"></script>
-  <script src="script.js?v=20260719-7"></script>
+<script src="navigation.js?v=20260720-4"></script>
+  <script src="carousel-interaction.js?v=20260720-4"></script>
+  <script src="project-image-viewer.js?v=20260720-3"></script>
+  <script src="script.js?v=20260720-6"></script>
+  <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>
