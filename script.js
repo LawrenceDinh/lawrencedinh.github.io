@@ -773,32 +773,19 @@
 
   // Enhanced-only hero identification sequence. The nameplate remains a hover/focus-only interaction.
   const heroRole = document.querySelector('.hero-identity-enhanced.title');
-  const heroCapabilityLabels = Array.from(document.querySelectorAll('.hero-identity-enhanced.tagline .tagline-item'));
+  const heroCapabilityLabels = Array.from(document.querySelectorAll('.hero-capability-label[data-capability-badge]'));
 
   if (heroRole || heroCapabilityLabels.length) {
     let heroIdentificationFrame = 0;
     let heroIdentificationFinishTimer = 0;
     let heroIdentificationGeneration = 0;
-    const pendingCapabilityConfirmations = new Set();
-
-    const runCapabilityConfirmation = function(label) {
-      if (document.documentElement.getAttribute('data-portfolio-mode') !== 'enhanced') return;
-      label.classList.remove('is-capability-confirming');
-      void label.offsetWidth;
-      label.classList.add('is-capability-confirming');
-    };
-
-    const resetHeroIdentification = function(runPendingConfirmations) {
+    const resetHeroIdentification = function() {
       if (heroRole) {
         heroRole.classList.remove('is-hero-role-confirming');
       }
       heroCapabilityLabels.forEach(function(label) {
         label.classList.remove('is-hero-capability-activating');
         label.style.removeProperty('--hero-capability-delay');
-        if (runPendingConfirmations && pendingCapabilityConfirmations.has(label)) {
-          pendingCapabilityConfirmations.delete(label);
-          runCapabilityConfirmation(label);
-        }
       });
     };
 
@@ -808,9 +795,7 @@
       if (heroIdentificationFinishTimer) window.clearTimeout(heroIdentificationFinishTimer);
       heroIdentificationFrame = 0;
       heroIdentificationFinishTimer = 0;
-      pendingCapabilityConfirmations.clear();
-      heroCapabilityLabels.forEach(function(label) { label.classList.remove('is-capability-confirming'); });
-      resetHeroIdentification(false);
+      resetHeroIdentification();
     };
 
     const startHeroIdentification = function() {
@@ -830,7 +815,7 @@
         });
         heroIdentificationFinishTimer = window.setTimeout(function() {
           if (animationGeneration !== heroIdentificationGeneration) return;
-          resetHeroIdentification(true);
+          resetHeroIdentification();
           heroIdentificationFinishTimer = 0;
         }, 900);
       });
@@ -860,24 +845,8 @@
     if (heroIdentificationMode === 'enhanced') {
       window.requestAnimationFrame(startHeroIdentification);
     } else {
-      resetHeroIdentification(false);
+      resetHeroIdentification();
     }
-
-    heroCapabilityLabels.forEach(function(label) {
-      label.addEventListener('click', function() {
-        if (document.documentElement.getAttribute('data-portfolio-mode') !== 'enhanced') return;
-        if (label.classList.contains('is-hero-capability-activating')) {
-          pendingCapabilityConfirmations.add(label);
-          return;
-        }
-        runCapabilityConfirmation(label);
-      });
-      label.addEventListener('animationend', function(event) {
-        if (event.target !== label) return;
-        if (event.animationName !== 'hero-capability-confirm' && event.animationName !== 'hero-capability-confirm-reduced') return;
-        label.classList.remove('is-capability-confirming');
-      });
-    });
   }
 
   // --- Shared guard for selectable content inside interactive panels ---

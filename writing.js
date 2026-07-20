@@ -4,6 +4,8 @@
   const MANIFEST_PATH = "writing-data.json";
   const ARTICLE_PATH_PATTERN = /^writing\/articles\/[a-z0-9]+(?:-[a-z0-9]+)*\.html$/;
   const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  let articleImageViewerController = null;
+  let articleImageViewerElement = null;
 
   /*
    * Publishing contract for a future importer:
@@ -298,6 +300,15 @@
     articleType.textContent = article.articleType || "Article";
     category.textContent = article.category;
     meta.replaceChildren();
+    const byline = document.createElement("span");
+    byline.className = "writing-article-byline";
+    const bylineLabel = document.createElement("b");
+    bylineLabel.textContent = "By";
+    const bylineLink = document.createElement("a");
+    bylineLink.href = "index.html#about";
+    bylineLink.textContent = "Lawrence Dinh";
+    byline.append(bylineLabel, bylineLink);
+    meta.appendChild(byline);
     appendMetaItem(meta, "Published", "", article.date);
     if (article.updated && article.updated !== article.date) appendMetaItem(meta, "Updated", "", article.updated);
     appendMetaItem(meta, "Reading time", article.readingTime);
@@ -348,6 +359,85 @@
         "@id": "https://lawrencedinh.github.io/#person"
       }
     });
+  }
+
+  function getRelatedArticles(currentArticle, articles, limit) {
+    const sameCategory = articles.filter(function (article) {
+      return article.slug !== currentArticle.slug && article.category === currentArticle.category;
+    });
+    const otherArticles = articles.filter(function (article) {
+      return article.slug !== currentArticle.slug && article.category !== currentArticle.category;
+    });
+    return sameCategory.concat(otherArticles).slice(0, limit);
+  }
+
+  function renderRelatedArticles(currentArticle, articles) {
+    const list = getElement("writing-related-list");
+    if (!list) return;
+    list.replaceChildren();
+    getRelatedArticles(currentArticle, articles, 3).forEach(function (article) {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = articleUrl(article);
+      link.append(
+        createTextElement("span", "writing-related__title", article.title),
+        createTextElement("span", "writing-related__meta", article.category + " · " + article.readingTime)
+      );
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+  }
+
+  function renderArticleNavigation(currentArticle, articles) {
+    const newerLink = getElement("writing-newer-article");
+    const olderLink = getElement("writing-older-article");
+    if (!newerLink || !olderLink) return;
+    const currentIndex = articles.findIndex(function (article) { return article.slug === currentArticle.slug; });
+    const newer = currentIndex > 0 ? articles[currentIndex - 1] : null;
+    const older = currentIndex >= 0 && currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
+
+    [[newerLink, newer], [olderLink, older]].forEach(function (entry) {
+      const link = entry[0];
+      const article = entry[1];
+      if (!article) {
+        link.hidden = true;
+        link.removeAttribute("href");
+        return;
+      }
+      link.href = articleUrl(article);
+      const title = link.querySelector("strong");
+      if (title) title.textContent = article.title;
+      link.hidden = false;
+    });
+  }
+
+  function initializeArticleBackNavigation() {
+    const topButton = document.querySelector(".writing-back-link--top");
+    const scrollButton = getElement("writing-scroll-back");
+    if (!topButton || !scrollButton) return;
+    const mediaQuery = window.matchMedia("(max-width: 980px)");
+
+    function hideScrollButton() {
+      scrollButton.hidden = true;
+    }
+
+    function updateForViewport() {
+      if (!mediaQuery.matches) hideScrollButton();
+    }
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        if (!mediaQuery.matches) {
+          hideScrollButton();
+          return;
+        }
+        scrollButton.hidden = entries[0].isIntersecting;
+      }, { threshold: 0 });
+      observer.observe(topButton);
+    }
+
+    mediaQuery.addEventListener("change", updateForViewport);
+    updateForViewport();
   }
 
   async function loadArticleBody(article) {
@@ -417,18 +507,436 @@
     headings.forEach(function (heading) { observer.observe(heading); });
   }
 
-  function initializeOptionalFigures(articleBody) {
-    articleBody.querySelectorAll(".writing-article-figure--optional").forEach(function (figure) {
-      const image = figure.querySelector("img");
-      if (!image) return;
+  function initializeArticleFigures(articleBody) {
+    if (articleImageViewerController) articleImageViewerController.abort();
+    if (articleImageViewerElement) articleImageViewerElement.remove();
 
-      const reveal = function () { figure.hidden = false; };
-      const hide = function () { figure.hidden = true; };
-      const probe = new Image();
-      probe.addEventListener("load", reveal, { once: true });
-      probe.addEventListener("error", hide, { once: true });
-      probe.src = image.src;
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const viewer = document.createElement("div");
+    viewer.className = "article-image-viewer";
+    viewer.setAttribute("role", "dialog");
+    viewer.setAttribute("aria-modal", "true");
+    viewer.setAttribute("aria-label", "Expanded article figure");
+    viewer.hidden = true;
+    viewer.innerHTML = '<div class="article-image-viewer__backdrop"></div><figure class="article-image-viewer__window"><button class="article-image-viewer__close" type="button" aria-label="Close expanded image">×</button><img class="article-image-viewer__image" alt=""><figcaption class="article-image-viewer__caption"><span class="article-image-viewer__heading"><span class="article-image-viewer__number"></span><span class="article-image-viewer__separator" aria-hidden="true">/</span><span class="article-image-viewer__title"></span></span><span class="article-image-viewer__description"></span></figcaption></figure>';
+    document.body.appendChild(viewer);
+    articleImageViewerController = controller;
+    articleImageViewerElement = viewer;
+
+    const viewerWindow = viewer.querySelector(".article-image-viewer__window");
+    const closeButton = viewer.querySelector(".article-image-viewer__close");
+    const expandedImage = viewer.querySelector(".article-image-viewer__image");
+    const viewerNumber = viewer.querySelector(".article-image-viewer__number");
+    const viewerTitle = viewer.querySelector(".article-image-viewer__title");
+    const viewerDescription = viewer.querySelector(".article-image-viewer__description");
+    let activeImageTrigger = null;
+
+    function closeImageViewer(options) {
+      if (!activeImageTrigger) return;
+      const restoreFocus = Boolean(options && options.restoreFocus);
+      const trigger = activeImageTrigger;
+      activeImageTrigger = null;
+      viewer.classList.remove("is-open");
+      viewer.hidden = true;
+      expandedImage.removeAttribute("src");
+      if (restoreFocus && trigger.isConnected) trigger.focus({ preventScroll: true });
+    }
+
+    function openImageViewer(trigger) {
+      const figure = trigger.closest("[data-writing-figure].has-image");
+      if (!figure) return;
+      const image = trigger.querySelector(".writing-article-figure__image");
+      if (!image) return;
+      const number = figure.querySelector(".article-figure-caption__number");
+      const title = figure.querySelector(".article-figure-caption__title");
+      const description = figure.querySelector(".article-figure-caption__text");
+      activeImageTrigger = trigger;
+      expandedImage.src = image.currentSrc || image.src;
+      expandedImage.alt = image.alt;
+      viewerNumber.textContent = number ? number.textContent.trim() : "";
+      viewerTitle.textContent = title ? title.textContent.trim() : "";
+      viewerDescription.textContent = description ? description.textContent.trim() : "";
+      viewer.hidden = false;
+      window.requestAnimationFrame(function () { viewer.classList.add("is-open"); });
+      closeButton.focus({ preventScroll: true });
+    }
+
+    function imageTriggerFrom(target) {
+      const trigger = target.closest && target.closest(".writing-article-figure__trigger");
+      return trigger && articleBody.contains(trigger) ? trigger : null;
+    }
+
+    articleBody.addEventListener("click", function (event) {
+      const trigger = imageTriggerFrom(event.target);
+      if (trigger && !trigger.disabled) openImageViewer(trigger);
+    }, { signal });
+
+    closeButton.addEventListener("click", function () {
+      closeImageViewer({ restoreFocus: true });
+    }, { signal });
+
+    viewer.addEventListener("click", function (event) {
+      if (!viewerWindow.contains(event.target)) closeImageViewer({ restoreFocus: false });
+    }, { signal });
+
+    document.addEventListener("keydown", function (event) {
+      if (!activeImageTrigger) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeImageViewer({ restoreFocus: true });
+        return;
+      }
+      if (event.target === closeButton && (event.key === "Enter" || event.key === " ")) return;
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) {
+        closeImageViewer({ restoreFocus: false });
+      }
+    }, { signal });
+
+    function closeOnScrollIntent() {
+      closeImageViewer({ restoreFocus: false });
+    }
+
+    window.addEventListener("scroll", closeOnScrollIntent, { passive: true, capture: true, signal });
+    window.addEventListener("wheel", closeOnScrollIntent, { passive: true, capture: true, signal });
+    window.addEventListener("touchmove", closeOnScrollIntent, { passive: true, capture: true, signal });
+
+    articleBody.querySelectorAll("[data-writing-figure]").forEach(function (figure) {
+      const trigger = figure.querySelector(".writing-article-figure__trigger");
+      const image = figure.querySelector(".writing-article-figure__image");
+      const placeholder = figure.querySelector(".article-media-placeholder");
+      const caption = figure.querySelector(".article-figure-caption");
+      if (!trigger || !image) return;
+
+      trigger.disabled = true;
+
+      function showLoadedImage() {
+        figure.hidden = false;
+        figure.classList.add("has-image");
+        figure.classList.remove("is-image-missing");
+        trigger.hidden = false;
+        trigger.disabled = false;
+        if (placeholder) placeholder.hidden = true;
+        if (caption) caption.hidden = false;
+      }
+
+      function showMissingImage() {
+        figure.classList.remove("has-image");
+        figure.classList.add("is-image-missing");
+        trigger.hidden = true;
+        trigger.disabled = true;
+        if (caption) caption.hidden = true;
+        if (placeholder) {
+          figure.hidden = false;
+          placeholder.hidden = false;
+        } else {
+          figure.hidden = true;
+        }
+      }
+
+      image.addEventListener("load", showLoadedImage, { once: true, signal });
+      image.addEventListener("error", showMissingImage, { once: true, signal });
+      if (image.complete) {
+        if (image.naturalWidth > 0) showLoadedImage();
+        else showMissingImage();
+      }
     });
+  }
+
+  function initializeCitationRibbon(articleBody) {
+    const GROUP_CITATION_SWITCH_DELAY = 75;
+    const citationLinks = Array.from(articleBody.querySelectorAll(".article-citation a, .article-citation-group a"));
+    const citationGroups = Array.from(articleBody.querySelectorAll("[data-citation-group]"));
+    const citationReferenceCache = new Map();
+    if (!citationLinks.length) return;
+
+    articleBody.querySelectorAll(".article-reference").forEach(function (reference) {
+      const externalSource = reference.querySelector("a[href^='http']");
+      if (!externalSource) return;
+      citationReferenceCache.set(reference.id, {
+        source: reference.dataset.citationSource || "",
+        title: reference.dataset.citationTitle || "",
+        secondary: reference.dataset.citationSecondary || "",
+        url: externalSource.href
+      });
+    });
+
+    const popover = document.createElement("div");
+    popover.className = "article-citation-popover";
+    popover.id = "article-citation-popover";
+    popover.setAttribute("role", "tooltip");
+    popover.dataset.state = "preview";
+    popover.hidden = true;
+    popover.innerHTML = '<button class="article-citation-popover__close" type="button" aria-label="Close citation details" tabindex="-1" hidden>×</button><div class="article-citation-popover__body"><div class="article-citation-popover__primary"><span class="article-citation-popover__number"></span> <span class="article-citation-popover__source"></span> <cite class="article-citation-popover__title"></cite></div><div class="article-citation-popover__secondary"></div></div><div class="article-citation-popover__url-tray" aria-hidden="true" hidden><a class="article-citation-popover__url" href="" target="_blank" rel="noopener noreferrer" tabindex="-1"></a></div>';
+    document.body.appendChild(popover);
+
+    const closeButton = popover.querySelector(".article-citation-popover__close");
+    const number = popover.querySelector(".article-citation-popover__number");
+    const source = popover.querySelector(".article-citation-popover__source");
+    const title = popover.querySelector(".article-citation-popover__title");
+    const secondary = popover.querySelector(".article-citation-popover__secondary");
+    const urlTray = popover.querySelector(".article-citation-popover__url-tray");
+    const urlLink = popover.querySelector(".article-citation-popover__url");
+    let activeLink = null;
+    let state = "closed";
+    let positionFrame = 0;
+    let lockedPosition = null;
+    let controlExtensions = { top: 0, bottom: 0 };
+    let suppressNextFocusPreview = false;
+    let groupHoverTimer = 0;
+    let pendingGroupLink = null;
+
+    function citationGroupOf(link) {
+      return link && link.closest("[data-citation-group]");
+    }
+
+    function cancelGroupHover() {
+      if (groupHoverTimer) window.clearTimeout(groupHoverTimer);
+      groupHoverTimer = 0;
+      pendingGroupLink = null;
+    }
+
+    citationLinks.forEach(function (link) {
+      link.setAttribute("aria-expanded", "false");
+      link.setAttribute("aria-controls", popover.id);
+      link.setAttribute("aria-haspopup", "dialog");
+    });
+
+    function closePopover(options) {
+      const restoreFocus = Boolean(options && options.restoreFocus);
+      cancelGroupHover();
+      if (positionFrame) {
+        window.cancelAnimationFrame(positionFrame);
+        positionFrame = 0;
+      }
+      if (activeLink) {
+        activeLink.removeAttribute("aria-describedby");
+        activeLink.setAttribute("aria-expanded", "false");
+        activeLink.classList.remove("is-active-citation");
+      }
+      popover.hidden = true;
+      popover.dataset.state = "preview";
+      popover.setAttribute("role", "tooltip");
+      popover.removeAttribute("aria-modal");
+      popover.removeAttribute("aria-label");
+      closeButton.hidden = true;
+      closeButton.tabIndex = -1;
+      urlTray.hidden = true;
+      urlTray.setAttribute("aria-hidden", "true");
+      urlLink.tabIndex = -1;
+      const linkToRestore = activeLink;
+      activeLink = null;
+      state = "closed";
+      lockedPosition = null;
+      if (restoreFocus && linkToRestore) {
+        suppressNextFocusPreview = true;
+        linkToRestore.focus();
+      }
+    }
+
+    function populatePopover(link) {
+      const referenceId = link.dataset.referenceId || link.getAttribute("href").replace(/^#/, "");
+      const reference = citationReferenceCache.get(referenceId);
+      if (!reference) return false;
+      if (activeLink && activeLink !== link) {
+        activeLink.removeAttribute("aria-describedby");
+        activeLink.setAttribute("aria-expanded", "false");
+        activeLink.classList.remove("is-active-citation");
+      }
+      activeLink = link;
+      number.textContent = link.textContent;
+      source.textContent = reference.source;
+      title.textContent = reference.title;
+      secondary.textContent = reference.secondary;
+      urlLink.href = reference.url;
+      urlLink.textContent = reference.url.replace(/^https?:\/\//, "");
+      return true;
+    }
+
+    function measureControlExtensions() {
+      const closeWasHidden = closeButton.hidden;
+      const trayWasHidden = urlTray.hidden;
+      closeButton.hidden = false;
+      urlTray.hidden = false;
+      controlExtensions = {
+        top: Math.max(closeButton.offsetHeight - 1, 0),
+        bottom: Math.max(urlTray.offsetHeight - 1, 0)
+      };
+      closeButton.hidden = closeWasHidden;
+      urlTray.hidden = trayWasHidden;
+    }
+
+    function positionPopover() {
+      positionFrame = 0;
+      if (!activeLink || popover.hidden) return;
+      const linkRect = activeLink.getBoundingClientRect();
+      const popoverRect = popover.getBoundingClientRect();
+      if (!controlExtensions.top && !controlExtensions.bottom) measureControlExtensions();
+      const topExtension = controlExtensions.top;
+      const bottomExtension = controlExtensions.bottom;
+      const left = Math.max(12, Math.min(linkRect.left, window.innerWidth - popoverRect.width - 12));
+      const belowTop = linkRect.bottom + 10 + topExtension;
+      const belowBottom = belowTop + popoverRect.height + bottomExtension;
+      const aboveTop = linkRect.top - 10 - bottomExtension - popoverRect.height;
+      let top = belowBottom <= window.innerHeight - 12 ? belowTop : aboveTop;
+      top = Math.max(12 + topExtension, Math.min(top, window.innerHeight - 12 - bottomExtension - popoverRect.height));
+      popover.style.left = left + "px";
+      popover.style.top = top + "px";
+      popover.style.visibility = "visible";
+      lockedPosition = { left: left, top: top, placement: belowBottom <= window.innerHeight - 12 ? "below" : "above" };
+    }
+
+    function requestPosition() {
+      if (!positionFrame) positionFrame = window.requestAnimationFrame(positionPopover);
+    }
+
+    function showPreview(link) {
+      if (activeLink && activeLink !== link) closePopover();
+      else if (state === "pinned") return;
+      if (!populatePopover(link)) return;
+      state = "preview";
+      popover.dataset.state = "preview";
+      popover.setAttribute("role", "tooltip");
+      popover.hidden = false;
+      popover.style.visibility = "hidden";
+      link.setAttribute("aria-describedby", popover.id);
+      lockedPosition = null;
+      measureControlExtensions();
+      positionPopover();
+    }
+
+    function scheduleGroupedPreview(link) {
+      cancelGroupHover();
+      pendingGroupLink = link;
+      groupHoverTimer = window.setTimeout(function () {
+        groupHoverTimer = 0;
+        pendingGroupLink = null;
+        if (state !== "preview" || !activeLink) return;
+        const previousGroup = citationGroupOf(activeLink);
+        if (previousGroup && previousGroup === citationGroupOf(link) && populatePopover(link)) {
+          link.setAttribute("aria-describedby", popover.id);
+        }
+      }, GROUP_CITATION_SWITCH_DELAY);
+    }
+
+    function pinPopover(link) {
+      if (state === "pinned" && activeLink === link) {
+        closePopover();
+        return;
+      }
+      cancelGroupHover();
+      const activeGroup = citationGroupOf(activeLink);
+      const nextGroup = citationGroupOf(link);
+      if (state === "pinned" && activeLink && activeGroup && activeGroup === nextGroup) {
+        if (!populatePopover(link)) return;
+        link.setAttribute("aria-expanded", "true");
+        link.classList.add("is-active-citation");
+        return;
+      }
+      const canReusePreviewPosition = state === "preview" && activeLink === link && lockedPosition;
+      if (!populatePopover(link)) return;
+      if (!canReusePreviewPosition) {
+        state = "preview";
+        popover.hidden = false;
+        popover.style.visibility = "hidden";
+        popover.dataset.state = "preview";
+        lockedPosition = null;
+        measureControlExtensions();
+        positionPopover();
+      }
+      state = "pinned";
+      popover.hidden = false;
+      popover.dataset.state = "preview";
+      popover.setAttribute("role", "dialog");
+      popover.setAttribute("aria-modal", "false");
+      popover.setAttribute("aria-label", "Citation details");
+      closeButton.hidden = false;
+      closeButton.tabIndex = 0;
+      urlTray.hidden = false;
+      urlTray.setAttribute("aria-hidden", "false");
+      urlLink.tabIndex = 0;
+      link.removeAttribute("aria-describedby");
+      link.setAttribute("aria-expanded", "true");
+      link.classList.add("is-active-citation");
+      void popover.offsetWidth;
+      popover.dataset.state = "pinned";
+      popover.style.left = lockedPosition.left + "px";
+      popover.style.top = lockedPosition.top + "px";
+      popover.style.visibility = "visible";
+    }
+
+    citationLinks.forEach(function (link) {
+      link.addEventListener("pointerenter", function (event) {
+        if (event.pointerType === "touch") return;
+        const activeGroup = citationGroupOf(activeLink);
+        const nextGroup = citationGroupOf(link);
+        const sameGroup = activeLink && activeGroup && activeGroup === nextGroup;
+        if (state === "pinned" && sameGroup) return;
+        if (state === "preview" && sameGroup && activeLink !== link) {
+          scheduleGroupedPreview(link);
+          return;
+        }
+        cancelGroupHover();
+        showPreview(link);
+      });
+      link.addEventListener("pointerleave", function (event) {
+        if (event.pointerType === "touch") return;
+        if (pendingGroupLink === link) cancelGroupHover();
+        if (!citationGroupOf(link) && state === "preview" && document.activeElement !== link) closePopover();
+      });
+      link.addEventListener("focus", function () {
+        if (suppressNextFocusPreview) {
+          suppressNextFocusPreview = false;
+          return;
+        }
+        const activeGroup = citationGroupOf(activeLink);
+        const nextGroup = citationGroupOf(link);
+        if (state === "pinned" && activeLink && activeLink !== link && activeGroup && activeGroup === nextGroup) return;
+        cancelGroupHover();
+        showPreview(link);
+      });
+      link.addEventListener("blur", function () {
+        if (!citationGroupOf(link) && state === "preview") closePopover();
+      });
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        pinPopover(link);
+      });
+      link.addEventListener("keydown", function (event) {
+        if (event.key === " ") {
+          event.preventDefault();
+          pinPopover(link);
+        }
+      });
+    });
+
+    citationGroups.forEach(function (group) {
+      group.addEventListener("pointerleave", function (event) {
+        if (event.pointerType === "touch") return;
+        cancelGroupHover();
+        if (state === "preview" && citationGroupOf(activeLink) === group && !group.contains(document.activeElement)) closePopover();
+      });
+      group.addEventListener("focusout", function (event) {
+        if (state === "preview" && !group.contains(event.relatedTarget)) closePopover();
+      });
+    });
+
+    closeButton.addEventListener("click", function () { closePopover({ restoreFocus: true }); });
+    document.addEventListener("pointerdown", function (event) {
+      if (state !== "pinned") return;
+      const clickedActiveCitation = activeLink && activeLink.contains(event.target);
+      const activeGroup = citationGroupOf(activeLink);
+      const clickedActiveGroup = activeGroup && activeGroup.contains(event.target);
+      if (popover.contains(event.target) || clickedActiveCitation || clickedActiveGroup) return;
+      closePopover();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && state !== "closed") closePopover({ restoreFocus: state === "pinned" });
+    });
+    window.addEventListener("scroll", function () {
+      if (activeLink) closePopover();
+    }, { passive: true, capture: true });
+    window.addEventListener("resize", requestPosition);
   }
 
   function markFirstArticleHeading(articleBody) {
@@ -478,7 +986,8 @@
       return;
     }
 
-    const article = getPublishedArticles(records).find(function (record) { return record.slug === slug; });
+    const publishedArticles = getPublishedArticles(records);
+    const article = publishedArticles.find(function (record) { return record.slug === slug; });
     if (!article) {
       renderWritingError("No published article matches this address.", true);
       return;
@@ -490,15 +999,19 @@
     const status = getElement("writing-status");
     if (!body || !reader || !status) return;
     renderArticleHeader(article);
+    renderRelatedArticles(article, publishedArticles);
+    renderArticleNavigation(article, publishedArticles);
     const articleTemplate = document.createElement("template");
     articleTemplate.innerHTML = bodyHtml;
     body.replaceChildren(articleTemplate.content.cloneNode(true));
     markFirstArticleHeading(body);
-    initializeOptionalFigures(body);
+    initializeArticleFigures(body);
+    initializeCitationRibbon(body);
     buildTableOfContents(body);
     initializeReadingProgress(body);
     status.hidden = true;
     reader.hidden = false;
+    initializeArticleBackNavigation();
   }
 
   async function initializeWriting() {

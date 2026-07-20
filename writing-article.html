@@ -26,7 +26,7 @@
   <meta name="twitter:image:alt" content="Writing by Luat “Lawrence” Dinh" />
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
   <link rel="stylesheet" href="style.css?v=20260719-12" />
-  <link rel="stylesheet" href="writing.css?v=20260719-2" />
+  <link rel="stylesheet" href="writing.css?v=20260720-1" />
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body class="writing-page writing-article-page" data-writing-view="article">
@@ -85,7 +85,10 @@
     <p class="writing-status" id="writing-status" role="status" aria-live="polite">Loading article…</p>
 
     <div class="writing-reader" id="writing-reader" hidden>
-      <a class="writing-back-link" href="writing.html"><span aria-hidden="true">←</span> Writing archive</a>
+      <a class="writing-back-link writing-back-link--top" href="writing.html" aria-label="Return to all Writing articles">
+        <span class="writing-back-link__arrow" aria-hidden="true">←</span>
+        <span>All Writing</span>
+      </a>
 
       <header class="writing-article-header">
         <div class="writing-article-header__labels">
@@ -109,19 +112,40 @@
             <p>On this page</p>
             <ol id="writing-toc-list"></ol>
           </nav>
+          <nav class="writing-related writing-related--rail" aria-label="More Writing articles">
+            <p>More Writing</p>
+            <ol id="writing-related-list"></ol>
+          </nav>
+          <a class="writing-back-link writing-back-link--rail" href="writing.html" aria-label="Return to all Writing articles">
+            <span class="writing-back-link__arrow" aria-hidden="true">←</span>
+            <span>All Writing</span>
+          </a>
         </aside>
 
         <article class="writing-article-body" id="article-body" aria-labelledby="article-title"></article>
       </div>
 
       <footer class="writing-article-footer">
-        <p>Continue exploring the archive.</p>
-        <a href="writing.html">All Writing <span aria-hidden="true">→</span></a>
+        <nav class="writing-article-navigation" aria-label="Writing article navigation">
+          <a class="writing-article-navigation__article" id="writing-newer-article" href="" hidden>
+            <span class="writing-article-navigation__direction">← Newer article</span>
+            <strong></strong>
+          </a>
+          <a class="writing-article-navigation__article writing-article-navigation__article--older" id="writing-older-article" href="" hidden>
+            <span class="writing-article-navigation__direction">Older article →</span>
+            <strong></strong>
+          </a>
+        </nav>
       </footer>
+
+      <a class="writing-back-link writing-back-link--scroll" id="writing-scroll-back" href="writing.html" aria-label="Return to all Writing articles" hidden>
+        <span class="writing-back-link__arrow" aria-hidden="true">←</span>
+        <span>All Writing</span>
+      </a>
     </div>
   </main>
 
 <script src="navigation.js?v=20260719-4"></script>
-<script src="writing.js?v=20260719-2"></script>
+<script src="writing.js?v=20260720-1"></script>
 </body>
 </html>
