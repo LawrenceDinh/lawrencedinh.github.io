@@ -20,8 +20,9 @@ Live root URL: `https://lawrencedinh.github.io/`
 
 ## Repository layout
 
-- `index.html`: root redirect to `web/index.html`
-- `web/`: portfolio homepage, Projects, Writing, shared scripts, styles, and public assets
+- `index.html`: canonical portfolio homepage
+- root HTML, CSS, JavaScript, `imgsrc/`, and `writing/`: portfolio pages, shared code, and public assets
+- `web/`: lightweight compatibility redirects for previously shared portfolio URLs
 - `bashseekers/`: Bashseekers homepage, media archive, data registries, project docs
 
 ## Stack
@@ -38,11 +39,11 @@ No install command is defined by the repository.
 Useful verified commands:
 
 ```powershell
-node --check web/script.js
-node --check web/navigation.js
-node --check web/display-mode.js
-node --check web/projects-explorer.js
-node --check web/writing.js
+node --check script.js
+node --check navigation.js
+node --check display-mode.js
+node --check projects-explorer.js
+node --check writing.js
 node --check bashseekers/script.js
 node --check bashseekers/hero-media.js
 node --check bashseekers/media-data.js
@@ -55,7 +56,7 @@ For manual checks, open the relevant HTML file directly in a browser or serve th
 
 Deployment is inferred to be direct static publishing through GitHub Pages:
 
-- `index.html` redirects to `https://lawrencedinh.github.io/web/index.html`
-- `web/` holds the main portfolio branch
+- `index.html` serves the portfolio directly at `https://lawrencedinh.github.io/`
+- root-level portfolio files are the canonical implementation; `web/` preserves legacy links with redirects
 - `bashseekers/` is published as a subpath
 - no repo-defined build step or deployment automation was found

@@ -20,6 +20,11 @@
     return document.getElementById(id);
   }
 
+  function setMetaContent(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.setAttribute("content", value);
+  }
+
   async function loadWritingManifest() {
     const response = await fetch(MANIFEST_PATH, { headers: { Accept: "application/json" } });
     if (!response.ok) throw new Error("The article manifest could not be loaded.");
@@ -307,9 +312,42 @@
     railDate.replaceChildren(createDateElement(article.date));
     railReadingTime.textContent = article.readingTime;
     classification.textContent = article.classification || "Writing";
-    document.title = article.title + " | Lawrence Dinh";
+    document.title = article.title + " | Luat “Lawrence” Dinh";
+    const canonicalUrl = "https://lawrencedinh.github.io/writing-article.html?slug=" + encodeURIComponent(article.slug);
     const description = document.querySelector('meta[name="description"]');
     if (description) description.content = article.summary;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = canonicalUrl;
+    setMetaContent('meta[property="og:title"]', document.title);
+    setMetaContent('meta[property="og:description"]', article.summary);
+    setMetaContent('meta[property="og:url"]', canonicalUrl);
+    setMetaContent('meta[name="twitter:title"]', document.title);
+    setMetaContent('meta[name="twitter:description"]', article.summary);
+
+    let structuredData = getElement("article-structured-data");
+    if (!structuredData) {
+      structuredData = document.createElement("script");
+      structuredData.id = "article-structured-data";
+      structuredData.type = "application/ld+json";
+      document.head.appendChild(structuredData);
+    }
+    structuredData.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.summary,
+      datePublished: article.date,
+      dateModified: article.updated || article.date,
+      mainEntityOfPage: canonicalUrl,
+      author: {
+        "@type": "Person",
+        "@id": "https://lawrencedinh.github.io/#person",
+        name: "Luat “Lawrence” Dinh"
+      },
+      publisher: {
+        "@id": "https://lawrencedinh.github.io/#person"
+      }
+    });
   }
 
   async function loadArticleBody(article) {

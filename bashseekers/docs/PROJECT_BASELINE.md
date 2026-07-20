@@ -78,4 +78,4 @@ Root-level assets currently used include `56777.webp` for the nav logo and `bs.p
 - BigCartel shop, cart, product, and contact links use `https://bsauto.bigcartel.com/`.
 - YouTube links use `https://www.youtube.com/@bashseekers` and YouTube thumbnails/embeds by video ID.
 - Instagram links use `https://www.instagram.com/bashseekers/`.
-- The footer links back to `../web/index.html`.
+- The footer links back to the portfolio root at `../`.
