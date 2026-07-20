@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projects | Lawrence Dinh</title>
+  <meta name="description" content="Selected software, embedded-systems, data-analysis, and vehicle-validation work by Lawrence Dinh." />
+  <meta property="og:title" content="Projects | Lawrence Dinh" />
+  <meta property="og:description" content="Case studies and project records across software, sensing, automation, data analysis, and vehicle systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lawrencedinh.github.io/web/projects.html" />
+  <link rel="canonical" href="https://lawrencedinh.github.io/web/projects.html" />
+  <link rel="icon" type="image/png" href="imgsrc/icon.png" />
+  <link rel="stylesheet" href="style.css?v=20260719-12" />
+  <link rel="stylesheet" href="projects.css?v=20260719-9" />
+  <script src="display-mode.js?v=20260719-1"></script>
+</head>
+<body class="projects-page">
+  <a class="projects-skip-link" href="#projects-content">Skip to project content</a>
+
+  <header class="nav" role="banner" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand brand-link" href="index.html" aria-label="Go to the main portfolio" style="font-size:1.05rem">
+        Luat "Lawrence" Dinh
+        <span class="role">lawrencedinh.github.io</span>
+      </a>
+      <div class="enhanced-header-content">
+        <nav class="nav-links" aria-label="Primary">
+          <div class="nav-primary-rail">
+            <a href="index.html#about">About</a>
+            <a href="index.html#projects">Featured</a>
+            <a href="index.html#experience">Experience</a>
+            <a href="index.html#skills">Skills</a>
+            <div class="nav-portfolio" data-portfolio-menu="desktop">
+              <button class="nav-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuDesktop" aria-current="page">
+                Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span>
+              </button>
+              <div class="nav-portfolio-menu" id="portfolioMenuDesktop" data-portfolio-panel hidden>
+                <a href="projects.html" aria-current="page">Projects</a>
+                <a href="writing.html">Writing</a>
+              </div>
+            </div>
+          </div>
+          <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight" aria-label="Resume (opens in new tab)">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>
+            Resume
+          </a>
+          <a href="index.html#contact" class="nav-contact-btn" aria-label="Contact">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/><path d="M3 5.5l5 3 5-3"/></svg>
+            Contact
+          </a>
+        </nav>
+      <div class="display-mode-toggle" data-presentation-mode-toggle role="group" aria-label="Portfolio presentation style">
+        <button class="display-mode-option" type="button" data-portfolio-mode-value="simple" aria-pressed="false">SIMPLE</button>
+        <span class="display-mode-divider" aria-hidden="true">|</span>
+        <button class="display-mode-option" type="button" data-portfolio-mode-value="enhanced" aria-pressed="false">ENHANCED</button>
+      </div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="drawer" title="Menu">
+        <span class="hamburger" id="hamburgerIcon"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+    <div id="drawer" class="drawer" role="menu" aria-hidden="true">
+      <div class="display-mode-toggle display-mode-toggle--drawer" data-presentation-mode-toggle role="group" aria-label="Portfolio presentation style">
+        <button class="display-mode-option" type="button" data-portfolio-mode-value="simple" aria-pressed="false">SIMPLE</button><span class="display-mode-divider" aria-hidden="true">|</span><button class="display-mode-option" type="button" data-portfolio-mode-value="enhanced" aria-pressed="false">ENHANCED</button>
+      </div>
+      <a href="index.html#about">About</a>
+      <a href="index.html#projects">Featured</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#skills">Skills</a>
+      <div class="drawer-portfolio" data-portfolio-menu="mobile">
+        <button class="drawer-portfolio-trigger" type="button" data-portfolio-trigger aria-label="Portfolio menu" aria-expanded="false" aria-haspopup="menu" aria-controls="portfolioMenuMobile" aria-current="page">Portfolio <span class="nav-portfolio-chevron" aria-hidden="true">&#9662;</span></button>
+        <div class="drawer-portfolio-submenu" id="portfolioMenuMobile" data-portfolio-panel hidden>
+          <a href="projects.html" aria-current="page">Projects</a>
+          <a href="writing.html">Writing</a>
+        </div>
+      </div>
+      <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>Resume
+      </a>
+      <a href="index.html#contact" class="drawer-contact">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/><path d="M3 5.5l5 3 5-3"/></svg>Contact
+      </a>
+    </div>
+  </header>
+
+  <main id="projects-content" class="projects-shell">
+    <section class="projects-intro portfolio-page-hero" aria-labelledby="projects-heading">
+      <div class="portfolio-page-hero__identity">
+        <p class="projects-eyebrow portfolio-page-hero__breadcrumb">Portfolio / Projects</p>
+        <h1 class="portfolio-page-hero__title" id="projects-heading">Projects</h1>
+      </div>
+      <div class="projects-intro__copy portfolio-page-hero__context">
+        <p class="portfolio-page-hero__description">Case studies and technical records covering regional data systems, embedded sensing, vehicle validation, and earlier analytical work.</p>
+        <nav class="projects-section-links portfolio-page-hero__secondary" aria-label="Project page sections">
+          <a href="#local-driving-intelligence">Featured case study</a>
+          <a href="#current-projects">Current projects</a>
+          <a href="#academic-projects">Academic projects</a>
+        </nav>
+      </div>
+    </section>
+
+    <article id="local-driving-intelligence" class="projects-case-study" aria-labelledby="local-driving-title">
+      <header class="projects-case-study__header">
+        <div>
+          <span class="projects-index">01 / Data Platform</span>
+          <span class="projects-status">Active Development</span>
+        </div>
+        <p>2026 &mdash; Present</p>
+      </header>
+
+      <div class="projects-case-study__lead">
+        <figure class="projects-case-study__media projects-case-study__media--image projects-application-capture">
+          <div class="projects-application-capture__rail"><span>Capture // Local Portal</span><span>Data Platform / UI Evidence / 4:3</span></div>
+          <div class="projects-application-capture__viewport">
+            <img src="imgsrc/projects/osint/optimized/weather-overview-960.webp" srcset="imgsrc/projects/osint/optimized/weather-overview-960.webp 960w, imgsrc/projects/osint/optimized/weather-overview-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 68vw" width="1600" height="1197" decoding="async" alt="Local Portal dashboard showing regional weather locations and detailed San Jose conditions" />
+          </div>
+          <figcaption><strong>Regional Operations Overview</strong><span>One interface coordinates weather, traffic cameras, police intelligence, events, and preparation workflows.</span></figcaption>
+        </figure>
+        <div class="projects-case-study__summary">
+          <p class="projects-section-label">Featured Case Study</p>
+          <h2 id="local-driving-title">Local Driving Intelligence Platform</h2>
+          <p class="projects-case-study__purpose">A self-updating geospatial intelligence platform that collects, normalizes, caches, and visualizes traffic, weather, roadway-camera, incident, environmental, event, and weather-imagery data for regional decision support.</p>
+          <dl class="projects-facts">
+            <div><dt>Stack</dt><dd>React &middot; Node.js &middot; Express &middot; SQLite</dd></div>
+            <div><dt>Focus</dt><dd>Data engineering &middot; Geospatial systems &middot; API integration</dd></div>
+            <div><dt>State</dt><dd>Reliability, imagery, playback, caching, and data-quality refinement in progress</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="projects-case-study__detail">
+        <section>
+          <span>01 / Problem</span>
+          <h3>Fragmented regional information</h3>
+          <p>Driving information is distributed across separate public feeds, traffic-camera systems, forecasts, incident sources, and route-planning tools. The project brings those sources into one operational view.</p>
+        </section>
+        <section>
+          <span>02 / Architecture</span>
+          <h3>Provider-to-interface pipeline</h3>
+          <p>Provider-specific ingestion and normalization feed consistent internal records into SQLite persistence and bounded caches before the React interface presents route, corridor, and location context.</p>
+        </section>
+        <section>
+          <span>03 / Resilience</span>
+          <h3>Useful data under imperfect conditions</h3>
+          <p>Deduplication, stale-data handling, provider fallbacks, and persistent caching support continued access while external sources vary in format and availability.</p>
+        </section>
+        <section>
+          <span>04 / Current Work</span>
+          <h3>Active integration and refinement</h3>
+          <p>Multiple regional providers are integrated. Current development focuses on reliability, historical imagery, playback, caching behavior, and data quality.</p>
+        </section>
+      </div>
+
+      <section class="projects-osint-evidence" aria-labelledby="osint-evidence-heading">
+        <header>
+          <p class="projects-section-label">Interface Evidence</p>
+          <h3 id="osint-evidence-heading">Operational features in context</h3>
+          <p>Each module turns a separate public source or planning task into a focused, reviewable workflow.</p>
+        </header>
+
+        <div class="projects-feature-explorer" data-project-feature-explorer>
+          <div class="projects-feature-explorer__index" role="tablist" aria-label="Operational features"></div>
+          <section class="projects-feature-explorer__viewer" id="osint-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
+            <div class="projects-feature-explorer__rail">
+              <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
+              <h4 data-project-feature-title></h4>
+              <p data-project-feature-description></p>
+            </div>
+            <figure class="projects-feature-explorer__media projects-application-capture">
+              <div class="projects-application-capture__rail"><span>Capture // Local Portal</span><span>Data Platform / UI Evidence / 4:3</span></div>
+              <div class="projects-application-capture__viewport">
+                <img data-project-feature-image decoding="async" draggable="false" alt="" />
+              </div>
+              <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
+            </figure>
+            <div class="projects-feature-explorer__navigation">
+              <button type="button" data-project-feature-previous>← Previous</button>
+              <div class="projects-feature-explorer__navigation-center">
+                <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Feature position"></div>
+                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><span aria-hidden="true">II</span></button>
+              </div>
+              <button type="button" data-project-feature-next>Next →</button>
+              <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="projects-architecture" aria-labelledby="architecture-heading">
+        <div>
+          <p class="projects-section-label">System Flow</p>
+          <h3 id="architecture-heading">Architecture summary</h3>
+        </div>
+        <ol>
+          <li><span>01</span><strong>Public data providers</strong><small>Traffic, weather, cameras, incidents, environmental data, events, and imagery</small></li>
+          <li><span>02</span><strong>Ingestion and normalization</strong><small>Provider-specific pipelines converted into consistent records</small></li>
+          <li><span>03</span><strong>Persistence and caching</strong><small>SQLite, bounded caches, deduplication, and stale-data handling</small></li>
+          <li><span>04</span><strong>Regional interface</strong><small>Routes, corridors, locations, maps, cameras, and operational context</small></li>
+        </ol>
+      </section>
+    </article>
+
+    <section id="current-projects" class="projects-registry" aria-labelledby="current-projects-heading">
+      <header class="projects-section-header">
+        <div>
+          <p class="projects-section-label">Current Systems</p>
+          <h2 id="current-projects-heading">Prototypes and ongoing practice</h2>
+        </div>
+        <p>Active work where implementation, evaluation, or field practice is still developing.</p>
+      </header>
+
+      <div class="projects-card-grid">
+        <article class="projects-card">
+          <div class="projects-card__meta"><span>02 / Embedded IoT</span><b>Prototype</b></div>
+          <h3>Radar + LoRa Traffic Sensor</h3>
+          <p>ESP32 and LoRa sensing node for detecting vehicle activity, generating timestamped events, and transmitting telemetry beyond normal Wi-Fi coverage.</p>
+          <dl><div><dt>Stack</dt><dd>ESP32 &middot; Radar &middot; LoRa</dd></div><div><dt>Direction</dt><dd>Future integration with the Local Driving Intelligence data pipeline</dd></div></dl>
+        </article>
+        <article class="projects-card">
+          <div class="projects-card__meta"><span>03 / Robotics</span><b>Prototype</b></div>
+          <h3>Vehicle Proximity System</h3>
+          <p>ESP32 and ultra-wideband ranging system for measuring vehicle spacing and presenting driver-facing feedback during closed-course tandem driving.</p>
+          <dl><div><dt>Stack</dt><dd>ESP32 &middot; UWB &middot; Driver feedback</dd></div><div><dt>Focus</dt><dd>Ranging, calibration, filtering, mounting, and driver workload</dd></div></dl>
+        </article>
+        <article class="projects-card">
+          <div class="projects-card__meta"><span>04 / Motorsports</span><b>Ongoing Practice</b></div>
+          <h3>Performance Driving &amp; Validation</h3>
+          <p>Telemetry, instrumented driving, and structured session review across drifting, autocross, track driving, and simulation.</p>
+          <dl><div><dt>Focus</dt><dd>Vehicle dynamics &middot; Telemetry &middot; Validation</dd></div><div><dt>Method</dt><dd>Repeatable comparisons of sessions, setup changes, and driving techniques</dd></div></dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="academic-projects" class="projects-registry projects-registry--academic" aria-labelledby="academic-projects-heading">
+      <header class="projects-section-header">
+        <div>
+          <p class="projects-section-label">Earlier Work</p>
+          <h2 id="academic-projects-heading">Academic projects</h2>
+        </div>
+        <p>Completed coursework demonstrating reproducible analysis and software design.</p>
+      </header>
+
+      <div class="projects-academic-list">
+        <article>
+          <div><span>05 / Bioinformatics</span><b>Academic</b></div>
+          <h3>Python Phylogenetic Analysis</h3>
+          <p>Processed and aligned mRNA data from 44 species using BioPython and ClustalW, then used neighbor-joining and maximum-likelihood methods to infer evolutionary relationships.</p>
+          <small>Python &middot; BioPython &middot; Sequence alignment &middot; Validation</small>
+        </article>
+        <article>
+          <div><span>06 / Network Analysis</span><b>Academic</b></div>
+          <h3>Twitch.tv Users Network Analysis</h3>
+          <p>Analyzed a Twitch user-network dataset with Python and R using centrality measures, Louvain clustering, and Gephi visualization.</p>
+          <small>Python / R &middot; Graph analysis &middot; Clustering &middot; Gephi</small>
+        </article>
+        <article>
+          <div><span>07 / Software Engineering</span><b>Academic</b></div>
+          <h3>Bookstore Prototype System</h3>
+          <p>Built a Java e-commerce prototype with authentication, file persistence, inventory search, defensive error handling, and JUnit coverage.</p>
+          <small>Java &middot; MVC &middot; File persistence &middot; JUnit</small>
+        </article>
+      </div>
+    </section>
+
+    <footer class="projects-footer">
+      <p>Project details reflect verified content already published in this portfolio.</p>
+      <a href="index.html">Return to main portfolio <span aria-hidden="true">&#8594;</span></a>
+    </footer>
+  </main>
+<script src="navigation.js?v=20260719-4"></script>
+  <script src="carousel-interaction.js?v=20260719-2"></script>
+  <script src="projects-explorer.js?v=20260719-3"></script>
+</body>
+</html>

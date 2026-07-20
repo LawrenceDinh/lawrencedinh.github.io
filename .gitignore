@@ -1,1 +1,41 @@
 github_update_prompt.md
+
+# Local AI and agent working context
+.ai-context/
+.agents/
+bashseekers/AGENTS.md
+bashseekers/docs/ITERATION_NOTES.md
+
+# Unpublished Labs workspace
+web/lab.html
+web/lab.css
+web/lab.js
+web/lab-posts.js
+web/lab-article-template.html
+web/lab-project-template.html
+
+# Unpublished/raw project media retained locally
+web/imgsrc/projects/osint/cams/
+web/imgsrc/projects/osint/news/
+web/imgsrc/projects/osint/weather/
+web/imgsrc/projects/osint/writings/portfolio/668ebe8a9c07508a485f66dc396df1af.gif
+web/imgsrc/projects/osint/writings/portfolio/README.md
+web/imgsrc/projects/osint/writings/portfolio/old/
+
+# IDE and operating-system metadata
+.project
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and local editor artifacts
+*.log
+*.tmp
+*.tmp.*
+*.bak
+*.old
+*.orig
+*.rej
+*~

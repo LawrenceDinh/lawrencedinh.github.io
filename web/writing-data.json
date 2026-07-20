@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "from-scrolling-resume-to-navigable-interface",
+    "title": "From Scrolling Résumé to Navigable Interface",
+    "subtitle": "What I learned by transforming a conventional card-based portfolio into a compact, layered professional system.",
+    "summary": "The original portfolio was polished but conventional. Rebuilding it around layered navigation, progressive disclosure, and content-specific layouts changed it from a scrolling résumé into a more deliberate professional interface.",
+    "excerpt": "My original portfolio was functional, readable, responsive, and professionally presentable. It also gave me something more valuable than a polished mockup: a real system I could use and evaluate.",
+    "category": "Design & Development",
+    "articleType": "Project Retrospective",
+    "classification": "Design retrospective",
+    "date": "2026-07-19",
+    "updated": "2026-07-19",
+    "readingTime": "10 min",
+    "tags": [
+      "Portfolio Design",
+      "Information Architecture",
+      "UX Engineering"
+    ],
+    "featured": false,
+    "published": true,
+    "contentPath": "writing/articles/from-scrolling-resume-to-navigable-interface.html"
+  },
+  {
+    "slug": "performance-starts-before-start-line",
+    "title": "Performance Starts Before the Start Line",
+    "subtitle": "How sleep, nutrition, movement, warm-up, and mindset matter before a competitive driving event.",
+    "summary": "A practical field note on reducing avoidable performance loss by preparing the driver as deliberately as the vehicle.",
+    "excerpt": "A driver can arrive with a prepared car and still perform below their ability. Sleep, nutrition, movement, warm-up, and mental preparation influence consistency long before the first competitive run begins.",
+    "category": "Motorsports & Human Performance",
+    "articleType": "Practical Field Note",
+    "classification": "Driver preparation",
+    "date": "2026-07-19",
+    "updated": "2026-07-19",
+    "readingTime": "7 min",
+    "tags": [
+      "Driver Preparation",
+      "Competition",
+      "Human Performance"
+    ],
+    "featured": false,
+    "published": true,
+    "contentPath": "writing/articles/performance-starts-before-start-line.html"
+  },
+  {
+    "slug": "ai-attention-vs-games",
+    "title": "When AI Starts Competing With Games for Attention",
+    "subtitle": "Why prompting, building, and iterating can feel more compelling than another gaming session.",
+    "summary": "A working hypothesis about AI-assisted creation, rapid feedback loops, and the transition from simulated agency to accessible real-world making.",
+    "excerpt": "Lately, when I have an open hour, I am less likely to start a game and more likely to open ChatGPT or Codex. I launch a few agents, brainstorm a project, review what changed, test the result, and decide what to try next. The session has a familiar momentum: one more prompt; one more implementation; one more test; one more improvement.",
+    "category": "Technology & Culture",
+    "articleType": "Essay / Working Hypothesis",
+    "classification": "Working hypothesis",
+    "date": "2026-07-19",
+    "updated": "2026-07-19",
+    "readingTime": "7 min",
+    "tags": [
+      "Artificial Intelligence",
+      "Maker Culture",
+      "Human-Computer Interaction"
+    ],
+    "featured": true,
+    "published": true,
+    "contentPath": "writing/articles/ai-attention-vs-games.html"
+  }
+]
