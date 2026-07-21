@@ -255,7 +255,7 @@
     }
 
     const featured = articles.find(function (article) { return article.featured === true; }) || articles[0];
-    const supporting = articles.filter(function (article) { return article !== featured; }).slice(0, 3);
+    const supporting = articles.filter(function (article) { return article !== featured; }).slice(0, 2);
     const selectedCount = 1 + supporting.length;
     const featuredChildren = [createFeaturedArticle(featured, articles.indexOf(featured))];
     supporting.forEach(function (article) {
@@ -265,7 +265,6 @@
     featuredTarget.classList.toggle("writing-featured-grid--solo", supporting.length === 0);
     featuredTarget.classList.toggle("writing-featured-grid--one-support", supporting.length === 1);
     featuredTarget.classList.toggle("writing-featured-grid--two-supports", supporting.length === 2);
-    featuredTarget.classList.toggle("writing-featured-grid--three-supports", supporting.length === 3);
     featuredCount.textContent = String(selectedCount).padStart(2, "0") + " / SELECTED";
     listTarget.replaceChildren.apply(listTarget, articles.map(createArchiveRow));
     status.hidden = true;
