@@ -1,4 +1,4 @@
-# lawrencedinh.github.io
+# lawrencedinh.com
 
 Static GitHub Pages portfolio for Lawrence Dinh, a software and systems engineer. The public experience includes:
 
@@ -7,7 +7,8 @@ Static GitHub Pages portfolio for Lawrence Dinh, a software and systems engineer
 - a Writing archive and article reader
 - the Bashseekers branded demo site
 
-Live root URL: `https://lawrencedinh.github.io/`
+Public site: `https://lawrencedinh.com/`
+GitHub Pages origin/fallback: `https://lawrencedinh.github.io/`
 
 ## Major capabilities
 
@@ -54,7 +55,7 @@ For manual checks, open the relevant HTML file directly in a browser or serve th
 
 ## Analytics
 
-Cloudflare Web Analytics is loaded by `analytics.js` on the canonical portfolio pages and the standalone Bashseekers pages. The loader accepts only `lawrencedinh.com`, `www.lawrencedinh.com`, and `lawrencedinh.github.io`, so localhost, IP-based previews, file URLs, and other development hosts do not send analytics traffic. The Cloudflare site token is intentionally public client-side configuration.
+Cloudflare Web Analytics is loaded by `analytics.js` on the canonical portfolio pages and the standalone Bashseekers pages. The loader accepts `lawrencedinh.com`, `www.lawrencedinh.com`, and the GitHub Pages fallback `lawrencedinh.github.io`; localhost, IP-based previews, file URLs, and other development hosts do not send analytics traffic. The Cloudflare site token is intentionally public client-side configuration.
 
 After deployment, verify the integration on the live site with browser developer tools: confirm `beacon.min.js` loads once, a Cloudflare analytics request is sent without console errors, and the visit later appears in the Cloudflare Web Analytics dashboard. Compatibility redirects under `/web/` are intentionally not instrumented to avoid counting both the redirect and its canonical destination.
 
@@ -62,7 +63,7 @@ After deployment, verify the integration on the live site with browser developer
 
 Deployment is inferred to be direct static publishing through GitHub Pages:
 
-- `index.html` serves the portfolio directly at `https://lawrencedinh.github.io/`
+- `index.html` is published through GitHub Pages and is publicly served at `https://lawrencedinh.com/` with `https://lawrencedinh.github.io/` retained as the Pages fallback origin
 - root-level portfolio files are the canonical implementation; `web/` preserves legacy links with redirects
 - `bashseekers/` is published as a subpath
 - no repo-defined build step or deployment automation was found

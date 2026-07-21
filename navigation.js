@@ -1,4 +1,35 @@
 (function () {
+  function updateCurrentYear() {
+    try {
+      const currentYear = new Date().getFullYear();
+      if (!Number.isInteger(currentYear) || currentYear < 2026 || currentYear > 2100) return;
+
+      document.querySelectorAll('[data-current-year]').forEach(function (element) {
+        const yearText = String(currentYear);
+        if (element.textContent !== yearText) element.textContent = yearText;
+        if (element.tagName === 'TIME' && element.getAttribute('datetime') !== yearText) {
+          element.setAttribute('datetime', yearText);
+        }
+      });
+    } catch (error) {
+      // Preserve the static HTML fallback if date or DOM access fails.
+    }
+  }
+
+  let currentYearInterval = 0;
+  function initializeCurrentYear() {
+    updateCurrentYear();
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) updateCurrentYear();
+    });
+    if (!currentYearInterval) currentYearInterval = window.setInterval(updateCurrentYear, 6 * 60 * 60 * 1000);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeCurrentYear, { once: true });
+  } else {
+    initializeCurrentYear();
+  }
+
   const navToggle = document.getElementById('navToggle');
   const drawer = document.getElementById('drawer');
   const hamburger = document.getElementById('hamburgerIcon');

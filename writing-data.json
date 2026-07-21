@@ -1,5 +1,22 @@
 [
   {
+    "slug": "what-to-bring-to-a-drift-day",
+    "title": "From Packing List to Trackside Operations",
+    "subtitle": "How repeated drift events turned a simple packing list into a better way to prepare.",
+    "summary": "A firsthand field guide to planning tires, vehicle support, paddock logistics, weather protection, cleanup, communication, and recovery for a complete drift day.",
+    "excerpt": "My drift-day packing list did not come together all at once. It grew through repeated events, when small oversights between sessions became harder to ignore and the difference between being prepared and overpacking became clearer.",
+    "category": "Motorsports",
+    "articleType": "Field Guide",
+    "classification": "Driver preparation",
+    "date": "2026-07-20",
+    "updated": "2026-07-20",
+    "readingTime": "12 min",
+    "tags": ["Drift", "Motorsports", "Logistics", "Driver Preparation", "Track Support"],
+    "featured": true,
+    "published": true,
+    "contentPath": "writing/articles/what-to-bring-to-a-drift-day.html"
+  },
+  {
     "slug": "from-scrolling-resume-to-navigable-interface",
     "title": "From Scrolling Résumé to Navigable Interface",
     "subtitle": "What I learned by transforming a conventional card-based portfolio into a compact, layered professional system.",
@@ -58,7 +75,7 @@
       "Maker Culture",
       "Human-Computer Interaction"
     ],
-    "featured": true,
+    "featured": false,
     "published": true,
     "contentPath": "writing/articles/ai-attention-vs-games.html"
   }

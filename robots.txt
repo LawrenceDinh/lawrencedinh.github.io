@@ -4,4 +4,4 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://lawrencedinh.github.io/sitemap.xml
+Sitemap: https://lawrencedinh.com/sitemap.xml
