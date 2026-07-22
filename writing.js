@@ -694,6 +694,16 @@
     updateActiveTocLink();
   }
   function initializeArticleProjectPreviews(articleBody) {
+    articleBody.querySelectorAll(".article-project-preview__media").forEach(function (media) {
+      const image = media.querySelector(".article-project-preview__image");
+      if (!image || image.closest(".article-project-preview__image-trigger")) return;
+      const trigger = document.createElement("button");
+      trigger.className = "article-project-preview__image-trigger";
+      trigger.type = "button";
+      trigger.setAttribute("aria-label", "Open Local Driving Intelligence dashboard image in expanded view");
+      image.replaceWith(trigger);
+      trigger.appendChild(image);
+    });
     articleBody.addEventListener("keydown", function (event) {
       if (event.key !== "Escape") return;
       const preview = event.target.closest && event.target.closest(".article-project-preview");
@@ -743,12 +753,17 @@
 
     function openImageViewer(trigger) {
       const figure = trigger.closest("[data-writing-figure].has-image");
-      if (!figure) return;
-      const image = trigger.querySelector(".writing-article-figure__image");
+      const preview = trigger.closest(".article-project-preview");
+      if (!figure && !preview) return;
+      const image = trigger.querySelector(".writing-article-figure__image, .article-project-preview__image");
       if (!image) return;
-      const number = figure.querySelector(".article-figure-caption__number");
-      const title = figure.querySelector(".article-figure-caption__title");
-      const description = figure.querySelector(".article-figure-caption__text");
+      const number = figure && figure.querySelector(".article-figure-caption__number");
+      const title = figure
+        ? figure.querySelector(".article-figure-caption__title")
+        : preview.querySelector(".article-project-preview__title");
+      const description = figure
+        ? figure.querySelector(".article-figure-caption__text")
+        : preview.querySelector(".article-project-preview__description");
       activeImageTrigger = trigger;
       expandedImage.src = image.currentSrc || image.src;
       expandedImage.alt = image.alt;
@@ -761,7 +776,7 @@
     }
 
     function imageTriggerFrom(target) {
-      const trigger = target.closest && target.closest(".writing-article-figure__trigger");
+      const trigger = target.closest && target.closest(".writing-article-figure__trigger, .article-project-preview__image-trigger");
       return trigger && articleBody.contains(trigger) ? trigger : null;
     }
 
