@@ -2595,54 +2595,6 @@
       });
     };
 
-    const careerSnapshot = careerTabs[0] ? careerTabs[0].closest('.career-snapshot') : null;
-    const careerDossier = careerSnapshot ? careerSnapshot.querySelector('.career-dossier') : null;
-    const careerPanels = careerTabs.map(function(tab) {
-      return document.getElementById(tab.getAttribute('aria-controls'));
-    }).filter(Boolean);
-    const careerDesktopQuery = window.matchMedia('(min-width: 901px)');
-    let careerHeightFrame = 0;
-
-    const recalculateCareerPanelHeight = function() {
-      careerHeightFrame = 0;
-      if (!careerSnapshot || !careerDossier) return;
-
-      const isEnhancedDesktop = document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced' && careerDesktopQuery.matches;
-      if (!isEnhancedDesktop || !careerPanels.length) {
-        careerDossier.style.removeProperty('--career-shared-panel-height');
-        return;
-      }
-
-      clearCareerTransition();
-      const activeCareerTab = careerSnapshot.dataset.activeCareerTab;
-      const panelStates = careerPanels.map(function(panel) {
-        return { panel: panel, hidden: panel.hidden };
-      });
-
-      careerSnapshot.classList.add('career-snapshot--measuring');
-      careerDossier.style.removeProperty('--career-shared-panel-height');
-      careerDossier.style.visibility = 'hidden';
-
-      let tallestHeight = 0;
-      careerPanels.forEach(function(panel) {
-        careerPanels.forEach(function(candidate) { candidate.hidden = true; });
-        careerSnapshot.dataset.activeCareerTab = panel.id.replace('career-panel-', '');
-        panel.hidden = false;
-        tallestHeight = Math.max(tallestHeight, careerDossier.getBoundingClientRect().height);
-      });
-
-      panelStates.forEach(function(state) { state.panel.hidden = state.hidden; });
-      if (activeCareerTab) careerSnapshot.dataset.activeCareerTab = activeCareerTab;
-      careerSnapshot.classList.remove('career-snapshot--measuring');
-      careerDossier.style.visibility = '';
-      careerDossier.style.setProperty('--career-shared-panel-height', Math.ceil(tallestHeight) + 'px');
-    };
-
-    const scheduleCareerPanelHeight = function() {
-      if (careerHeightFrame) window.cancelAnimationFrame(careerHeightFrame);
-      careerHeightFrame = window.requestAnimationFrame(recalculateCareerPanelHeight);
-    };
-
     const activateCareerTab = function(tab, shouldFocus) {
       const targetId = tab.getAttribute('aria-controls');
       const snapshot = tab.closest('.career-snapshot');
@@ -2657,7 +2609,6 @@
       });
 
       const activePanel = document.getElementById(targetId);
-      scheduleCareerPanelHeight();
       if (document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced') {
         animateCareerPanel(activePanel, targetId);
       } else {
@@ -2735,7 +2686,6 @@
     });
 
     const careerModeObserver = new MutationObserver(function() {
-      scheduleCareerPanelHeight();
       if (document.documentElement.getAttribute('data-portfolio-mode') !== 'enhanced') {
         clearCareerTransition();
         return;
@@ -2747,18 +2697,6 @@
     careerModeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['data-portfolio-mode']
-    });
-
-    window.addEventListener('resize', scheduleCareerPanelHeight);
-    window.addEventListener('load', scheduleCareerPanelHeight, { once: true });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleCareerPanelHeight);
-    careerPanels.forEach(function(panel) {
-      panel.querySelectorAll('img').forEach(function(image) {
-        if (!image.complete) {
-          image.addEventListener('load', scheduleCareerPanelHeight, { once: true });
-          image.addEventListener('error', scheduleCareerPanelHeight, { once: true });
-        }
-      });
     });
 
     if (typeof reduceMotionQuery.addEventListener === 'function') {
@@ -2776,8 +2714,6 @@
         animateCareerPanel(document.getElementById(panelId), panelId);
       });
     });
-    scheduleCareerPanelHeight();
-
   }
 
   // Rotate verified Local Driving Intelligence interface views without loading every large asset up front.

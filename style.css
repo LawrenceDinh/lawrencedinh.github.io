@@ -8127,10 +8127,6 @@ html[data-portfolio-mode="enhanced"] body {
     margin-top: 10px;
   }
 
-  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-credentials .career-footer-strip {
-    margin-bottom: -1px;
-    padding-bottom: 0;
-  }
 }
 
 /* Enhanced mobile composition
@@ -10805,14 +10801,6 @@ html[data-portfolio-mode="enhanced"] body #experience {
   }
 }
 
-/* Keep the desktop Career Snapshot body stable while tabs change. The value
-   is measured from the tallest natural panel by the tab controller. */
-@media (min-width: 901px) {
-  [data-portfolio-mode="enhanced"] .career-dossier {
-    min-height: var(--career-shared-panel-height, 0px);
-  }
-}
-
 /* The older Experience viewport-fill composition would otherwise stretch its
    cards and make its outer height depend on the active tab. */
 @media (min-width: 1100px) and (min-height: 881px) {
@@ -10837,35 +10825,51 @@ html[data-portfolio-mode="enhanced"] body #experience {
   }
 }
 
-/* Measure hidden panels in normal document flow without showing or stretching
-   them during the calculation. */
+/* Compact only the desktop Overview composition so it meets the existing
+   Experience height without changing detail-tab content or typography. */
 @media (min-width: 901px) {
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring {
-    display: block;
-    flex: 0 0 auto;
-    min-height: 0;
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-dossier,
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-panel,
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-detail-group,
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-detail-group__body {
-    display: block;
-    flex: 0 0 auto;
-    min-height: 0;
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-group + .career-overview-group {
+    margin-top: 12px;
   }
 
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-panel[hidden] {
-    display: none;
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-companies {
+    gap: 5px;
+    padding: 6px 7px 7px;
   }
 
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-experience-stack {
-    flex: 0 0 auto;
-    grid-template-rows: none;
-    min-height: 0;
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-company {
+    min-height: 104px;
+    padding-top: 7px;
+    padding-bottom: 7px;
   }
 
-  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-experience-card {
-    height: auto;
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-project-registry__record {
+    min-height: 58px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-footer-strip {
+    padding-top: 4px;
+    padding-bottom: 10px;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-credential {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-credentials {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="overview"] .career-dossier {
+    padding-bottom: 12px;
   }
 }
