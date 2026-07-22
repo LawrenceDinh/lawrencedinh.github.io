@@ -3080,7 +3080,9 @@ html[data-portfolio-mode="enhanced"] body {
 }
 
 [data-portfolio-mode="enhanced"] .career-overview-section-link:hover .career-overview-section-link__action::before,
-[data-portfolio-mode="enhanced"] .career-overview-section-link:focus-visible .career-overview-section-link__action::before {
+[data-portfolio-mode="enhanced"] .career-overview-section-link:focus-visible .career-overview-section-link__action::before,
+[data-portfolio-mode="enhanced"] .career-detail-return:hover .career-overview-section-link__action::before,
+[data-portfolio-mode="enhanced"] .career-detail-return:focus-visible .career-overview-section-link__action::before {
   border-color: rgba(80, 205, 214, .65);
   background: rgba(43, 184, 196, .07);
 }
@@ -10800,5 +10802,70 @@ html[data-portfolio-mode="enhanced"] body #experience {
     margin: 4px 0 0;
     font-size: .68rem;
     line-height: 1.3;
+  }
+}
+
+/* Keep the desktop Career Snapshot body stable while tabs change. The value
+   is measured from the tallest natural panel by the tab controller. */
+@media (min-width: 901px) {
+  [data-portfolio-mode="enhanced"] .career-dossier {
+    min-height: var(--career-shared-panel-height, 0px);
+  }
+}
+
+/* The older Experience viewport-fill composition would otherwise stretch its
+   cards and make its outer height depend on the active tab. */
+@media (min-width: 1100px) and (min-height: 881px) {
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] {
+    flex: 0 0 auto;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] .career-dossier,
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] .career-panel--experience:not([hidden]),
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] .career-detail-group,
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] .career-detail-group__body {
+    flex: 0 0 auto;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] .career-experience-stack {
+    flex: 0 0 auto;
+    grid-template-rows: none;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="experience"] .career-experience-card {
+    height: auto;
+  }
+}
+
+/* Measure hidden panels in normal document flow without showing or stretching
+   them during the calculation. */
+@media (min-width: 901px) {
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring {
+    display: block;
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-dossier,
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-panel,
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-detail-group,
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-detail-group__body {
+    display: block;
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-panel[hidden] {
+    display: none;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-experience-stack {
+    flex: 0 0 auto;
+    grid-template-rows: none;
+    min-height: 0;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-snapshot.career-snapshot--measuring .career-experience-card {
+    height: auto;
   }
 }
