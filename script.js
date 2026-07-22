@@ -1632,6 +1632,14 @@
     if (!sectionNavLinks.length) return;
 
     const activationLine = 120;
+    const headerOffset = Math.ceil(document.querySelector('.nav')?.getBoundingClientRect().height || 0);
+    const documentBottom = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    const viewportBottom = window.scrollY + window.innerHeight;
+    if (documentBottom - viewportBottom <= Math.max(24, headerOffset)) {
+      setCurrentSection(sectionNavLinks[sectionNavLinks.length - 1].link);
+      return;
+    }
+
     if (featuredSection && aboutNavLink) {
       const featuredRect = featuredSection.getBoundingClientRect();
       if (featuredRect.top <= activationLine && featuredRect.bottom > activationLine) {

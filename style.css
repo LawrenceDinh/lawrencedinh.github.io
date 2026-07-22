@@ -10854,9 +10854,9 @@ html[data-portfolio-mode="enhanced"] body #experience {
     padding-bottom: 7px;
   }
 
-  [data-portfolio-mode="enhanced"] .career-panel--overview .career-footer-strip {
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-credentials .career-footer-strip {
     padding-top: 4px;
-    padding-bottom: 10px;
+    padding-bottom: 0;
   }
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-credential {
@@ -10870,6 +10870,6 @@ html[data-portfolio-mode="enhanced"] body #experience {
   }
 
   [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="overview"] .career-dossier {
-    padding-bottom: 12px;
+    padding-bottom: 0;
   }
 }
