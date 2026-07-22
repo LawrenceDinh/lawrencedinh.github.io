@@ -84,7 +84,7 @@
   }
   </script>
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
-  <link rel="stylesheet" href="style.css?v=20260720-25">
+  <link rel="stylesheet" href="style.css?v=20260721-5">
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body>
@@ -269,7 +269,7 @@
     <div class="career-dossier">
       <section id="career-panel-overview" class="career-panel career-panel--overview" role="tabpanel" aria-labelledby="career-tab-overview">
         <section class="career-overview-group" aria-labelledby="overview-experience-heading">
-          <h3 id="overview-experience-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action" type="button" data-career-tab-target="experience"><span>Professional Experience</span><span class="career-overview-group__action-label">View Details <span aria-hidden="true">→</span></span></button></h3>
+          <h3 id="overview-experience-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="experience"><span class="career-overview-section-link__title">Professional Experience</span><span class="career-overview-group__action-label career-overview-section-link__action">View Details <span aria-hidden="true">→</span></span></button></h3>
           <div class="career-overview-companies" aria-label="Company summaries">
             <article class="career-overview-company career-overview-company--current" tabindex="0"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/Nvidia_logo.png" alt="" decoding="async"></span><span class="career-company-name">NVIDIA</span></div><div class="career-overview-company__content"><strong>Autonomous Vehicle Test Expert</strong><p>Robotic vehicle systems, automotive safety, AI validation, and Alpamayo.</p></div></article>
             <article class="career-overview-company" tabindex="0"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/tcs_logo.png" alt="" decoding="async"></span><span class="career-company-name">Tata Consultancy Services</span></div><div class="career-overview-company__content"><strong>Assistant Systems Engineer</strong><p>Workflow automation, JavaScript, enterprise integration, and ServiceNow.</p></div></article>
@@ -277,7 +277,7 @@
           </div>
         </section>
         <section class="career-overview-group" aria-labelledby="overview-projects-heading">
-          <h3 id="overview-projects-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action" type="button" data-career-tab-target="projects"><span>Featured Projects</span><span class="career-overview-group__action-label">View Projects <span aria-hidden="true">→</span></span></button></h3>
+          <h3 id="overview-projects-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="projects"><span class="career-overview-section-link__title">Featured Projects</span><span class="career-overview-group__action-label career-overview-section-link__action">View Projects <span aria-hidden="true">→</span></span></button></h3>
           <div class="career-overview-projects career-project-registry" aria-label="Project summaries">
             <article class="career-project-registry__record career-project-registry__record--featured">
               <div class="career-project-registry__meta"><span class="career-project-index">01 / Data Platform</span><span class="career-project-meta">React · SQLite</span></div>
@@ -302,7 +302,7 @@
           </div>
         </section>
         <section class="career-overview-group career-overview-credentials" aria-labelledby="overview-credentials-heading">
-          <h3 id="overview-credentials-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action" type="button" data-career-tab-target="credentials"><span>Credentials</span><span class="career-overview-group__action-label">View Details <span aria-hidden="true">→</span></span></button></h3>
+          <h3 id="overview-credentials-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="credentials"><span class="career-overview-section-link__title">Credentials</span><span class="career-overview-group__action-label career-overview-section-link__action">View Details <span aria-hidden="true">→</span></span></button></h3>
           <div class="career-footer-strip" aria-label="Career credentials">
             <div class="career-footer-credentials">
               <div class="career-credential-rail" role="list" aria-label="Credential preview">
@@ -401,42 +401,22 @@
   <div class="section-header">
     <div>
       <h2 id="skills-heading" class="section-heading"><span class="skills-heading-simple">Skills &amp; Tools</span><span class="skills-heading-enhanced">Skills</span></h2>
-      <p class="skills-section-description">Technical capabilities applied across software, testing, data, and physical systems.</p>
+      <p class="skills-section-description">Core engineering capabilities demonstrated through professional work and selected projects.</p>
     </div>
     <span class="expand-hint skills-legacy-only">(Click cards to flip)</span>
   </div>
   <div class="skills-enhanced">
     <div class="skills-explorer">
       <div class="skills-capability-tabs" role="tablist" aria-label="Core capabilities">
-        <button id="skills-tab-test-validation" class="skills-capability-tab" type="button" role="tab" aria-selected="true" aria-controls="skills-capability-panel" tabindex="0" data-skill-capability="test-validation"><span class="skills-capability-tab__index">01</span><span class="skills-capability-tab__copy"><strong>Test &amp; Validation</strong><small>Testing · Integration · Diagnostics</small></span></button>
-        <button id="skills-tab-software-automation" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="software-automation"><span class="skills-capability-tab__index">02</span><span class="skills-capability-tab__copy"><strong>Software &amp; Automation</strong><small>Development · Workflow · Tooling</small></span></button>
-        <button id="skills-tab-data-analytics" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="data-analytics"><span class="skills-capability-tab__index">03</span><span class="skills-capability-tab__copy"><strong>Data &amp; Analytics</strong><small>Python · Telemetry · Geospatial</small></span></button>
-        <button id="skills-tab-interfaces-systems" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="interfaces-systems"><span class="skills-capability-tab__index">04</span><span class="skills-capability-tab__copy"><strong>Interfaces &amp; Systems</strong><small>Dashboards · UX · Operations</small></span></button>
+        <button id="skills-tab-test-validation" class="skills-capability-tab" type="button" role="tab" aria-selected="true" aria-controls="skills-capability-panel" tabindex="0" data-skill-capability="test-validation"><span class="skills-capability-tab__index">01</span><span class="skills-capability-tab__copy"><strong>Test &amp; Validation</strong></span></button>
+        <button id="skills-tab-software-automation" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="software-automation"><span class="skills-capability-tab__index">02</span><span class="skills-capability-tab__copy"><strong>Software &amp; Automation</strong></span></button>
+        <button id="skills-tab-data-analytics" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="data-analytics"><span class="skills-capability-tab__index">03</span><span class="skills-capability-tab__copy"><strong>Data &amp; Analytics</strong></span></button>
+        <button id="skills-tab-interfaces-systems" class="skills-capability-tab" type="button" role="tab" aria-selected="false" aria-controls="skills-capability-panel" tabindex="-1" data-skill-capability="interfaces-systems"><span class="skills-capability-tab__index">04</span><span class="skills-capability-tab__copy"><strong>Interfaces &amp; Systems</strong></span></button>
       </div>
 
-      <section id="skills-capability-panel" class="skills-capability-panel" role="tabpanel" aria-labelledby="skills-tab-test-validation">
-        <header class="skills-capability-panel__header">
-          <span>01 / Selected Capability</span>
-          <h3>Test &amp; Validation</h3>
-          <p class="skills-capability-panel__summary">Executes structured validation, analyzes system behavior, and produces reviewable technical evidence across software and physical systems.</p>
-        </header>
-        <div class="skills-capability-panel__columns">
-          <section class="skills-capability-methods" aria-labelledby="skills-methods-heading"><h4 id="skills-methods-heading">Methods</h4><ol><li><span>01</span><div><strong>Test execution</strong><small>Structured scenario and test-plan execution</small></div></li><li><span>02</span><div><strong>System analysis</strong><small>Telemetry and observed-behavior review</small></div></li><li><span>03</span><div><strong>Integration testing</strong><small>System and sensor validation</small></div></li><li><span>04</span><div><strong>Issue documentation</strong><small>Reproducible technical findings</small></div></li></ol></section>
-          <section class="skills-capability-tools" aria-labelledby="skills-tools-heading"><h4 id="skills-tools-heading">Toolchain</h4><ul><li>Python</li><li>Linux</li><li>Telemetry tools</li><li>Jira</li><li>Git</li></ul></section>
-          <section class="skills-capability-evidence" aria-labelledby="skills-evidence-heading"><h4 id="skills-evidence-heading">Applied Evidence</h4><div><a href="#experience"><strong>NVIDIA</strong><span>Autonomous-vehicle testing · telemetry review</span><small>View experience →</small></a><a href="#projects"><strong>Performance Driving &amp; Validation</strong><span>Telemetry-based review · controlled testing</span><small>View projects →</small></a></div></section>
-        </div>
-      </section>
+      <section id="skills-capability-panel" class="skills-capability-panel" role="tabpanel" aria-labelledby="skills-tab-test-validation"></section>
     </div>
 
-    <section class="skills-domain-registry" aria-labelledby="skills-domains-heading">
-      <h3 id="skills-domains-heading">Applied Domains</h3>
-      <div><article class="skills-domain-record"><span>01</span><strong>Automotive &amp; AV</strong><small>Autonomous systems · Vehicle validation · Safety</small></article><article class="skills-domain-record"><span>02</span><strong>Robotics &amp; Sensing</strong><small>Sensors · UWB · Embedded prototypes</small></article><article class="skills-domain-record"><span>03</span><strong>Geospatial Systems</strong><small>Regional data · Maps · Public-data integration</small></article><article class="skills-domain-record"><span>04</span><strong>Enterprise Operations</strong><small>ServiceNow · Workflow systems · Delivery support</small></article></div>
-    </section>
-
-    <section class="skills-toolchain" aria-labelledby="skills-technology-heading">
-      <h3 id="skills-technology-heading">Technology Index</h3>
-      <div><article><strong>Development</strong><p>Python · JavaScript · Java · C++</p></article><article><strong>Platforms</strong><p>Linux · Git · Docker · ServiceNow</p></article><article><strong>Data</strong><p>pandas · NumPy · R · SQLite · Excel · ArcGIS</p></article><article><strong>Systems</strong><p>React · Node.js · ESP32 · ROS · Sensor tooling</p></article></div>
-    </section>
   </div>
 
   <div class="skills-legacy">
@@ -1097,10 +1077,10 @@
   </footer>
 </div>
 </main>
-<script src="navigation.js?v=20260720-4"></script>
+<script src="navigation.js?v=20260721-3"></script>
   <script src="carousel-interaction.js?v=20260720-4"></script>
   <script src="project-image-viewer.js?v=20260720-3"></script>
-  <script src="script.js?v=20260720-6"></script>
+  <script src="script.js?v=20260721-3"></script>
   <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

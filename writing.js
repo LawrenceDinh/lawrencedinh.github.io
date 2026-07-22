@@ -1,9 +1,10 @@
 (function () {
   "use strict";
 
-  const MANIFEST_PATH = "writing-data.json";
+  const MANIFEST_PATH = "writing-data.json?v=20260721-15";
   const ARTICLE_PATH_PATTERN = /^writing\/articles\/[a-z0-9]+(?:-[a-z0-9]+)*\.html$/;
   const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  const VIEWED_ARTICLES_STORAGE_KEY = "lawrencedinh:viewed-writing:v1";
   let articleImageViewerController = null;
   let articleImageViewerElement = null;
 
@@ -20,6 +21,35 @@
 
   function getElement(id) {
     return document.getElementById(id);
+  }
+
+  function getViewedArticleSlugs() {
+    try {
+      const storedValue = window.localStorage.getItem(VIEWED_ARTICLES_STORAGE_KEY);
+      if (!storedValue) return [];
+      const parsedValue = JSON.parse(storedValue);
+      if (!Array.isArray(parsedValue)) return [];
+      return Array.from(new Set(parsedValue.filter(function (slug) {
+        return typeof slug === "string" && SLUG_PATTERN.test(slug);
+      })));
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function hasViewedArticle(slug) {
+    return SLUG_PATTERN.test(slug || "") && getViewedArticleSlugs().includes(slug);
+  }
+
+  function markArticleViewed(slug) {
+    if (!SLUG_PATTERN.test(slug || "")) return;
+    try {
+      const viewedSlugs = getViewedArticleSlugs();
+      if (!viewedSlugs.includes(slug)) viewedSlugs.push(slug);
+      window.localStorage.setItem(VIEWED_ARTICLES_STORAGE_KEY, JSON.stringify(viewedSlugs));
+    } catch (error) {
+      // Storage may be blocked or unavailable; article rendering must continue.
+    }
   }
 
   function setMetaContent(selector, value) {
@@ -83,9 +113,52 @@
     return list;
   }
 
+  function createViewedArticleTag(article) {
+    if (!article || !hasViewedArticle(article.slug)) return null;
+    const tag = createTextElement("span", "writing-card-viewed", "Viewed");
+    tag.title = "Previously viewed on this device";
+    return tag;
+  }
+
+  function createCardArt(article) {
+    const validImagePath = /^\/?imgsrc\/[A-Za-z0-9_./-]+\.(?:avif|jpe?g|png|webp)$/i;
+    const configuredPaths = article && Array.isArray(article.cardImageCandidates)
+      ? article.cardImageCandidates
+      : [article && article.cardImage];
+    const imagePaths = configuredPaths
+      .filter(function (path) { return typeof path === "string" && validImagePath.test(path.trim()); })
+      .map(function (path) { return path.trim(); })
+      .filter(function (path, index, paths) { return paths.indexOf(path) === index; });
+    if (!imagePaths.length) return null;
+
+    const art = document.createElement("span");
+    art.className = "writing-card-art";
+    art.setAttribute("aria-hidden", "true");
+
+    function loadCandidate(index) {
+      if (index >= imagePaths.length) return;
+      const candidate = new Image();
+      candidate.onload = function () {
+        const imagePath = imagePaths[index];
+        art.style.setProperty("--writing-card-image", "url(\"" + imagePath.replace(/[\"\\]/g, "\\$&") + "\")");
+      };
+      candidate.onerror = function () { loadCandidate(index + 1); };
+      candidate.src = imagePaths[index];
+    }
+
+    loadCandidate(0);
+    return art;
+  }
+
   function createFeaturedArticle(article, index) {
     const card = document.createElement("article");
     card.className = "writing-featured-card writing-featured-card--primary";
+
+    const stretchedLink = document.createElement("a");
+    stretchedLink.className = "writing-featured-card__stretched-link";
+    stretchedLink.href = articleUrl(article);
+    stretchedLink.tabIndex = -1;
+    stretchedLink.setAttribute("aria-hidden", "true");
 
     const indexLabel = createTextElement("span", "writing-featured-card__index", String(index + 1).padStart(2, "0"));
     indexLabel.setAttribute("aria-hidden", "true");
@@ -135,7 +208,11 @@
     actions.append(readingTime, action);
     footer.appendChild(actions);
 
-    card.append(indexLabel, meta, title, rationale);
+    const art = createCardArt(article);
+    if (art) card.appendChild(art);
+    const viewedTag = createViewedArticleTag(article);
+    if (viewedTag) card.appendChild(viewedTag);
+    card.append(stretchedLink, indexLabel, meta, title, rationale);
     if (excerpt) card.appendChild(excerpt);
     card.appendChild(footer);
     return card;
@@ -144,6 +221,12 @@
   function createSupportingArticle(article, index) {
     const card = document.createElement("article");
     card.className = "writing-featured-card writing-featured-card--supporting";
+
+    const stretchedLink = document.createElement("a");
+    stretchedLink.className = "writing-featured-card__stretched-link";
+    stretchedLink.href = articleUrl(article);
+    stretchedLink.tabIndex = -1;
+    stretchedLink.setAttribute("aria-hidden", "true");
 
     const indexLabel = createTextElement("span", "writing-featured-card__index", String(index + 1).padStart(2, "0"));
     indexLabel.setAttribute("aria-hidden", "true");
@@ -171,13 +254,23 @@
     action.append(document.createTextNode("Read "), createTextElement("span", "", "→"));
     footer.appendChild(action);
 
-    card.append(indexLabel, meta, title, rationale, footer);
+    const art = createCardArt(article);
+    if (art) card.appendChild(art);
+    const viewedTag = createViewedArticleTag(article);
+    if (viewedTag) card.appendChild(viewedTag);
+    card.append(stretchedLink, indexLabel, meta, title, rationale, footer);
     return card;
   }
 
   function createArchiveRow(article, index) {
     const row = document.createElement("article");
     row.className = "writing-archive-row";
+
+    const stretchedLink = document.createElement("a");
+    stretchedLink.className = "writing-archive-row__stretched-link";
+    stretchedLink.href = articleUrl(article);
+    stretchedLink.tabIndex = -1;
+    stretchedLink.setAttribute("aria-hidden", "true");
 
     const number = createTextElement("span", "writing-archive-row__index", String(index + 1).padStart(2, "0"));
     number.setAttribute("aria-hidden", "true");
@@ -202,16 +295,22 @@
     details.className = "writing-archive-row__details";
     details.append(createTextElement("span", "", article.category), createDateElement(article.date), createTextElement("span", "", article.readingTime));
 
-    const arrow = document.createElement("a");
-    arrow.className = "writing-archive-row__action";
-    arrow.href = articleUrl(article);
-    arrow.setAttribute("aria-label", "Read " + article.title);
-    arrow.append(
-      createTextElement("span", "writing-archive-row__action-label", "Read"),
-      createTextElement("span", "", "→")
+    const action = document.createElement("a");
+    action.className = "writing-article-action";
+    action.href = articleUrl(article);
+    action.setAttribute("aria-label", "Read " + article.title);
+    const actionArrow = createTextElement("span", "writing-article-action__arrow", "→");
+    actionArrow.setAttribute("aria-hidden", "true");
+    action.append(
+      createTextElement("span", "writing-article-action__label", "Read article"),
+      actionArrow
     );
 
-    row.append(number, identity, why, details, arrow);
+    const art = createCardArt(article);
+    if (art) row.appendChild(art);
+    const viewedTag = createViewedArticleTag(article);
+    if (viewedTag) row.appendChild(viewedTag);
+    row.append(stretchedLink, number, identity, why, details, action);
     return row;
   }
 
@@ -246,7 +345,7 @@
     if (!status || !content || !featuredTarget || !listTarget || !count || !listCount || !featuredCount) return;
 
     const noun = articles.length === 1 ? "article" : "articles";
-    count.textContent = articles.length + " published " + noun;
+    count.textContent = articles.length + " Published " + (articles.length === 1 ? "Article" : "Articles");
     listCount.textContent = String(articles.length).padStart(2, "0") + " / " + noun.toUpperCase();
 
     if (!articles.length) {
@@ -269,6 +368,13 @@
     listTarget.replaceChildren.apply(listTarget, articles.map(createArchiveRow));
     status.hidden = true;
     content.hidden = false;
+
+    if (window.location.hash === "#all-writing") {
+      window.requestAnimationFrame(function () {
+        const archiveTarget = getElement("all-writing");
+        if (archiveTarget) archiveTarget.scrollIntoView({ behavior: "auto", block: "start" });
+      });
+    }
   }
 
   function getRequestedSlug() {
@@ -378,11 +484,16 @@
     getRelatedArticles(currentArticle, articles, 3).forEach(function (article) {
       const item = document.createElement("li");
       const link = document.createElement("a");
+      const heading = document.createElement("span");
       link.href = articleUrl(article);
-      link.append(
-        createTextElement("span", "writing-related__title", article.title),
-        createTextElement("span", "writing-related__meta", article.category + " · " + article.readingTime)
-      );
+      heading.className = "writing-related__heading";
+      heading.appendChild(createTextElement("span", "writing-related__title", article.title));
+      if (hasViewedArticle(article.slug)) {
+        const viewedTag = createTextElement("span", "writing-related__viewed", "Viewed");
+        viewedTag.title = "Previously viewed on this device";
+        heading.appendChild(viewedTag);
+      }
+      link.append(heading, createTextElement("span", "writing-related__meta", article.category + " · " + article.readingTime));
       item.appendChild(link);
       list.appendChild(item);
     });
@@ -581,6 +692,18 @@
     window.addEventListener("scroll", requestTocUpdate, { passive: true });
     window.addEventListener("resize", requestTocUpdate);
     updateActiveTocLink();
+  }
+  function initializeArticleProjectPreviews(articleBody) {
+    articleBody.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      const preview = event.target.closest && event.target.closest(".article-project-preview");
+      if (!preview) return;
+      preview.classList.remove("is-open");
+      const focusedElement = document.activeElement;
+      if (focusedElement && preview.contains(focusedElement) && typeof focusedElement.blur === "function") {
+        focusedElement.blur();
+      }
+    });
   }
   function initializeArticleFigures(articleBody) {
     if (articleImageViewerController) articleImageViewerController.abort();
@@ -1118,6 +1241,8 @@
     articleTemplate.innerHTML = bodyHtml;
     prepareArticleImageSources(articleTemplate.content);
     body.replaceChildren(articleTemplate.content.cloneNode(true));
+    body.classList.add("article-" + article.slug);
+    if (article.slug === "performance-starts-before-start-line") body.classList.add("article-driver-performance");
     if (!body.querySelector("#article-overview")) {
       const overviewAnchor = document.createElement("span");
       overviewAnchor.id = "article-overview";
@@ -1126,6 +1251,7 @@
       body.prepend(overviewAnchor);
     }
     markFirstArticleHeading(body);
+    initializeArticleProjectPreviews(body);
     initializeArticleFigures(body);
     initializeCitationRibbon(body);
     buildTableOfContents(body);
@@ -1133,6 +1259,7 @@
     status.hidden = true;
     reader.hidden = false;
     initializeArticleBackNavigation();
+    markArticleViewed(article.slug);
     if (window.location.hash) {
       if (window.location.hash === "#article-overview") {
         window.requestAnimationFrame(function () { window.scrollTo({ top: 0, behavior: "auto" }); });

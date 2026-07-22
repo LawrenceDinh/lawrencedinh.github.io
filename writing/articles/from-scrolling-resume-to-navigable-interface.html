@@ -1,471 +1,106 @@
-<h2 id="the-original-page-was-not-a-failure">The original page was not a failure</h2>
-
-<p>My original portfolio was functional, readable, responsive, and professionally presentable. It introduced me, described my background, displayed my skills and projects, and made my résumé and contact information easy to find.</p>
-
-<p>It also gave me something more valuable than a polished mockup: a real system I could use and evaluate.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 01 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-before.png" width="2748" height="1903" alt="Original portfolio homepage with a traditional profile hero, rounded cards, contact sidebar, career statistics, and the beginning of vertically stacked sections." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 01</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">ORIGINAL PORTFOLIO</span></span><span class="article-figure-caption__text">The original portfolio was functional and readable, but relied on familiar résumé-card patterns and a long vertical structure.</span></figcaption>
-</figure>
-
-<p>Before building that version, many design decisions were still abstract. I knew the content I wanted to present, but I did not yet know how much space each section needed, which information felt repetitive, what recruiters might see first, or how the page would feel after scrolling through the entire thing.</p>
-
-<p>The first implementation answered those questions.</p>
-
-<p>It established the basic content inventory:</p>
-
-<ul>
-
-  <li>professional identity;</li>
-
-  <li>career summary;</li>
-
-  <li>skills and tools;</li>
-
-  <li>work experience;</li>
-
-  <li>projects;</li>
-
-  <li>credentials;</li>
-
-  <li>contact information;</li>
-
-  <li>résumé and profile links.</li>
-
-</ul>
-
-<p>It also established the original dark visual identity, responsive structure, and working interactions. Those foundations mattered because the redesign did not begin from an empty page. It began from a functioning portfolio with visible strengths and visible limitations.</p>
-
-<p>The original page was not wasted effort that had to be replaced. It was effectively the prototype and research phase for the redesign.</p>
-
-<h2 id="what-began-to-feel-wrong">What began to feel wrong</h2>
-
-<p>No single element of the first design was seriously broken. The weakness came from the way several reasonable choices accumulated.</p>
-
-<p>Large rounded panels created clear separation, so I used them repeatedly. The introduction had a card. Contact methods had cards. Statistics had cards. Skills had cards. Employers and projects followed similar patterns.</p>
-
-<p>The result was consistent, but consistency alone did not create meaning. Different kinds of information began to feel interchangeable.</p>
-
-<p>An employer, a programming skill, a contact link, and a career statistic did not have the same role, yet the interface often presented them with similar visual weight. The page was organized, but it was not strongly differentiated.</p>
-
-<p>The layout was also vertically expensive. Large containers, repeated padding, and card grids caused information to spread down the page. A visitor interested primarily in my projects or professional experience had to locate those sections through scrolling. The page determined the order in which the information would be discovered.</p>
-
-<p>The hero carried too many responsibilities. It introduced me, summarized my background, presented action buttons, displayed career statistics, and sat beside a separate contact panel containing some of the same actions. The information was useful, but its placement was not always efficient.</p>
-
-<p>Most importantly, the design did not strongly represent the kind of work I wanted the portfolio to communicate.</p>
-
-<p>My background crosses software development, system testing, autonomous-vehicle validation, data analysis, robotics, technical operations, and motorsports. The old page described those areas, but its visual structure could have belonged to almost any software portfolio.</p>
-
-<p>It looked competent. It did not yet feel specific.</p>
-
-<h2 id="changing-the-navigation-model">Changing the navigation model</h2>
-
-<p>The largest improvement did not come from changing colors, borders, typography, or animation.</p>
-
-<p>It came from changing the navigation model.</p>
-
-<p>The original portfolio behaved like a document. Its information was arranged as a sequence of sections, and the primary method of exploration was scrolling.</p>
-
-<p>The Enhanced version behaves more like an interface.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 02 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-enhanced-overview.png" width="2806" height="1900" alt="Enhanced portfolio homepage showing layered navigation, the Career Snapshot Overview, employer records, project entries, credentials, and the persistent contact rail." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 02</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">ENHANCED OVERVIEW</span></span><span class="article-figure-caption__text">The Enhanced design consolidates the primary professional summary into a compact, navigable workspace.</span></figcaption>
-</figure>
-
-<p>The new structure uses multiple navigation levels, each with a distinct responsibility.</p>
-
-<p>The main navigation moves between major destinations and sections of the site:</p>
-
-<ul>
-
-  <li>About;</li>
-
-  <li>Featured;</li>
-
-  <li>Experience;</li>
-
-  <li>Skills;</li>
-
-  <li>Portfolio;</li>
-
-  <li>Projects;</li>
-
-  <li>Writing.</li>
-
-</ul>
-
-<p>Inside the homepage, the Career Snapshot provides a second level:</p>
-
-<ul>
-
-  <li>Overview;</li>
-
-  <li>Experience;</li>
-
-  <li>Projects;</li>
-
-  <li>Credentials.</li>
-
-</ul>
-
-<p>Below those levels, individual records and pages provide the actual detail:</p>
-
-<ul>
-
-  <li>employer contributions;</li>
-
-  <li>project case studies;</li>
-
-  <li>credential information;</li>
-
-  <li>complete writing articles;</li>
-
-  <li>dedicated project pages.</li>
-
-</ul>
-
-<p>This creates a hierarchy:</p>
-
-<p><strong>Site destination → information category → detailed record</strong></p>
-
-<p>That hierarchy matters because a visitor no longer has to discover everything in the order imposed by the page.</p>
-
-<p>Someone interested in projects can move directly toward project information. Someone evaluating my employment history can inspect Experience. Someone scanning quickly can remain in Overview and still see the major employers, featured projects, credentials, and contact actions.</p>
-
-<p>The main navigation and the Career Snapshot tabs may look related, but they solve different problems. The main navigation answers, “Where am I going?” The sub-navigation answers, “What level of information do I want within this page?”</p>
-
-<p>That distinction changed the portfolio from a long résumé presentation into a compact professional workspace.</p>
-
-<h2 id="designing-for-scanning-without-becoming-shallow">Designing for scanning without becoming shallow</h2>
-
-<p>Recruiters and hiring managers may not explore a portfolio in the same way that its creator does. Some will inspect only the first screen. Others will open one project, confirm a résumé, or look for a contact link.</p>
-
-<p>That made the Overview especially important.</p>
-
-<p>The redesigned first desktop viewport can communicate:</p>
-
-<ul>
-
-  <li>my name and professional role;</li>
-
-  <li>a short positioning statement;</li>
-
-  <li>my primary capability domains;</li>
-
-  <li>three major employers;</li>
-
-  <li>four featured projects;</li>
-
-  <li>core credentials;</li>
-
-  <li>résumé, contact, and profile actions.</li>
-
-</ul>
-
-<p>The old design used a similar amount of initial screen space for the introduction, statistics, contact information, and the beginning of the Skills section. The Enhanced design uses that space to present a broader professional map.</p>
-
-<p>The goal was not to compress every subject into a vague label. Compression is useful only when the path to more detail remains clear.</p>
-
-<p>The Overview therefore acts as an index rather than a replacement for deeper content. Employer cards summarize roles and domains. Project rows explain the purpose of each system. Credentials remain compact. “View Details” and “View Projects” links provide direct movement into focused information.</p>
-
-<p>This is progressive disclosure: reveal enough to establish relevance, then make deeper material available when the visitor asks for it.</p>
-
-<p>The structure is designed to support faster scanning, but it has not yet been proven through formal recruiter studies or analytics. Dense layouts can create their own problems. Small metadata, unfamiliar tab behavior, or subtle interaction cues may be obvious to me because I built the interface but less obvious to a first-time visitor.</p>
-
-<p>The design is a stronger hypothesis about how the information should work. External use will determine where that hypothesis still needs adjustment.</p>
-
-<h2 id="different-content-needs-different-interfaces">Different content needs different interfaces</h2>
-
-<p>One of the most important lessons was that visual consistency does not require every type of content to use the same component.</p>
-
-<p>The first design leaned heavily on reusable cards. That made implementation straightforward, but it also flattened distinctions between information types.</p>
-
-<p>The Enhanced design keeps a shared visual system while giving different content different structures.</p>
-
-<p>Professional experience uses employer records. Each record combines a logo, organization name, role, and compact responsibility summary. The focused Experience view can then prioritize chronology, domains, and contributions.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 03 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-experience-tab.png" width="1802" height="1336" alt="Enhanced Career Snapshot Experience tab showing employer chronology, role hierarchy, responsibilities, and technical domains." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 03</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">EXPERIENCE SYSTEM</span></span><span class="article-figure-caption__text">Professional experience uses a chronological record rather than the asymmetric structure used for project work.</span></figcaption>
-</figure>
-
-<p>Projects use structured rows in the Overview because the immediate question is different: what was built, what technology was involved, and what capability does it demonstrate? On the dedicated Projects page, the layout can become more asymmetric because the projects have different levels of maturity and depth.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 04 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-projects-tab.png" width="1770" height="1202" alt="Enhanced Career Snapshot Projects tab showing a prominent featured project and smaller supporting project records." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 04</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">PROJECT HIERARCHY</span></span><span class="article-figure-caption__text">Project scope and maturity can justify asymmetry in a way that employment chronology usually does not.</span></figcaption>
-</figure>
-
-<p>Credentials use a compact ledger. A certification does not need the same amount of space as a project or employer. Grouping credentials into a narrow record makes them visible without allowing them to dominate the page.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 05 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-credentials-tab.png" width="1792" height="902" alt="Enhanced Career Snapshot Credentials tab showing certifications and qualifications in a compact grouped ledger." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 05</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">CREDENTIALS LEDGER</span></span><span class="article-figure-caption__text">Credentials use a compact ledger because they require less narrative space than employment history or project case studies.</span></figcaption>
-</figure>
-
-<p>Contact information remains in a persistent side rail. It is operational information: email, résumé, profiles, location, and availability. Separating it from the central career narrative keeps the actions accessible without repeatedly inserting them into the main content.</p>
-
-<p>I also learned where asymmetry did not work.</p>
-
-<p>Making one NVIDIA experience card substantially larger than the other employers initially seemed like a way to emphasize my most relevant role.</p>
-
-<p>In practice, it made the employment section feel like a project gallery and created awkward empty space. Chronology and contribution mattered more than visual dominance.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 06 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-intermediate-version.png" width="1874" height="1370" alt="Intermediate Career Snapshot layout with a large NVIDIA experience card on the left and smaller TCS and Shapescape cards stacked on the right." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 06</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">INTERMEDIATE EXPERIENCE LAYOUT</span></span><span class="article-figure-caption__text">Giving NVIDIA most of the visual area created an imbalanced employment hierarchy and made the section behave more like a project gallery.</span></figcaption>
-</figure>
-
-<p>The same asymmetric approach works better for projects because one system can genuinely have greater scope, evidence, and maturity than another.</p>
-
-<h2 id="density-is-not-the-same-as-clutter">Density is not the same as clutter</h2>
-
-<p>The Enhanced version contains more useful information in less vertical space, but increasing density was not automatically an improvement.</p>
-
-<p>Several iterations fit more content and still felt worse.</p>
-
-<p>At times, I reduced text too aggressively to keep the Career Snapshot within a fixed desktop height. The information technically fit, but readability suffered. Other versions used too many borders, labels, or cyan accents. The sections were organized, yet the page felt visually active because everything competed for attention.</p>
-
-<p>The difference between density and clutter came from hierarchy.</p>
-
-<p>Density became manageable when the layout relied on:</p>
-
-<ul>
-
-  <li>consistent columns;</li>
-
-  <li>aligned baselines;</li>
-
-  <li>restrained borders;</li>
-
-  <li>predictable spacing;</li>
-
-  <li>clear heading levels;</li>
-
-  <li>monospaced metadata;</li>
-
-  <li>limited accent color;</li>
-
-  <li>repeated interaction patterns;</li>
-
-  <li>strong section boundaries.</li>
-
-</ul>
-
-<p>The interface does not need a large empty gap around every item if alignment already explains the relationship between them.</p>
-
-<p>This was a shift from using containers as the primary method of organization to using structure. Borders, rows, spacing, typography, and positioning now work together to show what belongs together.</p>
-
-<p>There is still a tradeoff. The design was developed around a relatively large desktop viewport. A dense interface cannot simply be scaled down until it fits a phone. Mobile layouts need their own priorities, reading order, touch targets, and text sizing.</p>
-
-<p>The desktop version can be deliberately compact. Responsive versions still need to remain comfortably readable.</p>
-
-<h2 id="restraint-improved-the-visual-identity">Restraint improved the visual identity</h2>
-
-<p>The redesign draws influence from aerospace, defense, OSINT, and technical-system interfaces. That direction created another risk: making the portfolio look like fictional military software rather than a professional site.</p>
-
-<p>Several visual ideas were reduced or rejected:</p>
-
-<ul>
-
-  <li>excessive cyan glow;</li>
-
-  <li>decorative HUD elements;</li>
-
-  <li>large background gradients;</li>
-
-  <li>animation on every component;</li>
-
-  <li>unnecessary system numbering;</li>
-
-  <li>labels treated as metadata when ordinary language was clearer;</li>
-
-  <li>angular controls repeated until they lost hierarchy;</li>
-
-  <li>effects that attracted more attention than the content.</li>
-
-</ul>
-
-<p>The final direction uses near-black and dark navy surfaces, thin technical borders, restrained cyan accents, sharp geometry, and monospaced secondary text.</p>
-
-<p>Cyan is most useful when it communicates state, hierarchy, or action. When every border and heading is bright cyan, the accent stops providing information.</p>
-
-<p>The same principle applies to animation. A name-scramble effect, subtle panel response, or state transition can add personality. Animating every label would make the page feel unstable.</p>
-
-<p>The interface became more distinctive as it became more restrained.</p>
-
-<p>The goal was not to create a simulated classified terminal. It was to borrow the clarity and density of technical systems while keeping the content credible and readable.</p>
-
-<h2 id="ai-accelerated-implementation-not-judgment">AI accelerated implementation, not judgment</h2>
-
-<p>ChatGPT and coding agents changed the speed of the redesign substantially.</p>
-
-<p>They reduced the time required to prototype layouts, revise CSS, compare interaction models, rewrite labels, inspect regressions, and apply changes across related pages.</p>
-
-<p>That speed made experimentation inexpensive.</p>
-
-<p>I could identify a problem in a screenshot, describe the intended correction, review an implementation, and repeat the process within the same session. Ideas that might previously have remained sketches could become functioning versions quickly enough to evaluate directly.</p>
-
-<p>But implementation speed did not eliminate design judgment.</p>
-
-<p>AI could produce a larger Experience card. It could not decide whether emphasizing one employer that way improved the information hierarchy.</p>
-
-<p>It could make text smaller until a panel fit. It could not determine whether the result remained comfortable to read.</p>
-
-<p>It could add another animation, another tab, another border, or another content module. It could not decide whether the added feature improved recruiter understanding or merely increased complexity.</p>
-
-<p>The human work remained:</p>
-
-<ul>
-
-  <li>defining the actual problem;</li>
-
-  <li>determining what information mattered;</li>
-
-  <li>evaluating screenshots;</li>
-
-  <li>identifying why a version felt wrong;</li>
-
-  <li>rejecting functional but weak solutions;</li>
-
-  <li>preserving behavior across iterations;</li>
-
-  <li>locating conflicting CSS rules;</li>
-
-  <li>deciding which layout suited each content type;</li>
-
-  <li>recognizing when the design needed restraint.</li>
-
-</ul>
-
-<p>The original page and the Enhanced redesign may have taken similar amounts of calendar time. The second version looks substantially more labor-intensive because AI compressed implementation while the first version compressed discovery.</p>
-
-<p>The old page had already taught me what content existed and which problems mattered. AI then made it possible to test responses to those problems much faster.</p>
-
-<p>That speed also created a new risk: over-iteration. When every idea is inexpensive to implement, it becomes easy to continue changing a system after it is already effective.</p>
-
-<p>The ability to build more does not automatically justify building more.</p>
-
-<h2 id="rejected-approaches-were-part-of-the-design">Rejected approaches were part of the design</h2>
-
-<p>Many intermediate versions worked technically but did not support the final direction.</p>
-
-<p>I tried or considered:</p>
-
-<ul>
-
-  <li>using large rounded cards for nearly everything;</li>
-
-  <li>keeping every capability inside the hero;</li>
-
-  <li>making the NVIDIA experience record much larger than the others;</li>
-
-  <li>repeating Overview content almost unchanged in detailed tabs;</li>
-
-  <li>using cyan across too many borders and surfaces;</li>
-
-  <li>adding interactions before the section hierarchy was stable;</li>
-
-  <li>preserving a visible mode toggle before both modes were equally supported;</li>
-
-  <li>using asymmetry in sections where chronology mattered more;</li>
-
-  <li>fitting panels by continually shrinking typography.</li>
-
-</ul>
-
-<p>Those attempts were not necessarily wasted.</p>
-
-<p>A rejected layout can reveal that two pieces of information should not have equal weight. A crowded panel can expose an unnecessary content block. A broken hierarchy can show that styling began before the role of the section was clear.</p>
-
-<p>The final interface looks relatively simple: panels, rows, tabs, borders, text, and a contact rail. That simplicity conceals the number of decisions required to determine where each element belonged.</p>
-
-<h2 id="what-the-redesign-still-does-not-prove">What the redesign still does not prove</h2>
-
-<p>A more refined visual system does not automatically prove good UX.</p>
-
-<p>The Enhanced portfolio still needs validation beyond my own use of it.</p>
-
-<p>Useful tests include:</p>
-
-<ul>
-
-  <li>whether a cold reader understands my professional role quickly;</li>
-
-  <li>whether visitors distinguish main navigation from page-level tabs;</li>
-
-  <li>whether keyboard users can operate every interaction;</li>
-
-  <li>whether screen-reader structure reflects the visible hierarchy;</li>
-
-  <li>whether small labels remain legible across devices;</li>
-
-  <li>whether mobile layouts preserve the intended reading order;</li>
-
-  <li>whether users discover deeper Experience and Project views;</li>
-
-  <li>whether the site loads quickly with additional screenshots and writing;</li>
-
-  <li>whether recruiters find the information they actually need;</li>
-
-  <li>whether analytics show that visitors engage with the deeper content.</li>
-
-</ul>
-
-<p>The legacy Simple mode is not currently my development priority. The Enhanced version is the active product. Until the older mode is intentionally restored, it should not be treated as an equally maintained alternative.</p>
-
-<p>That limitation does not invalidate the redesign. It separates a strong design hypothesis from validated behavior.</p>
-
-<p>The current version provides a clearer architecture and more deliberate experience. Testing will reveal where the implementation still differs from the intention.</p>
-
-<h2 id="the-page-became-a-system">The page became a system</h2>
-
-<p>The most meaningful result of the redesign is not the visual theme. It is that the portfolio now behaves like a system capable of accepting new material.</p>
-
-<p>The structure can support:</p>
-
-<ul>
-
-  <li>additional project case studies;</li>
-
-  <li>deeper experience records;</li>
-
-  <li>new credentials;</li>
-
-  <li>technical screenshots;</li>
-
-  <li>architecture diagrams;</li>
-
-  <li>project retrospectives;</li>
-
-  <li>research notes;</li>
-
-  <li>writing across software, robotics, data, and motorsports;</li>
-
-  <li>future project categories without expanding the homepage indefinitely.</li>
-
-</ul>
-
-<p>The first design presented my information.</p>
-
-<p>The Enhanced design organizes that information around how someone might want to explore it.</p>
-
-<p>The same system could expand beyond the homepage. The dedicated Projects page retains the shared typography, borders, navigation, and metadata while giving project scope and maturity more room to shape the layout.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 07 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/projects-page-final.png" width="2756" height="1910" alt="Dedicated Projects page using the portfolio’s shared technical design system and an asymmetric project hierarchy." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 07</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">PROJECTS PAGE</span></span><span class="article-figure-caption__text">The design system expanded beyond the homepage while allowing the Projects page to use a layout suited to project scope and maturity.</span></figcaption>
-</figure>
-
-<p>The Writing archive extends the same system in a different direction. Instead of employer records or project hierarchy, it uses editorial headings, publication metadata, article categories, and reading paths.</p>
-
-<figure class="writing-article-figure" data-writing-figure>
-  <button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 08 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/writing-page-final.png" width="2756" height="1902" alt="Writing archive using the same technical visual system with an editorial layout for articles and publication metadata." decoding="async"></button>
-  <figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 08</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">WRITING ARCHIVE</span></span><span class="article-figure-caption__text">The Writing archive reuses the broader design language while adapting it to editorial content.</span></figcaption>
-</figure>
-
-<p>The next stage should therefore focus less on another complete visual reinvention and more on stronger evidence: working demonstrations, project architecture, screenshots, measured outcomes, technical decisions, and writing grounded in actual experience.</p>
-
-<p>The most important lesson was that refinement did not come from adding more visual effects. It came from assigning every piece of information a clearer place, purpose, and path.</p>
+<article class="writing-article-body article-portfolio-redesign" data-numbered-sections>
+<p class="writing-article-lede">The first version of my portfolio worked well enough to publish. It showed me that the main problem was not missing content. The harder problem was deciding what a visitor should see first and how quickly they could reach the rest.</p>
+<p>The important information was there, but the layout still read like a long résumé. Someone looking for projects had to move through much of the same page as someone checking my recent experience or trying to contact me.</p>
+<p>What began as a visual redesign became an exercise in UX design and information triage. I needed to decide what belonged in the first view, what could wait, and how the page should guide different visitors.</p>
+
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 01 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-before.png" width="2748" height="1903" alt="Original portfolio homepage with a traditional profile hero, rounded cards, contact sidebar, career statistics, and the beginning of vertically stacked sections." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 01</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">ORIGINAL PORTFOLIO</span></span><span class="article-figure-caption__text">The first portfolio presented the right material, but repeated card patterns and long sections made every subject feel similar.</span></figcaption></figure>
+
+<h2 data-toc-title="The first version">The first version revealed the problem</h2>
+<p>Publishing the original site gave me something more useful than another mockup. I could finally judge how the full page felt when someone used it from beginning to end.</p>
+<p>The site already covered my background and work. It also had a consistent visual direction and working responsive behavior. The problems only became obvious once those pieces were assembled into one page.</p>
+<p>Some information appeared more than once. Projects and employment details sat farther down the page than they needed to. The same card style also appeared across sections that served very different purposes.</p>
+<p>The first version was therefore not work that needed to be discarded. It became the prototype that showed me what to redesign.</p>
+
+<h2 data-toc-title="Why scrolling failed">Scrolling made the visitor do the organizing</h2>
+<p>The original portfolio followed a familiar structure. It began with an introduction and continued downward through separate sections.</p>
+<p>That structure was simple, but it gave the page control over the order in which everything was discovered. A visitor interested in one subject still had to locate it within the full sequence.</p>
+<p>The repeated cards made that problem harder to notice. Skills, employers, projects, and contact actions were visually separated, but they often received similar weight. The page looked organized without clearly showing which information mattered in each context.</p>
+<p>Large containers also consumed more space than the content required. The result was a page that felt longer without necessarily becoming more informative.</p>
+<p>The redesign needed to do more than shorten the page. It needed to make the route through the information clearer.</p>
+
+<h2 data-toc-title="Visitor intent">Design around what the visitor wants</h2>
+<p>The main change was replacing one fixed reading order with several direct paths.</p>
+<p>The site navigation still moves between major destinations. Inside the homepage, the Career Snapshot lets a visitor switch between the overall summary, professional experience, projects, and credentials.</p>
+
+<div class="article-process-flow" role="group" aria-label="How visitors move through the portfolio">
+  <div class="article-process-flow__step"><span class="article-process-flow__number">01</span><strong>Arrive</strong><span>Understand my role and current direction</span></div>
+  <span class="article-process-flow__arrow" aria-hidden="true">→</span>
+  <div class="article-process-flow__step"><span class="article-process-flow__number">02</span><strong>Choose a subject</strong><span>Open experience, projects, or credentials</span></div>
+  <span class="article-process-flow__arrow" aria-hidden="true">→</span>
+  <div class="article-process-flow__step"><span class="article-process-flow__number">03</span><strong>Inspect the detail</strong><span>Continue into a focused record or full page</span></div>
+</div>
+
+<p>The two navigation levels have separate jobs. The main navigation changes where the visitor is on the site. The Career Snapshot changes what they are examining within the homepage.</p>
+
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 02 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-enhanced-overview.png" width="2806" height="1900" alt="Enhanced portfolio homepage showing layered navigation, the Career Snapshot Overview, employer records, project entries, credentials, and the persistent contact rail." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 02</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">ENHANCED OVERVIEW</span></span><span class="article-figure-caption__text">The Career Snapshot brings the main professional summary into one place while keeping deeper views directly accessible.</span></figcaption></figure>
+
+<p>The Overview provides enough context for a quick visit. It introduces my role and shows the main areas of my work without requiring every tab to be opened.</p>
+<p>A visitor who wants more detail can choose the relevant view immediately. The summary no longer has to contain the complete story.</p>
+
+<h2 data-toc-title="Different structures">Give each type of information the right structure</h2>
+<p>The original page reused cards because they were consistent and easy to build. The redesign kept a shared visual language but stopped treating every kind of information the same way.</p>
+
+<table class="article-table article-table--planning"><thead><tr><th scope="col">Information</th><th scope="col">What the visitor needs</th><th scope="col">Layout choice</th></tr></thead><tbody>
+<tr><th scope="row">Experience</th><td>Follow my work history and responsibilities</td><td>Chronological employer records</td></tr>
+<tr><th scope="row">Projects</th><td>Compare scope and inspect the strongest work</td><td>Uneven hierarchy based on project depth</td></tr>
+<tr><th scope="row">Credentials</th><td>Confirm relevant training and qualifications</td><td>Compact grouped ledger</td></tr>
+<tr><th scope="row">Contact</th><td>Take the next action without searching</td><td>Persistent side rail</td></tr>
+</tbody></table>
+
+<h3>Keep experience chronological</h3>
+<p>Employment history is easiest to understand when each role follows the same structure. The visitor can compare time periods and responsibilities without learning a different layout for every employer.</p>
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 03 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-experience-tab.png" width="1802" height="1336" alt="Enhanced Career Snapshot Experience tab showing employer chronology, role hierarchy, responsibilities, and technical domains." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 03</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">EXPERIENCE SYSTEM</span></span><span class="article-figure-caption__text">Consistent employer records make the order and progression of my experience easier to follow.</span></figcaption></figure>
+
+<h3>Let project depth shape the layout</h3>
+<p>Projects do not all have the same amount of evidence behind them. A system with working screenshots and a deeper case study can reasonably receive more space than an earlier prototype.</p>
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 04 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-projects-tab.png" width="1770" height="1202" alt="Enhanced Career Snapshot Projects tab showing a prominent featured project and smaller supporting project records." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 04</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">PROJECT HIERARCHY</span></span><span class="article-figure-caption__text">The project view gives more space to work that has greater scope and more detail to inspect.</span></figcaption></figure>
+
+<h3>Keep supporting information compact</h3>
+<p>Credentials matter, but they do not need the same narrative space as employment or project work. A compact ledger keeps them easy to find without turning them into the focus of the page.</p>
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 05 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-credentials-tab.png" width="1792" height="902" alt="Enhanced Career Snapshot Credentials tab showing certifications and qualifications in a compact grouped ledger." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 05</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">CREDENTIALS LEDGER</span></span><span class="article-figure-caption__text">The credentials view keeps qualifications visible without giving them unnecessary visual weight.</span></figcaption></figure>
+
+<p>Contact information has a more practical purpose. Keeping it in the side rail makes the next action available without interrupting the main story.</p>
+<p>I initially tried giving the NVIDIA experience record much more space than the other employers. That approach worked for featured projects, so it seemed like a reasonable way to emphasize my most relevant role.</p>
+<p>In practice, the layout weakened the career timeline and left awkward empty space. Employment needed consistency more than visual emphasis.</p>
+
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 06 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/portfolio-intermediate-version.png" width="1874" height="1370" alt="Intermediate Career Snapshot layout with a large NVIDIA experience card on the left and smaller TCS and Shapescape cards stacked on the right." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 06</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">INTERMEDIATE EXPERIENCE LAYOUT</span></span><span class="article-figure-caption__text">The oversized employer card disrupted the timeline and made the experience view feel like a project gallery.</span></figcaption></figure>
+
+<p>The asymmetric layout remained useful for projects, where differences in scope are meaningful. The experience view returned to a consistent chronological structure.</p>
+
+<h2 data-toc-title="Clarity and restraint">Create clarity without adding more noise</h2>
+<p>Fitting more information into the first screen did not automatically make the page easier to use. Some iterations met the height target only because the text became too small.</p>
+<p>Other versions added more borders and labels in an attempt to clarify the structure. Instead, they made the interface feel busier.</p>
+<p>The page improved when the layout began doing more of the explanatory work. Alignment showed which items belonged together. Spacing separated subjects without placing each one inside a large card.</p>
+<p>The visual styling also became quieter. Cyan now marks interaction and state instead of covering every border. Animation is used to confirm a change rather than making the page constantly move.</p>
+<p>Mobile required a separate decision rather than a scaled-down desktop layout. The smaller version needs a clear reading order and controls large enough to use comfortably.</p>
+<p>The lesson was simple: structure should create clarity before decoration is added.</p>
+
+<h2 data-toc-title="AI-assisted iteration">AI made iteration faster, not automatic</h2>
+<p>ChatGPT and coding agents shortened the time between describing an idea and seeing it work in the browser. That made it easier to compare layouts through real screenshots instead of debating them in the abstract.</p>
+<p>The faster loop was especially useful when a change affected several parts of the site. I could revise a layout, check for regressions, and correct related styling within the same session.</p>
+<p>Speed did not determine whether a result was good. A coding agent could enlarge a card or reduce the text size, but it could not decide whether the page became easier to understand.</p>
+<p>Rejected versions remained useful because they exposed the wrong assumptions. The oversized employer card showed that experience needed a timeline. Crowded panels showed that additional labels were not always helpful.</p>
+<p>AI also made unnecessary iteration easier. Once another variation became cheap to produce, deciding when to stop became part of the design work.</p>
+<p>The tool accelerated implementation. The responsibility for framing the problem and judging the result remained mine.</p>
+
+<h2 data-toc-title="What still needs testing">The redesign still needs real evidence</h2>
+<p>A clearer layout does not prove that every visitor will understand it immediately. The current version represents my best explanation of how the information should be organized.</p>
+<p>The first question is whether a new visitor understands my role without needing to explore the entire site. The next is whether the Career Snapshot tabs are noticeable and distinct from the main navigation.</p>
+<p>Accessibility also needs direct review. Keyboard behavior and screen-reader structure should match what the page communicates visually.</p>
+<p>Mobile testing must confirm that the reading order remains natural and that every control is comfortable to use. Performance will matter more as the site gains additional images and longer case studies.</p>
+<p>Those questions require observation and measurement. They cannot be answered by the design looking finished.</p>
+
+<h2 data-toc-title="Conclusion" data-toc-number="false" data-section-number="false">The portfolio became easier to extend</h2>
+<p>The redesign reduced the need to keep lengthening the homepage whenever new work was added. The summary can remain compact while dedicated pages carry the deeper material.</p>
+
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 07 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/projects-page-final.png" width="2756" height="1910" alt="Dedicated Projects page using the portfolio’s shared technical design system and an asymmetric project hierarchy." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 07</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">PROJECTS PAGE</span></span><span class="article-figure-caption__text">The Projects page uses the same visual language while giving complete case studies more room.</span></figcaption></figure>
+
+<p>The Projects page demonstrates how the design can expand around technical work without forcing every project into the homepage.</p>
+
+<figure class="writing-article-figure" data-writing-figure><button class="writing-article-figure__trigger" type="button" aria-label="Open Figure 08 in expanded view"><img class="writing-article-figure__image" src="/imgsrc/projects/osint/writings/portfolio/writing-page-final.png" width="2756" height="1902" alt="Writing archive using the same technical visual system with an editorial layout for articles and publication metadata." decoding="async"></button><figcaption class="article-figure-caption"><span class="article-figure-caption__heading"><span class="article-figure-caption__number">FIGURE 08</span><span class="article-figure-caption__separator" aria-hidden="true">/</span><span class="article-figure-caption__title">WRITING ARCHIVE</span></span><span class="article-figure-caption__text">The Writing archive adapts the portfolio’s visual language to articles and publication details.</span></figcaption></figure>
+
+<p>The Writing archive follows the same principle. It feels connected to the rest of the site while using a structure designed for reading.</p>
+<p>The first portfolio displayed my information. The current version gives visitors clearer choices about where to begin and how far they want to explore.</p>
+<p>The next stage should focus on stronger project evidence rather than another complete visual redesign. Working demonstrations and measured results will add more value than another layer of styling.</p>
+<p><strong>The most important change was not how the portfolio looked. It was making the information easier to reach and easier to understand.</strong></p>
+</article>

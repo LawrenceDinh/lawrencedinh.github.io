@@ -38,8 +38,8 @@
   }
   </script>
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
-  <link rel="stylesheet" href="style.css?v=20260720-9" />
-  <link rel="stylesheet" href="writing.css?v=20260721-2" />
+  <link rel="stylesheet" href="style.css?v=20260721-4" />
+  <link rel="stylesheet" href="writing.css?v=20260721-21" />
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body class="writing-page" data-writing-view="archive">
@@ -85,6 +85,16 @@
       <a href="index.html#contact" class="drawer-contact"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 014.5 3h7A2.5 2.5 0 0114 5.5v5a2.5 2.5 0 01-2.5 2.5h-7A2.5 2.5 0 012 10.5v-5z"/><path d="M3 5.5l5 3 5-3"/></svg>Contact</a>
     </nav>
   </header>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+    <span class="back-to-top-circle" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
+    </span>
+    <span class="back-to-top-text" aria-hidden="true">TOP</span>
+  </button>
+
   <main id="writing-content" class="writing-shell writing-archive-shell">
     <header class="writing-archive-header portfolio-page-hero">
       <div class="portfolio-page-hero__identity">
@@ -92,8 +102,10 @@
         <h1 class="portfolio-page-hero__title" id="writing-heading">Writing</h1>
       </div>
       <div class="writing-archive-header__copy portfolio-page-hero__context">
-        <p class="portfolio-page-hero__description">Essays, technical notes, project retrospectives, and observations about software, systems, AI, robotics, and maker culture.</p>
-        <p class="writing-count portfolio-page-hero__secondary" id="writing-count" aria-live="polite">Loading articles…</p>
+        <p class="portfolio-page-hero__description">Essays and technical reflections on software, systems, and emerging technology.</p>
+        <nav class="projects-section-links portfolio-page-hero__secondary" aria-label="Writing archive sections">
+          <a class="writing-count" id="writing-count" href="#all-writing" aria-live="polite">Loading articles…</a>
+        </nav>
       </div>
     </header>
 
@@ -112,7 +124,7 @@
         <div class="writing-featured-grid" id="writing-featured"></div>
       </section>
 
-      <section class="writing-all-section" aria-labelledby="all-writing-heading">
+      <section class="writing-all-section" id="all-writing" aria-labelledby="all-writing-heading">
         <div class="writing-section-heading writing-section-heading--row">
           <h2 id="all-writing-heading">All Writing</h2>
           <span id="writing-list-count" aria-hidden="true"></span>
@@ -121,8 +133,8 @@
       </section>
     </div>
   </main>
-<script src="navigation.js?v=20260720-4"></script>
-<script src="writing.js?v=20260721-1"></script>
+<script src="navigation.js?v=20260721-3"></script>
+<script src="writing.js?v=20260721-21"></script>
 <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

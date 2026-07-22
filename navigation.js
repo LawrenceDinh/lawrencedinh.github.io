@@ -30,6 +30,60 @@
     initializeCurrentYear();
   }
 
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isBackToTopVisible = false;
+
+    function updateBackToTopVisibility() {
+      const shouldShow = window.pageYOffset > 300;
+      if (shouldShow === isBackToTopVisible) return;
+
+      isBackToTopVisible = shouldShow;
+      if (shouldShow) {
+        backToTop.classList.remove('hiding');
+        backToTop.classList.add('visible');
+        return;
+      }
+
+      backToTop.classList.add('hiding');
+      window.setTimeout(function () {
+        if (!isBackToTopVisible) backToTop.classList.remove('visible', 'hiding');
+      }, 400);
+    }
+
+    window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({
+        top: 0,
+        behavior: reducedMotion.matches ? 'auto' : 'smooth'
+      });
+    });
+    updateBackToTopVisibility();
+  }
+
+  const projectSectionLinks = document.querySelectorAll('.projects-section-links a[href^="#"]');
+  if (projectSectionLinks.length) {
+    const sectionLinkReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    projectSectionLinks.forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        const targetId = link.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+
+        const target = document.querySelector(targetId);
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: sectionLinkReducedMotion.matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+        window.history.pushState(null, '', targetId);
+      });
+    });
+  }
+
   const navToggle = document.getElementById('navToggle');
   const drawer = document.getElementById('drawer');
   const hamburger = document.getElementById('hamburgerIcon');

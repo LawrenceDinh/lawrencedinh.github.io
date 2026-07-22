@@ -2,7 +2,7 @@
   {
     "slug": "what-to-bring-to-a-drift-day",
     "title": "From Packing List to Trackside Operations",
-    "subtitle": "How repeated drift events turned a simple packing list into a better way to prepare.",
+    "subtitle": "What began as a drift-event packing list became a trackside operating system that improves after every event.",
     "summary": "A firsthand field guide to planning tires, vehicle support, paddock logistics, weather protection, cleanup, communication, and recovery for a complete drift day.",
     "excerpt": "My drift-day packing list did not come together all at once. It grew through repeated events, when small oversights between sessions became harder to ignore and the difference between being prepared and overpacking became clearer.",
     "category": "Motorsports",
@@ -14,20 +14,21 @@
     "tags": ["Drift", "Motorsports", "Logistics", "Driver Preparation", "Track Support"],
     "featured": true,
     "published": true,
+    "cardImage": "/imgsrc/writings/drift-day/drift-day-trackside-overview.jpeg",
     "contentPath": "writing/articles/what-to-bring-to-a-drift-day.html"
   },
   {
     "slug": "from-scrolling-resume-to-navigable-interface",
-    "title": "From Scrolling Résumé to Navigable Interface",
-    "subtitle": "What I learned by transforming a conventional card-based portfolio into a compact, layered professional system.",
-    "summary": "The original portfolio was polished but conventional. Rebuilding it around layered navigation, progressive disclosure, and content-specific layouts changed it from a scrolling résumé into a more deliberate professional interface.",
-    "excerpt": "My original portfolio was functional, readable, responsive, and professionally presentable. It also gave me something more valuable than a polished mockup: a real system I could use and evaluate.",
+    "title": "Beyond the Scrolling Résumé",
+    "subtitle": "How I turned a long, card-based portfolio into a clearer system built around what each visitor wants to find.",
+    "summary": "How I turned a long, card-based portfolio into a clearer system built around what each visitor wants to find.",
+    "excerpt": "The first version of my portfolio worked well enough to publish. It showed me that the main problem was not missing content. The harder problem was deciding what a visitor should see first and how quickly they could reach the rest.",
     "category": "Design & Development",
     "articleType": "Project Retrospective",
     "classification": "Design retrospective",
     "date": "2026-07-19",
     "updated": "2026-07-19",
-    "readingTime": "10 min",
+    "readingTime": "8 min",
     "tags": [
       "Portfolio Design",
       "Information Architecture",
@@ -35,12 +36,13 @@
     ],
     "featured": false,
     "published": true,
+    "cardImage": "/imgsrc/projects/osint/writings/portfolio/portfolio-before.png",
     "contentPath": "writing/articles/from-scrolling-resume-to-navigable-interface.html"
   },
   {
     "slug": "performance-starts-before-start-line",
     "title": "Performance Starts Before the Start Line",
-    "subtitle": "How sleep, nutrition, movement, warm-up, and mindset matter before a competitive driving event.",
+    "subtitle": "A fast run depends on preparation that happens hours and days earlier, when fatigue or rushed decisions can hide practiced skill.",
     "summary": "A practical field note on reducing avoidable performance loss by preparing the driver as deliberately as the vehicle.",
     "excerpt": "A driver can arrive with a prepared car and still perform below their ability. Sleep, nutrition, movement, warm-up, and mental preparation influence consistency long before the first competitive run begins.",
     "category": "Motorsports & Human Performance",
@@ -48,7 +50,7 @@
     "classification": "Driver preparation",
     "date": "2026-07-19",
     "updated": "2026-07-19",
-    "readingTime": "7 min",
+    "readingTime": "6 min",
     "tags": [
       "Driver Preparation",
       "Competition",
@@ -56,20 +58,28 @@
     ],
     "featured": false,
     "published": true,
+    "cardImage": "/imgsrc/writings/performance-starts-before-start-line/event-day-context.jpeg",
+    "cardImageCandidates": [
+      "/imgsrc/writings/performance-starts-before-start-line/event-day-context.jpeg",
+      "/imgsrc/writings/performance-starts-before-start-line/event-day-context.png",
+      "/imgsrc/writings/performance-starts-before-start-line/event-day-context.jpg",
+      "/imgsrc/writings/performance-starts-before-start-line/event-day-context.webp",
+      "/imgsrc/writings/performance-starts-before-start-line/event-day-context.avif"
+    ],
     "contentPath": "writing/articles/performance-starts-before-start-line.html"
   },
   {
     "slug": "ai-attention-vs-games",
-    "title": "When AI Starts Competing With Games",
-    "subtitle": "AI can give people content to watch, agents to direct, and tools that make creation feel like entertainment.",
-    "summary": "AI may compete with games by offering three forms of entertainment: generated media to consume, intelligent systems to direct, and tools that make creation feel like play.",
-    "excerpt": "Lately, when I have a free hour, I am less likely to start a game. I am more likely to open ChatGPT or Codex, direct several agents, test what they changed, and decide what to improve next.",
+    "title": "When AI Starts Competing for Attention",
+    "subtitle": "As access becomes cheaper, entertainment shifts from watching finished media toward shaping digital and physical outcomes.",
+    "summary": "As access becomes cheaper, entertainment shifts from watching finished media toward shaping digital and physical outcomes.",
+    "excerpt": "An hour that once went to a television show or game can now disappear into an AI session. The change is not that AI is automatically more entertaining. It is that creating something has become easy enough to enter casually.",
     "category": "Technology & Culture",
     "articleType": "Essay / Working Hypothesis",
     "classification": "Working hypothesis",
     "date": "2026-07-19",
     "updated": "2026-07-20",
-    "readingTime": "12 min",
+    "readingTime": "6 min",
     "tags": [
       "Artificial Intelligence",
       "Maker Culture",
@@ -77,6 +87,7 @@
     ],
     "featured": false,
     "published": true,
+    "cardImage": "/imgsrc/writings/ai-codex-workspace.png",
     "contentPath": "writing/articles/ai-attention-vs-games.html"
   }
 ]

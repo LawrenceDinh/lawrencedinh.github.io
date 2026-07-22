@@ -1,7 +1,6 @@
 // Portfolio interactions are grouped by feature inside one shared runtime.
 (function(){
   // --- Shared state and utilities ---
-  const backToTop = document.getElementById('backToTop');
   const brandLink = document.getElementById('brandLink');
   const bioSummary = document.getElementById('bioSummary');
   const grid = document.querySelector('.grid');
@@ -817,7 +816,7 @@
           if (animationGeneration !== heroIdentificationGeneration) return;
           resetHeroIdentification();
           heroIdentificationFinishTimer = 0;
-        }, 900);
+        }, 1500);
       });
     };
 
@@ -1707,38 +1706,6 @@
     });
   }
 
-  // --- Utility controls ---
-  // Back to top button functionality
-  if(backToTop) {
-    let isVisible = false;
-    
-    window.addEventListener('scroll', () => {
-      const shouldShow = window.pageYOffset > 300;
-      
-      if (shouldShow && !isVisible) {
-        // Show with bounce animation
-        backToTop.classList.remove('hiding');
-        backToTop.classList.add('visible');
-        isVisible = true;
-      } else if (!shouldShow && isVisible) {
-        // Hide with bounce animation
-        backToTop.classList.add('hiding');
-        isVisible = false;
-        
-        // Wait for animation to finish before hiding
-        setTimeout(() => {
-          if (!isVisible) {
-            backToTop.classList.remove('visible', 'hiding');
-          }
-        }, 400);
-      }
-    });
-
-    backToTop.addEventListener('click', () => {
-      scrollPageToTop();
-    });
-  }
-
   if (bioSummary) {
     addPanelPointerTracking(bioSummary);
     bioSummary.addEventListener('click', event => {
@@ -1832,72 +1799,72 @@
   const skillsCapabilityTabs = Array.from(document.querySelectorAll('.skills-capability-tab'));
   const skillsCapabilityPanel = document.querySelector('.skills-capability-panel');
   if (skillsCapabilityTabs.length && skillsCapabilityPanel) {
-    const initialCapabilityMarkup = skillsCapabilityPanel.innerHTML;
     const skillCapabilities = {
-      'software-automation': {
-        index: '02',
-        title: 'Software & Automation',
-        summary: 'Builds software, workflow automation, and practical tooling that reduce repetitive work and connect operational systems.',
+      'test-validation': {
+        summary: 'Plans and executes system tests, isolates failures, and turns observed behavior into reproducible evidence.',
         methods: [
-          ['01', 'Workflow automation', 'Repeatable operational and delivery workflows'],
-          ['02', 'Software development', 'JavaScript, C++, and Java implementation'],
-          ['03', 'Systems integration', 'API and ServiceNow integration'],
-          ['04', 'Development tooling', 'Version-controlled Linux workflows']
+          ['01', 'Scenario execution', 'Structured test plans across software, sensors, and vehicles'],
+          ['02', 'Diagnostics and triage', 'Telemetry, logs, and observed-behavior review'],
+          ['03', 'Integration validation', 'Interfaces, sensors, and end-to-end system behavior']
         ],
-        tools: ['JavaScript', 'C++', 'Java', 'Git', 'Linux / Unix', 'Bash', 'ServiceNow'],
+        tools: ['Python', 'Linux', 'Jira', 'Telemetry tools', 'Git'],
         evidence: [
-          ['Tata Consultancy Services', 'ServiceNow customization · workflow automation', '#experience', 'View experience'],
-          ['Local Driving Intelligence Platform', 'API integration · application tooling', 'projects.html#local-driving-intelligence', 'View project']
+          ['NVIDIA', 'AV system testing and anomaly review', '#experience', 'View experience'],
+          ['Performance Driving & Validation', 'Controlled vehicle testing and session analysis', '#projects', 'View project']
+        ]
+      },
+      'software-automation': {
+        summary: 'Builds software and automation that connect systems and reduce repetitive operational work.',
+        methods: [
+          ['01', 'Application development', 'Practical software for operational and technical workflows'],
+          ['02', 'Workflow automation', 'Scripted and platform-based process improvement'],
+          ['03', 'Systems integration', 'APIs, data flows, and connected tooling']
+        ],
+        tools: ['JavaScript', 'Node.js', 'Git', 'Linux', 'ServiceNow'],
+        evidence: [
+          ['Tata Consultancy Services', 'Enterprise workflow development and validation', '#experience', 'View experience'],
+          ['Local Driving Intelligence', 'Full-stack application and provider integration', 'projects.html#local-driving-intelligence', 'View project']
         ]
       },
       'data-analytics': {
-        index: '03',
-        title: 'Data & Analytics',
-        summary: 'Turns telemetry, time-series, and geospatial data into reviewable metrics, visualizations, and operational context.',
+        summary: 'Turns telemetry, time-series, and geospatial data into clear metrics and technical decisions.',
         methods: [
-          ['01', 'Telemetry analysis', 'System, GPS, and IMU behavior review'],
-          ['02', 'Metrics development', 'Structured comparisons and reporting'],
-          ['03', 'Geospatial analysis', 'Regional data and map-based context'],
-          ['04', 'Data preparation', 'Statistical analysis and log parsing']
+          ['01', 'Telemetry analysis', 'Vehicle and system behavior across recorded sessions'],
+          ['02', 'Data preparation', 'Cleaning, parsing, and structured comparison'],
+          ['03', 'Visualization and reporting', 'Metrics, maps, and reviewable technical outputs']
         ],
-        tools: ['Python', 'pandas', 'NumPy', 'R', 'Excel', 'ArcGIS'],
+        tools: ['Python', 'pandas', 'NumPy', 'SQLite', 'ArcGIS'],
         evidence: [
-          ['Local Driving Intelligence Platform', 'Regional data · maps · visualization', 'projects.html#local-driving-intelligence', 'View project'],
-          ['Performance Driving & Validation', 'Telemetry · metrics · vehicle behavior', '#projects', 'View projects']
+          ['Local Driving Intelligence', 'Regional data, maps, and operational context', 'projects.html#local-driving-intelligence', 'View project'],
+          ['Performance Driving & Validation', 'Telemetry, comparison, and vehicle behavior', '#projects', 'View project']
         ]
       },
       'interfaces-systems': {
-        index: '04',
-        title: 'Interfaces & Systems',
-        summary: 'Organizes technical information into responsive interfaces and workflows that support review, coordination, and operational decisions.',
+        summary: 'Designs responsive interfaces that make dense technical information easier to review and act on.',
         methods: [
-          ['01', 'Interface design', 'Clear interaction and information hierarchy'],
-          ['02', 'Dashboard systems', 'Focused views for data-dense workflows'],
-          ['03', 'Usability evaluation', 'Navigation and cross-device review'],
-          ['04', 'Operational support', 'Documentation and cross-team communication']
+          ['01', 'Information architecture', 'Organizing complex technical content and actions'],
+          ['02', 'Dashboard design', 'Focused views for data-dense operational workflows'],
+          ['03', 'Usability review', 'Navigation, responsiveness, and interaction quality']
         ],
         tools: ['React', 'JavaScript', 'Node.js', 'ServiceNow', 'Git'],
         evidence: [
-          ['Local Driving Intelligence Platform', 'Dashboard design · operational workflows', 'projects.html#local-driving-intelligence', 'View project'],
-          ['Shapescape', 'Interactive systems · UX review', '#experience', 'View experience'],
-          ['Tata Consultancy Services', 'Enterprise workflows · delivery support', '#experience', 'View experience']
+          ['Local Driving Intelligence', 'Dashboard architecture and operational workflows', 'projects.html#local-driving-intelligence', 'View project'],
+          ['Shapescape', 'Interactive systems and usability review', '#experience', 'View experience']
         ]
       }
     };
     let skillsPanelAnimation = null;
 
     const renderSkillsCapability = capability => {
-      if (capability === 'test-validation') {
-        skillsCapabilityPanel.innerHTML = initialCapabilityMarkup;
-        return;
-      }
       const record = skillCapabilities[capability];
       if (!record) return;
       const methodItems = record.methods.map(method => `<li><span>${method[0]}</span><div><strong>${method[1]}</strong><small>${method[2]}</small></div></li>`).join('');
       const toolItems = record.tools.map(tool => `<li>${tool}</li>`).join('');
       const evidenceItems = record.evidence.map(item => `<a href="${item[2]}"><strong>${item[0]}</strong><span>${item[1]}</span><small>${item[3]} →</small></a>`).join('');
-      skillsCapabilityPanel.innerHTML = `<header class="skills-capability-panel__header"><span>${record.index} / Selected Capability</span><h3>${record.title}</h3><p class="skills-capability-panel__summary">${record.summary}</p></header><div class="skills-capability-panel__columns"><section class="skills-capability-methods" aria-labelledby="skills-methods-heading"><h4 id="skills-methods-heading">Methods</h4><ol>${methodItems}</ol></section><section class="skills-capability-tools" aria-labelledby="skills-tools-heading"><h4 id="skills-tools-heading">Toolchain</h4><ul>${toolItems}</ul></section><section class="skills-capability-evidence" aria-labelledby="skills-evidence-heading"><h4 id="skills-evidence-heading">Applied Evidence</h4><div>${evidenceItems}</div></section></div>`;
+      skillsCapabilityPanel.innerHTML = `<header class="skills-capability-panel__header"><p class="skills-capability-panel__summary">${record.summary}</p></header><div class="skills-capability-panel__columns"><section class="skills-capability-methods" aria-labelledby="skills-methods-heading"><h4 id="skills-methods-heading">Core Work</h4><ol>${methodItems}</ol></section><section class="skills-capability-tools" aria-labelledby="skills-tools-heading"><h4 id="skills-tools-heading">Tools</h4><ul>${toolItems}</ul></section><section class="skills-capability-evidence" aria-labelledby="skills-evidence-heading"><h4 id="skills-evidence-heading">Selected Evidence</h4><div>${evidenceItems}</div></section></div>`;
     };
+
+    renderSkillsCapability('test-validation');
 
     const selectSkillsCapability = (tab, animate) => {
       if (!tab) return;

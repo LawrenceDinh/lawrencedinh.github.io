@@ -38,8 +38,8 @@
   }
   </script>
   <link rel="icon" type="image/png" href="imgsrc/icon.png" />
-  <link rel="stylesheet" href="style.css?v=20260720-21" />
-  <link rel="stylesheet" href="projects.css?v=20260720-11" />
+  <link rel="stylesheet" href="style.css?v=20260721-4" />
+  <link rel="stylesheet" href="projects.css?v=20260721-12" />
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body class="projects-page">
@@ -101,6 +101,15 @@
     </nav>
   </header>
 
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+    <span class="back-to-top-circle" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
+    </span>
+    <span class="back-to-top-text" aria-hidden="true">TOP</span>
+  </button>
+
   <main id="projects-content" class="projects-shell">
     <section class="projects-intro portfolio-page-hero" aria-labelledby="projects-heading">
       <div class="portfolio-page-hero__identity">
@@ -108,15 +117,16 @@
         <h1 class="portfolio-page-hero__title" id="projects-heading">Projects</h1>
       </div>
       <div class="projects-intro__copy portfolio-page-hero__context">
-        <p class="portfolio-page-hero__description">Case studies and technical records covering regional data systems, embedded sensing, vehicle validation, and earlier analytical work.</p>
+        <p class="portfolio-page-hero__description">Case studies and technical records from selected engineering work.</p>
         <nav class="projects-section-links portfolio-page-hero__secondary" aria-label="Project page sections">
-          <a href="#local-driving-intelligence">Featured case study</a>
+          <a href="#featured-case-study">Featured case study</a>
           <a href="#current-projects">Current projects</a>
           <a href="#academic-projects">Academic projects</a>
         </nav>
       </div>
     </section>
 
+    <section id="featured-case-study">
     <article id="local-driving-intelligence" class="projects-case-study" aria-labelledby="local-driving-title">
       <header class="projects-case-study__header">
         <div>
@@ -132,48 +142,48 @@
           <div class="projects-application-capture__viewport">
             <img src="imgsrc/projects/osint/optimized/weather-overview-960.webp" srcset="imgsrc/projects/osint/optimized/weather-overview-960.webp 960w, imgsrc/projects/osint/optimized/weather-overview-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 68vw" width="1600" height="1197" decoding="async" alt="Local Portal dashboard showing regional weather locations and detailed San Jose conditions" />
           </div>
-          <figcaption><strong>Regional Driving Overview</strong><span>Weather, route activity, traffic cameras, events, and preparation workflows in one regional interface.</span></figcaption>
+          <figcaption><strong>Regional weather overview</strong><span>Current conditions and source status for configured locations appear in one dashboard view.</span></figcaption>
         </figure>
         <div class="projects-case-study__summary">
-          <p class="projects-section-label">Featured Case Study</p>
+          <p class="projects-section-label">Regional planning dashboard</p>
           <h2 id="local-driving-title">Local Driving Intelligence</h2>
-          <p class="projects-case-study__purpose">A regional data platform built for Bay Area and Northern California drivers. It combines weather, route cameras, traffic activity, events, and preparation workflows while keeping the underlying public feeds inspectable.</p>
+          <p class="projects-case-study__purpose">A regional dashboard for checking weather, road activity, traffic cameras, and event information before a drive.</p>
           <dl class="projects-facts">
-            <div><dt>Stack</dt><dd>React &middot; Node.js &middot; Express &middot; SQLite</dd></div>
-            <div><dt>Focus</dt><dd>Regional data integration &middot; Route-aware interfaces &middot; Reliability</dd></div>
-            <div><dt>Current Work</dt><dd>Imagery playback &middot; Provider reliability &middot; Cache behavior &middot; Regional coverage</dd></div>
+            <div><dt>Type</dt><dd>Regional planning dashboard</dd></div>
+            <div><dt>Interface</dt><dd>React</dd></div>
+            <div><dt>Server</dt><dd>Express</dd></div>
+            <div><dt>Storage</dt><dd>SQLite</dd></div>
+            <div><dt>Data</dt><dd>Public weather, road, camera, and event sources</dd></div>
+            <div><dt>Status</dt><dd>Active development</dd></div>
+            <div><dt>Current work</dt><dd>Current work adds more routes and improves weather-history and radar playback.</dd></div>
           </dl>
         </div>
       </div>
 
       <div class="projects-case-study__detail">
         <section>
-          <span>01 / Purpose</span>
-          <h3>Before the drive</h3>
-          <p>See weather, route activity, cameras, and event details before leaving.</p>
+          <h3>Plan before leaving</h3>
+          <p>See weather, roads, cameras, and events in one view.</p>
         </section>
         <section>
-          <span>02 / Build</span>
-          <h3>Full-stack system</h3>
-          <p>I built the React interface, Express API, and SQLite data layer.</p>
+          <h3>Combine regional data</h3>
+          <p>Bring multiple public sources into one consistent dashboard.</p>
         </section>
         <section>
-          <span>03 / Reliability</span>
-          <h3>Recent data stays available</h3>
-          <p>Cached results keep the dashboard useful when a public feed fails.</p>
+          <h3>Keep complex data readable</h3>
+          <p>Make live and historical conditions easy to scan.</p>
         </section>
         <section>
-          <span>04 / Current Work</span>
-          <h3>More routes and history</h3>
-          <p>Current work adds weather playback and broader Northern California coverage.</p>
+          <h3>Official-source fallback</h3>
+          <p>Switch to another backup official feed for data when the primary source fails.</p>
         </section>
       </div>
 
       <section class="projects-osint-evidence" aria-labelledby="osint-evidence-heading">
         <header>
           <p class="projects-section-label">Interface Evidence</p>
-          <h3 id="osint-evidence-heading">Regional features in context</h3>
-          <p>Each view connects a public data source or preparation task to the route, location, or event being planned.</p>
+          <h3 id="osint-evidence-heading">All Features</h3>
+          <p>Browse the dashboard tools and see how they support planning before a drive.</p>
         </header>
 
         <div class="projects-feature-explorer" data-project-feature-explorer>
@@ -207,16 +217,17 @@
       <section class="projects-architecture" aria-labelledby="architecture-heading">
         <div>
           <p class="projects-section-label">System Flow</p>
-          <h3 id="architecture-heading">Architecture summary</h3>
+          <h3 id="architecture-heading">How the system handles the data</h3>
         </div>
         <ol>
-          <li><span>01</span><strong>Public data providers</strong><small>Weather, cameras, incidents, closures, message signs, events, stations, and imagery</small></li>
-          <li><span>02</span><strong>Validation and normalization</strong><small>Provider-specific responses converted into consistent application records</small></li>
-          <li><span>03</span><strong>Persistence and refresh</strong><small>SQLite storage, bounded caches, deduplication, scheduled collection, and stale-data handling</small></li>
-          <li><span>04</span><strong>Regional interface</strong><small>Routes, corridors, locations, cameras, alerts, events, and weather shown in context</small></li>
+          <li><span>01</span><strong>Collect</strong><small>Request weather, road, camera, event, and imagery data from public sources.</small></li>
+          <li><span>02</span><strong>Organize</strong><small>Convert different source formats into records the interface can use consistently.</small></li>
+          <li><span>03</span><strong>Save</strong><small>Keep recent results and imagery available between updates.</small></li>
+          <li><span>04</span><strong>Display</strong><small>Show timestamps, source status, saved results, and recent history in the dashboard.</small></li>
         </ol>
       </section>
     </article>
+    </section>
 
     <section id="current-projects" class="projects-registry" aria-labelledby="current-projects-heading">
       <header class="projects-section-header">
@@ -281,13 +292,13 @@
     </section>
 
     <footer class="projects-footer">
-      <a href="index.html">Return to main portfolio <span aria-hidden="true">&#8594;</span></a>
+      <a href="index.html"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M14 8H2M7 3l-5 5 5 5"/></svg>Return to main portfolio</a>
     </footer>
   </main>
-<script src="navigation.js?v=20260720-4"></script>
+<script src="navigation.js?v=20260721-3"></script>
 <script src="carousel-interaction.js?v=20260720-4"></script>
 <script src="project-image-viewer.js?v=20260720-3"></script>
-<script src="projects-explorer.js?v=20260720-5"></script>
+<script src="projects-explorer.js?v=20260721-6"></script>
 <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>
