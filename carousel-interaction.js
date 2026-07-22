@@ -358,8 +358,19 @@
     }
 
     function beginDrag(event) {
-      if (pointer || transitioning || (options.isTrackReady && !options.isTrackReady()) || event.isPrimary === false || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      if (pointer || (options.isTrackReady && !options.isTrackReady()) || event.isPrimary === false || (event.pointerType === 'mouse' && event.button !== 0)) return;
       if (event.target.closest(interactiveSelector)) return;
+      if (transitioning) {
+        if (!root.classList.contains('is-snapping-back')) return;
+        generation += 1;
+        if (motionTimer) window.clearTimeout(motionTimer);
+        motionTimer = 0;
+        if (motionResolve) motionResolve();
+        motionResolve = null;
+        clearTransitionClasses();
+        setOffset(0);
+        transitioning = false;
+      }
       pointer = {
         id: event.pointerId,
         startX: event.clientX,
@@ -444,12 +455,14 @@
       }
 
       transitioning = true;
+      const snapGeneration = ++generation;
       clearPointerState();
       clearTransitionClasses();
       root.classList.add('is-snapping-back');
       void track.offsetWidth;
       setOffset(0);
       await waitForMotion(snapDuration);
+      if (snapGeneration !== generation) return;
       clearTransitionClasses();
       transitioning = false;
       resumeAutoplay(true);
@@ -470,11 +483,13 @@
         return;
       }
       transitioning = true;
+      const snapGeneration = ++generation;
       clearTransitionClasses();
       root.classList.add('is-snapping-back');
       void track.offsetWidth;
       setOffset(0);
       await waitForMotion(snapDuration);
+      if (snapGeneration !== generation) return;
       clearTransitionClasses();
       transitioning = false;
       resumeAutoplay(true);

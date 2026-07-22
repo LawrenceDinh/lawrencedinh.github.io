@@ -20,7 +20,7 @@
   let viewerResizeObserver = null;
   let dialogPointer = null;
 
-  const isEnabled = () => mobileQuery.matches && document.documentElement.dataset.portfolioMode === 'enhanced';
+  const isEnabled = () => document.documentElement.dataset.portfolioMode === 'enhanced';
   const isCurrentImageMode = gallery => gallery?.mode === 'current-image';
 
   const normalizeItem = item => {
@@ -269,7 +269,7 @@
       }
     };
     setA11y();
-    mobileQuery.addEventListener('change', () => { setA11y(); if (!mobileQuery.matches) forceReset({ restoreFocus: false }); });
+    mobileQuery.addEventListener('change', () => { setA11y(); });
     trigger.addEventListener('pointerdown', event => { if (isEnabled()) pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false }; }, { passive: true });
     trigger.addEventListener('pointermove', event => { if (pointer && event.pointerId === pointer.id && Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) > 8) pointer.moved = true; }, { passive: true });
     trigger.addEventListener('pointercancel', () => { pointer = null; }, { passive: true });

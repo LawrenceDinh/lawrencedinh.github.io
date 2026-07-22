@@ -9771,6 +9771,34 @@ html.project-image-viewer-open { overflow: hidden; }
 
 .project-image-viewer:not([open]) { display: none; }
 
+.project-image-viewer__expand { display: none; }
+
+.project-image-viewer[open][data-viewer-mode="current-image"] {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: block;
+  width: min(92vw, 980px);
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.project-image-viewer[open][data-viewer-mode="current-image"]::backdrop { background: rgba(0, 5, 9, .72); backdrop-filter: blur(2px); }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__panel { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; width: 100%; max-height: calc(100vh - 40px); overflow: hidden; border: 1px solid rgba(126, 155, 169, .42); background: #06111a; box-shadow: 0 22px 60px rgba(0, 0, 0, .6); }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__header { display: flex; min-height: 48px; align-items: center; justify-content: space-between; padding-left: 12px; border-bottom: 1px solid var(--enhanced-divider); color: var(--enhanced-accent-detail); font: 700 .68rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__close { width: 44px; height: 44px; border: 0; border-left: 1px solid rgba(172, 196, 203, .28); color: var(--enhanced-text-heading); background: transparent; font: 700 1.2rem/1 var(--mono); }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__stage { display: grid; min-width: 0; min-height: 0; align-items: center; padding: 12px; overflow: hidden; }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__image-frame { display: grid; min-width: 0; min-height: 0; max-height: calc(100vh - 160px); place-items: center; overflow: auto; background: #02070a; }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__image-frame img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 180px); object-fit: contain; }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__caption { display: grid; gap: 4px; margin: 0; padding: 9px 11px 10px; border-top: 1px solid var(--enhanced-divider); background: rgba(4, 14, 20, .96); }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__caption strong { color: var(--enhanced-text-heading); font-size: .86rem; line-height: 1.25; }
+.project-image-viewer[data-viewer-mode="current-image"] .project-image-viewer__caption p { margin: 0; color: var(--enhanced-text-secondary); font-size: .74rem; line-height: 1.38; }
+
 @media (max-width: 760px) {
   .osint-slideshow__viewport,
   .projects-application-capture__viewport { position: relative; }
@@ -9788,6 +9816,11 @@ html.project-image-viewer-open { overflow: hidden; }
     background: rgba(3, 12, 18, .78);
     font-size: 1rem;
   }
+  html[data-portfolio-mode="enhanced"]
+  .project-image-viewer__expand:not([aria-hidden="true"]) {
+    display: grid;
+  }
+
   .project-image-viewer__expand[aria-hidden="true"] { display: none; }
 
   .project-image-viewer[open][data-viewer-mode="current-image"] {
