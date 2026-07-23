@@ -2724,9 +2724,10 @@
     });
   }
 
-  // Rotate verified Local Driving Intelligence interface views without loading every large asset up front.
-  const osintSlideshow = document.querySelector('[data-osint-slideshow]');
-  if (osintSlideshow) {
+  // Initialize each featured-project carousel from its own root so slide state,
+  // controls, captions, and autoplay remain independent.
+  const featuredCarousels = [];
+  document.querySelectorAll('[data-featured-carousel]').forEach(function(osintSlideshow) {
     const osintSlides = Array.from(osintSlideshow.querySelectorAll('[data-osint-slide]'));
     const osintDotButtons = Array.from(osintSlideshow.querySelectorAll('[data-osint-dot]'));
     const osintPrevious = osintSlideshow.querySelector('[data-osint-previous]');
@@ -2955,7 +2956,11 @@
         pauseButton: osintPlayback,
         progress: osintProgress,
         isTrackReady: function() { return osintTrackReady; },
-        isEnabled: function() { return document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced'; }
+        isEnabled: function() {
+          return document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced'
+            && !osintSlideshow.hidden
+            && osintSlideshow.classList.contains('is-active');
+        }
       });
     }
 
@@ -2997,7 +3002,50 @@
     commitOsintSlide(0, 'initial');
     prepareOsintTrack(0);
     syncOsintDotPlacement();
-  }
+    featuredCarousels.push({
+      root: osintSlideshow,
+      refresh: function() {
+        if (osintStatus && osintSlideshow.hidden) osintStatus.setAttribute('aria-live', 'off');
+        if (osintInteraction) osintInteraction.refresh();
+      }
+    });
+  });
+
+  // Switch complete featured-project panels without moving the page or resetting
+  // either project's carousel.
+  const featuredProjectTabs = Array.from(document.querySelectorAll('[role="tab"][aria-controls^="featured-project-"]'));
+  const activateFeaturedProject = function(tab, focusTab) {
+    if (!tab) return;
+    featuredProjectTabs.forEach(function(projectTab) {
+      const selected = projectTab === tab;
+      const panel = document.getElementById(projectTab.getAttribute('aria-controls'));
+      projectTab.classList.toggle('is-active', selected);
+      projectTab.setAttribute('aria-selected', String(selected));
+      projectTab.tabIndex = selected ? 0 : -1;
+      if (panel) {
+        panel.hidden = !selected;
+        panel.classList.toggle('is-active', selected);
+        panel.setAttribute('aria-hidden', String(!selected));
+      }
+    });
+    featuredCarousels.forEach(function(carousel) { carousel.refresh(); });
+    if (focusTab) tab.focus({ preventScroll: true });
+  };
+
+  featuredProjectTabs.forEach(function(tab, index) {
+    tab.addEventListener('click', function() { activateFeaturedProject(tab, true); });
+    tab.addEventListener('keydown', function(event) {
+      let targetIndex = null;
+      if (event.key === 'ArrowLeft') targetIndex = (index - 1 + featuredProjectTabs.length) % featuredProjectTabs.length;
+      if (event.key === 'ArrowRight') targetIndex = (index + 1) % featuredProjectTabs.length;
+      if (event.key === 'Home') targetIndex = 0;
+      if (event.key === 'End') targetIndex = featuredProjectTabs.length - 1;
+      if (event.key === 'Enter' || event.key === ' ') targetIndex = index;
+      if (targetIndex === null) return;
+      event.preventDefault();
+      activateFeaturedProject(featuredProjectTabs[targetIndex], true);
+    });
+  });
 
   // Open matching full project records from the dedicated project cards.
   const careerProjectRecords = Array.from(document.querySelectorAll('.career-project-feature-card__action[data-project-target]'));

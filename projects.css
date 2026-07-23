@@ -634,6 +634,17 @@
 .projects-academic-list article > div b { color: var(--accent); }
 .projects-card h3 { margin-top: 16px; font-size: 1.13rem; }
 
+.projects-card__launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-weight: 750;
+}
+
+.projects-card__launch:hover,
+.projects-card__launch:focus-visible { color: var(--text); }
+
 .projects-academic-list { display: grid; }
 .projects-academic-list article {
   display: grid;

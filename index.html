@@ -87,7 +87,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260721-5">
+  <link rel="stylesheet" href="style.css?v=20260723-3">
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body>
@@ -678,7 +678,7 @@
         <img src="imgsrc/logos/shapescapelogo.png" alt="" loading="lazy" decoding="async">
       </div>
       <div class="job-card-identity">
-        <h3 id="job-shapescape">3D Digital Environment Designer</h3>
+        <h3 id="job-shapescape">Game Level Designer</h3>
         <div class="job-meta job-meta--company"><span class="job-meta-company">Shapescape ApS</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-type">Contract</span></div>
         <div class="job-meta job-meta--period"><span class="job-meta-date">Feb 2016 — Feb 2019</span><span class="job-meta-separator" aria-hidden="true"> · </span><span class="job-meta-duration">3 yrs 1 mo</span></div>
         <div class="job-meta job-meta--place"><span class="job-meta-location">Remote</span></div>
@@ -727,11 +727,114 @@
 <section id="projects" class="section-panel featured-system-section">
   <div class="section-header">
     <h2 class="section-heading featured-system-simple">Selected Projects</h2>
-    <h2 class="section-heading featured-system-enhanced"><span class="featured-system-heading-desktop">Featured System</span><span class="featured-system-heading-mobile">Featured Project</span></h2>
+    <h2 class="section-heading featured-system-enhanced"><span class="featured-system-heading-desktop">Featured Projects</span><span class="featured-system-heading-mobile">Featured Projects</span></h2>
     <span class="expand-hint featured-system-simple">(Click projects to expand)</span>
+    <div class="featured-project-switcher">
+      <span class="featured-project-switcher__label">Index</span>
+      <div class="featured-project-tabs" role="tablist" aria-label="Featured projects">
+        <button id="featured-project-tab-drift" class="featured-project-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="featured-project-drift" aria-label="Show Drift Course Designer" tabindex="0">01</button>
+        <button id="featured-project-tab-local" class="featured-project-tab" type="button" role="tab" aria-selected="false" aria-controls="featured-project-local" aria-label="Show Local Driving Intelligence" tabindex="-1">02</button>
+      </div>
+    </div>
   </div>
         <div class="projects">
-          <article class="proj proj--featured-system" data-osint-slideshow aria-label="Local Driving Intelligence">
+          <article id="featured-project-drift" class="proj proj--featured-system featured-project-panel is-active" role="tabpanel" aria-labelledby="featured-project-tab-drift" aria-hidden="false" data-featured-project-panel data-featured-carousel aria-label="Drift Course Designer">
+            <button class="proj-close" type="button" aria-label="Collapse project">&#215;</button>
+            <div class="featured-system-media featured-system-enhanced" role="region" aria-label="Drift Course Designer screenshot carousel" aria-roledescription="carousel">
+              <div class="osint-slideshow">
+                <div class="osint-slideshow__viewport">
+                  <figure class="osint-slide is-active" data-osint-slide aria-hidden="false" aria-label="Slide 1 of 4" style="--featured-image-scale: 1.18; --featured-image-scale-mobile: 1.06; --featured-image-position-x: 50%; --featured-image-position-y: 48%;">
+                    <img src="web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-960.webp" srcset="web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="836" loading="lazy" decoding="async" alt="Drift Course Designer showing a complete event layout with a driving line, clipping points, judging zones, boundaries, setup, finish, and shutdown areas" />
+                    <figcaption><span>Course Design / 01</span><strong>Complete Event Layout</strong><small>Plan the driving line, clipping points, judging areas, setup, finish, and shutdown in one workspace.</small></figcaption>
+                  </figure>
+                  <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 2 of 4" style="--featured-image-scale: 1.22; --featured-image-scale-mobile: 1.10; --featured-image-position-x: 50%; --featured-image-position-y: 48%;">
+                    <img data-src="web/imgsrc/projects/drift-course-designer/optimized/course-editing-960.webp" data-srcset="web/imgsrc/projects/drift-course-designer/optimized/course-editing-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-editing-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="836" loading="lazy" decoding="async" alt="Drift Course Designer editing view showing route anchors, smoothing controls, and adjustable course width" />
+                    <figcaption><span>Editing / 02</span><strong>Shape the Driving Line</strong><small>Refine anchors, smoothing, and course width without redrawing the entire route.</small></figcaption>
+                  </figure>
+                  <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 3 of 4" style="--featured-image-scale: 1.20; --featured-image-scale-mobile: 1.08; --featured-image-position-x: 50%; --featured-image-position-y: 48%;">
+                    <img data-src="web/imgsrc/projects/drift-course-designer/optimized/course-analysis-960.webp" data-srcset="web/imgsrc/projects/drift-course-designer/optimized/course-analysis-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-analysis-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="838" loading="lazy" decoding="async" alt="Drift Course Designer analysis view showing directional sections, transitions, and inner and outer course zones" />
+                    <figcaption><span>Analysis / 03</span><strong>Review the Run</strong><small>Inspect direction changes, transitions, inner and outer zones, and overall use of the venue.</small></figcaption>
+                  </figure>
+                  <figure class="osint-slide" data-osint-slide aria-hidden="true" aria-label="Slide 4 of 4" style="--featured-image-scale: 1.18; --featured-image-scale-mobile: 1.06; --featured-image-position-x: 50%; --featured-image-position-y: 50%;">
+                    <img data-src="web/imgsrc/projects/drift-course-designer/optimized/course-export-960.webp" data-srcset="web/imgsrc/projects/drift-course-designer/optimized/course-export-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-export-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 66vw" width="1600" height="834" loading="lazy" decoding="async" alt="Drift Course Designer export dialog showing image, project, mapping, and simulation geometry output options" />
+                    <figcaption><span>Delivery / 04</span><strong>Export the Complete Layout</strong><small>Create presentation images, portable project files, mapping data, and simulation geometry.</small></figcaption>
+                  </figure>
+                </div>
+                <div class="osint-slideshow__controls" role="group" aria-label="Slideshow controls">
+                  <button type="button" data-osint-previous aria-label="Show previous feature">&#8592;</button>
+                  <span data-osint-status aria-live="off">01 / 04</span>
+                  <button type="button" data-osint-next aria-label="Show next feature">&#8594;</button>
+                  <button class="carousel-playback-toggle" type="button" data-osint-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="featured-system-caption featured-system-enhanced">
+              <span class="carousel-progress" aria-hidden="true"><span data-osint-progress></span></span>
+              <div class="osint-caption-rail" aria-hidden="true">
+                <span data-osint-caption-category>Course Design / 01</span>
+                <strong data-osint-caption-title>Complete Event Layout</strong>
+                <small data-osint-caption-description>Plan the driving line, clipping points, judging areas, setup, finish, and shutdown in one workspace.</small>
+              </div>
+              <div class="osint-slideshow__dots" role="group" aria-label="Choose a feature">
+                <button class="is-active" type="button" data-osint-dot="0" aria-label="Show Complete Event Layout" aria-current="true"></button>
+                <button type="button" data-osint-dot="1" aria-label="Show Shape the Driving Line"></button>
+                <button type="button" data-osint-dot="2" aria-label="Show Review the Run"></button>
+                <button type="button" data-osint-dot="3" aria-label="Show Export the Complete Layout"></button>
+              </div>
+            </div>
+            <div class="featured-system-intro featured-system-simple">
+              <div class="project-record" aria-hidden="true"><span>Project 01</span><span>Live Tool</span></div>
+              <h4 id="proj-drift-course-designer-simple">Drift Course Designer</h4>
+              <p class="muted project-date">2026 &mdash; Present</p>
+              <p class="small project-overview">Built a browser-based workspace for designing, annotating, analyzing, saving, and exporting directional drift layouts over real venue imagery.</p>
+              <div class="project-skills" aria-label="Skills demonstrated">
+                <span class="project-skills__label">Skills demonstrated</span>
+                <div class="project-skills__tags"><span>React</span><span>TypeScript</span><span>HTML Canvas</span><span>Computational Geometry</span><span>IndexedDB</span><span>UI / UX Design</span></div>
+                <a class="project-explore project-explore--link" href="/tools/drift-course-designer/">Launch Tool <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+            <div class="featured-system-intro featured-system-enhanced">
+              <div class="project-record" aria-label="2026, live demo, interactive course planning"><span>2026</span><span>Live Demo</span><span>Interactive Course Planning</span></div>
+              <p class="featured-system-eyebrow">Drift Event Design System</p>
+              <h4 id="proj-drift-course-designer" class="featured-system-title"><a class="featured-system-title-link" href="/tools/drift-course-designer/" aria-label="Launch the Drift Course Designer live application"><span class="featured-system-title-link__text">Drift Course Designer</span><span class="featured-system-title-link__arrow" aria-hidden="true">&rarr;</span></a></h4>
+              <p class="project-overview featured-system-value">Design complete drift layouts over real venue imagery.</p>
+              <a class="featured-system-action featured-system-action--primary featured-system-action--inline" href="/tools/drift-course-designer/">Launch Course Designer <span aria-hidden="true">&rarr;</span></a>
+              <section class="featured-system-points" aria-label="Drift Course Designer project overview">
+                <ol>
+                  <li><span class="featured-system-points__label">01 / Purpose</span><p>Plan the course and event flow before arriving onsite.</p></li>
+                  <li><span class="featured-system-points__label">02 / Workflow</span><p>Draw and refine the driving line, width, clips, zones, and boundaries.</p></li>
+                  <li><span class="featured-system-points__label">03 / Analysis</span><p>Review transitions, direction changes, and use of the available surface.</p></li>
+                  <li><span class="featured-system-points__label">04 / Delivery</span><p>Save and export layouts for review, setup, mapping, or simulation.</p></li>
+                </ol>
+              </section>
+              <section class="featured-system-highlights" aria-labelledby="drift-featured-system-highlights-heading">
+                <h5 id="drift-featured-system-highlights-heading">Engineering Highlights</h5>
+                <ul>
+                  <li>Flexible path drawing and editing</li>
+                  <li>Drift-specific course markup</li>
+                  <li>Local saving and multi-format export</li>
+                </ul>
+              </section>
+            </div>
+            <div class="featured-system-evidence featured-system-enhanced">
+              <p class="featured-system-stack" aria-label="Technology stack: React, TypeScript, Vite, HTML Canvas, IndexedDB">React &middot; TypeScript &middot; Vite &middot; HTML Canvas &middot; IndexedDB</p>
+              <div class="featured-system-actions">
+                <a class="featured-system-action" href="projects.html#drift-course-designer">View Project Details <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+            <div class="proj-detail"><div class="project-detail-grid">
+              <section class="project-module"><h5><span>01</span> Course design</h5>
+                <div class="project-row"><span>01</span><div><strong>Path-first workflow</strong><p>Draw and refine the driving line before placing clips, gates, zones, boundaries, and labels.</p></div></div>
+                <div class="project-row"><span>02</span><div><strong>Editable geometry</strong><p>Adjust anchors, smoothing, and corridor width without rebuilding the complete route.</p></div></div>
+              </section>
+              <section class="project-module"><h5><span>02</span> Delivery</h5>
+                <div class="project-row"><span>01</span><div><strong>Local projects</strong><p>Save and reopen layouts locally for iterative event planning.</p></div></div>
+                <div class="project-row"><span>02</span><div><strong>Multi-format export</strong><p>Export presentation images, portable project files, mapping data, and simulation geometry.</p></div></div>
+              </section>
+            </div></div>
+          </article>
+
+          <article id="featured-project-local" class="proj proj--featured-system featured-project-panel" role="tabpanel" aria-labelledby="featured-project-tab-local" aria-hidden="true" data-featured-project-panel data-featured-carousel aria-label="Local Driving Intelligence" hidden>
             <button class="proj-close" type="button" aria-label="Collapse project">&#215;</button>
             <div class="featured-system-media featured-system-enhanced" role="region" aria-label="Local Driving Intelligence feature slideshow" aria-roledescription="carousel">
               <div class="osint-slideshow">
@@ -796,7 +899,7 @@
                 </div>
             </div>
             <div class="featured-system-intro featured-system-simple">
-              <div class="project-record" aria-hidden="true"><span>Project 01</span><span>Prototype</span></div>
+              <div class="project-record" aria-hidden="true"><span>Project 02</span><span>Prototype</span></div>
               <h4 id="proj-local-driving-intelligence-simple">Local Driving Intelligence: Regional Data Platform</h4>
               <p class="muted project-date">2026 &mdash; Present</p>
               <p class="small project-overview">Built a regional dashboard for weather, route cameras, traffic activity, events, and preparation workflows across Northern California.</p>
@@ -849,7 +952,7 @@
 
           <article class="proj" aria-labelledby="proj-lora-sensor">
             <button class="proj-close" type="button" aria-label="Collapse project">&#215;</button>
-            <div class="project-record" aria-hidden="true"><span>Project 02</span><span>Prototype</span></div>
+            <div class="project-record" aria-hidden="true"><span>Project 03</span><span>Prototype</span></div>
             <h4 id="proj-lora-sensor">LoRa32 Wireless Traffic Sensor</h4>
             <p class="muted project-date">2026 &mdash; Present</p>
             <p class="small project-overview">Developing an ESP32 and LoRa sensing node for detecting vehicle activity, generating timestamped events, and transmitting telemetry beyond normal Wi-Fi coverage.</p>
@@ -874,7 +977,7 @@
 
           <article class="proj" aria-labelledby="proj-uwb-tandem">
             <button class="proj-close" type="button" aria-label="Collapse project">&#215;</button>
-            <div class="project-record" aria-hidden="true"><span>Project 03</span><span>R&amp;D</span></div>
+            <div class="project-record" aria-hidden="true"><span>Project 04</span><span>R&amp;D</span></div>
             <h4 id="proj-uwb-tandem">UWB Tandem Proximity System</h4>
             <p class="muted project-date">2026 &mdash; Present</p>
             <p class="small project-overview">Developing an ESP32 and ultra-wideband ranging system for measuring vehicle spacing and presenting driver-facing proximity feedback during closed-course tandem driving.</p>
@@ -899,7 +1002,7 @@
 
           <article class="proj" aria-labelledby="proj-motorsports">
             <button class="proj-close" type="button" aria-label="Collapse project">×</button>
-            <div class="project-record" aria-hidden="true"><span>Project 04</span><span>Active</span></div>
+            <div class="project-record" aria-hidden="true"><span>Project 05</span><span>Active</span></div>
             <h4 id="proj-motorsports">Motorsports Systems and Vehicle Dynamics</h4>
             <p class="muted project-date">2017 — Present</p>
             <p class="small project-overview">Applied telemetry, instrumented driving, and structured session review across drifting, autocross, track driving, and simulation to evaluate vehicle behavior, setup changes, and driver inputs.</p>
@@ -926,7 +1029,7 @@
 
           <article class="proj" aria-labelledby="proj-phylo">
             <button class="proj-close" type="button" aria-label="Collapse project">×</button>
-            <div class="project-record" aria-hidden="true"><span>Project 05</span><span>Analysis</span></div>
+            <div class="project-record" aria-hidden="true"><span>Project 06</span><span>Analysis</span></div>
             <h4 id="proj-phylo">Python Phylogenetic Analysis</h4>
             <p class="muted project-date">CS 123B – Bioinformatics II, 2021</p>
             <p class="small project-overview">Aligned mRNA data from 44 species and used reproducible parsing, cleaning, and validation workflows to infer evolutionary relationships.</p>
@@ -953,7 +1056,7 @@
 
           <article class="proj" aria-labelledby="proj-twitch">
             <button class="proj-close" type="button" aria-label="Collapse project">×</button>
-            <div class="project-record" aria-hidden="true"><span>Project 06</span><span>Network analysis</span></div>
+            <div class="project-record" aria-hidden="true"><span>Project 07</span><span>Network analysis</span></div>
             <h4 id="proj-twitch">Twitch.tv Users Network Analysis</h4>
             <p class="muted project-date">CS 185C – Social Network Analysis, 2020</p>
             <p class="small project-overview">Analyzed Twitch user-network data with Python and R to identify influential users, clusters, and community structure.</p>
@@ -980,7 +1083,7 @@
 
           <article class="proj" aria-labelledby="proj-bookstore">
             <button class="proj-close" type="button" aria-label="Collapse project">×</button>
-            <div class="project-record" aria-hidden="true"><span>Project 07</span><span>Prototype</span></div>
+            <div class="project-record" aria-hidden="true"><span>Project 08</span><span>Prototype</span></div>
             <h4 id="proj-bookstore">Bookstore Prototype System</h4>
             <p class="muted project-date">CS 160 – Software Engineering, 2019</p>
             <p class="small project-overview">Built a Java e-commerce prototype with authentication, file persistence, inventory search, and defensive error handling.</p>
@@ -1083,7 +1186,7 @@
 <script src="navigation.js?v=20260721-3"></script>
   <script src="carousel-interaction.js?v=20260720-4"></script>
   <script src="project-image-viewer.js?v=20260720-3"></script>
-  <script src="script.js?v=20260721-3"></script>
+  <script src="script.js?v=20260723-1"></script>
   <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

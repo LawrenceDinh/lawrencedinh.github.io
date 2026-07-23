@@ -10906,3 +10906,173 @@ html[data-portfolio-mode="enhanced"] body #experience {
     padding-bottom: 0;
   }
 }
+
+/* Compact outer switcher for the two complete Featured System projects. */
+.featured-project-switcher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.featured-project-switcher__label {
+  color: var(--muted);
+  font: 700 .68rem/1.2 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.featured-project-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.featured-project-tab {
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  color: var(--muted);
+  background: transparent;
+  font: 700 .72rem/1 var(--mono);
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.featured-project-tab:hover,
+.featured-project-tab:focus-visible {
+  color: var(--text);
+  border-color: currentColor;
+}
+
+.featured-project-tab:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.featured-project-tab.is-active {
+  color: var(--text);
+  background: rgba(127, 149, 158, .16);
+  box-shadow: inset 0 -3px currentColor;
+}
+
+#projects .featured-project-panel[hidden] {
+  display: none !important;
+}
+
+/* Drift Course Designer uses wide application captures inside the taller
+   Featured System stage. Scale only its foreground screenshots; the carousel
+   track, Local Driving Intelligence captures, and full-image viewer stay
+   unchanged. */
+[data-portfolio-mode="enhanced"] #featured-project-drift .osint-slide {
+  overflow: hidden;
+}
+
+[data-portfolio-mode="enhanced"] #featured-project-drift .osint-slide::before {
+  opacity: .34;
+}
+
+[data-portfolio-mode="enhanced"] #featured-project-drift .osint-slide img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position:
+    var(--featured-image-position-x, 50%)
+    var(--featured-image-position-y, 50%);
+  transform:
+    translate3d(
+      var(--featured-image-offset-x, 0),
+      var(--featured-image-offset-y, 0),
+      0
+    )
+    scale(var(--featured-image-scale, 1.18));
+  transform-origin:
+    var(--featured-image-position-x, 50%)
+    var(--featured-image-position-y, 50%);
+}
+
+#projects .project-explore--link {
+  color: inherit;
+  text-decoration: none;
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-project-switcher__label {
+  color: var(--enhanced-text-meta);
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-project-tab {
+  border-color: var(--enhanced-divider);
+  color: var(--enhanced-text-meta);
+  background: rgba(5, 17, 24, .6);
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-project-tab:hover,
+[data-portfolio-mode="enhanced"] #projects .featured-project-tab:focus-visible {
+  border-color: var(--enhanced-accent);
+  color: var(--enhanced-text-heading);
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-project-tab.is-active {
+  border-color: var(--enhanced-accent-detail);
+  color: var(--enhanced-text-heading);
+  background: rgba(10, 38, 46, .66);
+  box-shadow: inset 0 -3px var(--enhanced-accent-detail);
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-system-actions {
+  display: flex;
+  align-items: stretch;
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-system-action--primary {
+  color: var(--enhanced-text-heading);
+  background: rgba(18, 73, 84, .72);
+}
+
+[data-portfolio-mode="enhanced"] #projects .featured-system-intro .featured-system-action--inline {
+  min-width: 0;
+  min-height: 40px;
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px solid var(--enhanced-accent-line);
+}
+
+@media (max-width: 760px) {
+  #projects.featured-system-section .section-header {
+    flex-wrap: wrap;
+  }
+
+  [data-portfolio-mode="enhanced"] #featured-project-drift .osint-slide img {
+    transform:
+      translate3d(
+        var(--featured-image-offset-x, 0),
+        var(--featured-image-offset-y, 0),
+        0
+      )
+      scale(var(--featured-image-scale-mobile, 1.06));
+  }
+
+  .featured-project-switcher {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  [data-portfolio-mode="enhanced"] #projects .featured-system-actions {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-project-tab {
+    transition: none;
+  }
+}
