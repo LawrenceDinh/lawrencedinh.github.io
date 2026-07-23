@@ -1,0 +1,48 @@
+{
+  "index.html": {
+    "file": "assets/index-Ddt4DkRj.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "assets/index-CjMkrTdZ.css"
+    ],
+    "assets": [
+      "assets/salinas-airport-uWgmnp6L.jpg",
+      "assets/sonomaraceway-template-nnMoNmLp.png",
+      "assets/thunderhill-bigpad-template-CdBi0ujc.png",
+      "assets/crowslanding-course1-B6VzA7Cq.png",
+      "assets/crowslanding-course2-BUj94AdQ.png",
+      "assets/crowslanding-course3-CVw5j8LA.png",
+      "assets/crowslanding-course4-BkWxL8EM.png"
+    ]
+  },
+  "src/imgs/crowslanding-course1.png": {
+    "file": "assets/crowslanding-course1-B6VzA7Cq.png",
+    "src": "src/imgs/crowslanding-course1.png"
+  },
+  "src/imgs/crowslanding-course2.png": {
+    "file": "assets/crowslanding-course2-BUj94AdQ.png",
+    "src": "src/imgs/crowslanding-course2.png"
+  },
+  "src/imgs/crowslanding-course3.png": {
+    "file": "assets/crowslanding-course3-CVw5j8LA.png",
+    "src": "src/imgs/crowslanding-course3.png"
+  },
+  "src/imgs/crowslanding-course4.png": {
+    "file": "assets/crowslanding-course4-BkWxL8EM.png",
+    "src": "src/imgs/crowslanding-course4.png"
+  },
+  "src/imgs/salinas-airport.jpg": {
+    "file": "assets/salinas-airport-uWgmnp6L.jpg",
+    "src": "src/imgs/salinas-airport.jpg"
+  },
+  "src/imgs/sonomaraceway-template.png": {
+    "file": "assets/sonomaraceway-template-nnMoNmLp.png",
+    "src": "src/imgs/sonomaraceway-template.png"
+  },
+  "src/imgs/thunderhill-bigpad-template.png": {
+    "file": "assets/thunderhill-bigpad-template-CdBi0ujc.png",
+    "src": "src/imgs/thunderhill-bigpad-template.png"
+  }
+}
