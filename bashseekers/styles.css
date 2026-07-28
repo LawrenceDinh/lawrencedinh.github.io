@@ -654,6 +654,7 @@ h1 {
   position: relative;
   z-index: 3;
   max-width: 720px;
+  margin-top: 0;
   margin-bottom: 1.3rem;
   color: var(--paper);
   font-family: var(--hand);

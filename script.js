@@ -1809,67 +1809,190 @@
   if (skillsCapabilityTabs.length && skillsCapabilityPanel) {
     const skillCapabilities = {
       'test-validation': {
-        summary: 'Plans and executes system tests, isolates failures, and turns observed behavior into reproducible evidence.',
-        methods: [
-          ['01', 'Scenario execution', 'Structured test plans across software, sensors, and vehicles'],
-          ['02', 'Diagnostics and triage', 'Telemetry, logs, and observed-behavior review'],
-          ['03', 'Integration validation', 'Interfaces, sensors, and end-to-end system behavior']
+        id: 'test-validation',
+        title: 'Test & Validation',
+        summary: 'Runs structured tests, investigates failures, and turns logs, telemetry, and observed behavior into clear reproduction steps.',
+        work: [
+          { title: 'Scenario testing', description: 'Run planned cases across vehicle, software, sensor, and integrated systems.' },
+          { title: 'Failure triage', description: 'Compare what happened during a test with logs, telemetry, and system state.' },
+          { title: 'Integration checks', description: 'Verify sensor status, timing, interfaces, and end-to-end system behavior.' }
         ],
-        tools: ['Python', 'Linux', 'Jira', 'Telemetry tools', 'Git'],
+        tools: ['CANalyzer', 'ADTF', 'QNX', 'Linux', 'SSH / VNC', 'Jira', 'Vehicle telemetry', 'Camera', 'LiDAR', 'Radar'],
         evidence: [
-          ['NVIDIA', 'AV system testing and anomaly review', '#experience', 'View experience'],
-          ['Performance Driving & Validation', 'Controlled vehicle testing and session analysis', '#projects', 'View project']
+          {
+            type: 'Role',
+            title: 'NVIDIA',
+            context: 'Autonomous Vehicle Test Expert',
+            description: 'On-vehicle AV testing, synchronized data review, and defect reporting for engineering follow-up.',
+            href: '#experience',
+            action: 'View Experience'
+          },
+          {
+            type: 'Project',
+            title: 'Performance Driving & Validation',
+            description: 'Repeatable closed-course sessions used to compare vehicle response, setup changes, and driver inputs.',
+            href: '#projects',
+            action: 'View Project'
+          }
         ]
       },
       'software-automation': {
-        summary: 'Builds software and automation that connect systems and reduce repetitive operational work.',
-        methods: [
-          ['01', 'Application development', 'Practical software for operational and technical workflows'],
-          ['02', 'Workflow automation', 'Scripted and platform-based process improvement'],
-          ['03', 'Systems integration', 'APIs, data flows, and connected tooling']
+        id: 'software-automation',
+        title: 'Software & Automation',
+        summary: 'Builds small tools, workflow automation, and service integrations that reduce repetitive work and keep connected systems consistent.',
+        work: [
+          { title: 'Workflow automation', description: 'Build ServiceNow flows, business rules, and client-side validation around operational processes.' },
+          { title: 'Scripting and tooling', description: 'Use Python, JavaScript, and shell workflows for data handling, diagnostics, and utility work.' },
+          { title: 'Integration testing', description: 'Check changes across connected systems before they move into release workflows.' }
         ],
-        tools: ['JavaScript', 'Node.js', 'Git', 'Linux', 'ServiceNow'],
+        tools: ['Python', 'JavaScript', 'Bash', 'ServiceNow', 'Selenium', 'Git', 'CI/CD', 'Node.js'],
         evidence: [
-          ['Tata Consultancy Services', 'Enterprise workflow development and validation', '#experience', 'View experience'],
-          ['Local Driving Intelligence', 'Full-stack application and provider integration', 'projects.html#local-driving-intelligence', 'View project']
+          {
+            type: 'Role',
+            title: 'Tata Consultancy Services',
+            context: 'Enterprise systems',
+            description: 'Built and tested ServiceNow workflows, UI rules, and validation for incident and change processes.',
+            href: '#experience',
+            action: 'View Experience'
+          },
+          {
+            type: 'Project',
+            title: 'Local Driving Intelligence',
+            context: 'Regional data platform',
+            description: 'Connects public data sources through an Express API, normalization layer, and SQLite-backed cache.',
+            href: 'projects.html?project=local-driving-intelligence#featured-case-study',
+            action: 'View Project'
+          }
         ]
       },
       'data-analytics': {
-        summary: 'Turns telemetry, time-series, and geospatial data into clear metrics and technical decisions.',
-        methods: [
-          ['01', 'Telemetry analysis', 'Vehicle and system behavior across recorded sessions'],
-          ['02', 'Data preparation', 'Cleaning, parsing, and structured comparison'],
-          ['03', 'Visualization and reporting', 'Metrics, maps, and reviewable technical outputs']
+        id: 'data-analytics',
+        title: 'Data & Analytics',
+        summary: 'Uses telemetry, time-series, geospatial, and network data to explain system behavior and make complex results easier to review.',
+        work: [
+          { title: 'Data preparation', description: 'Clean and normalize logs, API responses, sensor data, and structured datasets.' },
+          { title: 'Analysis', description: 'Compare time-aligned measurements, trends, and system events.' },
+          { title: 'Visualization', description: 'Build maps, charts, metrics, and dashboards for technical review.' }
         ],
-        tools: ['Python', 'pandas', 'NumPy', 'SQLite', 'ArcGIS'],
+        tools: ['Python', 'pandas', 'NumPy', 'R', 'SQLite', 'ArcGIS', 'Gephi', 'GPS / IMU data'],
         evidence: [
-          ['Local Driving Intelligence', 'Regional data, maps, and operational context', 'projects.html#local-driving-intelligence', 'View project'],
-          ['Performance Driving & Validation', 'Telemetry, comparison, and vehicle behavior', '#projects', 'View project']
+          {
+            type: 'Project',
+            title: 'Local Driving Intelligence',
+            context: 'Regional data integration',
+            description: 'Brings weather, road, camera, event, and imagery sources into one consistent regional view.',
+            href: 'projects.html?project=local-driving-intelligence#featured-case-study',
+            action: 'View Project'
+          },
+          {
+            type: 'Project',
+            title: 'Twitch.tv Users Network Analysis',
+            context: 'Network analysis',
+            description: 'Used centrality measures, Louvain clustering, and Gephi to examine communities and influential users.'
+          }
         ]
       },
       'interfaces-systems': {
-        summary: 'Designs responsive interfaces that make dense technical information easier to review and act on.',
-        methods: [
-          ['01', 'Information architecture', 'Organizing complex technical content and actions'],
-          ['02', 'Dashboard design', 'Focused views for data-dense operational workflows'],
-          ['03', 'Usability review', 'Navigation, responsiveness, and interaction quality']
+        id: 'interfaces-systems',
+        title: 'Interfaces & Systems',
+        summary: 'Designs tools around the actual workflow so complex information stays clear, editable, and useful.',
+        work: [
+          { title: 'Information hierarchy', description: 'Organize dense technical content around the decisions a user needs to make.' },
+          { title: 'Interaction design', description: 'Build editing and navigation flows that remain understandable across multiple steps.' },
+          { title: 'System connection', description: 'Connect interface state with storage, APIs, and sensor data.' }
         ],
-        tools: ['React', 'JavaScript', 'Node.js', 'ServiceNow', 'Git'],
+        tools: ['React', 'TypeScript', 'HTML Canvas', 'IndexedDB', 'Express', 'ESP32', 'UWB', 'LoRa'],
         evidence: [
-          ['Local Driving Intelligence', 'Dashboard architecture and operational workflows', 'projects.html#local-driving-intelligence', 'View project'],
-          ['Shapescape', 'Interactive systems and usability review', '#experience', 'View experience']
+          {
+            type: 'Project',
+            title: 'Drift Course Designer',
+            context: 'Browser-based planning tool',
+            description: 'Turns venue imagery and a driving line into an editable course plan with annotations, analysis, saving, and export.',
+            href: 'projects.html?project=drift-course-designer#featured-case-study',
+            action: 'View Project'
+          },
+          {
+            type: 'Project',
+            title: 'Vehicle Proximity System',
+            context: 'Ranging prototype',
+            description: 'Explores live UWB distance measurement and driver feedback for closed-course tandem driving.'
+          }
         ]
       }
     };
     let skillsPanelAnimation = null;
 
+    const createSkillsElement = (tagName, className, text) => {
+      const element = document.createElement(tagName);
+      if (className) element.className = className;
+      if (text !== undefined) element.textContent = text;
+      return element;
+    };
+
     const renderSkillsCapability = capability => {
       const record = skillCapabilities[capability];
       if (!record) return;
-      const methodItems = record.methods.map(method => `<li><span>${method[0]}</span><div><strong>${method[1]}</strong><small>${method[2]}</small></div></li>`).join('');
-      const toolItems = record.tools.map(tool => `<li>${tool}</li>`).join('');
-      const evidenceItems = record.evidence.map(item => `<a href="${item[2]}"><strong>${item[0]}</strong><span>${item[1]}</span><small>${item[3]} →</small></a>`).join('');
-      skillsCapabilityPanel.innerHTML = `<header class="skills-capability-panel__header"><p class="skills-capability-panel__summary">${record.summary}</p></header><div class="skills-capability-panel__columns"><section class="skills-capability-methods" aria-labelledby="skills-methods-heading"><h4 id="skills-methods-heading">Core Work</h4><ol>${methodItems}</ol></section><section class="skills-capability-tools" aria-labelledby="skills-tools-heading"><h4 id="skills-tools-heading">Tools</h4><ul>${toolItems}</ul></section><section class="skills-capability-evidence" aria-labelledby="skills-evidence-heading"><h4 id="skills-evidence-heading">Selected Evidence</h4><div>${evidenceItems}</div></section></div>`;
+      const header = createSkillsElement('header', 'skills-capability-panel__header');
+      header.append(createSkillsElement('p', 'skills-capability-panel__summary', record.summary));
+
+      const columns = createSkillsElement('div', 'skills-capability-panel__columns');
+      const work = createSkillsElement('section', 'skills-capability-work');
+      const workHeading = createSkillsElement('h4', '', 'What I Do');
+      workHeading.id = 'skills-work-heading';
+      work.setAttribute('aria-labelledby', workHeading.id);
+      const workList = createSkillsElement('ol');
+      record.work.forEach((item, index) => {
+        const listItem = createSkillsElement('li');
+        const itemNumber = createSkillsElement('span', '', String(index + 1).padStart(2, '0'));
+        const itemCopy = createSkillsElement('div');
+        itemCopy.append(
+          createSkillsElement('strong', '', item.title),
+          createSkillsElement('small', '', item.description)
+        );
+        listItem.append(itemNumber, itemCopy);
+        workList.append(listItem);
+      });
+      work.append(workHeading, workList);
+
+      const tools = createSkillsElement('section', 'skills-capability-tools');
+      const toolsHeading = createSkillsElement('h4', '', 'Tools');
+      toolsHeading.id = 'skills-tools-heading';
+      tools.setAttribute('aria-labelledby', toolsHeading.id);
+      const toolList = createSkillsElement('ul');
+      record.tools.forEach(tool => {
+        toolList.append(createSkillsElement('li', '', tool));
+      });
+      tools.append(toolsHeading, toolList);
+
+      const applied = createSkillsElement('section', 'skills-capability-applied');
+      const appliedHeading = createSkillsElement('h4', '', 'Applied In');
+      appliedHeading.id = 'skills-applied-heading';
+      applied.setAttribute('aria-labelledby', appliedHeading.id);
+      const evidenceList = createSkillsElement('div', 'skills-capability-applied__list');
+      record.evidence.forEach(item => {
+        const evidenceRecord = createSkillsElement(item.href ? 'a' : 'article', 'skills-evidence-record');
+        if (item.href) {
+          evidenceRecord.classList.add('skills-evidence-record--link');
+          evidenceRecord.href = item.href;
+        }
+        evidenceRecord.append(
+          createSkillsElement('span', 'skills-evidence-record__type', item.type),
+          createSkillsElement('strong', '', item.title)
+        );
+        if (item.context) {
+          evidenceRecord.append(createSkillsElement('span', 'skills-evidence-record__context', item.context));
+        }
+        evidenceRecord.append(createSkillsElement('p', '', item.description));
+        if (item.href && item.action) {
+          evidenceRecord.append(createSkillsElement('small', 'skills-evidence-record__action', `${item.action} →`));
+        }
+        evidenceList.append(evidenceRecord);
+      });
+      applied.append(appliedHeading, evidenceList);
+      columns.append(work, tools, applied);
+
+      skillsCapabilityPanel.dataset.skillCapability = record.id;
+      skillsCapabilityPanel.replaceChildren(header, columns);
     };
 
     renderSkillsCapability('test-validation');
@@ -3044,29 +3167,6 @@
       if (targetIndex === null) return;
       event.preventDefault();
       activateFeaturedProject(featuredProjectTabs[targetIndex], true);
-    });
-  });
-
-  // Open matching full project records from the dedicated project cards.
-  const careerProjectRecords = Array.from(document.querySelectorAll('.career-project-feature-card__action[data-project-target]'));
-  careerProjectRecords.forEach(function(record) {
-    const openProject = function() {
-      if (record.dataset.projectUrl) {
-        window.location.assign(record.dataset.projectUrl);
-        return;
-      }
-      const heading = document.getElementById(record.dataset.projectTarget);
-      const project = heading ? heading.closest('.proj') : null;
-      if (!project) return;
-      project.classList.add('expanded');
-      project.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-    record.addEventListener('click', openProject);
-    record.addEventListener('keydown', function(event) {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
-      openProject();
     });
   });
 

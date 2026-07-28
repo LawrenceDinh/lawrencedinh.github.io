@@ -41,8 +41,8 @@
     "inLanguage": "en-US"
   }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260723-3" />
-  <link rel="stylesheet" href="projects.css?v=20260723-1" />
+  <link rel="stylesheet" href="style.css?v=20260728-18" />
+  <link rel="stylesheet" href="projects.css?v=20260728-15" />
   <script src="display-mode.js?v=20260719-1"></script>
 </head>
 <body class="projects-page">
@@ -120,37 +120,44 @@
         <h1 class="portfolio-page-hero__title" id="projects-heading">Projects</h1>
       </div>
       <div class="projects-intro__copy portfolio-page-hero__context">
-        <p class="portfolio-page-hero__description">Case studies and technical records from selected engineering work.</p>
+        <p class="portfolio-page-hero__description">Selected software, data, embedded-systems, and vehicle-validation work developed around real planning, sensing, and operational problems.</p>
         <nav class="projects-section-links portfolio-page-hero__secondary" aria-label="Project page sections">
-          <a href="#featured-case-study">Featured case study</a>
-          <a href="#current-projects">Current projects</a>
-          <a href="#academic-projects">Academic projects</a>
+          <a href="#featured-case-study">Featured Projects</a>
+          <a href="#current-projects">Active Work</a>
+          <a href="#academic-projects">Earlier Work</a>
         </nav>
       </div>
     </section>
 
-    <section id="featured-case-study">
-    <article id="local-driving-intelligence" class="projects-case-study" aria-labelledby="local-driving-title">
-      <header class="projects-case-study__header">
-        <div>
-          <span class="projects-index">01 / Data Platform</span>
-          <span class="projects-status">Active Development</span>
-        </div>
-        <p>2026 &mdash; Present</p>
+    <section id="featured-case-study" class="projects-featured" aria-labelledby="featured-case-studies-heading">
+      <header class="projects-featured__header">
+        <h2 id="featured-case-studies-heading">Featured Projects</h2>
+        <p>Applied tools for regional planning and drift-course design.</p>
       </header>
-
+      <div class="projects-featured-selector" role="tablist" aria-label="Featured Projects">
+        <button id="featured-tab-drift" type="button" role="tab" aria-selected="true" aria-controls="drift-course-designer" tabindex="0" data-featured-project="drift-course-designer">
+          <span class="projects-featured-selector__number">01</span>
+          <span><small>Course Design &middot; 2026 &mdash; Present</small><strong>Drift Course Designer</strong></span>
+          <em>Live Tool</em>
+        </button>
+        <button id="featured-tab-local" type="button" role="tab" aria-selected="false" aria-controls="local-driving-intelligence" tabindex="-1" data-featured-project="local-driving-intelligence">
+          <span class="projects-featured-selector__number">02</span>
+          <span><small>Data Platform &middot; 2026 &mdash; Present</small><strong>Local Driving Intelligence</strong></span>
+          <em>Active Development</em>
+        </button>
+      </div>
+      <div class="projects-featured__panels">
+    <article id="local-driving-intelligence" class="projects-case-study" role="tabpanel" tabindex="0" aria-labelledby="featured-tab-local local-driving-title" data-featured-panel hidden inert>
       <div class="projects-case-study__lead">
-        <figure class="projects-case-study__media projects-case-study__media--image projects-application-capture">
-          <div class="projects-application-capture__rail"><span>Capture // Local Portal</span><span>Data Platform / UI Evidence / 4:3</span></div>
-          <div class="projects-application-capture__viewport">
-            <img src="imgsrc/projects/osint/optimized/weather-overview-960.webp" srcset="imgsrc/projects/osint/optimized/weather-overview-960.webp 960w, imgsrc/projects/osint/optimized/weather-overview-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 68vw" width="1600" height="1197" decoding="async" alt="Local Portal dashboard showing regional weather locations and detailed San Jose conditions" />
-          </div>
-          <figcaption><strong>Regional weather overview</strong><span>Current conditions and source status for configured locations appear in one dashboard view.</span></figcaption>
-        </figure>
         <div class="projects-case-study__summary">
-          <p class="projects-section-label">Regional planning dashboard</p>
-          <h2 id="local-driving-title">Local Driving Intelligence</h2>
-          <p class="projects-case-study__purpose">A regional dashboard for checking weather, road activity, traffic cameras, and event information before a drive.</p>
+          <div class="projects-case-study__summary-intro">
+            <p class="projects-section-label">Regional planning dashboard</p>
+            <div class="projects-case-study__title-row">
+              <span class="projects-case-study__title-index" aria-label="Project 02">02</span>
+              <h2 id="local-driving-title">Local Driving Intelligence</h2>
+            </div>
+            <p class="projects-case-study__purpose">Local Driving Intelligence unifies weather, road activity, traffic cameras, event information, and preparation workflows in one regional planning dashboard.</p>
+          </div>
           <dl class="projects-facts">
             <div><dt>Type</dt><dd>Regional planning dashboard</dd></div>
             <div><dt>Interface</dt><dd>React</dd></div>
@@ -158,38 +165,41 @@
             <div><dt>Storage</dt><dd>SQLite</dd></div>
             <div><dt>Data</dt><dd>Public weather, road, camera, and event sources</dd></div>
             <div><dt>Status</dt><dd>Active development</dd></div>
-            <div><dt>Current work</dt><dd>Current work adds more routes and improves weather-history and radar playback.</dd></div>
+            <div><dt>Current work</dt><dd>Expanding coverage and improving data reliability.</dd></div>
           </dl>
         </div>
       </div>
 
-      <div class="projects-case-study__detail">
-        <section>
-          <h3>Plan before leaving</h3>
-          <p>See weather, roads, cameras, and events in one view.</p>
-        </section>
-        <section>
-          <h3>Combine regional data</h3>
-          <p>Bring multiple public sources into one consistent dashboard.</p>
-        </section>
-        <section>
-          <h3>Keep complex data readable</h3>
-          <p>Make live and historical conditions easy to scan.</p>
-        </section>
-        <section>
-          <h3>Official-source fallback</h3>
-          <p>Switch to another backup official feed for data when the primary source fails.</p>
-        </section>
-      </div>
+      <section class="projects-case-study__detail projects-case-study__detail--capabilities" aria-label="Local Driving Intelligence capabilities">
+        <article>
+          <span>01 / Plan</span>
+          <h3>Review conditions before departure</h3>
+          <p>Check weather, route activity, traffic cameras, events, and preparation tasks in one place.</p>
+        </article>
+        <article>
+          <span>02 / Integrate</span>
+          <h3>Normalize regional data</h3>
+          <p>Convert multiple public-source formats into a consistent interface and internal data model.</p>
+        </article>
+        <article>
+          <span>03 / Preserve</span>
+          <h3>Retain recent context</h3>
+          <p>Cache recent results and imagery so useful information remains available during temporary source interruptions.</p>
+        </article>
+        <article>
+          <span>04 / Verify</span>
+          <h3>Expose data reliability</h3>
+          <p>Show timestamps, source status, saved results, and fallback behavior so users can judge information freshness.</p>
+        </article>
+      </section>
 
       <section class="projects-osint-evidence" aria-labelledby="osint-evidence-heading">
         <header>
-          <p class="projects-section-label">Interface Evidence</p>
-          <h3 id="osint-evidence-heading">All Features</h3>
-          <p>Browse the dashboard tools and see how they support planning before a drive.</p>
+          <h3 id="osint-evidence-heading">Inside the Dashboard</h3>
+          <p>Browse the dashboard tools and see how each one supports planning before a drive.</p>
         </header>
 
-        <div class="projects-feature-explorer" data-project-feature-explorer>
+        <div class="projects-feature-explorer" data-project-feature-explorer="local">
           <div class="projects-feature-explorer__index" role="tablist" aria-label="Operational features"></div>
           <section class="projects-feature-explorer__viewer" id="osint-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
             <div class="projects-feature-explorer__rail">
@@ -198,7 +208,6 @@
               <p data-project-feature-description></p>
             </div>
             <figure class="projects-feature-explorer__media projects-application-capture">
-              <div class="projects-application-capture__rail"><span>Capture // Local Portal</span><span>Data Platform / UI Evidence / 4:3</span></div>
               <div class="projects-application-capture__viewport">
                 <img data-project-feature-image decoding="async" draggable="false" alt="" />
               </div>
@@ -219,8 +228,8 @@
 
       <section class="projects-architecture" aria-labelledby="architecture-heading">
         <div>
-          <p class="projects-section-label">System Flow</p>
-          <h3 id="architecture-heading">How the system handles the data</h3>
+          <p class="projects-section-label">From Source to Dashboard</p>
+          <h3 id="architecture-heading">How public information becomes useful planning data.</h3>
         </div>
         <ol>
           <li><span>01</span><strong>Collect</strong><small>Request weather, road, camera, event, and imagery data from public sources.</small></li>
@@ -230,41 +239,136 @@
         </ol>
       </section>
     </article>
+    <article id="drift-course-designer" class="projects-case-study" role="tabpanel" tabindex="0" aria-labelledby="featured-tab-drift drift-course-title" data-featured-panel>
+      <div class="projects-case-study__lead">
+        <div class="projects-case-study__summary projects-case-study__summary--drift">
+          <div class="projects-case-study__summary-intro">
+            <p class="projects-section-label">Interactive course-planning tool</p>
+            <div class="projects-case-study__title-row">
+              <span class="projects-case-study__title-index" aria-label="Project 01">01</span>
+              <h2 id="drift-course-title">Drift Course Designer</h2>
+            </div>
+            <p class="projects-case-study__purpose">Drift Course Designer converts sketched drift layouts into editable, venue-based course plans with path refinement, operational annotations, geometry review, and export.</p>
+            <a class="projects-case-study__launch" href="/tools/drift-course-designer/">
+              <span class="projects-case-study__launch-copy">
+                <small>Open the browser tool</small>
+                <strong>Launch Course Designer</strong>
+              </span>
+              <span class="projects-case-study__launch-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <p class="projects-case-study__requirement">Desktop or laptop recommended for precise pointer-based editing.</p>
+          </div>
+          <dl class="projects-facts">
+            <div><dt>Type</dt><dd>Browser-based course planner</dd></div>
+            <div><dt>Interface</dt><dd>React</dd></div>
+            <div><dt>Language</dt><dd>TypeScript</dd></div>
+            <div><dt>Rendering</dt><dd>Canvas 2D</dd></div>
+            <div><dt>Storage</dt><dd>Local browser storage (IndexedDB)</dd></div>
+            <div><dt>Status</dt><dd>Public release / Active development</dd></div>
+            <div><dt>Current work</dt><dd>Improving editing, venue support, and onboarding.</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <section class="projects-case-study__detail projects-case-study__detail--capabilities" aria-label="Course Designer capabilities">
+        <article>
+          <span>01 / Draw</span>
+          <h3>Define the driving line</h3>
+          <p>Create the course freehand or point by point directly over venue imagery.</p>
+        </article>
+        <article>
+          <span>02 / Refine</span>
+          <h3>Edit without rebuilding</h3>
+          <p>Extend either endpoint, reposition anchors, and smooth local sections while preserving the course.</p>
+        </article>
+        <article>
+          <span>03 / Annotate</span>
+          <h3>Add operational detail</h3>
+          <p>Place clipping points, gates, cones, zones, boundaries, direction markers, and labels.</p>
+        </article>
+        <article>
+          <span>04 / Export</span>
+          <h3>Produce a reviewable plan</h3>
+          <p>Combine venue context, course geometry, and annotations into a clear layout for review and sharing.</p>
+        </article>
+      </section>
+
+      <section class="projects-osint-evidence" aria-labelledby="drift-evidence-heading">
+        <header>
+          <h3 id="drift-evidence-heading">Course Design Interface</h3>
+          <p>The interface supports a continuous workflow from initial path creation through geometry refinement, annotation, and export.</p>
+        </header>
+
+        <div class="projects-feature-explorer" data-project-feature-explorer="drift">
+          <div class="projects-feature-explorer__index" role="tablist" aria-label="Course Designer evidence"></div>
+          <section class="projects-feature-explorer__viewer" id="drift-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
+            <div class="projects-feature-explorer__rail">
+              <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
+              <h4 data-project-feature-title></h4>
+              <p data-project-feature-description></p>
+            </div>
+            <figure class="projects-feature-explorer__media projects-application-capture">
+              <div class="projects-application-capture__viewport">
+                <img data-project-feature-image decoding="async" draggable="false" alt="" />
+              </div>
+              <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
+            </figure>
+            <div class="projects-feature-explorer__navigation">
+              <button type="button" data-project-feature-previous>&larr; Previous</button>
+              <div class="projects-feature-explorer__navigation-center">
+                <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Evidence position"></div>
+                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+              </div>
+              <button type="button" data-project-feature-next>Next &rarr;</button>
+              <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="projects-architecture" aria-labelledby="course-planning-flow-heading">
+        <div>
+          <p class="projects-section-label">Course Planning Workflow</p>
+          <h3 id="course-planning-flow-heading">Turn venue imagery into a reviewable course plan.</h3>
+        </div>
+        <ol>
+          <li><span>01</span><strong>Choose the venue</strong><small>Begin with a calibrated template or supported venue image that provides spatial context for the course.</small></li>
+          <li><span>02</span><strong>Define the flow</strong><small>Create the intended driving line freehand or point by point as the course takes shape.</small></li>
+          <li><span>03</span><strong>Refine the geometry</strong><small>Extend the path, edit anchors, tune smoothing, and define the usable course corridor.</small></li>
+          <li><span>04</span><strong>Annotate and export</strong><small>Add clipping points, gates, zones, boundaries, direction markers, and labels before exporting the completed layout.</small></li>
+        </ol>
+      </section>
+    </article>
+      </div>
     </section>
 
     <section id="current-projects" class="projects-registry" aria-labelledby="current-projects-heading">
       <header class="projects-section-header">
         <div>
-          <p class="projects-section-label">Current Systems</p>
-          <h2 id="current-projects-heading">Prototypes and ongoing practice</h2>
+          <p class="projects-section-label">Active Work</p>
+          <h2 id="current-projects-heading">Systems in Development</h2>
         </div>
-        <p>Active work where implementation, evaluation, or field practice is still developing.</p>
+        <p>Prototypes and applied practice exploring embedded sensing, vehicle spacing, telemetry, and closed-course validation.</p>
       </header>
 
       <div class="projects-card-grid">
-        <article id="drift-course-designer" class="projects-card">
-          <div class="projects-card__meta"><span>02 / Design Tool</span><b>Browser App</b></div>
-          <h3>Drift Course Designer</h3>
-          <p>A path-first browser tool for drawing, smoothing, and annotating drift layouts over real venues.</p>
-          <dl><div><dt>Stack</dt><dd>React &middot; TypeScript &middot; Canvas 2D</dd></div><div><dt>Launch</dt><dd><a class="projects-card__launch" href="/tools/drift-course-designer/">Launch Course Designer <span aria-hidden="true">&rarr;</span></a></dd></div></dl>
-        </article>
-        <article class="projects-card">
+        <article id="radar-lora-traffic-detection-network" class="projects-card">
           <div class="projects-card__meta"><span>03 / Embedded IoT</span><b>Prototype</b></div>
           <h3>Radar + LoRa Traffic Sensor</h3>
-          <p>ESP32 and LoRa sensing node for detecting vehicle activity, generating timestamped events, and transmitting telemetry beyond normal Wi-Fi coverage.</p>
-          <dl><div><dt>Stack</dt><dd>ESP32 &middot; Radar &middot; LoRa</dd></div><div><dt>Direction</dt><dd>Future integration with the Local Driving Intelligence data pipeline</dd></div></dl>
+          <p>Embedded sensing node that detects vehicle activity, records timestamped events, and transmits telemetry beyond conventional Wi-Fi coverage.</p>
+          <dl><div><dt>Stack</dt><dd>ESP32 &middot; Radar &middot; LoRa</dd></div><div><dt>Direction</dt><dd>Planned integration with the Local Driving Intelligence data pipeline</dd></div></dl>
         </article>
         <article class="projects-card">
           <div class="projects-card__meta"><span>04 / Robotics</span><b>Prototype</b></div>
           <h3>Vehicle Proximity System</h3>
-          <p>ESP32 and ultra-wideband ranging system for measuring vehicle spacing and presenting driver-facing feedback during closed-course tandem driving.</p>
-          <dl><div><dt>Stack</dt><dd>ESP32 &middot; UWB &middot; Driver feedback</dd></div><div><dt>Focus</dt><dd>Ranging, calibration, filtering, mounting, and driver workload</dd></div></dl>
+          <p>Closed-course ranging prototype using ESP32 and ultra-wideband sensors to measure vehicle spacing and present driver-facing feedback.</p>
+          <dl><div><dt>Stack</dt><dd>ESP32 &middot; UWB &middot; Driver feedback</dd></div><div><dt>Focus</dt><dd>Ranging accuracy, calibration, signal filtering, mounting, and driver workload</dd></div></dl>
         </article>
-        <article class="projects-card">
+        <article id="performance-driving-validation" class="projects-card">
           <div class="projects-card__meta"><span>05 / Motorsports</span><b>Ongoing Practice</b></div>
           <h3>Performance Driving &amp; Validation</h3>
-          <p>Telemetry, instrumented driving, and structured session review across drifting, autocross, track driving, and simulation.</p>
-          <dl><div><dt>Focus</dt><dd>Vehicle dynamics &middot; Telemetry &middot; Validation</dd></div><div><dt>Method</dt><dd>Repeatable comparisons of sessions, setup changes, and driving techniques</dd></div></dl>
+          <p>Structured vehicle-dynamics practice using telemetry, repeatable drills, and session review across drifting, autocross, track driving, and simulation.</p>
+          <dl><div><dt>Focus</dt><dd>Vehicle dynamics &middot; Telemetry &middot; Validation</dd></div><div><dt>Method</dt><dd>Compare driving inputs, vehicle behavior, and setup changes across repeatable sessions</dd></div></dl>
         </article>
       </div>
     </section>
@@ -273,41 +377,49 @@
       <header class="projects-section-header">
         <div>
           <p class="projects-section-label">Earlier Work</p>
-          <h2 id="academic-projects-heading">Academic projects</h2>
+          <h2 id="academic-projects-heading">Academic Projects</h2>
         </div>
-        <p>Completed coursework demonstrating reproducible analysis and software design.</p>
+        <p>Selected academic work in computational biology, network analysis, and software engineering.</p>
       </header>
 
       <div class="projects-academic-list">
         <article>
           <div><span>06 / Bioinformatics</span><b>Academic</b></div>
           <h3>Python Phylogenetic Analysis</h3>
-          <p>Processed and aligned mRNA data from 44 species using BioPython and ClustalW, then used neighbor-joining and maximum-likelihood methods to infer evolutionary relationships.</p>
-          <small>Python &middot; BioPython &middot; Sequence alignment &middot; Validation</small>
+          <p>Built a reproducible phylogenetic-analysis workflow for mRNA sequences from 44 species using BioPython and ClustalW, then generated neighbor-joining and maximum-likelihood trees.</p>
+          <span class="projects-academic-list__resources">
+            <small>Python &middot; BioPython &middot; Sequence alignment &middot; Validation</small>
+            <a class="projects-academic-list__button" href="https://docs.google.com/document/d/1n8N6btxkoYUSFpqGLA1aDN8GynTSopKn1uHS6CROq7A/edit?tab=t.0" target="_blank" rel="noopener noreferrer" aria-label="View phylogenetic analysis report (opens in a new tab)">View report <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 6 10M11 9v4H3V5h4"/></svg></a>
+          </span>
         </article>
         <article>
           <div><span>07 / Network Analysis</span><b>Academic</b></div>
           <h3>Twitch.tv Users Network Analysis</h3>
-          <p>Analyzed a Twitch user-network dataset with Python and R using centrality measures, Louvain clustering, and Gephi visualization.</p>
-          <small>Python / R &middot; Graph analysis &middot; Clustering &middot; Gephi</small>
+          <p>Analyzed a Twitch user-network dataset in Python and R using centrality metrics, Louvain community detection, and Gephi visualization.</p>
+          <span class="projects-academic-list__resources">
+            <small>Python / R &middot; Graph analysis &middot; Clustering &middot; Gephi</small>
+            <a class="projects-academic-list__button" href="https://drive.google.com/file/d/1pZfPsR-5B2FJ15bWhb8VMAssqWybZ4FI/view" target="_blank" rel="noopener noreferrer" aria-label="View network analysis report (opens in a new tab)">View report <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 6 10M11 9v4H3V5h4"/></svg></a>
+          </span>
         </article>
         <article>
           <div><span>08 / Software Engineering</span><b>Academic</b></div>
           <h3>Bookstore Prototype System</h3>
-          <p>Built a Java e-commerce prototype with authentication, file persistence, inventory search, defensive error handling, and JUnit coverage.</p>
-          <small>Java &middot; MVC &middot; File persistence &middot; JUnit</small>
+          <p>Developed a Java e-commerce prototype with authentication, persistent inventory data, search, defensive error handling, and JUnit tests.</p>
+          <span class="projects-academic-list__resources">
+            <small>Java &middot; MVC &middot; File persistence &middot; JUnit</small>
+          </span>
         </article>
       </div>
     </section>
 
     <footer class="projects-footer">
-      <a href="index.html"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M14 8H2M7 3l-5 5 5 5"/></svg>Return to main portfolio</a>
+      <a href="index.html"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M14 8H2M7 3l-5 5 5 5"/></svg>Back to Portfolio</a>
     </footer>
   </main>
 <script src="navigation.js?v=20260721-3"></script>
 <script src="carousel-interaction.js?v=20260720-4"></script>
 <script src="project-image-viewer.js?v=20260720-3"></script>
-<script src="projects-explorer.js?v=20260721-6"></script>
+<script src="projects-explorer.js?v=20260728-6"></script>
 <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

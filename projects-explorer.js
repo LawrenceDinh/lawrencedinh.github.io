@@ -1,13 +1,13 @@
 (() => {
   'use strict';
 
-  const explorer = document.querySelector('[data-project-feature-explorer]');
-  if (!explorer) return;
+  const explorers = document.querySelectorAll('[data-project-feature-explorer]');
+  if (!explorers.length) return;
   const mobileFeatureQuery = window.matchMedia('(max-width: 760px)');
 
-  // This is the one ordered source for the index, viewer, counter, controls,
-  // hash activation, and image preloading.
-  const projectFeatures = [
+  // These ordered sources drive each explorer's index, viewer, counter,
+  // controls, image preloading, and accessible selected state.
+  const localDrivingFeatures = [
     {
       id: 'osint-weather-heading',
       domain: 'Weather',
@@ -109,6 +109,65 @@
     return order.indexOf(a.id) - order.indexOf(b.id);
   });
 
+  const driftCourseFeatures = [
+    {
+      id: 'drift-editing-heading',
+      domain: 'Editing',
+      title: 'Anchor Refinement',
+      description: 'Edit anchors, endpoints, smoothing, and course width without recreating the original path.',
+      caption: 'Local editing controls preserve the overall course while allowing precise geometric adjustments.',
+      src: 'web/imgsrc/projects/drift-course-designer/optimized/course-editing-960.webp',
+      srcset: 'web/imgsrc/projects/drift-course-designer/optimized/course-editing-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-editing-1600.webp 1600w',
+      width: 2048,
+      height: 1080,
+      alt: 'Drift Course Designer showing a selected course path with editable anchors, smoothing, and width controls'
+    },
+    {
+      id: 'drift-operations-heading',
+      domain: 'Operations',
+      title: 'Course Markers & Zones',
+      description: 'Add clipping points, cones, gates, zones, boundaries, labels, and direction markers around the course.',
+      caption: 'The completed layout shows course markings, a return route, boundaries, and venue context together.',
+      src: 'web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-960.webp',
+      srcset: 'web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-1600.webp 1600w',
+      width: 2048,
+      height: 1080,
+      alt: 'Complete Drift Course Designer layout with a driving line, return route, cones, labels, zones, and boundaries'
+    },
+    {
+      id: 'drift-analysis-heading',
+      domain: 'Analysis',
+      title: 'Geometry Analysis',
+      description: 'Review the drawn course with turn, transition, and judging overlays visible.',
+      caption: 'The screenshot shows analyzed course sections mapped directly onto the active driving line.',
+      src: 'web/imgsrc/projects/drift-course-designer/optimized/course-analysis-960.webp',
+      srcset: 'web/imgsrc/projects/drift-course-designer/optimized/course-analysis-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-analysis-1600.webp 1600w',
+      width: 2048,
+      height: 1080,
+      alt: 'Drift Course Designer analysis overlay labeling turns, transitions, setup, and judging sections'
+    },
+    {
+      id: 'drift-export-heading',
+      domain: 'Output',
+      title: 'Annotated Export',
+      description: 'Export the project as a PNG, SVG, GeoJSON, simulation geometry, or a portable Drift Course package.',
+      caption: 'The export dialog shows format choices and options for venue imagery, direction arrows, title, and legend.',
+      src: 'web/imgsrc/projects/drift-course-designer/optimized/course-export-960.webp',
+      srcset: 'web/imgsrc/projects/drift-course-designer/optimized/course-export-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-export-1600.webp 1600w',
+      width: 2048,
+      height: 1080,
+      alt: 'Drift Course Designer export dialog with PNG, SVG, GeoJSON, simulation geometry, and project package options'
+    }
+  ];
+
+  const featureSets = {
+    local: localDrivingFeatures,
+    drift: driftCourseFeatures
+  };
+
+  function initializeFeatureExplorer(explorer) {
+    const projectFeatures = featureSets[explorer.dataset.projectFeatureExplorer];
+    if (!projectFeatures?.length) return;
   const index = explorer.querySelector('[role="tablist"]');
   const viewer = explorer.querySelector('[role="tabpanel"]');
   const initialImage = explorer.querySelector('[data-project-feature-image]');
@@ -265,11 +324,6 @@
     window.requestAnimationFrame(syncProjectFeatureDots);
   }
 
-  function syncHash(feature) {
-    const nextUrl = `${window.location.pathname}${window.location.search}#${feature.id}`;
-    window.history.replaceState(null, '', nextUrl);
-  }
-
   function renderFeatureMetadata(nextIndex, direction) {
     const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
     const feature = projectFeatures[normalizedIndex];
@@ -322,14 +376,12 @@
     activeIndex = normalizedIndex;
     renderFeatureMetadata(normalizedIndex, source === 'initial' ? direction || 'next' : null);
 
-    if (source !== 'initial' && source !== 'hash') syncHash(projectFeatures[normalizedIndex]);
   }
 
   function activateFeatureImmediately(nextIndex, source, direction) {
     const normalizedIndex = (nextIndex + projectFeatures.length) % projectFeatures.length;
     activeIndex = normalizedIndex;
     renderFeatureMetadata(normalizedIndex, direction || null);
-    if (source !== 'initial' && source !== 'hash') syncHash(projectFeatures[normalizedIndex]);
   }
 
   function requestFeature(nextIndex, source, direction) {
@@ -423,13 +475,7 @@
     }
   });
 
-  window.addEventListener('hashchange', () => {
-    const featureIndex = projectFeatures.findIndex(feature => feature.id === window.location.hash.slice(1));
-    if (featureIndex >= 0) requestFeature(featureIndex, 'hash');
-  });
-
-  const hashedFeatureIndex = projectFeatures.findIndex(feature => feature.id === window.location.hash.slice(1));
-  activeIndex = hashedFeatureIndex >= 0 ? hashedFeatureIndex : 0;
+  activeIndex = 0;
   syncMobilePresentation();
   commitProjectFeature(activeIndex, 'initial', 'next');
   playback.disabled = true;
@@ -507,4 +553,209 @@
       if (mobileFeatureQuery.matches) syncProjectFeatureDots();
     }).observe(navigation);
   }
+  }
+
+  explorers.forEach(initializeFeatureExplorer);
+
+  const featuredSection = document.getElementById('featured-case-study');
+  const featuredTabs = [...document.querySelectorAll('[data-featured-project]')];
+  const featuredPanels = featuredTabs
+    .map(tab => document.getElementById(tab.dataset.featuredProject))
+    .filter(Boolean);
+  const featuredIds = new Set(featuredPanels.map(panel => panel.id));
+
+  function initializeProjectsEntrance() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const canAnimate = typeof Element.prototype.animate === 'function';
+    const canObserve = typeof IntersectionObserver === 'function';
+    const targets = [];
+    const targetSet = new Set();
+    const targetDelays = new WeakMap();
+    const activeAnimations = new Map();
+    let observer = null;
+
+    function addGroup(elements) {
+      [...elements].filter(Boolean).forEach((element, index) => {
+        if (targetSet.has(element)) return;
+        targetSet.add(element);
+        targets.push(element);
+        targetDelays.set(element, Math.min(index, 4) * 65);
+      });
+    }
+
+    addGroup([document.querySelector('.projects-intro')]);
+    addGroup([
+      document.querySelector('.projects-featured__header'),
+      document.querySelector('.projects-featured-selector')
+    ]);
+
+    featuredPanels.forEach(panel => {
+      addGroup([
+        panel.querySelector('.projects-case-study__header'),
+        panel.querySelector('.projects-case-study__summary'),
+        ...panel.querySelectorAll('.projects-case-study__detail--capabilities > article'),
+        panel.querySelector('.projects-osint-evidence > header'),
+        panel.querySelector('.projects-osint-evidence > .projects-feature-explorer'),
+        panel.querySelector('.projects-architecture > div'),
+        panel.querySelector('.projects-architecture > ol')
+      ]);
+    });
+
+    document.querySelectorAll('.projects-registry').forEach(registry => {
+      addGroup([
+        registry.querySelector('.projects-section-header'),
+        ...registry.querySelectorAll('.projects-card, .projects-academic-list > article')
+      ]);
+    });
+
+    addGroup([document.querySelector('.projects-footer')]);
+
+    function resetTarget(element) {
+      element.style.removeProperty('opacity');
+      element.style.removeProperty('transform');
+      element.style.removeProperty('will-change');
+    }
+
+    function revealTarget(element) {
+      if (observer) observer.unobserve(element);
+      resetTarget(element);
+
+      if (reducedMotion.matches || !canAnimate) return;
+
+      element.style.willChange = 'opacity, transform';
+      const animation = element.animate([
+        { opacity: 0, transform: 'translate3d(0, -64px, 0) scale(0.985)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' }
+      ], {
+        duration: 580,
+        delay: targetDelays.get(element) || 0,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'both'
+      });
+
+      activeAnimations.set(element, animation);
+      animation.finished.then(() => {
+        activeAnimations.delete(element);
+        animation.cancel();
+        resetTarget(element);
+      }).catch(() => {
+        activeAnimations.delete(element);
+        resetTarget(element);
+      });
+    }
+
+    if (reducedMotion.matches || !canAnimate || !canObserve) {
+      targets.forEach(resetTarget);
+      return;
+    }
+
+    targets.forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translate3d(0, -64px, 0) scale(0.985)';
+    });
+
+    observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) revealTarget(entry.target);
+      });
+    }, {
+      threshold: 0.01,
+      rootMargin: '0px 0px -8% 0px'
+    });
+
+    targets.forEach(element => observer.observe(element));
+
+    reducedMotion.addEventListener('change', event => {
+      if (!event.matches) return;
+      observer.disconnect();
+      activeAnimations.forEach(animation => animation.cancel());
+      activeAnimations.clear();
+      targets.forEach(resetTarget);
+    }, { once: true });
+  }
+
+  function activateFeaturedProject(projectId, options = {}) {
+    const targetIndex = featuredTabs.findIndex(tab => tab.dataset.featuredProject === projectId);
+    if (targetIndex < 0) return false;
+
+    featuredTabs.forEach((tab, index) => {
+      const selected = index === targetIndex;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    featuredPanels.forEach(panel => {
+      const selected = panel.id === projectId;
+      panel.hidden = !selected;
+      panel.inert = !selected;
+    });
+
+    if (options.focus) featuredTabs[targetIndex].focus();
+    if (options.updateHash) {
+      const nextUrl = `${window.location.pathname}${window.location.search}#${projectId}`;
+      window.history.pushState({ featuredProject: projectId }, '', nextUrl);
+    }
+    if (options.scroll && featuredSection) {
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      featuredSection.scrollIntoView({ block: 'start', behavior });
+    }
+    return true;
+  }
+
+  featuredTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      const alreadySelected = tab.getAttribute('aria-selected') === 'true';
+      if (!alreadySelected) activateFeaturedProject(tab.dataset.featuredProject, { updateHash: true });
+    });
+    tab.addEventListener('keydown', event => {
+      let nextIndex = null;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % featuredTabs.length;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + featuredTabs.length) % featuredTabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = featuredTabs.length - 1;
+      if (nextIndex === null) return;
+      event.preventDefault();
+      activateFeaturedProject(featuredTabs[nextIndex].dataset.featuredProject, { focus: true, updateHash: true });
+    });
+  });
+
+  function restoreFeaturedFromHash({ scroll = false } = {}) {
+    const projectId = window.location.hash.slice(1);
+    if (featuredIds.has(projectId)) activateFeaturedProject(projectId, { scroll });
+  }
+
+  const initialProjectId = window.location.hash.slice(1);
+  const requestedProjectId = new URLSearchParams(window.location.search).get('project');
+  const initialFeaturedProject = featuredIds.has(initialProjectId)
+    ? initialProjectId
+    : featuredIds.has(requestedProjectId)
+      ? requestedProjectId
+      : featuredTabs[0]?.dataset.featuredProject;
+  if (initialFeaturedProject) {
+    activateFeaturedProject(initialFeaturedProject);
+    window.history.replaceState(
+      { ...(window.history.state || {}), featuredProject: initialFeaturedProject },
+      '',
+      window.location.href
+    );
+  }
+
+  window.addEventListener('hashchange', () => restoreFeaturedFromHash());
+  window.addEventListener('popstate', event => {
+    const hashProject = window.location.hash.slice(1);
+    const historyProject = event.state?.featuredProject;
+    const projectId = featuredIds.has(hashProject)
+      ? hashProject
+      : featuredIds.has(historyProject)
+        ? historyProject
+        : featuredTabs[0]?.dataset.featuredProject;
+    if (projectId) activateFeaturedProject(projectId);
+  });
+
+  if (featuredIds.has(initialProjectId)) {
+    window.requestAnimationFrame(() => {
+      if (featuredSection) featuredSection.scrollIntoView({ block: 'start', behavior: 'auto' });
+    });
+  }
+
+  initializeProjectsEntrance();
 })();

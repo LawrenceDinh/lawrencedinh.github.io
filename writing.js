@@ -588,7 +588,12 @@
 
   function getArticleImageCandidates(image) {
     const base = getArticleImageBase(image);
-    return base ? ARTICLE_IMAGE_EXTENSIONS.map(function (extension) { return base + extension; }) : [];
+    if (!base) return [];
+    const declaredSource = (image.getAttribute("src") || "").trim().split(/[?#]/, 1)[0];
+    return Array.from(new Set(
+      [declaredSource].concat(ARTICLE_IMAGE_EXTENSIONS.map(function (extension) { return base + extension; }))
+        .filter(Boolean)
+    ));
   }
 
   function prepareArticleImageSources(root) {
