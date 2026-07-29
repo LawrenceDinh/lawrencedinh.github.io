@@ -7405,10 +7405,6 @@ html[data-portfolio-mode="enhanced"] body {
     font-weight: 600;
   }
 
-  [data-portfolio-mode="enhanced"] .career-credential:first-child > strong {
-    font-size: .65rem;
-  }
-
   [data-portfolio-mode="enhanced"] .career-footer-strip {
     border: 0;
     padding: 0;
@@ -10924,12 +10920,12 @@ html[data-portfolio-mode="enhanced"] body #experience {
    Experience height without changing detail-tab content or typography. */
 @media (min-width: 901px) {
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-group {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-group + .career-overview-group {
-    margin-top: 12px;
+    margin-top: 10px;
   }
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-companies {
@@ -10939,14 +10935,14 @@ html[data-portfolio-mode="enhanced"] body #experience {
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-company {
     min-height: 104px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-project-registry__record {
     min-height: 58px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-credentials .career-footer-strip {
@@ -10955,17 +10951,50 @@ html[data-portfolio-mode="enhanced"] body #experience {
   }
 
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-credential {
+    grid-template-rows: 1.2em 2.56em;
+    align-content: start;
+    box-sizing: border-box;
+    height: 100%;
     padding-top: 6px;
     padding-bottom: 6px;
   }
 
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-credential > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-portfolio-mode="enhanced"] .career-panel--overview .career-credential > strong {
+    display: -webkit-box;
+    min-height: 2.56em;
+    max-height: 2.56em;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
   [data-portfolio-mode="enhanced"] .career-panel--overview .career-overview-credentials {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 
   [data-portfolio-mode="enhanced"] .career-snapshot[data-active-career-tab="overview"] .career-dossier {
     padding-bottom: 0;
+  }
+}
+
+/* Keep the complete desktop Overview inside the first viewport by removing
+   redundant outer and row padding. Content and typography remain unchanged. */
+@media (min-width: 901px) and (min-height: 800px) {
+  [data-portfolio-mode="enhanced"] .hero-main .career-snapshot[data-active-career-tab="overview"] {
+    margin-top: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  [data-portfolio-mode="enhanced"] .hero-main .career-snapshot[data-active-career-tab="overview"] .section-header {
+    margin-bottom: 8px;
   }
 }
 

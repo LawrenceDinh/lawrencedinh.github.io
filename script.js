@@ -1350,9 +1350,18 @@
     }
     
     a.addEventListener('click', e=>{
-      const target = document.querySelector(a.getAttribute('href'));
+      const href = a.getAttribute('href');
+      const target = document.querySelector(href);
       if(target){ 
-        e.preventDefault(); 
+        e.preventDefault();
+        if (href === '#about') {
+          window.history.pushState(null, '', '#about');
+          window.scrollTo({
+            top: 0,
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth'
+          });
+          return;
+        }
         target.scrollIntoView({behavior:'smooth',block:'start'}); 
       }
     });
@@ -2795,9 +2804,9 @@
       }
       if (settings.scroll !== false) {
         window.requestAnimationFrame(function() {
-          document.getElementById('about')?.scrollIntoView({
+          window.scrollTo({
+            top: 0,
             behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
-            block: 'start'
           });
         });
       }
