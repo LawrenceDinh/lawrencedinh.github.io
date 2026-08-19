@@ -2110,6 +2110,8 @@
   const navContactButton = document.querySelector('.nav-links .nav-contact-btn');
   const drawerContactButton = document.querySelector('.drawer a[href="#contact"]');
   const contactDrawerClose = document.querySelector('.contact-drawer-close');
+  const contactMobileBack = document.querySelector('#contactPanel .contact-mobile-back');
+  const contactMobileClose = document.querySelector('#contactPanel .contact-mobile-close');
   const primaryColumn = grid && grid.firstElementChild;
   const siteNavigation = document.querySelector('.nav');
   let contactDrawerTrigger = null;
@@ -2133,7 +2135,12 @@
       contactPanel.setAttribute('aria-hidden', 'false');
       if (primaryColumn) primaryColumn.inert = true;
       if (siteNavigation) siteNavigation.inert = true;
-      window.setTimeout(() => contactDrawerClose && contactDrawerClose.focus(), 0);
+      window.setTimeout(() => {
+        const firstAction = window.innerWidth <= 760
+          ? contactPanel.querySelector('.contact-item-email')
+          : contactDrawerClose;
+        if (firstAction) firstAction.focus();
+      }, 0);
     } else {
       contactPanel.removeAttribute('role');
       contactPanel.removeAttribute('aria-modal');
@@ -2163,7 +2170,6 @@
     contactTrigger.addEventListener('click', event => {
       event.preventDefault();
       if (window.innerWidth <= 900) {
-        if (isDrawerOpen()) setDrawerOpen(false);
         setContactDrawerOpen(true, contactTrigger);
         return;
       }
@@ -2177,6 +2183,26 @@
 
   if (contactDrawerClose) {
     contactDrawerClose.addEventListener('click', () => setContactDrawerOpen(false));
+  }
+
+  if (contactMobileBack) {
+    contactMobileBack.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      setContactDrawerOpen(false);
+      window.requestAnimationFrame(() => {
+        if (!isDrawerOpen()) setDrawerOpen(true);
+        window.requestAnimationFrame(() => drawerContactButton?.focus());
+      });
+    });
+  }
+
+  if (contactMobileClose) {
+    contactMobileClose.addEventListener('click', () => {
+      setContactDrawerOpen(false);
+      setDrawerOpen(false);
+      window.requestAnimationFrame(() => document.querySelector('.nav-toggle')?.focus());
+    });
   }
 
   document.addEventListener('click', event => {
@@ -2735,8 +2761,269 @@
       });
     };
 
+    const projectPreview = document.getElementById('career-project-preview');
+    const projectRegistry = document.querySelector('.career-project-registry');
+    const previewHost = projectPreview && projectPreview.parentElement;
+    const previewBackdrop = previewHost && previewHost.querySelector('.career-snapshot-preview-backdrop');
+    const previewFloatingActions = previewHost && previewHost.querySelector('.career-project-preview__floating-actions');
+    const previewFloatingClose = previewFloatingActions && previewFloatingActions.querySelector('.career-project-preview__floating-close');
+    const previewDetailsLink = previewFloatingActions && previewFloatingActions.querySelector('.career-project-preview__details-link');
+    const globalNavbar = document.querySelector('.nav');
+    const projectPreviewTriggers = Array.from(document.querySelectorAll('.career-snapshot-preview-trigger'));
+    let activeProjectPreviewTrigger = null;
+    let projectPreviewOpenedWithKeyboard = false;
+    const projectPreviewData = {
+      'local-driving-intelligence': {
+        meta: '01 / Data Platform', status: 'Active Development', title: 'Local Driving Intelligence',
+        summary: 'Regional planning dashboard combining weather, road activity, traffic cameras, events, and preparation tools for Northern California drives.',
+        purpose: 'Brings several public data sources into one route-aware interface so conditions can be checked before a drive.',
+        work: [['Provider integration', 'Normalizes weather, traffic, camera, event, and imagery data from different public sources.'], ['Reliability', 'Uses SQLite persistence, caching, stale-data handling, and provider fallbacks.'], ['Route context', 'Connects source data to configured routes, corridors, and regional locations.']],
+        stackLabel: 'Stack', stack: 'React · Node.js · Express · SQLite', detailsHref: 'projects.html?project=local-driving-intelligence#featured-case-study'
+      },
+      'drift-course-designer': {
+        meta: '02 / Course Design', status: 'Live Tool', title: 'Drift Course Designer',
+        summary: 'Turns venue imagery and a driving line into an editable, shareable drift course plan.',
+        purpose: 'Provides one workspace for drawing the course, refining its geometry, adding drift-specific markings, and preparing the finished layout.',
+        work: [['Editable geometry', 'Anchor, smoothing, endpoint, and course-width controls allow the same line to be refined without redrawing it.'], ['Course markup', 'Supports clips, gates, cones, zones, boundaries, direction markers, and labels.'], ['Local workflow', 'Projects can be saved locally and exported for review, mapping, or simulation.']],
+        stackLabel: 'Stack', stack: 'React · TypeScript · Canvas 2D · IndexedDB', detailsHref: 'projects.html?project=drift-course-designer#featured-case-study'
+      },
+      'radar-lora-traffic-detection-network': {
+        meta: '03 / Embedded IoT', status: 'Prototype', title: 'Radar + LoRa Traffic Detection Network',
+        summary: 'Detects passing vehicles and relays timestamped events through LoRa nodes and planned repeaters.',
+        purpose: 'Extends vehicle detection into a distributed sensor network for locations where normal Wi-Fi coverage is unreliable.',
+        work: [['Vehicle detection', 'Radar-equipped ESP32 nodes convert passing-vehicle activity into timestamped events.'], ['LoRa telemetry', 'Compact event data is transmitted beyond normal local-network range.'], ['Coverage planning', 'Repeater stations are planned to extend communication across larger areas.']],
+        stackLabel: 'Stack', stack: 'ESP32 · Radar · LoRa', detailsHref: 'projects.html#radar-lora-traffic-detection-network'
+      },
+      'performance-driving-validation': {
+        meta: '04 / Motorsports', status: 'Ongoing Practice', title: 'Performance Driving & Validation',
+        summary: 'Uses telemetry and repeatable closed-course testing to evaluate vehicle handling, consistency, and safety.',
+        purpose: 'Combines structured driving sessions with recorded data and session review instead of relying only on driver impressions.',
+        work: [['Telemetry review', 'Compare speed, acceleration, GPS/IMU data, and vehicle behavior across sessions.'], ['Controlled comparison', 'Repeat sessions and setup changes to isolate differences in handling and driver inputs.'], ['Field practice', 'Applies the same observation, test, and review loop across drifting, autocross, track driving, and simulation.']],
+        stackLabel: 'Focus', stack: 'Telemetry · Vehicle Dynamics · Validation', detailsHref: 'projects.html#performance-driving-validation'
+      },
+      nvidia: { meta: 'Experience', status: 'May 2025 — April 2026', title: 'Autonomous Vehicle Test Expert', summary: 'Vehicle-level validation of autonomous and robotic driving systems across public-road and closed-course testing.', purpose: 'Ran structured scenarios, reviewed system behavior and telemetry, and documented reproducible issues for engineering follow-up.', work: [['Test execution', 'Executed on-vehicle scenarios across autonomous-driving hardware and software systems.'], ['System review', 'Compared observed behavior with telemetry, sensor state, logs, and test conditions during triage.'], ['Test operations', 'Prepared systems for data capture and supported controlled testing under automotive and high-voltage safety procedures.']], stackLabel: 'Environment', stack: 'Alpamayo · DRIVE Hyperion · CANalyzer · ADTF · Linux', detailsHref: '#career-snapshot', detailsTab: 'experience' },
+      tcs: { meta: 'Experience', status: 'Dec 2021 — Dec 2023', title: 'Assistant Systems Engineer', summary: 'Enterprise software work focused on ServiceNow workflow automation, JavaScript behavior, integration testing, and delivery support.', purpose: 'Built and tested workflow changes around incident, change, validation, and access-control processes.', work: [['Workflow development', 'Built ServiceNow Flow Designer workflows and supporting business rules.'], ['Client-side behavior', 'Used JavaScript client scripts and UI policies for validation and interface behavior.'], ['Testing', 'Performed integration and regression checks before platform changes moved through release workflows.']], stackLabel: 'Environment', stack: 'ServiceNow · Flow Designer · JavaScript · Selenium · CI/CD', detailsHref: '#career-snapshot', detailsTab: 'experience' },
+      shapescape: { meta: 'Experience', status: 'Feb 2016 — Feb 2019', title: 'Game Level Designer', summary: 'Designed interactive environments while working with production systems, scripting, QA, and distributed teams.', purpose: 'Combined environment design with technical implementation and quality review across published interactive experiences.', work: [['Environment design', 'Built and refined large interactive environments around gameplay and user flow.'], ['Interactive systems', 'Worked with scripting, server systems, and plugins supporting gameplay behavior.'], ['Quality review', 'Tested visual and functional behavior and documented issues for production teams.']], stackLabel: 'Environment', stack: 'Environment design · Server plugins · Scripting · QA', detailsHref: '#career-snapshot', detailsTab: 'experience' },
+      'mb-t1-t2': { meta: 'Credential', status: 'Mercedes-Benz AG', title: 'T1 / T2 Professional Driver Safety Training', summary: 'Professional driver training covering vehicle control, emergency maneuvers, skid recovery, braking, and performance driving.', purpose: 'Closed-course exercises included slalom, skid control, emergency lane changes, braking, and advanced vehicle-control assessment.', work: [], stackLabel: 'Status', stack: 'Professional Driver Training', detailsHref: '#career-snapshot', detailsTab: 'credentials' },
+      'nvidia-hv': { meta: 'Credential', status: 'NVIDIA', title: 'Automotive High-Voltage Training HV1 / HV2', summary: 'Automotive high-voltage safety training for recognizing HV hazards and working safely around electrified vehicle systems.', purpose: 'Hazard awareness, controlled procedures, vehicle-system precautions, and safe operating practices.', work: [], stackLabel: 'Status', stack: 'Safety Training', detailsHref: '#career-snapshot', detailsTab: 'credentials' },
+      'ibm-linux': { meta: 'Credential', status: 'IBM', title: 'Linux Commands & Shell Scripting', summary: 'Linux command-line and shell-scripting coursework covering common system and file-management workflows.', purpose: 'CLI navigation, filesystems, permissions, shell commands, and scripting fundamentals.', work: [], stackLabel: 'Status', stack: 'Technical Coursework', detailsHref: '#career-snapshot', detailsTab: 'credentials' },
+      cpr: { meta: 'Credential', status: 'Emergency Response', title: 'CPR Certification', summary: 'CPR and emergency-response training for basic response and readiness.', purpose: 'CPR fundamentals and immediate-response procedures.', work: [], stackLabel: 'Status', stack: 'Certification', detailsHref: '#career-snapshot', detailsTab: 'credentials' }
+    };
+
+    let currentPreviewAnchor = null;
+    let currentPreviewPosition = null;
+    const getSnapshotPreviewMetrics = function() {
+      if (!projectPreview || !previewHost) return;
+      const isCompactViewport = window.matchMedia('(max-width: 700px)').matches;
+      const inset = isCompactViewport ? 12 : 20;
+      const navbarRect = globalNavbar ? globalNavbar.getBoundingClientRect() : null;
+      const navbarBottom = navbarRect && navbarRect.height > 0 ? Math.max(0, Math.min(window.innerHeight, navbarRect.bottom)) : 0;
+      const minimumTop = Math.max(inset, Math.ceil(navbarBottom) + (navbarBottom > 0 ? (isCompactViewport ? 6 : 8) : 0));
+      const floatingCloseGap = 0;
+      const floatingCloseHeight = previewFloatingActions && !previewFloatingActions.hidden ? previewFloatingActions.offsetHeight : 0;
+      const availableHeight = Math.max(120, window.innerHeight - minimumTop - inset - floatingCloseHeight - floatingCloseGap);
+      projectPreview.style.maxHeight = availableHeight + 'px';
+      const width = projectPreview.offsetWidth;
+      const height = projectPreview.offsetHeight;
+      const minimumLeft = inset;
+      const maximumLeft = window.innerWidth - width - inset;
+      const maximumTop = window.innerHeight - height - inset - floatingCloseHeight - floatingCloseGap;
+      return { inset, minimumLeft, maximumLeft, minimumTop, maximumTop, width, height, floatingCloseGap };
+    };
+
+    const positionSnapshotPreview = function(preferredLeft, preferredTop, suppliedMetrics) {
+      const metrics = suppliedMetrics || getSnapshotPreviewMetrics();
+      if (!metrics) return;
+      const { inset, minimumLeft, maximumLeft, minimumTop, maximumTop, width, height, floatingCloseGap } = metrics;
+      const resolvedLeft = Math.max(minimumLeft, Math.min(preferredLeft, Math.max(minimumLeft, maximumLeft)));
+      const resolvedTop = Math.max(minimumTop, Math.min(preferredTop, Math.max(minimumTop, maximumTop)));
+      projectPreview.style.left = resolvedLeft + 'px';
+      projectPreview.style.top = resolvedTop + 'px';
+      currentPreviewPosition = { left: resolvedLeft, top: resolvedTop };
+      if (previewFloatingActions && !previewFloatingActions.hidden) {
+        const floatingActionsWidth = previewFloatingActions.offsetWidth;
+        previewFloatingActions.style.left = Math.min(window.innerWidth - inset - floatingActionsWidth, resolvedLeft + width - floatingActionsWidth) + 'px';
+        previewFloatingActions.style.top = resolvedTop + height + floatingCloseGap + 'px';
+      }
+    };
+
+    const positionSnapshotPreviewAtAnchor = function(anchor) {
+      const metrics = getSnapshotPreviewMetrics();
+      if (!metrics || !anchor) return;
+      positionSnapshotPreview(anchor.x - metrics.width / 2, anchor.y - metrics.height - 4, metrics);
+    };
+
+    const closeProjectPreview = function(returnFocus) {
+      if (!projectPreview || projectPreview.hidden) return;
+      const trigger = activeProjectPreviewTrigger;
+      projectPreview.hidden = true;
+      if (previewBackdrop) previewBackdrop.hidden = true;
+      document.body.classList.remove('career-preview-open');
+      projectPreview.classList.remove('is-open', 'is-dragging');
+      projectPreview.style.left = '';
+      projectPreview.style.top = '';
+      projectPreview.style.maxHeight = '';
+      projectPreview.style.removeProperty('--preview-origin-x');
+      projectPreview.style.removeProperty('--preview-origin-y');
+      currentPreviewAnchor = null;
+      currentPreviewPosition = null;
+      if (previewFloatingActions) {
+        previewFloatingActions.classList.remove('is-open');
+        previewFloatingActions.hidden = true;
+        previewFloatingActions.style.left = '';
+        previewFloatingActions.style.top = '';
+      }
+      projectPreviewTriggers.forEach(function(candidate) {
+        candidate.setAttribute('aria-expanded', 'false');
+        candidate.classList.remove('is-selected');
+      });
+      activeProjectPreviewTrigger = null;
+      if (returnFocus && trigger) trigger.focus({ preventScroll: true });
+    };
+
+    const populateProjectPreview = function(data) {
+      projectPreview.querySelector('.career-project-preview__meta').textContent = data.meta;
+      projectPreview.querySelector('.career-project-preview__status').textContent = data.status;
+      projectPreview.querySelector('.career-project-preview__title').textContent = data.title;
+      projectPreview.querySelector('.career-project-preview__summary').textContent = data.summary;
+      projectPreview.querySelector('.career-project-preview__purpose').textContent = data.purpose;
+      projectPreview.querySelector('.career-project-preview__stack-label').textContent = data.stackLabel;
+      projectPreview.querySelector('.career-project-preview__stack-value').textContent = data.stack;
+      const isExperience = data.meta === 'Experience';
+      const isCredential = data.meta === 'Credential';
+      if (previewDetailsLink) {
+        previewDetailsLink.href = data.detailsHref;
+        previewDetailsLink.textContent = isExperience ? 'Explore Experience' : isCredential ? 'Review Credentials' : 'Explore Project';
+        if (data.detailsTab) previewDetailsLink.dataset.careerTabTarget = data.detailsTab;
+        else delete previewDetailsLink.dataset.careerTabTarget;
+      }
+      const previewSections = projectPreview.querySelectorAll('.career-project-preview__section');
+      previewSections[0].hidden = !isCredential;
+      previewSections[0].querySelector('h5 span').textContent = isCredential ? 'Training Coverage' : 'Project Purpose';
+      previewSections[1].querySelector('h5 span').textContent = isExperience ? 'Key Contributions' : 'How It’s Built';
+      previewSections[1].hidden = isCredential;
+      const work = projectPreview.querySelector('.career-project-preview__work');
+      work.replaceChildren();
+      data.work.forEach(function(record) {
+        const item = document.createElement('div');
+        const title = document.createElement('b');
+        const description = document.createElement('p');
+        title.textContent = record[0];
+        description.textContent = record[1];
+        item.append(title, description);
+        work.append(item);
+      });
+    };
+
+    const openProjectPreview = function(trigger, openedWithKeyboard, pointerX, pointerY) {
+      const data = projectPreviewData[trigger.dataset.snapshotPreviewId];
+      if (!data || !projectPreview) return;
+      if (activeProjectPreviewTrigger === trigger && !projectPreview.hidden) {
+        closeProjectPreview(openedWithKeyboard || projectPreviewOpenedWithKeyboard);
+        return;
+      }
+      projectPreviewOpenedWithKeyboard = openedWithKeyboard;
+      projectPreview.classList.remove('is-open');
+      if (previewFloatingActions) previewFloatingActions.classList.remove('is-open');
+      populateProjectPreview(data);
+      projectPreviewTriggers.forEach(function(candidate) {
+        const selected = candidate === trigger;
+        candidate.setAttribute('aria-expanded', String(selected));
+        candidate.classList.toggle('is-selected', selected);
+      });
+      activeProjectPreviewTrigger = trigger;
+      const rect = trigger.getBoundingClientRect();
+      currentPreviewAnchor = openedWithKeyboard ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : { x: pointerX, y: pointerY };
+      projectPreview.hidden = false;
+      if (previewBackdrop) {
+        previewBackdrop.hidden = false;
+      }
+      if (previewFloatingActions) previewFloatingActions.hidden = false;
+      document.body.classList.add('career-preview-open');
+      window.requestAnimationFrame(function() {
+        if (activeProjectPreviewTrigger !== trigger || projectPreview.hidden) return;
+        positionSnapshotPreviewAtAnchor(currentPreviewAnchor);
+        const previewRect = projectPreview.getBoundingClientRect();
+        projectPreview.style.setProperty('--preview-origin-x', currentPreviewAnchor.x - previewRect.left + 'px');
+        projectPreview.style.setProperty('--preview-origin-y', currentPreviewAnchor.y - previewRect.top + 'px');
+        projectPreview.classList.add('is-open');
+        if (previewFloatingActions) previewFloatingActions.classList.add('is-open');
+        if (openedWithKeyboard) projectPreview.querySelector('.career-project-preview__close').focus({ preventScroll: true });
+      });
+    };
+
+    if (projectPreview && projectRegistry) {
+      const previewDragHandle = projectPreview.querySelector('.career-project-preview__topline');
+      let previewDragState = null;
+      const finishPreviewDrag = function(pointerId) {
+        if (!previewDragState || previewDragState.pointerId !== pointerId) return;
+        if (previewDragHandle.hasPointerCapture(pointerId)) previewDragHandle.releasePointerCapture(pointerId);
+        previewDragState = null;
+        projectPreview.classList.remove('is-dragging');
+      };
+
+      previewDragHandle.addEventListener('pointerdown', function(event) {
+        if (event.button !== 0 || event.target.closest('.career-project-preview__close')) return;
+        const rect = projectPreview.getBoundingClientRect();
+        previewDragState = {
+          pointerId: event.pointerId,
+          offsetX: event.clientX - rect.left,
+          offsetY: event.clientY - rect.top
+        };
+        currentPreviewAnchor = null;
+        previewDragHandle.setPointerCapture(event.pointerId);
+        projectPreview.classList.add('is-dragging');
+        event.preventDefault();
+      });
+
+      previewDragHandle.addEventListener('pointermove', function(event) {
+        if (!previewDragState || previewDragState.pointerId !== event.pointerId) return;
+        positionSnapshotPreview(event.clientX - previewDragState.offsetX, event.clientY - previewDragState.offsetY);
+      });
+
+      previewDragHandle.addEventListener('pointerup', function(event) { finishPreviewDrag(event.pointerId); });
+      previewDragHandle.addEventListener('pointercancel', function(event) { finishPreviewDrag(event.pointerId); });
+
+      projectPreviewTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function(event) { openProjectPreview(trigger, event.detail === 0, event.clientX, event.clientY); });
+      });
+      Array.from(projectPreview.querySelectorAll('.career-project-preview__close')).concat(previewFloatingClose || []).forEach(function(closeButton) {
+        closeButton.addEventListener('click', function(event) {
+          closeProjectPreview(event.detail === 0 || projectPreviewOpenedWithKeyboard);
+        });
+      });
+      if (previewDetailsLink) {
+        previewDetailsLink.addEventListener('click', function(event) {
+          const targetName = previewDetailsLink.dataset.careerTabTarget;
+          if (!targetName) return;
+          event.preventDefault();
+          closeProjectPreview(false);
+          const targetTab = document.getElementById('career-tab-' + targetName);
+          if (targetTab) activateCareerTab(targetTab, true);
+          const careerSnapshot = document.getElementById('career-snapshot');
+          if (careerSnapshot) careerSnapshot.scrollIntoView({ behavior: reduceMotionQuery.matches ? 'auto' : 'smooth', block: 'start' });
+        });
+      }
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !projectPreview.hidden) {
+          event.preventDefault();
+          closeProjectPreview(true);
+        }
+      });
+      document.addEventListener('pointerdown', function(event) {
+        if (!projectPreview.hidden && !projectPreview.contains(event.target) && (!previewFloatingActions || !previewFloatingActions.contains(event.target)) && !projectPreviewTriggers.some(function(trigger) { return trigger.contains(event.target); })) closeProjectPreview(false);
+      });
+      if (previewBackdrop) previewBackdrop.addEventListener('click', function() { closeProjectPreview(false); });
+      window.addEventListener('resize', function() {
+        if (!activeProjectPreviewTrigger || projectPreview.hidden) return;
+        if (currentPreviewPosition) positionSnapshotPreview(currentPreviewPosition.left, currentPreviewPosition.top);
+        else positionSnapshotPreviewAtAnchor(currentPreviewAnchor);
+      });
+    }
+
     const activateCareerTab = function(tab, shouldFocus) {
       const targetId = tab.getAttribute('aria-controls');
+      if (targetId !== 'career-panel-overview') closeProjectPreview(false);
       const snapshot = tab.closest('.career-snapshot');
       if (snapshot) snapshot.dataset.activeCareerTab = targetId.replace('career-panel-', '');
 
@@ -3178,6 +3465,85 @@
       activateFeaturedProject(featuredProjectTabs[targetIndex], true);
     });
   });
+
+  // Give the main page the same restrained rise-and-fade language used by the
+  // Writing and Projects pages without competing with component interactions.
+  const initializeIndexEntrance = function() {
+    const targets = [
+      document.getElementById('about'),
+      document.getElementById('career-snapshot'),
+      document.getElementById('skills'),
+      document.getElementById('experience'),
+      document.getElementById('projects')
+    ].filter(Boolean);
+    const canAnimate = typeof Element.prototype.animate === 'function';
+    const canObserve = typeof IntersectionObserver === 'function';
+    const activeAnimations = new Map();
+    let observer = null;
+
+    const resetTarget = function(element) {
+      element.style.removeProperty('opacity');
+      element.style.removeProperty('transform');
+      element.style.removeProperty('will-change');
+    };
+
+    const revealTarget = function(element) {
+      if (observer) observer.unobserve(element);
+      resetTarget(element);
+      if (reduceMotionQuery.matches || !canAnimate) return;
+
+      element.style.willChange = 'opacity, transform';
+      const animation = element.animate([
+        { opacity: 0, transform: 'translate3d(0, 16px, 0)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0)' }
+      ], {
+        duration: 520,
+        easing: 'cubic-bezier(0.2, 0.78, 0.2, 1)',
+        fill: 'both'
+      });
+
+      activeAnimations.set(element, animation);
+      animation.finished.then(function() {
+        activeAnimations.delete(element);
+        animation.cancel();
+        resetTarget(element);
+      }).catch(function() {
+        activeAnimations.delete(element);
+        resetTarget(element);
+      });
+    };
+
+    if (reduceMotionQuery.matches || !canAnimate || !canObserve) {
+      targets.forEach(resetTarget);
+      return;
+    }
+
+    targets.forEach(function(element) {
+      element.style.opacity = '0';
+      element.style.transform = 'translate3d(0, 16px, 0)';
+    });
+
+    observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) revealTarget(entry.target);
+      });
+    }, {
+      threshold: 0.01,
+      rootMargin: '0px 0px -5% 0px'
+    });
+
+    targets.forEach(function(element) { observer.observe(element); });
+
+    reduceMotionQuery.addEventListener('change', function(event) {
+      if (!event.matches) return;
+      observer.disconnect();
+      activeAnimations.forEach(function(animation) { animation.cancel(); });
+      activeAnimations.clear();
+      targets.forEach(resetTarget);
+    }, { once: true });
+  };
+
+  initializeIndexEntrance();
 
   // Load the latest public master commit without delaying initial rendering.
   const siteFooter = document.querySelector('[data-site-footer]');

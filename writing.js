@@ -132,15 +132,27 @@
     if (!imagePaths.length) return null;
 
     const art = document.createElement("span");
-    art.className = "writing-card-art";
+    art.className = "writing-card-art is-loading";
     art.setAttribute("aria-hidden", "true");
 
     function loadCandidate(index) {
-      if (index >= imagePaths.length) return;
+      if (index >= imagePaths.length) {
+        art.classList.remove("is-loading");
+        art.classList.add("is-unavailable");
+        return;
+      }
       const candidate = new Image();
       candidate.onload = function () {
         const imagePath = imagePaths[index];
-        art.style.setProperty("--writing-card-image", "url(\"" + imagePath.replace(/[\"\\]/g, "\\$&") + "\")");
+        const revealImage = function () {
+          art.style.setProperty("--writing-card-image", "url(\"" + imagePath.replace(/[\"\\]/g, "\\$&") + "\")");
+          window.requestAnimationFrame(function () {
+            art.classList.remove("is-loading");
+            art.classList.add("is-loaded");
+          });
+        };
+        if (typeof candidate.decode === "function") candidate.decode().catch(function () {}).then(revealImage);
+        else revealImage();
       };
       candidate.onerror = function () { loadCandidate(index + 1); };
       candidate.src = imagePaths[index];
@@ -360,14 +372,31 @@
     supporting.forEach(function (article) {
       featuredChildren.push(createSupportingArticle(article, articles.indexOf(article)));
     });
+    featuredChildren.forEach(function (card, index) {
+      card.style.setProperty("--writing-reveal-order", String(index + 1));
+    });
     featuredTarget.replaceChildren.apply(featuredTarget, featuredChildren);
     featuredTarget.classList.toggle("writing-featured-grid--solo", supporting.length === 0);
     featuredTarget.classList.toggle("writing-featured-grid--one-support", supporting.length === 1);
     featuredTarget.classList.toggle("writing-featured-grid--two-supports", supporting.length === 2);
     featuredCount.textContent = String(selectedCount).padStart(2, "0") + " / SELECTED";
-    listTarget.replaceChildren.apply(listTarget, articles.map(createArchiveRow));
+    const archiveRows = articles.map(createArchiveRow);
+    archiveRows.forEach(function (row, index) {
+      row.style.setProperty("--writing-reveal-order", String(5 + Math.min(index, 6)));
+    });
+    listTarget.replaceChildren.apply(listTarget, archiveRows);
+    content.classList.remove("is-visible");
+    content.classList.add("is-entering");
     status.hidden = true;
     content.hidden = false;
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        content.classList.add("is-visible");
+      });
+    });
+    window.setTimeout(function () {
+      content.classList.remove("is-entering", "is-visible");
+    }, 1100);
 
     if (window.location.hash === "#all-writing") {
       window.requestAnimationFrame(function () {

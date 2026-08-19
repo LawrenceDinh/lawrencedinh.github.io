@@ -1,6 +1,22 @@
 (function () {
   "use strict";
 
+  // Mark an incoming same-site navigation before the body is parsed so the
+  // destination cannot flash before the shared transition initializes.
+  try {
+    if (
+      window.sessionStorage.getItem("portfolio-page-transition") === "pending"
+      && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      document.documentElement.classList.add("portfolio-page-transition-pending");
+      window.setTimeout(function () {
+        document.documentElement.classList.remove("portfolio-page-transition-pending");
+      }, 1500);
+    }
+  } catch (error) {
+    // Keep normal rendering when session storage is unavailable.
+  }
+
   var PRESENTATION_MODE_TOGGLE_ENABLED = false;
   var storageKey = "portfolio-display-mode";
   var modes = { simple: true, enhanced: true };

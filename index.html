@@ -87,8 +87,8 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260728-19">
-  <script src="display-mode.js?v=20260719-1"></script>
+  <link rel="stylesheet" href="style.css?v=20260818-35">
+  <script src="display-mode.js?v=20260818-2"></script>
 </head>
 <body>
   <!-- NAV -->
@@ -112,10 +112,14 @@
   </div>
   <a href="#experience">Experience</a>
   <a href="#skills">Skills</a>
-  <a class="nav-primary-destination nav-primary-destination--first" href="projects.html">Projects</a>
+  <div class="nav-about nav-projects-menu" data-projects-menu>
+    <a class="nav-about-link nav-primary-destination nav-projects-link" href="projects.html">Projects</a>
+    <button class="nav-about-toggle" type="button" aria-label="Open Project destinations" aria-expanded="false" aria-controls="projectsMenuDesktop"><span class="nav-about-chevron" aria-hidden="true"></span></button>
+    <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="projects.html#featured-case-study">Featured Projects</a><a href="projects.html#current-projects">Active Work</a><a href="projects.html#academic-projects">Earlier Work</a></div>
+  </div>
   <a class="nav-primary-destination" href="writing.html">Writing</a>
   </div>
-<a href="Lawrence%20Dinh%20Resume%20Web.pdf"
+<a href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf"
    target="_blank"
    rel="noopener"
    class="highlight"
@@ -163,7 +167,7 @@
   <a href="#skills">Skills</a>
   <a href="projects.html">Projects</a>
   <a href="writing.html">Writing</a>
-  <a href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" class="highlight">
+  <a href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf" target="_blank" rel="noopener" class="highlight">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M8 2v10M4 8l4 4 4-4M2 14h12"/>
     </svg>
@@ -263,60 +267,73 @@
     <div class="section-header">
       <h2 id="career-snapshot-heading" class="section-heading">Career Snapshot</h2>
       <div class="career-tabs" role="tablist" aria-label="Career dossier">
-        <button id="career-tab-overview" class="career-tab" type="button" role="tab" aria-selected="true" aria-controls="career-panel-overview">Overview</button>
-        <button id="career-tab-experience" class="career-tab" type="button" role="tab" aria-selected="false" aria-controls="career-panel-experience" tabindex="-1">Experience</button>
-        <button id="career-tab-projects" class="career-tab" type="button" role="tab" aria-selected="false" aria-controls="career-panel-projects" tabindex="-1">Projects</button>
-        <button id="career-tab-credentials" class="career-tab" type="button" role="tab" aria-selected="false" aria-controls="career-panel-credentials" tabindex="-1">Credentials</button>
+        <button id="career-tab-overview" class="career-tab" type="button" role="tab" aria-label="Overview" aria-selected="true" aria-controls="career-panel-overview"><span class="career-tab__full">Overview</span><span class="career-tab__compact" aria-hidden="true">Summary</span></button>
+        <button id="career-tab-experience" class="career-tab" type="button" role="tab" aria-label="Experience" aria-selected="false" aria-controls="career-panel-experience" tabindex="-1"><span class="career-tab__full">Experience</span><span class="career-tab__compact" aria-hidden="true">Roles</span></button>
+        <button id="career-tab-projects" class="career-tab" type="button" role="tab" aria-label="Projects" aria-selected="false" aria-controls="career-panel-projects" tabindex="-1"><span class="career-tab__full">Projects</span><span class="career-tab__compact" aria-hidden="true">Projects</span></button>
+        <button id="career-tab-credentials" class="career-tab" type="button" role="tab" aria-label="Credentials" aria-selected="false" aria-controls="career-panel-credentials" tabindex="-1"><span class="career-tab__full">Credentials</span><span class="career-tab__compact" aria-hidden="true">Training</span></button>
       </div>
     </div>
     <div class="career-dossier">
       <section id="career-panel-overview" class="career-panel career-panel--overview" role="tabpanel" aria-labelledby="career-tab-overview">
         <section class="career-overview-group" aria-labelledby="overview-experience-heading">
-          <h3 id="overview-experience-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="experience"><span class="career-overview-section-link__title">Professional Experience</span><span class="career-overview-group__action-label career-overview-section-link__action">View Details <span aria-hidden="true">→</span></span></button></h3>
+          <h3 id="overview-experience-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="experience"><span class="career-overview-section-link__title">Professional Experience</span><span class="career-overview-group__action-label career-overview-section-link__action">View Experience <span aria-hidden="true">→</span></span></button></h3>
           <div class="career-overview-companies" aria-label="Company summaries">
-            <article class="career-overview-company career-overview-company--current" tabindex="0"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/Nvidia_logo.png" alt="" decoding="async"></span><span class="career-company-name">NVIDIA</span></div><div class="career-overview-company__content"><strong>Autonomous Vehicle Test Expert</strong><p>Robotic vehicle systems, automotive safety, AI validation, and Alpamayo.</p></div></article>
-            <article class="career-overview-company" tabindex="0"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/tcs_logo.png" alt="" decoding="async"></span><span class="career-company-name">Tata Consultancy Services</span></div><div class="career-overview-company__content"><strong>Assistant Systems Engineer</strong><p>Workflow automation, JavaScript, enterprise integration, and ServiceNow.</p></div></article>
-            <article class="career-overview-company" tabindex="0"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/shapescapelogo.png" alt="" decoding="async"></span><span class="career-company-name">Shapescape</span></div><div class="career-overview-company__content"><strong>Game Level Designer</strong><p>UX, server and plugin systems, level design, and quality control.</p></div></article>
+            <button class="career-overview-company career-overview-company--current career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="nvidia" aria-expanded="false" aria-controls="career-project-preview"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/Nvidia_logo.png" alt="" decoding="async"></span><span class="career-company-name">NVIDIA</span></div><div class="career-overview-company__content"><strong>Autonomous Vehicle Test Expert</strong><p>Robotic vehicle systems, automotive safety, AI validation, and Alpamayo.</p></div></button>
+            <button class="career-overview-company career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="tcs" aria-expanded="false" aria-controls="career-project-preview"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/tcs_logo.png" alt="" decoding="async"></span><span class="career-company-name">Tata Consultancy Services</span></div><div class="career-overview-company__content"><strong>Assistant Systems Engineer</strong><p>Workflow automation, JavaScript, enterprise integration, and ServiceNow.</p></div></button>
+            <button class="career-overview-company career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="shapescape" aria-expanded="false" aria-controls="career-project-preview"><div class="career-company-identity"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/shapescapelogo.png" alt="" decoding="async"></span><span class="career-company-name">Shapescape</span></div><div class="career-overview-company__content"><strong>Game Level Designer</strong><p>UX, server and plugin systems, level design, and quality control.</p></div></button>
           </div>
         </section>
         <section class="career-overview-group" aria-labelledby="overview-projects-heading">
-          <h3 id="overview-projects-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="projects"><span class="career-overview-section-link__title">Featured Project</span><span class="career-overview-group__action-label career-overview-section-link__action">View Projects <span aria-hidden="true">→</span></span></button></h3>
+          <h3 id="overview-projects-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="projects"><span class="career-overview-section-link__title">Featured Project</span><span class="career-overview-group__action-label career-overview-section-link__action">Explore Projects <span aria-hidden="true">→</span></span></button></h3>
           <div class="career-overview-projects career-project-registry" aria-label="Project summaries">
-            <article class="career-project-registry__record career-project-registry__record--featured">
+            <button class="career-project-registry__record career-project-registry__record--featured career-project-registry__trigger career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="local-driving-intelligence" aria-expanded="false" aria-controls="career-project-preview">
               <div class="career-project-registry__meta"><span class="career-project-index">01 / Data Platform</span><span class="career-project-meta">React · SQLite</span></div>
               <div class="career-project-registry__content"><strong>Local Driving Intelligence</strong><p>Combines regional weather, route cameras, traffic activity, and event planning for Bay Area and Northern California drives.</p></div>
               <span class="career-project-registry__action"><span class="career-project-registry__domain">Full-Stack Systems</span><span class="career-project-registry__standard-arrow" aria-hidden="true">→</span></span>
-            </article>
-            <article class="career-project-registry__record">
+            </button>
+            <button class="career-project-registry__record career-project-registry__trigger career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="drift-course-designer" aria-expanded="false" aria-controls="career-project-preview">
               <div class="career-project-registry__meta"><span class="career-project-index">02 / Course Design</span><span class="career-project-meta">React · Canvas</span></div>
               <div class="career-project-registry__content"><strong>Drift Course Designer</strong><p>Turns venue imagery and a driving line into an editable, shareable drift course plan.</p></div>
               <span class="career-project-registry__action"><span class="career-project-registry__domain">Interface Systems</span><span class="career-project-registry__standard-arrow" aria-hidden="true">→</span></span>
-            </article>
-            <article class="career-project-registry__record">
+            </button>
+            <button class="career-project-registry__record career-project-registry__trigger career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="radar-lora-traffic-detection-network" aria-expanded="false" aria-controls="career-project-preview">
               <div class="career-project-registry__meta"><span class="career-project-index">03 / Embedded IoT</span><span class="career-project-meta">ESP32 · Radar · LoRa</span></div>
               <div class="career-project-registry__content"><strong>Radar + LoRa Traffic Detection Network</strong><p>Detects passing vehicles and relays timestamped events through LoRa nodes and planned repeaters.</p></div>
               <span class="career-project-registry__action"><span class="career-project-registry__domain">Sensor Networks</span><span class="career-project-registry__standard-arrow" aria-hidden="true">→</span></span>
-            </article>
-            <article class="career-project-registry__record">
+            </button>
+            <button class="career-project-registry__record career-project-registry__trigger career-snapshot-preview-trigger" type="button" data-snapshot-preview-id="performance-driving-validation" aria-expanded="false" aria-controls="career-project-preview">
               <div class="career-project-registry__meta"><span class="career-project-index">04 / Motorsports</span><span class="career-project-meta">Telemetry · Safety</span></div>
               <div class="career-project-registry__content"><strong>Performance Driving &amp; Validation</strong><p>Uses telemetry and repeatable closed-course testing to evaluate vehicle handling, consistency, and safety.</p></div>
               <span class="career-project-registry__action"><span class="career-project-registry__domain">Vehicle Validation</span><span class="career-project-registry__standard-arrow" aria-hidden="true">→</span></span>
-            </article>
+            </button>
           </div>
         </section>
         <section class="career-overview-group career-overview-credentials" aria-labelledby="overview-credentials-heading">
-          <h3 id="overview-credentials-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="credentials"><span class="career-overview-section-link__title">Credentials</span><span class="career-overview-group__action-label career-overview-section-link__action">View Details <span aria-hidden="true">→</span></span></button></h3>
+          <h3 id="overview-credentials-heading" class="career-overview-group__heading career-overview-group__heading--action"><button class="career-overview-group__action career-overview-section-link" type="button" data-career-tab-target="credentials"><span class="career-overview-section-link__title">Credentials</span><span class="career-overview-group__action-label career-overview-section-link__action">Review Credentials <span aria-hidden="true">→</span></span></button></h3>
           <div class="career-footer-strip" aria-label="Career credentials">
             <div class="career-footer-credentials">
               <div class="career-credential-rail" role="list" aria-label="Credential preview">
-                <div class="career-credential" role="listitem" tabindex="0"><span>Mercedes-Benz AG</span><strong>T1 / T2 Professional Driver Safety Training</strong></div>
-                <div class="career-credential" role="listitem" tabindex="0"><span>NVIDIA</span><strong>Automotive High-Voltage Training HV1 / HV2</strong></div>
-                <div class="career-credential" role="listitem" tabindex="0"><span>IBM</span><strong>Linux Commands &amp; Shell Scripting</strong></div>
-                <div class="career-credential" role="listitem" tabindex="0"><span>Emergency Response</span><strong>CPR Certification</strong></div>
+                <button class="career-credential career-snapshot-preview-trigger" type="button" role="listitem" data-snapshot-preview-id="mb-t1-t2" aria-expanded="false" aria-controls="career-project-preview"><span>Mercedes-Benz AG</span><strong>T1 / T2 Professional Driver Safety Training</strong></button>
+                <button class="career-credential career-snapshot-preview-trigger" type="button" role="listitem" data-snapshot-preview-id="nvidia-hv" aria-expanded="false" aria-controls="career-project-preview"><span>NVIDIA</span><strong>Automotive High-Voltage Training HV1 / HV2</strong></button>
+                <button class="career-credential career-snapshot-preview-trigger" type="button" role="listitem" data-snapshot-preview-id="ibm-linux" aria-expanded="false" aria-controls="career-project-preview"><span>IBM</span><strong>Linux Commands &amp; Shell Scripting</strong></button>
+                <button class="career-credential career-snapshot-preview-trigger" type="button" role="listitem" data-snapshot-preview-id="cpr" aria-expanded="false" aria-controls="career-project-preview"><span>Emergency Response</span><strong>CPR Certification</strong></button>
               </div>
             </div>
           </div>
         </section>
+        <div class="career-snapshot-preview-backdrop" aria-hidden="true" hidden></div>
+        <div id="career-project-preview" class="career-project-preview" role="dialog" aria-modal="false" aria-labelledby="career-project-preview-title" hidden>
+          <div class="career-project-preview__topline"><span class="career-project-preview__meta"></span><span class="career-project-preview__status"></span><button class="career-project-preview__close" type="button" aria-label="Close project details"><span aria-hidden="true"></span></button></div>
+          <h4 id="career-project-preview-title" class="career-project-preview__title"></h4>
+          <p class="career-project-preview__summary"></p>
+          <section class="career-project-preview__section career-project-preview__purpose-section"><h5><span>What it does</span></h5><p class="career-project-preview__purpose"></p></section>
+          <section class="career-project-preview__section career-project-preview__work-section"><h5><span>How It’s Built</span></h5><div class="career-project-preview__work"></div></section>
+          <div class="career-project-preview__stack"><b class="career-project-preview__stack-label">Stack</b><span class="career-project-preview__stack-value"></span></div>
+        </div>
+        <div class="career-project-preview__floating-actions" hidden>
+          <a class="career-project-preview__details-link" href="#career-snapshot">Explore Project</a>
+          <button class="career-project-preview__floating-close" type="button">Close</button>
+        </div>
       </section>
       <section id="career-panel-experience" class="career-panel career-panel--experience" role="tabpanel" aria-labelledby="career-tab-experience" hidden>
         <section class="career-overview-group career-detail-group">
@@ -1242,18 +1259,23 @@
             </div>
           </div>
 
-          <a class="contact-item contact-item--resume" href="Lawrence%20Dinh%20Resume%20Web.pdf" target="_blank" rel="noopener" aria-label="Open resume PDF">
+          <a class="contact-item contact-item--resume" href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf" target="_blank" rel="noopener" aria-label="Open resume PDF">
             <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.2"></path><path d="M8 9h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path><path d="M8 13h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path></svg>
             <div class="contact-copy"><div class="small muted">Resume</div><div class="contact-action">Open Resume</div></div>
           </a>
 
           <div class="contact-item contact-profiles">
-            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4zM8 10v6M8 7.5v.1M11.5 16v-3.3a2.2 2.2 0 014.4 0V16M11.5 11v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             <div class="contact-copy">
               <div class="small muted">Profiles</div>
-              <div class="contact-value contact-profiles-links">
-                <a href="https://www.linkedin.com/in/lawrence-dinh-profile/" target="_blank" rel="noopener" aria-label="Open LinkedIn profile">LinkedIn <span class="contact-external-link" aria-hidden="true">↗</span></a>
-                <a href="https://github.com/LawrenceDinh" target="_blank" rel="noopener" aria-label="Open GitHub profile">GitHub <span class="contact-external-link" aria-hidden="true">↗</span></a>
+              <div class="contact-value contact-profiles-links" role="list">
+                <div class="contact-profile-entry" role="listitem">
+                  <svg class="contact-profile-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4zM8 10v6M8 7.5v.1M11.5 16v-3.3a2.2 2.2 0 014.4 0V16M11.5 11v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  <a href="https://www.linkedin.com/in/lawrence-dinh-profile/" target="_blank" rel="noopener" aria-label="Open LinkedIn profile">LinkedIn <span class="contact-external-link" aria-hidden="true">↗</span></a>
+                </div>
+                <div class="contact-profile-entry" role="listitem">
+                  <svg class="contact-profile-icon contact-profile-icon--github" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg>
+                  <a href="https://github.com/LawrenceDinh" target="_blank" rel="noopener" aria-label="Open GitHub profile">GitHub <span class="contact-external-link" aria-hidden="true">↗</span></a>
+                </div>
               </div>
             </div>
           </div>
@@ -1273,6 +1295,10 @@
             </div>
           </div>
         </a>
+        <div class="contact-mobile-actions" aria-label="Contact panel actions">
+          <button class="contact-mobile-back" type="button">Back to Nav</button>
+          <button class="contact-mobile-close" type="button">Close</button>
+        </div>
       </div>
       <div class="enhanced-site-footer" data-site-footer>
         <p class="enhanced-site-footer__author">SITE DESIGNED AND BUILT FROM SCRATCH BY LAWRENCE DINH</p>
@@ -1291,10 +1317,10 @@
   </footer>
 </div>
 </main>
-<script src="navigation.js?v=20260721-3"></script>
+<script src="navigation.js?v=20260818-16"></script>
   <script src="carousel-interaction.js?v=20260720-4"></script>
   <script src="project-image-viewer.js?v=20260720-3"></script>
-  <script src="script.js?v=20260728-6"></script>
+  <script src="script.js?v=20260818-9"></script>
   <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>
