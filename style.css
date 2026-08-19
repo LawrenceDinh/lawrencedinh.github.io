@@ -11203,6 +11203,12 @@ html[data-portfolio-mode="enhanced"] body #experience {
   transform: translateX(3px);
 }
 
+html.career-preview-open,
+body.career-preview-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 [data-portfolio-mode="enhanced"] .career-project-preview {
   --preview-meta-column: 176px;
   --preview-content-gap: 24px;
