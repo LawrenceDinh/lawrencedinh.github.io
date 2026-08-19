@@ -62,9 +62,125 @@
     updateBackToTopVisibility();
   }
 
-  const projectSectionLinks = document.querySelectorAll('.projects-section-links a[href^="#"]');
+  const SECTION_ARRIVAL_KEY = 'portfolio-section-arrival';
+  const queueSectionArrival = function(hash) {
+    try {
+      window.sessionStorage.setItem(SECTION_ARRIVAL_KEY, hash);
+    } catch (error) {
+      // Section navigation remains functional when storage is unavailable.
+    }
+  };
+  const consumeSectionArrival = function() {
+    try {
+      const hash = window.sessionStorage.getItem(SECTION_ARRIVAL_KEY) || '';
+      window.sessionStorage.removeItem(SECTION_ARRIVAL_KEY);
+      return hash;
+    } catch (error) {
+      return '';
+    }
+  };
+
+  const projectSectionLinks = Array.from(document.querySelectorAll('.projects-section-links a[href^="#"], [data-projects-menu] .nav-about-menu a[href^="#"]'));
   if (projectSectionLinks.length) {
     const sectionLinkReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sectionTargets = projectSectionLinks.map(function(link) {
+      const id = link.getAttribute('href');
+      return { link: link, id: id, target: id && id !== '#' ? document.querySelector(id) : null };
+    }).filter(function(record) { return record.target; });
+    const arrivalTimers = new WeakMap();
+    const arrivalWaiters = new WeakMap();
+    let sectionNavigationLockUntil = 0;
+    let sectionScrollFrame = 0;
+
+    const setActiveSection = function(id) {
+      sectionTargets.forEach(function(record) {
+        const active = record.id === id;
+        if (active) record.link.setAttribute('aria-current', 'location');
+        else record.link.removeAttribute('aria-current');
+        if (!active) {
+          const timer = arrivalTimers.get(record.target);
+          if (timer) window.clearTimeout(timer);
+          arrivalTimers.delete(record.target);
+          const cancelWaiter = arrivalWaiters.get(record.target);
+          if (cancelWaiter) cancelWaiter();
+          arrivalWaiters.delete(record.target);
+          record.target.classList.remove('projects-section-nav-arrival');
+        }
+      });
+    };
+
+    const pulseSection = function(target) {
+      const existingTimer = arrivalTimers.get(target);
+      if (existingTimer) window.clearTimeout(existingTimer);
+      target.classList.remove('projects-section-nav-arrival');
+      void target.offsetWidth;
+      target.classList.add('projects-section-nav-arrival');
+      arrivalTimers.set(target, window.setTimeout(function() {
+        target.classList.remove('projects-section-nav-arrival');
+        arrivalTimers.delete(target);
+      }, 850));
+    };
+
+    const pulseSectionOnArrival = function(target) {
+      const existingWaiter = arrivalWaiters.get(target);
+      if (existingWaiter) existingWaiter();
+      if (sectionLinkReducedMotion.matches) {
+        pulseSection(target);
+        return;
+      }
+
+      let finished = false;
+      let settleTimer = 0;
+      let fallbackTimer = 0;
+      const cleanup = function() {
+        window.removeEventListener('scroll', scheduleSettle);
+        window.removeEventListener('scrollend', finish);
+        if (settleTimer) window.clearTimeout(settleTimer);
+        if (fallbackTimer) window.clearTimeout(fallbackTimer);
+        arrivalWaiters.delete(target);
+      };
+      const finish = function() {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        pulseSection(target);
+      };
+      const scheduleSettle = function() {
+        if (settleTimer) window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(finish, 120);
+      };
+
+      arrivalWaiters.set(target, cleanup);
+      window.addEventListener('scroll', scheduleSettle, { passive: true });
+      window.addEventListener('scrollend', finish, { once: true });
+      window.requestAnimationFrame(scheduleSettle);
+      fallbackTimer = window.setTimeout(finish, 1300);
+    };
+
+    const updateActiveSectionFromScroll = function() {
+      sectionScrollFrame = 0;
+      if (window.performance.now() < sectionNavigationLockUntil) return;
+      const activationLine = Math.min(220, window.innerHeight * 0.3);
+      let activeRecord = null;
+      sectionTargets.forEach(function(record) {
+        if (!record.target.getClientRects().length) return;
+        if (record.target.getBoundingClientRect().top <= activationLine) activeRecord = record;
+      });
+      const documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      const atPageBottom = window.scrollY + window.innerHeight >= documentHeight - 6;
+      if (atPageBottom) {
+        const finalVisibleRecord = sectionTargets.slice().reverse().find(function(record) {
+          return record.target.getClientRects().length;
+        });
+        if (finalVisibleRecord) activeRecord = finalVisibleRecord;
+      }
+      setActiveSection(activeRecord ? activeRecord.id : '');
+    };
+
+    const scheduleActiveSectionUpdate = function() {
+      if (sectionScrollFrame) return;
+      sectionScrollFrame = window.requestAnimationFrame(updateActiveSectionFromScroll);
+    };
 
     projectSectionLinks.forEach(function (link) {
       link.addEventListener('click', function (event) {
@@ -75,13 +191,45 @@
         if (!target) return;
 
         event.preventDefault();
+        setActiveSection(targetId);
+        sectionNavigationLockUntil = window.performance.now() + (sectionLinkReducedMotion.matches ? 0 : 1400);
+        pulseSectionOnArrival(target);
         target.scrollIntoView({
           behavior: sectionLinkReducedMotion.matches ? 'auto' : 'smooth',
           block: 'start'
         });
         window.history.pushState(null, '', targetId);
+        window.setTimeout(scheduleActiveSectionUpdate, sectionLinkReducedMotion.matches ? 0 : 1420);
       });
     });
+
+    window.addEventListener('scroll', scheduleActiveSectionUpdate, { passive: true });
+    window.addEventListener('resize', scheduleActiveSectionUpdate, { passive: true });
+    window.addEventListener('hashchange', function() {
+      const matchingRecord = sectionTargets.find(function(record) { return record.id === window.location.hash; });
+      if (!matchingRecord) return;
+      setActiveSection(matchingRecord.id);
+    });
+
+    const requestedArrival = document.body.classList.contains('projects-page') ? consumeSectionArrival() : '';
+    const initialRecord = sectionTargets.find(function(record) { return record.id === window.location.hash; });
+    if (initialRecord) {
+      setActiveSection(initialRecord.id);
+      sectionNavigationLockUntil = window.performance.now() + 900;
+      if (requestedArrival === initialRecord.id) {
+        const showRequestedArrival = function() {
+          window.setTimeout(function() { pulseSectionOnArrival(initialRecord.target); }, 180);
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', showRequestedArrival, { once: true });
+        } else {
+          showRequestedArrival();
+        }
+      }
+      window.setTimeout(scheduleActiveSectionUpdate, 920);
+    } else {
+      scheduleActiveSectionUpdate();
+    }
   }
 
   const navToggle = document.getElementById('navToggle');
@@ -90,13 +238,14 @@
   const desktopMenu = document.querySelector('[data-portfolio-menu="desktop"]');
   const mobileMenu = document.querySelector('[data-portfolio-menu="mobile"]');
   const aboutMenu = document.querySelector('[data-about-menu]');
+  const projectsMenu = document.querySelector('[data-projects-menu]');
   const portfolioCloseTimers = new WeakMap();
   const fineHoverPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const PORTFOLIO_CLOSE_DELAY_MS = 320;
   const ABOUT_CLOSE_DELAY_MS = 300;
   const CONTACT = Object.freeze({
     email: 'lawrencetdinh@gmail.com',
-    resume: 'Lawrence%20Dinh%20Resume%20Web.pdf',
+    resume: 'Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf',
     linkedin: 'https://www.linkedin.com/in/lawrence-dinh-profile/',
     github: 'https://github.com/LawrenceDinh',
     location: 'San Jose, CA',
@@ -105,6 +254,7 @@
   });
   let contactDisclosure = null;
   let aboutCloseTimer = 0;
+  let projectsCloseTimer = 0;
 
   // A fixed descendant of the filtered navbar can use the navbar as its
   // containing block. Keep the shared drawer contract, but place the live
@@ -294,7 +444,16 @@
 
     const actions = document.createElement('div');
     actions.className = 'drawer-console-actions';
-    actions.append(resume, contact);
+    const closeAction = document.createElement('button');
+    closeAction.className = 'drawer-console-close';
+    closeAction.type = 'button';
+    closeAction.textContent = 'Close';
+    closeAction.setAttribute('aria-label', 'Close navigation menu');
+    closeAction.addEventListener('click', () => {
+      setDrawerOpen(false);
+      navToggle?.focus();
+    });
+    actions.append(resume, contact, closeAction);
     drawer.replaceChildren(heading, modeToggle, body, actions);
     drawer.setAttribute('role', 'navigation');
     drawer.setAttribute('aria-label', 'Mobile navigation');
@@ -342,9 +501,10 @@
           <div class="contact-copy"><div class="small muted">Email</div><div class="contact-email-row"><div class="contact-value contact-value-email" data-default-text="${CONTACT.email}">${CONTACT.email}</div><span class="copy-email-control" data-tooltip="Copy email"><button class="copy-email-btn" type="button" data-contact-copy aria-label="Copy email to clipboard"></button></span></div></div>
         </div>
         <a class="contact-item contact-item--resume" href="${CONTACT.resume}" target="_blank" rel="noopener" aria-label="Open resume PDF"><svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.2"></path><path d="M8 9h8M8 13h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path></svg><div class="contact-copy"><div class="small muted">Resume</div><div class="contact-action">Open Resume</div></div></a>
-        <div class="contact-item contact-profiles"><svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4zM8 10v6M8 7.5v.1M11.5 16v-3.3a2.2 2.2 0 014.4 0V16M11.5 11v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><div class="contact-copy"><div class="small muted">Profiles</div><div class="contact-value contact-profiles-links"><a href="${CONTACT.linkedin}" target="_blank" rel="noopener" aria-label="Open LinkedIn profile">LinkedIn <span class="contact-external-link" aria-hidden="true">↗</span></a><a href="${CONTACT.github}" target="_blank" rel="noopener" aria-label="Open GitHub profile">GitHub <span class="contact-external-link" aria-hidden="true">↗</span></a></div></div></div>
+        <div class="contact-item contact-profiles"><div class="contact-copy"><div class="small muted">Profiles</div><div class="contact-value contact-profiles-links" role="list"><div class="contact-profile-entry" role="listitem"><svg class="contact-profile-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4zM8 10v6M8 7.5v.1M11.5 16v-3.3a2.2 2.2 0 014.4 0V16M11.5 11v5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><a href="${CONTACT.linkedin}" target="_blank" rel="noopener" aria-label="Open LinkedIn profile">LinkedIn <span class="contact-external-link" aria-hidden="true">↗</span></a></div><div class="contact-profile-entry" role="listitem"><svg class="contact-profile-icon contact-profile-icon--github" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg><a href="${CONTACT.github}" target="_blank" rel="noopener" aria-label="Open GitHub profile">GitHub <span class="contact-external-link" aria-hidden="true">↗</span></a></div></div></div></div>
       </div>
       <a class="location-text" href="${CONTACT.maps}" target="_blank" rel="noopener" aria-label="Open ${CONTACT.location} in Google Maps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div><div class="small muted">Location</div><div class="contact-status-value"><span class="contact-status-location">${CONTACT.location}</span><span class="contact-status-divider" aria-hidden="true"></span><span class="contact-status-availability">${CONTACT.status} <svg class="contact-status-check" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.25 6.5 11l6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></div></div></a>
+      <div class="contact-mobile-actions" aria-label="Contact panel actions"><button class="contact-mobile-back" type="button">Back to Nav</button><button class="contact-mobile-close" type="button">Close</button></div>
       <span class="sr-only" aria-live="polite" data-contact-live></span>
     </div></div>`;
   }
@@ -434,6 +594,7 @@
         const open = !contactIsOpen(type);
         closePortfolioMenus();
         setAboutMenuOpen(false);
+        setProjectsMenuOpen(false);
         closeContactDisclosures(type);
         setContactOpen(type, open);
       });
@@ -441,6 +602,8 @@
     const copyButton = contactDisclosure.desktopPanel.querySelector('[data-contact-copy]');
     const emailRow = contactDisclosure.desktopPanel.querySelector('.contact-item-email');
     const closeButton = contactDisclosure.desktopPanel.querySelector('.contact-drawer-close');
+    const mobileBackButton = contactDisclosure.desktopPanel.querySelector('.contact-mobile-back');
+    const mobileCloseButton = contactDisclosure.desktopPanel.querySelector('.contact-mobile-close');
     copyButton.addEventListener('click', event => copyContactEmail(event.currentTarget, contactDisclosure.desktopPanel));
     emailRow.addEventListener('click', event => {
       if (event.target.closest('[data-contact-copy]')) return;
@@ -455,6 +618,18 @@
       const type = contactIsOpen('mobile') ? 'mobile' : 'desktop';
       setContactOpen(type, false);
       contactDisclosure[`${type}Trigger`].focus();
+    });
+    mobileBackButton.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      setContactOpen('mobile', false);
+      if (!isDrawerOpen()) setDrawerOpen(true);
+      window.requestAnimationFrame(() => contactDisclosure.mobileTrigger.focus());
+    });
+    mobileCloseButton.addEventListener('click', () => {
+      setContactOpen('mobile', false);
+      setDrawerOpen(false);
+      navToggle?.focus();
     });
   }
 
@@ -626,6 +801,7 @@
     panel.hidden = !open;
     aboutMenu.classList.toggle('is-open', open);
     if (open) {
+      setProjectsMenuOpen(false);
       closePortfolioMenus();
       closeContactDisclosures();
       if (focusFirst) panel.querySelector('a[href]')?.focus();
@@ -667,6 +843,89 @@
     });
   }
 
+  function cancelProjectsClose() {
+    if (!projectsCloseTimer) return;
+    window.clearTimeout(projectsCloseTimer);
+    projectsCloseTimer = 0;
+  }
+
+  function scheduleProjectsClose() {
+    cancelProjectsClose();
+    projectsCloseTimer = window.setTimeout(() => {
+      projectsCloseTimer = 0;
+      const keyboardFocusWithin = projectsMenu && projectsMenu.matches(':focus-within') && projectsMenu.querySelector(':focus-visible');
+      if (!projectsMenu || projectsMenu.matches(':hover') || keyboardFocusWithin) return;
+      setProjectsMenuOpen(false);
+    }, ABOUT_CLOSE_DELAY_MS);
+  }
+
+  function setProjectsMenuOpen(open, focusFirst) {
+    if (!projectsMenu) return;
+    const toggle = projectsMenu.querySelector('.nav-about-toggle');
+    const panel = projectsMenu.querySelector('.nav-about-menu');
+    if (!toggle || !panel) return;
+    cancelProjectsClose();
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close Project destinations' : 'Open Project destinations');
+    panel.hidden = !open;
+    projectsMenu.classList.toggle('is-open', open);
+    if (open) {
+      setAboutMenuOpen(false);
+      closePortfolioMenus();
+      closeContactDisclosures();
+      if (focusFirst) panel.querySelector('a[href]')?.focus();
+    }
+  }
+
+  function bindProjectsMenu() {
+    if (!projectsMenu) return;
+    const toggle = projectsMenu.querySelector('.nav-about-toggle');
+    const panel = projectsMenu.querySelector('.nav-about-menu');
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      setProjectsMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    toggle.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowDown') return;
+      event.preventDefault();
+      setProjectsMenuOpen(true, true);
+    });
+    panel.querySelectorAll('a[href]').forEach(link => {
+      link.addEventListener('click', event => {
+        if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+          try {
+            const destination = new URL(link.href, window.location.href);
+            const currentDocument = window.location.pathname + window.location.search;
+            const destinationDocument = destination.pathname + destination.search;
+            if (destination.origin === window.location.origin && destinationDocument !== currentDocument && destination.hash) {
+              queueSectionArrival(destination.hash);
+            }
+          } catch (error) {
+            // The link still follows its native destination if URL parsing fails.
+          }
+        }
+        setProjectsMenuOpen(false);
+      });
+    });
+    projectsMenu.querySelector('.nav-projects-link')?.addEventListener('click', () => setProjectsMenuOpen(false));
+    projectsMenu.addEventListener('focusout', event => {
+      if (event.relatedTarget && projectsMenu.contains(event.relatedTarget)) return;
+      setProjectsMenuOpen(false);
+    });
+    projectsMenu.addEventListener('pointerenter', () => {
+      if (!fineHoverPointer.matches) return;
+      cancelProjectsClose();
+      setProjectsMenuOpen(true);
+    });
+    projectsMenu.addEventListener('pointerleave', () => {
+      if (!fineHoverPointer.matches) return;
+      scheduleProjectsClose();
+    });
+  }
+
   function isDrawerOpen() {
     return Boolean(navToggle && navToggle.getAttribute('aria-expanded') === 'true');
   }
@@ -690,6 +949,7 @@
   bindPortfolioMenu(desktopMenu, true);
   bindPortfolioMenu(mobileMenu, false);
   bindAboutMenu();
+  bindProjectsMenu();
 
   if (navToggle && drawer && hamburger) {
     navToggle.setAttribute('aria-label', 'Open menu');
@@ -706,6 +966,7 @@
 
   document.addEventListener('click', event => {
     if (aboutMenu && !aboutMenu.contains(event.target)) setAboutMenuOpen(false);
+    if (projectsMenu && !projectsMenu.contains(event.target)) setProjectsMenuOpen(false);
     if (desktopMenu && !desktopMenu.contains(event.target)) setMenuOpen(desktopMenu, false);
     if (mobileMenu && !mobileMenu.contains(event.target)) setMenuOpen(mobileMenu, false);
     if (contactIsOpen('desktop') && !contactDisclosure.desktopHost.contains(event.target)) setContactOpen('desktop', false);
@@ -725,6 +986,12 @@
     if (aboutMenu && aboutMenu.classList.contains('is-open')) {
       setAboutMenuOpen(false);
       aboutMenu.querySelector('.nav-about-toggle')?.focus();
+      return;
+    }
+
+    if (projectsMenu && projectsMenu.classList.contains('is-open')) {
+      setProjectsMenuOpen(false);
+      projectsMenu.querySelector('.nav-about-toggle')?.focus();
       return;
     }
 
@@ -757,6 +1024,7 @@
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900 && isDrawerOpen()) setDrawerOpen(false);
     if (window.innerWidth <= 900) setAboutMenuOpen(false);
+    if (window.innerWidth <= 900) setProjectsMenuOpen(false);
     if (window.innerWidth <= 900) setMenuOpen(desktopMenu, false);
     if (window.innerWidth <= 900) setContactOpen('desktop', false);
     else setContactOpen('mobile', false);
@@ -919,6 +1187,159 @@
     new MutationObserver(scheduleMeasure).observe(document.documentElement, { attributes: true, attributeFilter: ['data-portfolio-mode'] });
     scheduleMeasure();
   }
+
+  // Smooth the handoff between same-site pages. Hash navigation within the
+  // current document remains immediate so existing section scrolling is not
+  // delayed or replaced.
+  const initializePageNavigationTransition = function() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const transitionKey = 'portfolio-page-transition';
+    const transitionDuration = 65;
+    let isNavigating = false;
+    let transitionOverlay = null;
+    let activeAnimations = [];
+
+    const readTransitionFlag = function() {
+      try {
+        const isPending = window.sessionStorage.getItem(transitionKey) === 'pending';
+        if (isPending) window.sessionStorage.removeItem(transitionKey);
+        return isPending;
+      } catch (error) {
+        return false;
+      }
+    };
+
+    const writeTransitionFlag = function() {
+      try {
+        window.sessionStorage.setItem(transitionKey, 'pending');
+      } catch (error) {
+        // Navigation still works if storage is unavailable.
+      }
+    };
+
+    const getTransitionColor = function() {
+      const bodyColor = window.getComputedStyle(document.body).backgroundColor;
+      return bodyColor && bodyColor !== 'rgba(0, 0, 0, 0)' && bodyColor !== 'transparent'
+        ? bodyColor
+        : '#0f1724';
+    };
+
+    const createOverlay = function(initialOpacity) {
+      if (transitionOverlay) transitionOverlay.remove();
+      const overlay = document.createElement('div');
+      overlay.setAttribute('aria-hidden', 'true');
+      Object.assign(overlay.style, {
+        position: 'fixed',
+        inset: '0',
+        zIndex: '2147483647',
+        pointerEvents: 'none',
+        background: getTransitionColor(),
+        opacity: String(initialOpacity)
+      });
+      document.body.appendChild(overlay);
+      transitionOverlay = overlay;
+      return overlay;
+    };
+
+    const clearTransition = function() {
+      activeAnimations.forEach(function(animation) { animation.cancel(); });
+      activeAnimations = [];
+      if (transitionOverlay) transitionOverlay.remove();
+      transitionOverlay = null;
+      document.documentElement.classList.remove('portfolio-page-transition-pending');
+      isNavigating = false;
+    };
+
+    const hasPendingTransition = readTransitionFlag();
+    if (hasPendingTransition && !reducedMotion.matches && typeof Element.prototype.animate === 'function') {
+      const startEntrance = function() {
+        document.documentElement.classList.remove('portfolio-page-transition-pending');
+        const entrance = document.body.animate([
+          { opacity: 0.72 },
+          { opacity: 1 }
+        ], {
+          duration: 85,
+          easing: 'cubic-bezier(0.2, 0.78, 0.2, 1)',
+          fill: 'forwards'
+        });
+        activeAnimations.push(entrance);
+        entrance.finished.then(clearTransition).catch(clearTransition);
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startEntrance, { once: true });
+      } else {
+        startEntrance();
+      }
+    } else {
+      document.documentElement.classList.remove('portfolio-page-transition-pending');
+    }
+
+    document.addEventListener('click', function(event) {
+      if (event.defaultPrevented || isNavigating || reducedMotion.matches) return;
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const link = event.target.closest('a[href]');
+      if (!link || link.hasAttribute('download') || link.target === '_blank') return;
+
+      let destination;
+      try {
+        destination = new URL(link.href, window.location.href);
+      } catch (error) {
+        return;
+      }
+
+      if (!/^https?:$/.test(destination.protocol) || destination.origin !== window.location.origin) return;
+      const currentDocument = window.location.pathname + window.location.search;
+      const destinationDocument = destination.pathname + destination.search;
+      if (destinationDocument === currentDocument) return;
+      if (/\.pdf$/i.test(destination.pathname) || typeof Element.prototype.animate !== 'function') return;
+
+      event.preventDefault();
+      isNavigating = true;
+      writeTransitionFlag();
+
+      const overlay = createOverlay(0);
+      const overlayAnimation = overlay.animate([
+        { opacity: 0 },
+        { opacity: 1 }
+      ], {
+        duration: transitionDuration,
+        easing: 'cubic-bezier(0.4, 0, 0.6, 1)',
+        fill: 'forwards'
+      });
+      activeAnimations.push(overlayAnimation);
+
+      const pageSurfaces = Array.from(document.querySelectorAll('body > .nav, body > main'));
+      pageSurfaces.forEach(function(surface) {
+        const animation = surface.animate([
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+          { opacity: 0.9, transform: 'translate3d(0, -2px, 0)' }
+        ], {
+          duration: transitionDuration,
+          easing: 'cubic-bezier(0.4, 0, 0.6, 1)',
+          fill: 'forwards'
+        });
+        activeAnimations.push(animation);
+      });
+
+      let navigationCommitted = false;
+      const navigate = function() {
+        if (navigationCommitted) return;
+        navigationCommitted = true;
+        window.location.assign(destination.href);
+      };
+      overlayAnimation.finished.then(navigate).catch(navigate);
+      window.setTimeout(function() {
+        if (isNavigating) navigate();
+      }, transitionDuration + 65);
+    });
+
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) clearTransition();
+    });
+  };
+
+  initializePageNavigationTransition();
 
   window.PortfolioNavigation = { isDrawerOpen, setDrawerOpen };
 })();

@@ -579,7 +579,7 @@
         if (targetSet.has(element)) return;
         targetSet.add(element);
         targets.push(element);
-        targetDelays.set(element, Math.min(index, 4) * 65);
+        targetDelays.set(element, Math.min(index, 4) * 45);
       });
     }
 
@@ -624,12 +624,12 @@
 
       element.style.willChange = 'opacity, transform';
       const animation = element.animate([
-        { opacity: 0, transform: 'translate3d(0, -64px, 0) scale(0.985)' },
-        { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' }
+        { opacity: 0, transform: 'translate3d(0, 16px, 0)' },
+        { opacity: 1, transform: 'translate3d(0, 0, 0)' }
       ], {
-        duration: 580,
+        duration: 520,
         delay: targetDelays.get(element) || 0,
-        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        easing: 'cubic-bezier(0.2, 0.78, 0.2, 1)',
         fill: 'both'
       });
 
@@ -651,7 +651,7 @@
 
     targets.forEach(element => {
       element.style.opacity = '0';
-      element.style.transform = 'translate3d(0, -64px, 0) scale(0.985)';
+      element.style.transform = 'translate3d(0, 16px, 0)';
     });
 
     observer = new IntersectionObserver(entries => {
