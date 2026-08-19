@@ -2858,6 +2858,7 @@
       const trigger = activeProjectPreviewTrigger;
       projectPreview.hidden = true;
       if (previewBackdrop) previewBackdrop.hidden = true;
+      document.documentElement.classList.remove('career-preview-open');
       document.body.classList.remove('career-preview-open');
       projectPreview.classList.remove('is-open', 'is-dragging');
       projectPreview.style.left = '';
@@ -2939,6 +2940,7 @@
         previewBackdrop.hidden = false;
       }
       if (previewFloatingActions) previewFloatingActions.hidden = false;
+      document.documentElement.classList.add('career-preview-open');
       document.body.classList.add('career-preview-open');
       window.requestAnimationFrame(function() {
         if (activeProjectPreviewTrigger !== trigger || projectPreview.hidden) return;
