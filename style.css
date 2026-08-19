@@ -11866,7 +11866,20 @@ body.career-preview-open {
   }
 
   html[data-portfolio-mode="enhanced"] body .career-tab__compact {
-    display: inline;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  html[data-portfolio-mode="enhanced"] body #career-tab-experience .career-tab__compact,
+  html[data-portfolio-mode="enhanced"] body #career-tab-credentials .career-tab__compact {
+    padding-right: 5px;
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 8px), transparent 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 8px), transparent 100%);
   }
 
   html[data-portfolio-mode="enhanced"] body .career-tab {
@@ -11877,7 +11890,7 @@ body.career-preview-open {
     overflow: hidden;
     font-size: clamp(.62rem, 2.65vw, .73rem);
     letter-spacing: .035em;
-    text-overflow: clip;
+    text-overflow: ellipsis;
   }
 
   html[data-portfolio-mode="enhanced"] body #drawer .drawer-console-actions > .drawer-console-close {
