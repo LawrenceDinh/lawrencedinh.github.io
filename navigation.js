@@ -80,7 +80,7 @@
     }
   };
 
-  const projectSectionLinks = Array.from(document.querySelectorAll('.projects-section-links a[href^="#"], [data-projects-menu] .nav-about-menu a[href^="#"]'));
+  const projectSectionLinks = Array.from(document.querySelectorAll('.portfolio-page-header__nav a[href^="#"], [data-projects-menu] .nav-about-menu a[href^="#"]'));
   if (projectSectionLinks.length) {
     const sectionLinkReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sectionTargets = projectSectionLinks.map(function(link) {
@@ -166,6 +166,12 @@
         if (!record.target.getClientRects().length) return;
         if (record.target.getBoundingClientRect().top <= activationLine) activeRecord = record;
       });
+      if (!activeRecord) {
+        activeRecord = sectionTargets.find(function(record) {
+          const bounds = record.target.getBoundingClientRect();
+          return record.target.getClientRects().length && bounds.top < window.innerHeight && bounds.bottom > activationLine;
+        });
+      }
       const documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
       const atPageBottom = window.scrollY + window.innerHeight >= documentHeight - 6;
       if (atPageBottom) {
@@ -184,6 +190,7 @@
 
     projectSectionLinks.forEach(function (link) {
       link.addEventListener('click', function (event) {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         const targetId = link.getAttribute('href');
         if (!targetId || targetId === '#') return;
 
@@ -205,6 +212,7 @@
 
     window.addEventListener('scroll', scheduleActiveSectionUpdate, { passive: true });
     window.addEventListener('resize', scheduleActiveSectionUpdate, { passive: true });
+    window.addEventListener('portfolio:sections-ready', scheduleActiveSectionUpdate);
     window.addEventListener('hashchange', function() {
       const matchingRecord = sectionTargets.find(function(record) { return record.id === window.location.hash; });
       if (!matchingRecord) return;
@@ -245,7 +253,7 @@
   const ABOUT_CLOSE_DELAY_MS = 300;
   const CONTACT = Object.freeze({
     email: 'lawrencetdinh@gmail.com',
-    resume: 'Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf',
+    resume: '/Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf',
     linkedin: 'https://www.linkedin.com/in/lawrence-dinh-profile/',
     github: 'https://github.com/LawrenceDinh',
     location: 'San Jose, CA',
@@ -293,7 +301,10 @@
     const isArticle = Boolean(document.getElementById('article-body'));
     const isWriting = body.classList.contains('writing-page');
     const isProjects = body.classList.contains('projects-page');
-    const homePrefix = isProjects || isWriting ? 'index.html' : '';
+    const homePrefix = isProjects || isWriting ? '/index.html' : '';
+    if (body.classList.contains('game-design-page')) {
+      return { label: 'On this page', rows: Array.from(document.querySelectorAll('[data-game-section]')).map(section => ({ label: section.dataset.gameSection, href: '#' + section.id })), current: 'Game Design', secondary: true };
+    }
 
     if (isArticle) {
       const tocLinks = Array.from(document.querySelectorAll('#writing-toc-list a[href^="#"]'))
@@ -356,7 +367,7 @@
     if (!page.secondary) return null;
     const link = document.createElement('a');
     link.className = 'drawer-console-return';
-    link.href = 'index.html#about';
+    link.href = '/#about';
     link.setAttribute('aria-label', 'Return to the main portfolio');
     const icon = document.createElement('span');
     icon.className = 'drawer-console-return__icon';
@@ -382,13 +393,13 @@
     nav.className = 'drawer-console-breadcrumb';
     nav.setAttribute('aria-label', 'Navigation path');
     const portfolio = document.createElement('a');
-    portfolio.href = 'index.html#about';
+    portfolio.href = '/#about';
     portfolio.textContent = 'Main Portfolio';
     const slashOne = document.createElement('span');
     slashOne.setAttribute('aria-hidden', 'true');
     slashOne.textContent = '/';
     const writing = document.createElement('a');
-    writing.href = 'writing.html';
+    writing.href = '/writing.html';
     writing.textContent = 'Writing';
     const slashTwo = document.createElement('span');
     slashTwo.setAttribute('aria-hidden', 'true');
@@ -408,11 +419,14 @@
     if (!modeToggle || !resume || !contact) return;
 
     const page = getPhoneDrawerPage();
-    const portfolioRows = [
-      { label: 'Projects', href: 'projects.html', current: page.current === 'Projects' },
-      { label: 'Writing', href: 'writing.html', current: page.current === 'Writing' }
+    const projectRows = [
+      { label: 'Projects', href: '/projects.html', current: page.current === 'Projects' },
+      { label: 'Game Design', href: '/game-design/', current: page.current === 'Game Design' }
     ];
-    const total = page.rows.length + portfolioRows.length;
+    const portfolioRows = [
+      { label: 'Writing', href: '/writing.html', current: page.current === 'Writing' }
+    ];
+    const total = page.rows.length + projectRows.length + portfolioRows.length;
     const heading = document.createElement('header');
     heading.className = 'drawer-console-heading';
     const headingTitle = document.createElement('p');
@@ -440,7 +454,8 @@
       body.appendChild(group);
     };
     addGroup(page.label, page.rows, 1);
-    addGroup('Portfolio', portfolioRows, page.rows.length + 1);
+    addGroup('Projects', projectRows, page.rows.length + 1);
+    addGroup('Portfolio', portfolioRows, page.rows.length + projectRows.length + 1);
 
     const actions = document.createElement('div');
     actions.className = 'drawer-console-actions';
@@ -584,6 +599,21 @@
   function bindContactDisclosure() {
     contactDisclosure = initializeContactDisclosure();
     if (!contactDisclosure) return;
+    const contactContent = contactDisclosure.desktopPanel.querySelector('#contactPanel');
+    let feedbackTimer, feedbackAnimation;
+    const highlightContact = () => {
+      clearTimeout(feedbackTimer);
+      feedbackAnimation?.cancel();
+      contactContent.classList.add('highlight-border');
+      feedbackTimer = setTimeout(() => contactContent.classList.remove('highlight-border'), 700);
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && contactContent.animate) {
+        feedbackAnimation = contactContent.animate([
+          { transform: 'translateX(0)' }, { transform: 'translateX(-4px)' },
+          { transform: 'translateX(4px)' }, { transform: 'translateX(-3px)' },
+          { transform: 'translateX(3px)' }, { transform: 'translateX(0)' }
+        ], { duration: 320, easing: 'ease-in-out' });
+      }
+    };
     ['desktop', 'mobile'].forEach(type => {
       const trigger = contactDisclosure[`${type}Trigger`];
       const panel = contactDisclosure[`${type}Panel`];
@@ -591,12 +621,12 @@
         if (!isEnhancedMode()) return;
         event.preventDefault();
         event.stopImmediatePropagation();
-        const open = !contactIsOpen(type);
+        if (contactIsOpen(type)) { highlightContact(); return; }
         closePortfolioMenus();
         setAboutMenuOpen(false);
         setProjectsMenuOpen(false);
         closeContactDisclosures(type);
-        setContactOpen(type, open);
+        setContactOpen(type, true);
       });
     });
     const copyButton = contactDisclosure.desktopPanel.querySelector('[data-contact-copy]');
@@ -1053,7 +1083,7 @@
       Array.from(label).forEach(character => {
         const span = document.createElement('span');
         span.className = 'nav-label-char';
-        span.textContent = character;
+        span.textContent = character === ' ' ? '\u00a0' : character;
         visual.appendChild(span);
       });
       const cursor = document.createElement('span');
@@ -1339,6 +1369,64 @@
     });
   };
 
+  // Hint at the next content without withholding what is already in view.
+  const initializePortfolioScrollCue = function() {
+    if (!document.body.classList.contains('portfolio-index-page') || window.scrollY > 0 || window.location.hash) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let cue = null;
+    let dismissed = false;
+
+    const dismiss = function() {
+      if (dismissed) return;
+      dismissed = true;
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', update);
+      window.removeEventListener('load', update);
+      window.removeEventListener('pageshow', update);
+      window.removeEventListener('portfolio:sections-ready', update);
+      document.removeEventListener('focusin', onFocus);
+      if (!cue) return;
+      const fadingCue = cue;
+      cue = null;
+      fadingCue.classList.remove('is-visible');
+      if (reducedMotion.matches) fadingCue.remove();
+      else window.setTimeout(function() { fadingCue.remove(); }, 240);
+    };
+    const onScroll = function() {
+      if (window.scrollY > 0) dismiss();
+    };
+    const onFocus = function(event) {
+      if (cue && event.target instanceof Element && event.target.getBoundingClientRect().bottom > cue.getBoundingClientRect().top) dismiss();
+    };
+    const update = function() {
+      if (dismissed) return;
+      if (window.scrollY > 0 || window.location.hash) { dismiss(); return; }
+      if (document.documentElement.scrollHeight <= window.innerHeight + 1) {
+        if (cue) cue.remove();
+        cue = null;
+        return;
+      }
+      if (cue) return;
+      cue = document.createElement('div');
+      cue.className = 'portfolio-scroll-cue';
+      cue.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(cue);
+      void cue.offsetHeight;
+      window.requestAnimationFrame(function() {
+        if (cue && !dismissed) cue.classList.add('is-visible');
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('load', update);
+    window.addEventListener('pageshow', update);
+    window.addEventListener('portfolio:sections-ready', update);
+    document.addEventListener('focusin', onFocus);
+    update();
+  };
+
+  initializePortfolioScrollCue();
   initializePageNavigationTransition();
 
   window.PortfolioNavigation = { isDrawerOpen, setDrawerOpen };

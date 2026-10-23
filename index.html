@@ -87,7 +87,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260818-38">
+  <link rel="stylesheet" href="style.css?v=20261022-2">
   <script src="display-mode.js?v=20260818-2"></script>
 </head>
 <body>
@@ -115,9 +115,10 @@
   <div class="nav-about nav-projects-menu" data-projects-menu>
     <a class="nav-about-link nav-primary-destination nav-projects-link" href="projects.html">Projects</a>
     <button class="nav-about-toggle" type="button" aria-label="Open Project destinations" aria-expanded="false" aria-controls="projectsMenuDesktop"><span class="nav-about-chevron" aria-hidden="true"></span></button>
-    <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="projects.html#featured-case-study">Featured Projects</a><a href="projects.html#current-projects">Active Work</a><a href="projects.html#academic-projects">Earlier Work</a></div>
+    <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="projects.html#featured-case-study">Featured Projects</a><a href="projects.html#current-projects">Active Work</a><a href="projects.html#academic-projects">Earlier Work</a><a href="/game-design/">Game Design</a></div>
   </div>
-  <a class="nav-primary-destination" href="writing.html">Writing</a>
+
+      <a class="nav-primary-destination" href="writing.html">Writing</a>
   </div>
 <a href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf"
    target="_blank"
@@ -165,8 +166,8 @@
   </div>
   <a href="#experience">Experience</a>
   <a href="#skills">Skills</a>
-  <a href="projects.html">Projects</a>
-  <a href="writing.html">Writing</a>
+  <div class="drawer-about"><a href="projects.html">Projects</a><div class="drawer-about-submenu"><a class="nav-primary-destination" href="/game-design/">Game Design</a></div></div>
+      <a href="writing.html">Writing</a>
   <a href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf" target="_blank" rel="noopener" class="highlight">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M8 2v10M4 8l4 4 4-4M2 14h12"/>
@@ -212,7 +213,7 @@
   <div class="hero-panels">
     <!-- Top Panel: Name, title and tagline -->
     <div class="hero-top">
-      <h1 id="hero-heading" class="name"><span class="hero-nameplate" data-nameplate-scramble aria-label="Lawrence Dinh"><span class="hero-nameplate__text" data-nameplate-scramble-text aria-hidden="true">Lawrence Dinh</span></span></h1>
+      <h1 id="hero-heading" class="name"><span class="hero-nameplate" data-nameplate-scramble role="img" aria-label="Lawrence Dinh"><span class="hero-nameplate__text" data-nameplate-scramble-text aria-hidden="true">Lawrence Dinh</span></span></h1>
       <div class="title hero-identity-simple">Software & Systems Engineer | Operations Specialist</div>
       <div class="title hero-identity-enhanced enhanced-only">Software &amp; Systems Engineer</div>
 <div class="tagline hero-identity-simple">
@@ -350,7 +351,7 @@
           </article>
           <article class="career-experience-card" role="listitem">
             <aside class="career-experience-card__identity"><div class="career-experience-card__identity-main"><span class="hero-company-mark" aria-hidden="true"><img src="imgsrc/logos/shapescapelogo.png" alt="" decoding="async"></span><div><span>Game Level Designer</span><h3>Shapescape</h3><time datetime="2016-02/2019-02">February 2016 – February 2019</time></div><b>Interactive Systems</b></div></aside>
-              <div class="career-experience-card__body"><section class="career-experience-card__scope"><h4>Role Scope</h4><p>Interactive environment design, server and plugin systems, UX, and production quality.</p></section><section class="career-experience-card__work"><div><b>01 / Environment Design</b><p>Designed and refined production-ready interactive environments.</p></div><div><b>02 / Systems &amp; UX</b><p>Worked with server and plugin systems while evaluating usability.</p></div><div><b>03 / Quality Review</b><p>Performed visual, functional, and player-experience reviews.</p></div></section><div class="career-experience-card__environment"><b>Environment</b><span>Server and plugin systems · UX · Production workflows · Quality review</span></div></div>
+              <div class="career-experience-card__body"><section class="career-experience-card__scope"><h4>Role Scope</h4><p>Interactive environment design, server and plugin systems, UX, and production quality.</p><a class="game-work-link" href="/game-design/">View game projects &rarr;</a></section><section class="career-experience-card__work"><div><b>01 / Environment Design</b><p>Designed and refined production-ready interactive environments.</p></div><div><b>02 / Systems &amp; UX</b><p>Worked with server and plugin systems while evaluating usability.</p></div><div><b>03 / Quality Review</b><p>Performed visual, functional, and player-experience reviews.</p></div></section><div class="career-experience-card__environment"><b>Environment</b><span>Server and plugin systems · UX · Production workflows · Quality review</span></div></div>
           </article>
         </div>
           </div>
@@ -382,6 +383,15 @@
           </section>
           <section class="career-project-column career-project-column--supporting">
             <div class="career-project-support-grid">
+              <article class="career-project-support-card career-project-support-card--wide game-work-card">
+                <a class="career-project-card-link" href="/game-design/">
+                  <img src="/imgsrc/game-design/opblocks-candy-environments/view-01-480.webp" width="480" height="270" loading="lazy" decoding="async" alt="Candy-colored Minecraft hub with striped towers and a purple waterway">
+                  <div class="career-project-support-card__top"><span>Game Environments &amp; Level Design</span><b>BassFreerunning</b></div>
+                  <h3>Game Design</h3>
+                  <p>Commissioned Minecraft environments, multiplayer maps, and creative studies.</p>
+                  <span class="career-project-feature-card__action">View game projects <span aria-hidden="true">&rarr;</span></span>
+                </a>
+              </article>
               <article class="career-project-support-card">
                 <a class="career-project-card-link" href="projects.html?project=drift-course-designer#featured-case-study">
                   <div class="career-project-support-card__top"><span>02 / Course Design</span><b>Live Tool</b></div>
@@ -810,7 +820,7 @@
       </div>
       </div>
       <div class="job-card-content body">
-        <p class="small muted">Large scale 3D environments, scripting, QA and collaboration with remote teams.</p>
+        <p class="small muted">Large scale 3D environments, scripting, QA and collaboration with remote teams.</p><a class="game-work-link" href="/game-design/">View game projects &rarr;</a>
         <div class="job-tags enhanced-only" aria-label="Shapescape capabilities"><span>3D environments</span><span>Interactive scripting</span><span>QA &amp; triage</span><span>Documentation</span></div>
         <span class="job-explore enhanced-only" aria-hidden="true">Explore →</span>
         <ul class="bullets">
@@ -1246,7 +1256,7 @@
         </div>
 
         <div class="contact-grid">
-          <div class="contact-item contact-item-email" role="button" tabindex="0" data-copy-text="lawrencetdinh@gmail.com" aria-label="Copy email address lawrencetdinh@gmail.com">
+          <div class="contact-item contact-item-email" role="group" data-copy-text="lawrencetdinh@gmail.com" aria-label="Email contact">
             <svg class="inline-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v11A2.5 2.5 0 0119.5 20h-15A2.5 2.5 0 012 17.5v-11z" stroke="currentColor" stroke-width="1.2"></path><path d="M3.5 6.7l8.2 5.2a1 1 0 001.06 0l8.2-5.2" stroke="currentColor" stroke-width="1.2"></path></svg>
             <div class="contact-copy">
               <div class="small muted">Email</div>
@@ -1317,10 +1327,10 @@
   </footer>
 </div>
 </main>
-<script src="navigation.js?v=20260818-16"></script>
+<script src="navigation.js?v=20261023-1"></script>
   <script src="carousel-interaction.js?v=20260720-4"></script>
-  <script src="project-image-viewer.js?v=20260720-3"></script>
-  <script src="script.js?v=20260818-10"></script>
+  <script src="project-image-viewer.js?v=20261023-4"></script>
+  <script src="script.js?v=20261006-1"></script>
   <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

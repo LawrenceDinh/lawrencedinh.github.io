@@ -1,0 +1,88 @@
+[
+  {
+    "id": "process",
+    "original": "/imgsrc/game-design/autumn-wind/process-animated.webp",
+    "width": 640,
+    "height": 640,
+    "contentType": "image/webp",
+    "sha256": "72b5fbb827714bf8ea653d8a4d7529ef4ca4643d3a162e6cba158d8dcf08ad0e",
+    "variants": [
+      {
+        "src": "/imgsrc/game-design/autumn-wind/process-480.webp",
+        "width": 480,
+        "height": 480
+      },
+      {
+        "src": "/imgsrc/game-design/autumn-wind/process-960.webp",
+        "width": 960,
+        "height": 960
+      }
+    ],
+    "slug": "autumn-wind",
+    "originalSourceUrl": "https://i.imgur.com/WcCSYIw.gif",
+    "sourceProject": "https://www.planetminecraft.com/project/autumn-wind-of-the-red-leaf-maple---/",
+    "alt": "Animated view of the completed build.",
+    "caption": "Animated view of the completed build.",
+    "credit": "",
+    "sourceSha256": "68b32c604964fe95a75593ef0c3838669267ebf7f88b9600b8ce7caf6c5c5adf",
+    "reducedMotionSrc": "/imgsrc/game-design/autumn-wind/process-960.webp",
+    "originalArchive": "output/autumn-reference/originals/process.gif",
+    "sourceWidth": 960,
+    "sourceHeight": 960,
+    "inlineVideo": {
+      "src": "/imgsrc/game-design/autumn-wind/process-loop.mp4",
+      "contentType": "video/mp4",
+      "width": 640,
+      "height": 640,
+      "bytes": 1595513,
+      "sha256": "f858f6d50c2cf13f636d4b1a545e9aa6a62ce3249befc4829e5b686c06881be6"
+    }
+  },
+  {
+    "id": "ceramics",
+    "original": "/imgsrc/game-design/autumn-wind/ceramics.jpg",
+    "width": 320,
+    "height": 281,
+    "contentType": "image/jpeg",
+    "sha256": "c892f41c2e67dc9457be531fa22d0132313bfd5e1439743e6c883364633d0b3b",
+    "variants": [
+      {
+        "src": "/imgsrc/game-design/autumn-wind/ceramics-320.webp",
+        "width": 320,
+        "height": 281
+      }
+    ],
+    "slug": "autumn-wind",
+    "originalSourceUrl": "https://i.imgur.com/ZcPlpcY.jpg",
+    "sourceProject": "https://www.planetminecraft.com/project/autumn-wind-of-the-red-leaf-maple---/",
+    "alt": "Japanese ceramic tea bowl.",
+    "caption": "Japanese ceramic tea bowl.",
+    "credit": ""
+  },
+  {
+    "id": "bonsai",
+    "original": "/imgsrc/game-design/autumn-wind/bonsai.jpg",
+    "width": 768,
+    "height": 768,
+    "contentType": "image/jpeg",
+    "sha256": "f67fbb2cab40c52a5e9c9c60eb4d98e05ef615303bfe2e71890d07b4dba63b88",
+    "variants": [
+      {
+        "src": "/imgsrc/game-design/autumn-wind/bonsai-480.webp",
+        "width": 480,
+        "height": 480
+      },
+      {
+        "src": "/imgsrc/game-design/autumn-wind/bonsai-768.webp",
+        "width": 768,
+        "height": 768
+      }
+    ],
+    "slug": "autumn-wind",
+    "originalSourceUrl": "https://i.imgur.com/4mZA4gM.jpg",
+    "sourceProject": "https://www.planetminecraft.com/project/autumn-wind-of-the-red-leaf-maple---/",
+    "alt": "Bonsai tree.",
+    "caption": "Bonsai tree.",
+    "credit": ""
+  }
+]

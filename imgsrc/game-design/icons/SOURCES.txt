@@ -1,0 +1,20 @@
+environment-creation.png
+Classic Minecraft wooden axe texture, matching the user-supplied reference.
+Source: https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.12/assets/minecraft/textures/items/wood_axe.png
+
+server-administration.png
+Spigot logo supplied by the user; background removed using the imagegen skill.
+
+server-command-block.png
+Classic Minecraft command block render matching the user-provided reference.
+Source: https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/ea/Impulse_Command_Block_JE1.png/revision/latest?format=original
+
+gameplay-villager.png
+User-supplied villager reference, cropped to a square face portrait using the imagegen skill.
+
+gameplay-villager-upper-body.png
+User-supplied villager reference, reframed to include head, shoulders, and crossed arms using the imagegen skill.
+
+production-grass-block.png
+Minecraft grass block render matching the user-provided Production icon.
+Source: https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/93/Grass_Block_JE7_BE6.png/revision/latest?format=original

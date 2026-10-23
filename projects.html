@@ -41,11 +41,11 @@
     "inLanguage": "en-US"
   }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260818-38" />
-  <link rel="stylesheet" href="projects.css?v=20260728-15" />
+  <link rel="stylesheet" href="style.css?v=20261022-2" />
+  <link rel="stylesheet" href="projects.css?v=20261021-3" />
   <script src="display-mode.js?v=20260818-2"></script>
 </head>
-<body class="projects-page">
+<body class="projects-page portfolio-index-page">
   <a class="projects-skip-link" href="#projects-content">Skip to project content</a>
 
   <header class="nav" role="banner" aria-label="Main navigation">
@@ -67,9 +67,10 @@
             <div class="nav-about nav-projects-menu" data-projects-menu>
               <a class="nav-about-link nav-primary-destination nav-projects-link" href="projects.html" aria-current="page">Projects</a>
               <button class="nav-about-toggle" type="button" aria-label="Open Project destinations" aria-expanded="false" aria-controls="projectsMenuDesktop"><span class="nav-about-chevron" aria-hidden="true"></span></button>
-              <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="#featured-case-study">Featured Projects</a><a href="#current-projects">Active Work</a><a href="#academic-projects">Earlier Work</a></div>
+              <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="#featured-case-study">Featured Projects</a><a href="#current-projects">Active Work</a><a href="#academic-projects">Earlier Work</a><a href="/game-design/">Game Design</a></div>
             </div>
-            <a class="nav-primary-destination" href="writing.html">Writing</a>
+
+      <a class="nav-primary-destination" href="writing.html">Writing</a>
           </div>
           <a href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf" target="_blank" rel="noopener" class="highlight" aria-label="Resume (opens in new tab)">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>
@@ -97,7 +98,7 @@
       <div class="drawer-about"><a href="index.html#about">About</a><div class="drawer-about-submenu"><a href="index.html#about">Overview</a><a href="index.html#projects">Featured</a></div></div>
       <a href="index.html#experience">Experience</a>
       <a href="index.html#skills">Skills</a>
-      <a href="projects.html" aria-current="page">Projects</a>
+      <div class="drawer-about"><a href="projects.html" aria-current="page">Projects</a><div class="drawer-about-submenu"><a class="nav-primary-destination" href="/game-design/">Game Design</a></div></div>
       <a href="writing.html">Writing</a>
       <a href="Luat%20Lawrence%20Dinh%20%E2%80%93%20Software%20%26%20Systems%20Engineer%20Resume.pdf" target="_blank" rel="noopener" class="highlight">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2v10M4 8l4 4 4-4M2 14h12"/></svg>Resume
@@ -117,27 +118,11 @@
     <span class="back-to-top-text" aria-hidden="true">TOP</span>
   </button>
 
-  <main id="projects-content" class="projects-shell">
-    <section class="projects-intro portfolio-page-hero" aria-labelledby="projects-heading">
-      <div class="portfolio-page-hero__identity">
-        <p class="projects-eyebrow portfolio-page-hero__breadcrumb">Portfolio / Projects</p>
-        <h1 class="portfolio-page-hero__title" id="projects-heading">Projects</h1>
-      </div>
-      <div class="projects-intro__copy portfolio-page-hero__context">
-        <p class="portfolio-page-hero__description">Selected software, data, embedded-systems, and vehicle-validation work developed around real planning, sensing, and operational problems.</p>
-        <nav class="projects-section-links portfolio-page-hero__secondary" aria-label="Project page sections">
-          <a href="#featured-case-study">Featured Projects</a>
-          <a href="#current-projects">Active Work</a>
-          <a href="#academic-projects">Earlier Work</a>
-        </nav>
-      </div>
-    </section>
+  <main id="projects-content" class="projects-shell portfolio-page-shell">
+    <h1 class="portfolio-page-title" id="projects-heading">Projects</h1>
 
     <section id="featured-case-study" class="projects-featured" aria-labelledby="featured-case-studies-heading">
-      <header class="projects-featured__header">
-        <h2 id="featured-case-studies-heading">Featured Projects</h2>
-        <p>Applied tools for regional planning and drift-course design.</p>
-      </header>
+      <h2 class="projects-sr" id="featured-case-studies-heading">Featured Projects</h2>
       <div class="projects-featured-selector" role="tablist" aria-label="Featured Projects">
         <button id="featured-tab-drift" type="button" role="tab" aria-selected="true" aria-controls="drift-course-designer" tabindex="0" data-featured-project="drift-course-designer">
           <span class="projects-featured-selector__number">01</span>
@@ -252,7 +237,7 @@
               <span class="projects-case-study__title-index" aria-label="Project 01">01</span>
               <h2 id="drift-course-title">Drift Course Designer</h2>
             </div>
-            <p class="projects-case-study__purpose">Drift Course Designer converts sketched drift layouts into editable, venue-based course plans with path refinement, operational annotations, geometry review, and export.</p>
+            <p class="projects-case-study__purpose">Drift Course Designer helps drift event organizers explore course layouts, review ideas together, and refine a plan before setup at the venue.</p>
             <a class="projects-case-study__launch" href="/tools/drift-course-designer/">
               <span class="projects-case-study__launch-copy">
                 <small>Open the browser tool</small>
@@ -420,10 +405,11 @@
       <a href="index.html"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M14 8H2M7 3l-5 5 5 5"/></svg>Back to Portfolio</a>
     </footer>
   </main>
-<script src="navigation.js?v=20260818-16"></script>
+<script src="navigation.js?v=20261023-1"></script>
 <script src="carousel-interaction.js?v=20260720-4"></script>
-<script src="project-image-viewer.js?v=20260720-3"></script>
-<script src="projects-explorer.js?v=20260818-7"></script>
+<script src="project-image-viewer.js?v=20261023-4"></script>
+<script src="portfolio-entrance.js?v=20261021-2"></script>
+<script src="projects-explorer.js?v=20261021-2"></script>
 <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

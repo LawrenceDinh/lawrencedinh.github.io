@@ -1,0 +1,583 @@
+/* Page-specific composition. Shared site variables, header, buttons and viewer remain canonical. */
+.game-design-page { --gd-border: var(--enhanced-border,rgba(154,164,178,.3)); --gd-copy: var(--enhanced-text-body,var(--text)); --gd-divider: var(--enhanced-divider,var(--gd-border)); }
+.game-design-page .gd-shell:not(.portfolio-page-shell) { max-width: 1280px; padding: 16px var(--portfolio-page-gutter,20px) 0; margin: 0 auto; }
+.game-design-page .gd-shell section { scroll-margin-top: 100px; }
+
+.game-design-page .gd-eyebrow { margin: 0 0 8px; font: 700 .72rem/1.5 var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+.game-design-page h1 { margin: 0 0 12px; font-size: clamp(2rem,3.5vw,3.2rem); line-height: 1.08; letter-spacing: -.045em; color: var(--text); }
+.game-design-page h2 { margin: 0; font-size: 1.5rem; line-height: 1.25; letter-spacing: -.025em; color: var(--text); }
+.game-design-page h3 { margin: 4px 0 6px; font-size: 1.13rem; line-height: 1.25; color: var(--text); }
+
+.game-design-page .gd-links { display:flex; flex-wrap:wrap; gap: 4px 24px; margin-top: 10px; }
+.game-design-page .gd-links a, .game-design-page .gd-text-link { display:inline-flex; min-height:44px; align-items:center; color:var(--accent); font-size:.85rem; font-weight:650; }
+.game-design-page .gd-links a:hover, .game-design-page .gd-source-link:hover { text-decoration:underline; text-underline-offset:4px; }
+.game-design-page .gd-mosaic { display:grid; grid-template-columns: minmax(0,29fr) minmax(0,21fr); gap: var(--enhanced-space-5,24px); align-items:start; }
+.game-design-page .gd-card { border: 1px solid var(--gd-border); background: var(--card); border-radius:var(--radius); overflow:hidden; min-width:0; }
+.game-design-page .gd-feature-heading { margin:20px 20px 12px; padding-bottom:12px; border-bottom:1px solid var(--gd-divider); }
+.game-design-page .gd-feature-heading h1 { margin:0; font-size:1.5rem; line-height:1.25; letter-spacing:-.025em; }
+.game-design-page .gd-card-link { display:flex; flex-direction:column; height:100%; }
+.game-design-page .gd-card-image { aspect-ratio: 16/9; overflow:hidden; background:var(--glass); }
+.game-design-page .gd-card-image img { width:100%; height:100%; object-fit:cover; }
+.game-design-page .gd-card--lead .gd-card-image { flex:none; aspect-ratio:16/9; margin:0 20px; border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px); }
+.game-design-page .gd-card-copy { padding:13px 16px 15px; }
+.game-design-page .gd-card-copy p:not(.gd-meta) { margin:0; font-size:.86rem; line-height:1.45; color:var(--gd-copy); }
+.game-design-page .gd-meta { margin:0 0 4px; font:600 .72rem/1.5 var(--mono); color:var(--accent); }
+.game-design-page .gd-card h3 span, .game-design-page .gd-related h3 span { color:var(--accent); }
+.game-design-page .gd-card-link:hover h3 { color:var(--accent); }
+.game-design-page .gd-card--lead .gd-card-copy { padding:16px 20px; }
+.game-design-page .gd-card--lead h3 { margin:8px 0; font-size:1.5rem; line-height:1.25; }
+.game-design-page .gd-card--lead .gd-card-copy p:not(.gd-meta) { font-size:var(--enhanced-type-body,.94rem); line-height:var(--enhanced-body-leading,1.6); font-weight:400; }
+.game-design-page .gd-feature-footer { margin:0 20px; padding:8px 0; border-top:1px solid var(--gd-divider); }
+.game-design-page .gd-capabilities { min-width:0; padding:20px; border:1px solid var(--gd-border); border-radius:var(--radius); background:var(--card); }
+.game-design-page .gd-capabilities-header { padding-bottom:12px; border-bottom:1px solid var(--gd-divider); }
+.game-design-page .gd-capabilities-header h3 { margin:0; font-size:1.5rem; line-height:1.25; }
+.game-design-page .gd-capability-list { display:grid; gap:var(--enhanced-space-2,8px); margin:12px 0; }
+.game-design-page .gd-capability-group { min-width:0; padding:var(--enhanced-space-3,12px); border:1px solid var(--gd-divider); border-radius:var(--enhanced-radius-sm,2px); background:var(--enhanced-surface-inset,var(--glass)); }
+.game-design-page .gd-capability-group h4 { color:var(--text); margin:0 0 6px; font-size:1.125rem; line-height:1.3; font-weight:650; }
+.game-design-page .gd-capability-description { margin:0; color:var(--gd-copy); font-size:var(--enhanced-type-body,.94rem); line-height:var(--enhanced-body-leading,1.6); font-weight:400; }
+.game-design-page .gd-capability-tools { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; margin-top:8px; padding-top:8px; border-top:1px solid var(--gd-divider); }
+.game-design-page .gd-tools-label { color:var(--muted); font:500 .6875rem/1.5 var(--mono); letter-spacing:.06em; text-transform:uppercase; }
+.game-design-page .gd-capability-tools p { flex:1 1 220px; margin:0; color:var(--gd-copy); font-size:.8125rem; line-height:1.6; font-weight:400; }
+.game-design-page .gd-tool-name { display:inline-block; }
+.game-design-page .gd-capabilities .gd-capabilities-footer { justify-content:flex-start; margin:0; padding-top:8px; gap:0 20px; border-top:1px solid var(--gd-divider); }
+.game-design-page .gd-capabilities .gd-secondary-link { color:var(--gd-copy); font-weight:500; }
+.game-design-page .gd-section { margin-top:48px; }
+.game-design-page #selected { margin-top:var(--enhanced-space-5,24px); }
+.game-design-page .gd-section-heading { margin-bottom:20px; }
+.game-design-page .gd-selected { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.game-design-page .gd-selected .gd-card-image { aspect-ratio:16/9; }
+.game-design-page .gd-tools { display:grid; grid-template-columns:1fr; gap:20px; padding:24px; border:1px solid var(--gd-border); background:var(--glass); border-radius:var(--radius); }
+.game-design-page .gd-tools > h2 { font-size:1.2rem; padding-bottom:16px; border-bottom:1px solid var(--gd-divider); }
+.game-design-page .gd-tool-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; min-width:0; }
+.game-design-page .gd-tool-group { min-width:0; padding:16px; border:1px solid var(--gd-divider); background:var(--enhanced-surface-inset,var(--glass)); border-radius:var(--enhanced-radius-sm,2px); }
+.game-design-page .gd-tool-group h3 { margin:0 0 12px; font-size:1rem; line-height:1.4; font-weight:650; }
+.game-design-page .gd-tool-group ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 20px; list-style:none; margin:0; padding:0; }
+.game-design-page .gd-tool-group li { min-width:0; padding-top:8px; border-top:1px solid var(--gd-divider); color:var(--gd-copy); font-size:.875rem; line-height:1.5; }
+.game-design-page .gd-tool-group .gd-tool-name { display:inline; }
+.game-design-page [data-tool-group="server"] { grid-column:2; grid-row:1 / span 2; }
+.game-design-page dt { color:var(--muted); font-size:.85rem; }
+.game-design-page dd { margin:0; color:var(--text); }
+.game-design-page .gd-related { display:grid; grid-template-columns:1fr 2fr; align-items:center; gap:28px; border:1px solid var(--gd-border); background:var(--card); border-radius:var(--radius); padding:20px; }
+.game-design-page .gd-related img { width:100%; height:auto; }
+.game-design-page .gd-related p:not(.gd-meta) { max-width:70ch; color:var(--gd-copy); font-size:.94rem; }
+.game-design-page .gd-studies { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px; }
+.game-design-page .gd-study-link { display:block; }
+.game-design-page .gd-study-link img { width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:var(--card); border:1px solid var(--gd-border); }
+.game-design-page .gd-study-link h3 { margin-top:12px; font-size:1rem; }
+.game-design-page .gd-studies p { margin:8px 0; color:var(--gd-copy); font-size:.86rem; }
+.game-design-page .gd-source-link { display:inline-flex; align-items:center; min-height:44px; color:var(--accent); font-size:.8rem; }
+.game-design-page .gd-source-note { margin-top:24px; color:var(--muted); font-size:.85rem; }
+.game-design-page .gd-source-note a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+.game-design-page .gd-contact { display:grid; grid-template-columns:minmax(160px,220px) minmax(0,1fr); align-items:center; gap:24px; margin-top:40px; padding:24px; border:1px solid var(--gd-border); border-left:2px solid var(--accent); border-radius:var(--radius); background:var(--card); }
+.game-design-page .gd-contact .gd-links { margin:0; }
+.game-design-page .gd-breadcrumb { display:flex; flex-wrap:wrap; gap:12px; font-size:.85rem; margin-bottom:28px; color:var(--muted); }
+.game-design-page .gd-breadcrumb a { color:var(--accent); min-height:44px; display:inline-flex; align-items:center; }
+.game-design-page .gd-breadcrumb span { display:inline-flex; align-items:center; }
+.game-design-page .gd-detail-intro { margin-bottom:24px; }
+.game-design-page .gd-detail-intro p:not(.gd-eyebrow) { max-width:80ch; color:var(--gd-copy); font-size:1.04rem; margin:12px 0 0; }
+.game-design-page .gd-figure { margin:0; min-width:0; }
+.game-design-page .gd-enlarge { display:block; position:relative; border:1px solid var(--gd-border); background:var(--card); }
+.game-design-page .gd-enlarge img { width:100%; height:auto; }
+.game-design-page .gd-hero-image img { max-height:680px; object-fit:contain; }
+.game-design-page .gd-image-action { display:block; padding:10px 14px; text-align:right; color:var(--accent); font:600 .75rem/1.5 var(--mono); border-top:1px solid var(--gd-border); }
+.game-design-page figcaption { padding:12px 0; font-size:.85rem; line-height:1.55; color:var(--gd-copy); }
+.game-design-page figcaption span { color:var(--accent); }
+.game-design-page .gd-facts { display:flex; flex-wrap:wrap; gap:20px 40px; padding:24px 0; margin:16px 0 0; border-block:1px solid var(--gd-border); }
+.game-design-page .gd-facts dt { margin-bottom:5px; }
+.game-design-page .gd-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; align-items:start; }
+.game-design-page .gd-sources { border-top:1px solid var(--gd-border); padding-top:24px; }
+.game-design-page .gd-sources p { color:var(--gd-copy); }
+.game-design-page .gd-next { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 24px; margin-top:32px; }
+.game-design-page .gd-next a { color:var(--accent); min-height:44px; display:inline-flex; align-items:center; }
+.game-design-page :is(a,button,summary):focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+.game-design-page .gd-card-link:focus-visible { outline-offset:-3px; }
+.game-design-page .gd-sr { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.game-design-page .gd-skip { position:fixed; top:8px; left:8px; transform:translateY(-200%); z-index:10000; background:var(--card); color:var(--text); padding:12px 16px; border:1px solid var(--accent); }
+.game-design-page .gd-skip:focus { transform:none; }
+/* Shared dialog receives the same palette when the dormant Simple mode is inspected. */
+html[data-portfolio-mode="simple"] .game-design-page .project-image-viewer { --enhanced-divider:rgba(154,164,178,.3); --enhanced-text-heading:var(--text); --enhanced-text-secondary:var(--muted); --enhanced-accent-detail:var(--accent); }
+
+/* Short laptop screens use less whitespace and a contained image, never clipped copy. */
+@media (min-width:1025px) and (max-height:800px) {
+ .game-design-page .gd-shell:not(.portfolio-page-shell) { padding-top:8px; }
+
+ .game-design-page .gd-feature-footer .gd-text-link, .game-design-page .gd-capabilities-footer a { min-height:36px; }
+
+ .game-design-page .gd-feature-heading { margin:16px 16px 8px; padding-bottom:8px; }
+ .game-design-page .gd-card--lead .gd-card-image { margin-inline:16px; }
+ .game-design-page .gd-capabilities { padding:16px; }
+ .game-design-page .gd-capabilities-header { padding-bottom:8px; }
+ .game-design-page .gd-capability-list { margin:8px 0; }
+ .game-design-page .gd-capability-group { padding:10px; }
+ .game-design-page .gd-capability-tools { margin-top:6px; padding-top:6px; }
+ .game-design-page .gd-capabilities .gd-capabilities-footer { padding-top:4px; }
+ .game-design-page .gd-card--lead .gd-card-image { aspect-ratio:auto; }
+ .game-design-page .gd-card--lead .gd-card-image img { height:auto; max-height:calc(100svh - 422px); object-fit:contain; }
+}
+@media (max-width:1024px) {
+ .game-design-page .gd-mosaic { grid-template-columns:1fr; }
+ .game-design-page .gd-selected { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .game-design-page .gd-card--lead .gd-card-image { aspect-ratio:16/9; flex:initial; min-height:0; }
+ .game-design-page .gd-card-image { aspect-ratio:16/9; }
+ .game-design-page .gd-studies { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .game-design-page .gd-tools { grid-template-columns:1fr; gap:16px; }
+}
+@media (max-width:760px) {
+ .game-design-page .gd-shell:not(.portfolio-page-shell) { padding-top:24px; }
+
+ .game-design-page .gd-card--lead .gd-card-copy { padding:20px; }
+ .game-design-page .gd-feature-footer { margin-inline:20px; }
+ .game-design-page .gd-mosaic,.game-design-page .gd-selected,.game-design-page .gd-gallery,.game-design-page .gd-related { grid-template-columns:1fr; }
+  .game-design-page .gd-card--lead .gd-card-image { aspect-ratio:16/9; }
+ .game-design-page .gd-section { margin-top:36px; }
+ .game-design-page .gd-tools { padding:20px; }
+ .game-design-page .gd-capabilities { padding:20px; }
+ .game-design-page .gd-related { gap:18px; padding:16px; }
+ .game-design-page .gd-contact { margin-top:40px; }
+ .game-design-page .gd-contact h2 { font-size:1.4rem; }
+ .game-design-page .gd-breadcrumb { margin-bottom:16px; }
+}
+@media (max-width:440px) { .game-design-page .gd-studies { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion:reduce) { .game-design-page *, .game-design-page *::before, .game-design-page *::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+/* The shared collection viewer previously had only a mobile layout. */
+.game-design-page .project-image-viewer[open][data-viewer-mode="collection"] { display:grid; position:fixed; inset:0; width:min(1200px,calc(100vw - 40px)); height:min(850px,calc(100dvh - 40px)); max-width:none; max-height:none; margin:auto; padding:0; border:0; overflow:hidden; background:transparent; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"]::backdrop { background:rgba(0,5,9,.8); }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__panel { display:grid; min-height:0; height:100%; grid-template-rows:auto minmax(0,1fr) auto; border:1px solid var(--gd-border); background:var(--card); }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__header { display:flex; align-items:center; justify-content:space-between; padding-left:16px; min-height:48px; border-bottom:1px solid var(--gd-border); color:var(--accent); font:700 .75rem/1.4 var(--mono); }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] :is(.project-image-viewer__previous,.project-image-viewer__next,.project-image-viewer__close) { width:44px; height:44px; color:var(--text); background:var(--glass); border:1px solid var(--gd-border); font-size:1.1rem; cursor:pointer; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__stage { display:grid; grid-template-columns:44px minmax(0,1fr) 44px; gap:8px; padding:12px; min-width:0; min-height:0; align-items:center; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__image-frame { display:grid; place-items:center; height:100%; min-width:0; min-height:0; overflow:auto; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__image-frame img { width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__caption { display:grid; gap:5px; margin:0; padding:16px; border-top:1px solid var(--gd-border); text-align:left; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__caption strong { color:var(--text); font-size:1rem; }
+.game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__caption p { color:var(--gd-copy); font-size:.88rem; margin:0; }
+@media (max-width:760px) {
+ .game-design-page .project-image-viewer[open][data-viewer-mode="collection"] { width:100%; height:100dvh; }
+ .game-design-page .project-image-viewer[data-viewer-mode="collection"] .project-image-viewer__stage { grid-template-columns:44px minmax(0,1fr) 44px; gap:4px; padding:4px; }
+}
+/* Keep the full credited render visible at every breakpoint. */
+.game-design-page .gd-card--lead .gd-card-image img { object-fit:contain; }
+
+
+/* Slides share a grid cell so longer project titles do not shift the page. */
+.game-design-page .gd-feature-slides { display:grid; }
+.game-design-page [data-feature-slide] { grid-area:1 / 1; visibility:hidden; }
+.game-design-page [data-feature-slide][aria-hidden="true"] { pointer-events:none; }
+.game-design-page [data-feature-slide]:not([aria-hidden="true"]) { visibility:visible; }
+.game-design-page [data-feature-slide] .gd-card-image { flex:none; }
+.game-design-page .gd-feature-actions { display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:8px; }
+.game-design-page .gd-feature-actions > a { white-space:nowrap; }
+.game-design-page .gd-slideshow-controls { display:flex; align-items:center; gap:4px; margin:0; padding:0; }
+.game-design-page .gd-slideshow-controls[hidden] { display:none; }
+.game-design-page .gd-slideshow-controls button { min-width:44px; min-height:44px; padding:8px; border:1px solid transparent; border-radius:var(--enhanced-radius-sm,2px); background:var(--glass); color:var(--text); font:600 .75rem/1.4 var(--mono); cursor:pointer; }
+.game-design-page .gd-slideshow-controls button:hover { color:var(--accent); border-color:var(--accent); }
+.game-design-page [data-feature-count] { color:var(--muted); font:500 .75rem/1.5 var(--mono); }
+.game-design-page [data-feature-pause] { margin-left:0; }
+
+
+/* Match the Projects slideshow's quiet timer without adding another row. */
+.game-design-page .gd-card--lead { position:relative; }
+.game-design-page .gd-feature-progress { position:absolute; right:0; bottom:0; left:0; height:1px; overflow:hidden; pointer-events:none; }
+.game-design-page .gd-feature-progress > span { display:block; width:100%; height:100%; background:rgba(81,194,203,.72); transform:scaleX(0); transform-origin:left center; }
+@media (prefers-reduced-motion:reduce) { .game-design-page .gd-feature-progress { display:none; } }
+
+.game-design-page .gd-capability-heading { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.game-design-page .gd-capability-heading h4 { min-width:0; margin:0; }
+.game-design-page .gd-capability-icon { display:grid; place-items:center; flex:0 0 40px; width:40px; height:40px; color:var(--accent); border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px); background:var(--glass); }
+.game-design-page .gd-capability-icon svg { width:24px; height:24px; }
+@media (min-width:1025px) {
+ .game-design-page .gd-mosaic { align-items:stretch; }
+ .game-design-page .gd-card--lead, .game-design-page .gd-capabilities { display:flex; flex-direction:column; }
+ .game-design-page .gd-feature-slides { flex:1; }
+ .game-design-page .gd-capability-list { grid-template-rows:auto; align-content:start; }
+ .game-design-page .gd-capability-group { display:flex; flex-direction:column; }
+ .game-design-page .gd-capability-description { flex:1; }
+}
+
+/* Match Projects' content headings and Writing's title typography. */
+.game-design-page.portfolio-index-page h1,
+.game-design-page.portfolio-index-page h2,
+.game-design-page.portfolio-index-page h3,
+.game-design-page.portfolio-index-page h4 {
+ color:var(--enhanced-text-body,var(--text));
+ font-family:inherit;
+}
+.game-design-page .gd-feature-heading h1,
+.game-design-page .gd-capabilities-header h3 { font-weight:650; }
+.game-design-page .gd-capability-heading h4 { font-size:1rem; font-weight:650; }
+.game-design-page.portfolio-index-page .gd-card-link:hover h3 { color:var(--accent); }
+
+.game-design-page .gd-capability-icon img { width:32px; height:32px; object-fit:contain; image-rendering:pixelated; }
+
+.game-design-page .gd-capability-icon .gd-server-icon { width:32px; height:32px; image-rendering:pixelated; }
+
+/* Uniform icon targets and a deliberately small, contained preview. */
+.game-design-page button.gd-capability-icon { flex-basis:44px; width:44px; height:44px; padding:5px; cursor:zoom-in; }
+.game-design-page .gd-capability-icon svg,
+.game-design-page .gd-capability-icon img,
+.game-design-page .gd-capability-icon .gd-server-icon { width:32px; height:32px; }
+.game-design-page button.gd-capability-icon:hover { border-color:var(--accent); }
+.game-design-page.gd-icon-preview-open { overflow:hidden; }
+.game-design-page .gd-icon-preview { width:min(320px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); padding:0; border:1px solid var(--gd-border); border-radius:var(--radius); background:var(--card); color:var(--gd-copy); }
+.game-design-page .gd-icon-preview::backdrop { background:rgba(0,5,9,.8); }
+.game-design-page .gd-icon-preview-header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px; border-bottom:1px solid var(--gd-divider); }
+.game-design-page .gd-icon-preview-header h2 { color:var(--enhanced-text-body,var(--text)); font-size:1rem; line-height:1.35; letter-spacing:normal; }
+.game-design-page .gd-icon-preview-header button { flex:none; width:44px; height:44px; border:1px solid var(--gd-border); background:var(--glass); color:var(--text); font-size:1.5rem; cursor:pointer; }
+.game-design-page .gd-icon-preview-stage { display:grid; place-items:center; min-height:192px; padding:24px; color:var(--accent); }
+.game-design-page .gd-icon-preview-stage img,
+.game-design-page .gd-icon-preview-stage svg { width:128px; height:128px; object-fit:contain; }
+.game-design-page .gd-icon-preview-stage img { image-rendering:pixelated; }
+.game-design-page .gd-icon-preview-stage .gd-server-icon { image-rendering:pixelated; }
+
+.game-design-page .gd-selected-compact { margin-top:24px; }
+
+@media (max-width:760px) {
+ .game-design-page .gd-tool-groups { grid-template-columns:1fr; }
+ .game-design-page [data-tool-group="server"] { grid-column:auto; grid-row:auto; }
+ .game-design-page .gd-tool-group ul { gap:8px 12px; }
+}
+@media (max-width:440px) { .game-design-page [data-tool-group="server"] ul { grid-template-columns:1fr; } }
+
+.game-design-page .gd-contact-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) minmax(120px,.9fr); gap:8px; width:100%; }
+.game-design-page .gd-contact-actions a { display:flex; align-items:center; justify-content:center; min-height:44px; padding:10px 12px; border:1px solid var(--enhanced-border-strong,var(--gd-border)); border-radius:var(--enhanced-radius-sm,2px); background:var(--glass); color:var(--gd-copy); font:600 .73rem/1.4 var(--mono); letter-spacing:.04em; text-transform:uppercase; text-align:center; text-decoration:none; }
+.game-design-page .gd-contact-actions a:hover { color:var(--text); border-color:var(--accent); background:var(--enhanced-accent-soft,var(--glass)); }
+.game-design-page .gd-contact-actions .gd-contact-primary { grid-column:3; grid-row:1 / span 2; gap:8px; color:var(--gd-copy); border-color:#36545a; background:transparent; font-size:.8125rem; }
+@media (max-width:760px) {
+ .game-design-page .gd-contact-actions { width:100%; grid-template-columns:repeat(3,minmax(0,1fr)); }
+ .game-design-page .gd-contact-actions a { padding:10px 6px; font-size:.6875rem; }
+ .game-design-page .gd-contact-actions .gd-contact-primary { font-size:.8125rem; }
+}
+
+.game-design-page .gd-contact-primary svg { flex:none; width:20px; height:20px; }
+
+.game-design-page .gd-contact-intro { min-width:0; }
+.game-design-page .gd-contact-intro .gd-eyebrow { margin-bottom:6px; }
+@media (max-width:760px) {
+ .game-design-page .gd-contact { grid-template-columns:1fr; gap:16px; padding:20px; }
+ .game-design-page .gd-contact-actions { gap:6px; }
+ .game-design-page .gd-contact-primary svg { width:16px; height:16px; }
+ .game-design-page .gd-contact-actions .gd-contact-primary { gap:5px; font-size:.6875rem; }
+}
+
+/* Category headings and tool names use distinct typography. */
+.game-design-page .gd-tool-group-heading { display:flex; align-items:baseline; justify-content:space-between; gap:8px 16px; margin-bottom:12px; }
+.game-design-page.portfolio-index-page .gd-tool-group-heading h3 { margin:0; color:var(--enhanced-accent-detail,var(--accent)); font-size:1rem; font-weight:650; line-height:1.4; }
+.game-design-page .gd-tool-group li { padding-top:10px; }
+.game-design-page .gd-tool-group .gd-tool-name { display:block; color:var(--enhanced-text-heading,var(--text)); font:600 .8125rem/1.5 var(--mono); overflow-wrap:anywhere; }
+@media (max-width:440px) { .game-design-page .gd-tool-group-heading { flex-wrap:wrap; gap:4px 12px; } }
+
+/* Compact work uses the same navy card surface as the larger projects. */
+.game-design-page .gd-selected-compact > article { display:flex; flex-direction:column; min-width:0; overflow:hidden; border:1px solid var(--gd-border); border-radius:var(--radius); background:var(--enhanced-surface,var(--card)); }
+.game-design-page .gd-selected-compact .gd-study-link img { display:block; border:0; border-bottom:1px solid var(--gd-divider); }
+.game-design-page .gd-selected-compact h3 { margin:12px 14px 0; line-height:1.35; }
+.game-design-page .gd-selected-compact > article > p { margin:8px 14px 14px; }
+.game-design-page .gd-selected-compact > article > .gd-meta { margin-bottom:0; color:var(--enhanced-accent-detail,var(--accent)); font:600 .6875rem/1.5 var(--mono); }
+.game-design-page .gd-selected-compact .gd-source-link { margin:auto 14px 8px; padding-top:8px; border-top:1px solid var(--gd-divider); }
+.game-design-page .gd-selected-compact > article:has(:focus-visible) { border-color:var(--accent); }
+
+.game-design-page .gd-capabilities .gd-capabilities-footer { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:8px; padding-top:12px; }
+.game-design-page .gd-capabilities-footer a { justify-content:center; gap:6px; min-height:44px; padding:10px 12px; border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px); background:var(--glass); font:600 .6875rem/1.5 var(--mono); letter-spacing:.035em; text-transform:uppercase; text-align:center; text-decoration:none; }
+.game-design-page .gd-capabilities-footer [data-scroll-tools] { border-color:var(--enhanced-accent-line,var(--accent)); background:var(--enhanced-accent-soft,var(--glass)); color:var(--enhanced-accent-detail,var(--accent)); }
+.game-design-page .gd-capabilities .gd-capabilities-footer a:hover { border-color:var(--accent); background:var(--enhanced-accent-soft,var(--glass)); color:var(--text); text-decoration:none; }
+@media (max-width:760px) { .game-design-page .gd-capabilities .gd-capabilities-footer { grid-template-columns:1fr; } }
+
+.game-design-page [data-tool-group="collaboration"] { grid-column:1 / -1; }
+.game-design-page [data-tool-group="collaboration"] ul { grid-template-columns:repeat(3,minmax(0,1fr)); }
+@media (max-width:440px) { .game-design-page [data-tool-group="collaboration"] ul { grid-template-columns:1fr; } }
+
+.game-design-page .gd-capabilities .gd-capabilities-footer { margin-top:auto; }
+
+/* A separate title rail keeps headings beside copy without running sentences together. */
+.game-design-page .gd-capability-heading { display:grid; grid-template-columns:112px minmax(0,1fr); align-items:start; gap:12px; margin-bottom:0; }
+.game-design-page .gd-capability-label { display:grid; justify-items:start; align-content:start; gap:8px; min-width:0; }
+.game-design-page.portfolio-index-page .gd-capability-label h4 { margin:0; color:var(--enhanced-accent-detail,var(--accent)); font-size:.9375rem; line-height:1.35; font-weight:650; }
+.game-design-page .gd-capability-heading .gd-capability-description { flex:initial; margin:0; }
+.game-design-page .gd-capability-tools { gap:4px 14px; align-items:baseline; }
+.game-design-page .gd-capability-tools .gd-tools-label { flex:none; }
+.game-design-page .gd-capability-tool-list { display:contents; list-style:none; margin:0; padding:0; }
+.game-design-page .gd-capability-tool-list li { margin:0; padding:0; color:var(--gd-copy); font-size:.8125rem; line-height:1.6; white-space:nowrap; }
+@media (max-width:600px) {
+ .game-design-page .gd-capability-heading { grid-template-columns:88px minmax(0,1fr); gap:10px; }
+}
+
+/* Centered identity column, divided from the wider description column. */
+.game-design-page .gd-capability-heading { grid-template-columns:112px minmax(0,1fr); gap:0; align-items:stretch; }
+.game-design-page .gd-capability-label { align-self:stretch; align-content:center; justify-items:center; text-align:left; padding-right:12px; border-right:1px solid var(--gd-divider); }
+.game-design-page .gd-capability-heading .gd-capability-description { padding-left:14px; }
+@media (max-width:600px) {
+ .game-design-page .gd-capability-heading { grid-template-columns:100px minmax(0,1fr); gap:0; }
+ .game-design-page .gd-capability-label { padding-right:8px; }
+ .game-design-page .gd-capability-heading .gd-capability-description { padding-left:10px; }
+}
+
+.game-design-page .gd-capability-label h4 { justify-self:stretch; text-align:left; }
+
+.game-design-page .gd-selected-compact .gd-work-sources { display:flex; flex-wrap:wrap; gap:0 14px; margin:auto 14px 8px; padding-top:8px; border-top:1px solid var(--gd-divider); }
+.game-design-page .gd-selected-compact .gd-work-sources .gd-source-link { margin:0; padding:0; border:0; }
+.game-design-page .gd-selected-compact .gd-compact-credit { color:var(--muted); font-size:.75rem; line-height:1.5; }
+
+/* Eight-card preview; all archive entries remain readable without JavaScript. */
+.game-design-page .gd-compact-preview { position:relative; isolation:isolate; }
+.game-design-page .gd-selected-compact > article[hidden] { display:none; }
+.game-design-page .gd-compact-preview[data-collapsed="true"]::after { content:""; position:absolute; inset-inline:0; bottom:0; z-index:3; height:100px; pointer-events:none; background:linear-gradient(to bottom,transparent,var(--enhanced-page,var(--bg))); }
+.game-design-page .gd-compact-preview:has(:focus-visible)::after { opacity:0; }
+.game-design-page .gd-see-more { display:flex; align-items:center; justify-content:center; gap:12px; width:100%; min-height:52px; margin-top:4px; padding:12px 0; border:0; border-radius:0; background:transparent; color:var(--enhanced-accent-detail,var(--accent)); font:600 .75rem/1.5 var(--mono); letter-spacing:.05em; text-transform:uppercase; cursor:pointer; }
+.game-design-page .gd-see-more::before, .game-design-page .gd-see-more::after { content:""; flex:1; height:1px; background:linear-gradient(to right,transparent,var(--gd-border)); }
+.game-design-page .gd-see-more::after { background:linear-gradient(to left,transparent,var(--gd-border)); }
+.game-design-page .gd-see-more-chevron { flex:none; width:16px; height:16px; transition:transform 180ms ease; }
+.game-design-page .gd-see-more[aria-expanded="true"] .gd-see-more-chevron { transform:rotate(180deg); }
+.game-design-page .gd-see-more[hidden] { display:none; }
+.game-design-page .gd-see-more:hover { color:var(--enhanced-accent-hover,var(--accent)); }
+
+.game-design-page .gd-archive-credit { display:block; margin-top:8px; color:var(--muted); font:400 .6875rem/1.5 var(--mono); }
+.game-design-page .gd-archive-credit a { color:inherit; text-decoration:none; }
+.game-design-page .gd-archive-credit a:hover { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+
+/* Images open galleries; separate title links open the build's detail page. */
+.game-design-page .gd-card-image.gd-image-preview { display:block; flex:none; cursor:zoom-in; }
+.game-design-page .gd-study-link { cursor:zoom-in; }
+.game-design-page .gd-build-title-link { color:inherit; text-decoration:none; }
+.game-design-page .gd-build-title-link:hover { color:var(--accent); }
+.game-design-page .gd-selected-compact h3 { margin:12px 14px 0; font-size:1rem; line-height:1.35; }
+.game-design-page .gd-card:has(:focus-visible) { border-color:var(--accent); }
+
+/* The thumbnail strip uses space inside the existing fixed-size collection panel. */
+.game-design-page .project-image-viewer[data-has-thumbnails="true"] .project-image-viewer__panel { grid-template-rows:auto minmax(0,1fr) auto auto; }
+.game-design-page .project-image-viewer__thumbnails { display:flex; align-items:center; gap:8px; min-width:0; overflow-x:auto; overscroll-behavior-x:contain; padding:8px 12px; border-top:1px solid var(--gd-divider); background:var(--enhanced-surface-inset,var(--glass)); scrollbar-width:thin; }
+.game-design-page .project-image-viewer__thumbnails[hidden] { display:none; }
+.game-design-page .project-image-viewer__thumbnail { flex:0 0 72px; display:grid; place-items:center; width:72px; height:52px; padding:3px; border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px); background:var(--card); cursor:pointer; }
+.game-design-page .project-image-viewer__thumbnail img { width:100%; height:100%; min-height:0; object-fit:contain; }
+.game-design-page .project-image-viewer__thumbnail[aria-pressed="true"] { border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); background:var(--enhanced-accent-soft,var(--glass)); }
+.game-design-page .project-image-viewer__thumbnail:hover { border-color:var(--enhanced-accent-detail,var(--accent)); }
+@media (max-width:760px) {
+ .game-design-page .project-image-viewer__thumbnails { gap:6px; padding:6px 8px; }
+ .game-design-page .project-image-viewer__thumbnail { flex-basis:64px; width:64px; height:48px; }
+}
+
+/* Keep the project action within the card's dark, outlined control system. */
+.game-design-page .gd-card--lead [data-feature-project] {
+ justify-content:center; gap:8px; min-height:44px; padding:10px 18px;
+ border:1px solid var(--enhanced-accent-line,var(--gd-border));
+ border-radius:var(--enhanced-radius-sm,2px);
+ background:var(--glass); color:var(--enhanced-accent-detail,var(--accent));
+ font:600 .6875rem/1.5 var(--mono); letter-spacing:.035em;
+ text-transform:uppercase; text-decoration:none;
+}
+.game-design-page .gd-card--lead [data-feature-project]:hover {
+ background:var(--enhanced-accent-soft,var(--glass)); border-color:var(--accent);
+ color:var(--text); text-decoration:none;
+}
+.game-design-page .gd-card--lead [data-feature-project]:focus-visible {
+ outline:2px solid var(--accent); outline-offset:3px;
+}
+@media (max-width:440px) {
+ .game-design-page .gd-card--lead [data-feature-project] { padding-inline:10px; font-size:.625rem; letter-spacing:.02em; }
+}
+
+/* Connect the opening card titles to the homepage heading hierarchy. */
+.game-design-page.portfolio-index-page .gd-feature-heading h1,
+.game-design-page.portfolio-index-page .gd-capabilities-header h3 {
+ color:var(--enhanced-text-heading,var(--text));
+ border-left:3px solid var(--enhanced-accent-detail,var(--accent));
+ padding-left:12px;
+}
+
+/* Natural sizing remains the baseline; enhancement reuses each row's existing budget. */
+.game-design-page .gd-work-metadata { display:contents; }
+.game-design-page .gd-selected .gd-work-copy { display:flex; flex-direction:column; }
+.game-design-page .gd-selected .gd-work-copy .gd-meta { order:-1; margin-bottom:0; }
+.game-design-page .gd-selected-compact .gd-work-copy { display:contents; }
+.game-design-page .gd-selected-compact .gd-work-copy p { margin:8px 14px 14px; }
+.game-design-page .gd-selected-compact .gd-work-copy .gd-meta { margin-bottom:0; color:var(--enhanced-accent-detail,var(--accent)); font:600 .6875rem/1.5 var(--mono); }
+.game-design-page .gd-work-card .gd-compact-credit { order:4; }
+.game-design-page .gd-work-card .gd-work-sources { order:5; }
+
+/* Shared title / metadata / description tracks, independently budgeted per card size. */
+.game-design-page .gd-work-grid .gd-work-card { height:var(--gd-work-height); }
+.game-design-page .gd-work-grid .gd-work-copy {
+ display:grid; flex:1; min-height:0; min-width:0; box-sizing:border-box;
+ grid-template-rows:var(--gd-title-height) var(--gd-meta-height) minmax(0,1fr) auto;
+ gap:3px; padding:4px var(--gd-copy-inset,16px);
+}
+.game-design-page .gd-selected-compact.gd-work-grid { --gd-copy-inset:14px; }
+.game-design-page .gd-selected-compact.gd-work-grid .gd-work-copy { padding-block:6px; }
+.game-design-page .gd-work-grid .gd-work-copy h3 { margin:0; min-width:0; }
+.game-design-page .gd-work-grid .gd-work-copy .gd-work-metadata { display:block; min-width:0; }
+.game-design-page .gd-work-grid .gd-work-copy .gd-work-metadata p { margin:0; order:initial; }
+.game-design-page .gd-work-grid .gd-work-copy .gd-work-metadata p + p { margin-top:4px; }
+.game-design-page .gd-work-grid .gd-work-copy .gd-work-description {
+ margin:0; min-height:0; align-self:start; max-height:100%; overflow:hidden;
+ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:var(--gd-description-lines,2);
+}
+.game-design-page .gd-work-grid .gd-work-copy .gd-work-description[data-overflow] {
+ mask-image:linear-gradient(to bottom,#000 calc(100% - 7px),rgba(0,0,0,.5));
+}
+.game-design-page .gd-work-grid .gd-work-copy .gd-work-sources {
+ margin:0; padding-top:4px; order:initial; align-self:end;
+}
+
+.game-design-page .gd-work-grid .gd-work-tight .gd-work-copy { padding-block:3px; row-gap:1px; }
+.game-design-page .gd-work-grid .gd-work-tight .gd-work-copy .gd-work-sources { padding-top:0; }
+
+/* Wrap long titles naturally while keeping the final word and arrow together. */
+.game-design-page .gd-build-title-link .gd-title-tail { white-space:nowrap; color:inherit; }
+
+/* Selected-work images share one pop-out interaction at both card sizes. */
+.game-design-page .gd-selected-compact .gd-work-actions { display:flex; gap:0; }
+.game-design-page .gd-selected-compact .gd-work-actions .gd-source-link { min-height:44px; white-space:nowrap; }
+.game-design-page :is(.gd-selected,.gd-selected-compact) > .gd-work-card { position:relative; overflow:visible; }
+.game-design-page :is(.gd-selected .gd-card-image,.gd-selected-compact .gd-study-link) {
+ position:relative; flex:none; transform:translateY(0) scale(1); transform-origin:center;
+ transition:transform 320ms cubic-bezier(.2,.75,.25,1),box-shadow 320ms ease;
+}
+.game-design-page :is(.gd-selected .gd-card-image,.gd-selected-compact .gd-study-link) img { border-radius:var(--radius) var(--radius) 0 0; }
+@media (hover:hover) and (pointer:fine) {
+ .game-design-page :is(.gd-selected,.gd-selected-compact) > .gd-work-card:has(:is(.gd-card-image,.gd-study-link):hover) { z-index:2; }
+ .game-design-page :is(.gd-selected .gd-card-image,.gd-selected-compact .gd-study-link):hover {
+  z-index:1; transform:translateY(-4px) scale(1.035);
+  box-shadow:0 12px 24px rgba(0,0,0,.38);
+ }
+}
+@media (prefers-reduced-motion:reduce) {
+ .game-design-page :is(.gd-selected .gd-card-image,.gd-selected-compact .gd-study-link):hover { transform:none; }
+}
+
+/* Native title links cover large-card backgrounds; gallery images stay above them. */
+.game-design-page .gd-selected .gd-build-title-link::after { content:""; position:absolute; inset:0; z-index:1; cursor:pointer; }
+.game-design-page .gd-selected .gd-card-image { position:relative; z-index:2; }
+.game-design-page .gd-selected .gd-card-image:hover { z-index:3; }
+
+/* Source actions occupy existing header space, leaving the image stage untouched. */
+.game-design-page .project-image-viewer .project-image-viewer__header { gap:8px; }
+.game-design-page .project-image-viewer__source-actions {
+ display:flex; align-items:center; gap:6px; margin-left:auto; padding-left:12px;
+ border-left:1px solid var(--gd-divider);
+}
+.game-design-page .project-image-viewer__source-actions[hidden] { display:none; }
+.game-design-page .project-image-viewer__source-link {
+ display:inline-flex; align-items:center; justify-content:center; gap:5px; min-height:34px;
+ padding:6px 10px; border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px);
+ background:var(--glass); color:var(--enhanced-accent-detail,var(--accent));
+ font:600 .625rem/1.4 var(--mono); letter-spacing:.035em; text-transform:uppercase;
+ white-space:nowrap; text-decoration:none;
+}
+.game-design-page .project-image-viewer__source-link:hover { border-color:var(--accent); color:var(--text); background:var(--enhanced-accent-soft,var(--glass)); }
+.game-design-page .project-image-viewer__source-label--compact { display:none; }
+.game-design-page .project-image-viewer__close { flex-shrink:0; }
+@media (max-width:600px) {
+ .game-design-page .project-image-viewer__source-actions { gap:4px; padding-left:6px; }
+ .game-design-page .project-image-viewer__source-link { padding-inline:7px; font-size:.5625rem; }
+ .game-design-page .project-image-viewer__source-label { display:none; }
+ .game-design-page .project-image-viewer__source-label--compact { display:inline; }
+}
+
+/* Compact card backgrounds use the same native detail link as the large cards. */
+.game-design-page .gd-selected-compact .gd-build-title-link::after { content:""; position:absolute; inset:0; z-index:1; cursor:pointer; }
+.game-design-page .gd-selected-compact .gd-study-link { z-index:2; }
+.game-design-page .gd-selected-compact .gd-study-link:hover { z-index:3; }
+.game-design-page .gd-selected-compact.gd-work-grid .gd-work-copy {
+ grid-template-rows:var(--gd-title-height) var(--gd-meta-height) minmax(0,1fr);
+}
+
+/* A restrained lift reinforces the whole card as a detail-page target. */
+.game-design-page :is(.gd-selected,.gd-selected-compact) > .gd-work-card {
+ transition:translate 240ms cubic-bezier(.2,.75,.25,1),box-shadow 240ms ease;
+}
+@media (hover:hover) and (pointer:fine) {
+ .game-design-page :is(.gd-selected,.gd-selected-compact) > .gd-work-card:hover {
+  translate:0 -3px;
+  box-shadow:0 8px 20px rgba(0,0,0,.22),0 0 18px rgba(43,184,196,.07);
+ }
+}
+@media (prefers-reduced-motion:reduce) {
+ .game-design-page :is(.gd-selected,.gd-selected-compact) > .gd-work-card:hover { translate:none; }
+}
+
+.game-design-page .gd-card--lead .gd-feature-project { margin:0; }
+.game-design-page .gd-feature-project-row { padding:0 20px 16px; }
+.game-design-page .gd-feature-actions { display:grid; grid-template-columns:minmax(0,1fr) auto; }
+.game-design-page .gd-feature-dots { grid-column:1; display:flex; justify-content:center; gap:2px; }
+.game-design-page .gd-feature-dots[hidden] { display:none; }
+.game-design-page .gd-feature-dots button { display:grid; place-items:center; width:24px; height:44px; padding:0; border:0; background:transparent; cursor:pointer; }
+.game-design-page .gd-feature-dots button::before { content:""; width:9px; height:9px; border:1px solid rgba(173,203,211,.68); border-radius:50%; background:transparent; }
+.game-design-page .gd-feature-dots button[aria-pressed="true"]::before { border-color:var(--accent); background:var(--accent); }
+.game-design-page .gd-feature-dots button:hover::before { border-color:var(--accent); }
+.game-design-page .gd-feature-actions .gd-slideshow-controls { grid-column:2; justify-self:end; }
+@media (max-width:600px) {
+ .game-design-page .gd-feature-actions { grid-template-columns:1fr; gap:4px; }
+ .game-design-page .gd-feature-dots { grid-column:1; }
+ .game-design-page .gd-feature-actions .gd-slideshow-controls { grid-column:1; justify-self:center; }
+}
+
+/* Balanced divider spacing is drawn within the existing compact text budget. */
+.game-design-page .gd-selected-compact.gd-work-grid .gd-work-copy { row-gap:2px; --gd-divider-space:10px; }
+.game-design-page .gd-selected-compact.gd-work-grid .gd-work-metadata { position:relative; }
+.game-design-page .gd-selected-compact.gd-work-grid .gd-work-metadata::after {
+ content:""; position:absolute; inset-inline:0; bottom:calc(-1px - var(--gd-divider-space));
+ border-bottom:1px solid var(--gd-divider); pointer-events:none;
+}
+
+.game-design-page .gd-selected-compact.gd-work-grid .gd-work-copy .gd-work-description {
+ margin-top:calc(2 * var(--gd-divider-space) - 1px);
+ max-height:calc(100% - (2 * var(--gd-divider-space) - 1px));
+}
+
+.game-design-page .gd-capability-label :is(#capability-group-0,#capability-group-1,#capability-group-2) { text-align:center; }
+
+/* Featured cards read naturally; the grid stretches only their outer shells. */
+.game-design-page .gd-selected .gd-work-copy { display:flex; flex-direction:column; padding:4px 16px 16px; }
+.game-design-page .gd-selected .gd-work-copy h3 { margin:0; min-height:0; height:auto; }
+.game-design-page .gd-selected .gd-work-copy .gd-work-metadata { display:block; margin-top:8px; }
+.game-design-page .gd-selected .gd-work-copy .gd-meta { margin:0; order:initial; }
+.game-design-page .gd-selected .gd-work-copy .gd-work-description { margin:10px 0 0; }
+
+.game-design-page .gd-reference-process { grid-column:1 / -1; width:min(100%,640px); justify-self:center; }
+
+.game-design-page #inspiration .gd-enlarge img { width:auto; max-width:100%; margin-inline:auto; }
+
+/* Image attribution shares the existing action strip without competing with captions. */
+.game-design-page .gd-image-action--credited { display:flex; justify-content:space-between; align-items:center; gap:12px; text-align:right; }
+.game-design-page .gd-image-action--credited .gd-image-credit { color:var(--muted); font:400 .6875rem/1.5 var(--mono); text-align:left; }
+.game-design-page .gd-image-action--credited > span { flex:none; }
+.game-design-page .gd-source-credits { display:grid; gap:12px; margin:16px 0; }
+.game-design-page .gd-source-credits > div { display:grid; grid-template-columns:90px minmax(0,1fr); gap:16px; align-items:baseline; }
+.game-design-page .gd-source-credits dt { color:var(--muted); font:500 .6875rem/1.5 var(--mono); text-transform:uppercase; letter-spacing:.04em; }
+.game-design-page .gd-source-credits dd { margin:0; color:var(--gd-copy); font-size:.875rem; line-height:1.6; }
+
+.game-design-page .gd-process-preview { position:relative; }
+.game-design-page .gd-process-video { display:block; width:100%; height:auto; aspect-ratio:1; }
+.game-design-page .gd-process-preview [hidden] { display:none; }
+.game-design-page .gd-animation-toggle {
+ position:absolute; left:12px; bottom:3px; min-height:32px; padding:4px 2px;
+ border:0; background:transparent; color:var(--muted); font:500 .6875rem/1.5 var(--mono); cursor:pointer;
+}
+.game-design-page .gd-animation-toggle:hover { color:var(--accent); }
+
+/* Reference borders follow the source images instead of filling empty grid columns. */
+.game-design-page .gd-reference-image { width:min(100%,var(--gd-reference-width)); justify-self:center; }
+.game-design-page #inspiration .gd-reference-image .gd-enlarge img { width:100%; height:auto; }
+.game-design-page .gd-project-description p { max-width:80ch; color:var(--gd-copy); }
+
+
+/* Detail gallery: bounded image stage and one compact caption/control footer. */
+.game-design-page .gd-detail-slideshow { position:relative; min-width:0; padding-bottom:1px; }
+.game-design-page .gd-detail-slides { display:grid; min-width:0; }
+.game-design-page .gd-detail-slides > [data-feature-slide] { grid-area:1 / 1; min-width:0; }
+.game-design-page .gd-detail-slides > [aria-hidden="true"] { visibility:hidden; pointer-events:none; }
+.game-design-page .gd-detail-slides .gd-enlarge { border:0; background:transparent; }
+.game-design-page .gd-detail-slides .gd-enlarge img { display:block; width:100%; height:clamp(180px,48svh,480px); max-height:none; object-fit:contain; }
+.game-design-page .gd-detail-slides figcaption { display:none; }
+.game-design-page .gd-detail-slides .gd-image-action { position:absolute; bottom:0; right:0; left:0; padding:6px 12px; border:0; background:transparent; }
+.game-design-page .gd-detail-controls { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; column-gap:20px; padding:4px 0; }
+.game-design-page .gd-detail-caption { grid-column:1; grid-row:1; margin:0; font-size:.8rem; line-height:1.5; color:var(--gd-copy); }
+.game-design-page .gd-detail-controls .gd-feature-dots { grid-column:1 / -1; grid-row:2; min-width:0; overflow-x:auto; justify-content:safe center; scrollbar-width:thin; }
+.game-design-page .gd-detail-controls .gd-feature-dots button { flex:0 0 24px; height:28px; }
+.game-design-page .gd-detail-controls .gd-slideshow-controls { grid-column:2; grid-row:1; justify-self:end; }
+@media (max-width:600px) {
+ .game-design-page .gd-detail-slides .gd-enlarge { border:0; background:transparent; }
+.game-design-page .gd-detail-slides .gd-enlarge img { height:clamp(180px,36svh,300px); }
+ .game-design-page .gd-detail-controls { column-gap:8px; }
+ .game-design-page .gd-detail-caption { grid-column:1 / -1; padding:6px 0; }
+ .game-design-page .gd-detail-controls .gd-feature-dots { grid-column:1; grid-row:2; }
+ .game-design-page .gd-detail-controls .gd-slideshow-controls { grid-column:2; grid-row:2; }
+}

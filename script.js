@@ -2076,6 +2076,7 @@
       requestPanelToggle(job, e, () => setJobExpanded(!job.classList.contains('expanded')));
     });
     job.addEventListener('keydown', e => {
+      if (e.target !== job && e.target.closest('a[href]')) return;
       if (e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
       if (e.target.closest('.job-close')) {

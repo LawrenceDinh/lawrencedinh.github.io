@@ -351,13 +351,10 @@
     const content = getElement("writing-archive-content");
     const featuredTarget = getElement("writing-featured");
     const listTarget = getElement("writing-archive-list");
-    const count = getElement("writing-count");
     const listCount = getElement("writing-list-count");
-    const featuredCount = getElement("writing-featured-count");
-    if (!status || !content || !featuredTarget || !listTarget || !count || !listCount || !featuredCount) return;
+    if (!status || !content || !featuredTarget || !listTarget || !listCount) return;
 
     const noun = articles.length === 1 ? "article" : "articles";
-    count.textContent = articles.length + " Published " + (articles.length === 1 ? "Article" : "Articles");
     listCount.textContent = String(articles.length).padStart(2, "0") + " / " + noun.toUpperCase();
 
     if (!articles.length) {
@@ -367,7 +364,6 @@
 
     const featured = articles.find(function (article) { return article.featured === true; }) || articles[0];
     const supporting = articles.filter(function (article) { return article !== featured; }).slice(0, 2);
-    const selectedCount = 1 + supporting.length;
     const featuredChildren = [createFeaturedArticle(featured, articles.indexOf(featured))];
     supporting.forEach(function (article) {
       featuredChildren.push(createSupportingArticle(article, articles.indexOf(article)));
@@ -379,7 +375,6 @@
     featuredTarget.classList.toggle("writing-featured-grid--solo", supporting.length === 0);
     featuredTarget.classList.toggle("writing-featured-grid--one-support", supporting.length === 1);
     featuredTarget.classList.toggle("writing-featured-grid--two-supports", supporting.length === 2);
-    featuredCount.textContent = String(selectedCount).padStart(2, "0") + " / SELECTED";
     const archiveRows = articles.map(createArchiveRow);
     archiveRows.forEach(function (row, index) {
       row.style.setProperty("--writing-reveal-order", String(5 + Math.min(index, 6)));
@@ -398,12 +393,13 @@
       content.classList.remove("is-entering", "is-visible");
     }, 1100);
 
-    if (window.location.hash === "#all-writing") {
+    if (window.location.hash) {
       window.requestAnimationFrame(function () {
-        const archiveTarget = getElement("all-writing");
-        if (archiveTarget) archiveTarget.scrollIntoView({ behavior: "auto", block: "start" });
+        const archiveTarget = getElement(window.location.hash.slice(1));
+        if (archiveTarget && content.contains(archiveTarget)) archiveTarget.scrollIntoView({ behavior: "auto", block: "start" });
       });
     }
+    window.dispatchEvent(new Event("portfolio:sections-ready"));
   }
 
   function getRequestedSlug() {

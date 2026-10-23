@@ -565,32 +565,14 @@
   const featuredIds = new Set(featuredPanels.map(panel => panel.id));
 
   function initializeProjectsEntrance() {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const canAnimate = typeof Element.prototype.animate === 'function';
-    const canObserve = typeof IntersectionObserver === 'function';
-    const targets = [];
-    const targetSet = new Set();
-    const targetDelays = new WeakMap();
-    const activeAnimations = new Map();
-    let observer = null;
-
-    function addGroup(elements) {
-      [...elements].filter(Boolean).forEach((element, index) => {
-        if (targetSet.has(element)) return;
-        targetSet.add(element);
-        targets.push(element);
-        targetDelays.set(element, Math.min(index, 4) * 45);
-      });
-    }
-
-    addGroup([document.querySelector('.projects-intro')]);
-    addGroup([
-      document.querySelector('.projects-featured__header'),
+    if (!window.PortfolioEntrance) return;
+    const groups = [];
+    groups.push([
       document.querySelector('.projects-featured-selector')
     ]);
 
     featuredPanels.forEach(panel => {
-      addGroup([
+      groups.push([
         panel.querySelector('.projects-case-study__header'),
         panel.querySelector('.projects-case-study__summary'),
         ...panel.querySelectorAll('.projects-case-study__detail--capabilities > article'),
@@ -602,76 +584,15 @@
     });
 
     document.querySelectorAll('.projects-registry').forEach(registry => {
-      addGroup([
+      groups.push([
         registry.querySelector('.projects-section-header'),
         ...registry.querySelectorAll('.projects-card, .projects-academic-list > article')
       ]);
     });
 
-    addGroup([document.querySelector('.projects-footer')]);
+    groups.push([document.querySelector('.projects-footer')]);
 
-    function resetTarget(element) {
-      element.style.removeProperty('opacity');
-      element.style.removeProperty('transform');
-      element.style.removeProperty('will-change');
-    }
-
-    function revealTarget(element) {
-      if (observer) observer.unobserve(element);
-      resetTarget(element);
-
-      if (reducedMotion.matches || !canAnimate) return;
-
-      element.style.willChange = 'opacity, transform';
-      const animation = element.animate([
-        { opacity: 0, transform: 'translate3d(0, 16px, 0)' },
-        { opacity: 1, transform: 'translate3d(0, 0, 0)' }
-      ], {
-        duration: 520,
-        delay: targetDelays.get(element) || 0,
-        easing: 'cubic-bezier(0.2, 0.78, 0.2, 1)',
-        fill: 'both'
-      });
-
-      activeAnimations.set(element, animation);
-      animation.finished.then(() => {
-        activeAnimations.delete(element);
-        animation.cancel();
-        resetTarget(element);
-      }).catch(() => {
-        activeAnimations.delete(element);
-        resetTarget(element);
-      });
-    }
-
-    if (reducedMotion.matches || !canAnimate || !canObserve) {
-      targets.forEach(resetTarget);
-      return;
-    }
-
-    targets.forEach(element => {
-      element.style.opacity = '0';
-      element.style.transform = 'translate3d(0, 16px, 0)';
-    });
-
-    observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) revealTarget(entry.target);
-      });
-    }, {
-      threshold: 0.01,
-      rootMargin: '0px 0px -8% 0px'
-    });
-
-    targets.forEach(element => observer.observe(element));
-
-    reducedMotion.addEventListener('change', event => {
-      if (!event.matches) return;
-      observer.disconnect();
-      activeAnimations.forEach(animation => animation.cancel());
-      activeAnimations.clear();
-      targets.forEach(resetTarget);
-    }, { once: true });
+    window.PortfolioEntrance(groups);
   }
 
   function activateFeaturedProject(projectId, options = {}) {

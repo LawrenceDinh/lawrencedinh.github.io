@@ -9,9 +9,12 @@
   let label;
   let title;
   let description;
+  let sourceActions;
   let previous;
   let next;
   let closeButton;
+  let thumbnailStrip;
+  let thumbnailSignature = null;
   let activeGallery = null;
   let returnFocus = null;
   let pausedGallery = null;
@@ -20,7 +23,7 @@
   let viewerResizeObserver = null;
   let dialogPointer = null;
 
-  const isEnabled = () => document.documentElement.dataset.portfolioMode === 'enhanced';
+  const isEnabled = () => document.documentElement.dataset.portfolioMode === 'enhanced' || document.body.classList.contains('game-design-page');
   const isCurrentImageMode = gallery => gallery?.mode === 'current-image';
 
   const normalizeItem = item => {
@@ -37,7 +40,11 @@
       sizes,
       alt: source.alt || item.alt || '',
       title: item.title || '',
-      description: item.description || ''
+      thumbnailSrc: item.thumbnailSrc || source.thumbnailSrc || '',
+      description: item.description || '',
+      sourceUrl: item.sourceUrl || '',
+      reducedMotionSrc: item.reducedMotionSrc || '',
+      sourceAlbum: item.sourceAlbum || ''
     };
   };
 
@@ -126,11 +133,13 @@
       <div class="project-image-viewer__panel">
         <header class="project-image-viewer__header">
           <span class="project-image-viewer__label">Image Detail</span>
+          <nav class="project-image-viewer__source-actions" aria-label="Image sources" hidden></nav>
           <button class="project-image-viewer__close" type="button" aria-label="Close enlarged image">&times;</button>
         </header>
         <div class="project-image-viewer__stage">
           <div class="project-image-viewer__image-frame"><img alt=""></div>
         </div>
+        <nav class="project-image-viewer__thumbnails" aria-label="Choose a gallery image" hidden></nav>
         <footer class="project-image-viewer__caption">
           <strong id="project-image-viewer-title"></strong>
           <p id="project-image-viewer-description"></p>
@@ -138,11 +147,13 @@
       </div>`;
     document.body.append(dialog);
     panel = dialog.querySelector('.project-image-viewer__panel');
+    thumbnailStrip = dialog.querySelector('.project-image-viewer__thumbnails');
     frame = dialog.querySelector('.project-image-viewer__image-frame');
     image = dialog.querySelector('img');
     label = dialog.querySelector('.project-image-viewer__label');
     title = dialog.querySelector('#project-image-viewer-title');
     description = dialog.querySelector('#project-image-viewer-description');
+    sourceActions = dialog.querySelector('.project-image-viewer__source-actions');
     closeButton = dialog.querySelector('.project-image-viewer__close');
     closeButton.addEventListener('click', () => forceReset());
     dialog.addEventListener('cancel', event => { event.preventDefault(); forceReset(); });
@@ -197,6 +208,53 @@
     return { items, index, item };
   };
 
+  const renderThumbnails = (items, index) => {
+    const enabled = activeGallery?.showThumbnails && items.length > 1 && !isCurrentImageMode(activeGallery);
+    thumbnailStrip.hidden = !enabled;
+    dialog.dataset.hasThumbnails = String(Boolean(enabled));
+    if (!enabled) return;
+    const normalized = items.map(normalizeItem);
+    const signature = normalized.map(item => item.src).join('|');
+    if (signature !== thumbnailSignature) {
+      thumbnailSignature = signature;
+      thumbnailStrip.replaceChildren(...normalized.map((item, targetIndex) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'project-image-viewer__thumbnail';
+        button.setAttribute('aria-label', `Show image ${targetIndex + 1}: ${item.alt || item.title}`);
+        const thumbnail = document.createElement('img');
+        thumbnail.src = item.thumbnailSrc || item.src;
+        thumbnail.alt = '';
+        thumbnail.decoding = 'async';
+        button.append(thumbnail);
+        const select = nextIndex => {
+          activeGallery.goTo(nextIndex);
+          render();
+        };
+        button.addEventListener('click', () => select(targetIndex));
+        button.addEventListener('keydown', event => {
+          let target;
+          if (event.key === 'ArrowRight') target = (targetIndex + 1) % items.length;
+          else if (event.key === 'ArrowLeft') target = (targetIndex - 1 + items.length) % items.length;
+          else if (event.key === 'Home') target = 0;
+          else if (event.key === 'End') target = items.length - 1;
+          else return;
+          event.preventDefault();
+          event.stopPropagation();
+          select(target);
+          thumbnailStrip.children[target].focus({ preventScroll: true });
+        });
+        return button;
+      }));
+    }
+    [...thumbnailStrip.children].forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    const selected = thumbnailStrip.children[index];
+    const start = selected.offsetLeft - thumbnailStrip.offsetLeft;
+    const end = start + selected.offsetWidth;
+    if (start < thumbnailStrip.scrollLeft) thumbnailStrip.scrollLeft = start;
+    else if (end > thumbnailStrip.scrollLeft + thumbnailStrip.clientWidth) thumbnailStrip.scrollLeft = end - thumbnailStrip.clientWidth;
+  };
+
   const render = () => {
     const { items, index, item } = resolveCurrent(activeGallery);
     const currentImage = isCurrentImageMode(activeGallery);
@@ -210,12 +268,40 @@
       label.textContent = `FEATURE ${String(index + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`;
       previous.hidden = next.hidden = items.length < 2;
     }
-    image.src = item.src;
+    renderThumbnails(items, index);
+    image.src = item.reducedMotionSrc && matchMedia('(prefers-reduced-motion: reduce)').matches ? item.reducedMotionSrc : item.src;
     image.srcset = item.srcset;
     image.sizes = item.sizes;
     image.alt = item.alt;
     title.textContent = item.title;
     description.textContent = item.description;
+    sourceActions.replaceChildren();
+    for (const [href, text, kind] of [
+      [item.sourceUrl, 'Full resolution', 'image'],
+      [item.sourceAlbum, 'Source album', 'album']
+    ]) {
+      if (!href) continue;
+      let destination;
+      try { destination = new URL(href, document.baseURI); } catch { continue; }
+      if (!['https:', 'http:'].includes(destination.protocol)) continue;
+      const link = document.createElement('a');
+      link.className = 'project-image-viewer__source-link';
+      link.dataset.imageSource = kind;
+      link.href = destination.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', `${text} (opens in a new tab)`);
+      const fullLabel = document.createElement('span');
+      fullLabel.className = 'project-image-viewer__source-label';
+      fullLabel.textContent = text;
+      const compactLabel = document.createElement('span');
+      compactLabel.className = 'project-image-viewer__source-label--compact';
+      compactLabel.setAttribute('aria-hidden', 'true');
+      compactLabel.textContent = kind === 'image' ? 'Original' : 'Album';
+      link.append(fullLabel, compactLabel, document.createTextNode(' \u2197'));
+      sourceActions.append(link);
+    }
+    sourceActions.hidden = !sourceActions.childElementCount;
     scheduleCenterFrame();
   };
 
@@ -227,6 +313,8 @@
       returnFocus = opener;
       render();
       dialog.showModal();
+      const current = resolveCurrent(activeGallery);
+      renderThumbnails(current.items, current.index);
       document.documentElement.classList.add('project-image-viewer-open');
       if (gallery.pause) {
         gallery.pause();
@@ -256,17 +344,13 @@
     expand.addEventListener('pointerdown', event => event.stopPropagation());
     expand.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); open(registration, expand); });
     const setA11y = () => {
-      if (isEnabled()) {
-        trigger.setAttribute('role', 'button');
-        trigger.setAttribute('tabindex', '0');
-        trigger.setAttribute('aria-label', 'Expand current project screenshot');
-        expand.removeAttribute('aria-hidden');
-      } else {
-        trigger.removeAttribute('role');
-        trigger.removeAttribute('tabindex');
-        trigger.removeAttribute('aria-label');
-        expand.setAttribute('aria-hidden', 'true');
-      }
+      // The dedicated native button provides keyboard access without nesting
+      // carousel controls inside a second interactive container.
+      const enabled = isEnabled();
+      expand.hidden = !enabled;
+      expand.disabled = !enabled;
+      if (enabled) expand.removeAttribute('aria-hidden');
+      else expand.setAttribute('aria-hidden', 'true');
     };
     setA11y();
     mobileQuery.addEventListener('change', () => { setA11y(); });
@@ -274,10 +358,10 @@
     trigger.addEventListener('pointermove', event => { if (pointer && event.pointerId === pointer.id && Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) > 8) pointer.moved = true; }, { passive: true });
     trigger.addEventListener('pointercancel', () => { pointer = null; }, { passive: true });
     trigger.addEventListener('pointerup', event => {
-      if (pointer && event.pointerId === pointer.id && !pointer.moved) open(registration, trigger);
+      const control = event.target.closest('button, a, input, select, textarea');
+      if (pointer && event.pointerId === pointer.id && !pointer.moved && !control) open(registration, expand);
       pointer = null;
     }, { passive: true });
-    trigger.addEventListener('keydown', event => { if (isEnabled() && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); open(registration, trigger); } });
   };
 
   window.ProjectImageViewer = {

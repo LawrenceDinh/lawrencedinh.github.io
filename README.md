@@ -67,3 +67,43 @@ Deployment is inferred to be direct static publishing through GitHub Pages:
 - root-level portfolio files are the canonical implementation; `web/` preserves legacy links with redirects
 - `bashseekers/` is published as a subpath
 - no repo-defined build step or deployment automation was found
+
+## Game Design portfolio
+
+The `/game-design/` index and fifteen directory-based project pages present the curated BassFreerunning Minecraft archive, with local responsive images and the shared site navigation/gallery. See [the authoring and provenance notes](game-design/README.md).
+
+```powershell
+node scripts/build-game-design.mjs
+node scripts/check-game-design.mjs
+```
+
+The generator is an authoring utility. Generated HTML is committed and served by the existing static GitHub Pages deployment.
+
+
+## Archived portfolio page headers
+
+The visible Projects, Game Design and Writing header panels have been removed. Their exact HTML, shared CSS and Game Design template are saved under `backups/portfolio-page-headers/2026-10-21/`, with restoration instructions in `RESTORE.txt`. Screen-reader page titles, the shared page frame and all content-section anchors remain. The notes below describe the archived header design.
+
+Projects, Game Design, and Writing share `.portfolio-page-header` in `style.css`. Each places the title beside a `.portfolio-page-header__context` group containing the description and `.portfolio-page-header__nav`. Subsection links align directly beneath the description, with no full-width footer divider. Content drives the height and the transition from horizontal to stacked layout; navigation wraps between labels, never within them. Enhanced tokens supply the existing typography, colors and surfaces, with Simple-mode fallbacks. Legacy hero and outlined subsection-button rules were removed from the shared and page-specific stylesheets.
+
+Header anchor targets:
+
+- Projects: `#featured-case-study`, `#current-projects`, `#academic-projects`.
+- Game Design: `#featured`, `#selected`, `#tools-workflow`, `#studies`.
+- Writing: new semantic section anchor `#featured-writing`, plus existing `#all-writing`. The older `#writing-featured` and `#writing-archive-list` links still work with header clearance.
+
+`navigation.js` reuses the section-scroll controller for these anchors, including reduced motion, browser hash history and an indicator synchronized with visible sections. Writing signals when its async archive becomes available and restores direct hashes after rendering. The article-count hero dependency was removed from `writing.js`. BassFreerunning attribution remains in the Game Design archive and project credits.
+
+Latest header/transition review artifacts and runnable browser checks are in `output/portfolio-transitions/` (local, not production dependencies). Checks cover 1920, 1440, 1100, 1024, 820, 760, 390 and 320 CSS-pixel widths, keyboard anchors, direct hashes, slow Writing manifest loading, scroll offsets, history, reduced motion and Simple mode. The existing `node scripts/build-game-design.mjs` / `node scripts/check-game-design.mjs` workflow remains applicable. No commit or deployment is part of generation.
+
+
+The first content section follows a shared spacing rhythm. Projects leads directly into its project selector, Game Design into the featured environment/capabilities cards, and Writing into its article grid. Section headings remain available to screen readers; the repeated visible labels and Projects supporting line are removed. The duplicate visible Writing label and section count were removed, together with the renderer dependency on that count. Article-level metadata is unchanged. Cross-page visual, responsive, anchor and preservation checks pass; the existing mobile Projects viewer `nested-interactive` accessibility finding remains outside this header scope.
+
+
+Portfolio index framing is also shared: `.portfolio-index-page` supplies the same dark Enhanced backdrop and `main.portfolio-page-shell` supplies the same content width, responsive gutters and top spacing for Projects, Game Design and Writing. Game Design's narrower index shell and inherited homepage gradient were removed; its detail-page shell remains separate. Desktop header bounds match across all three pages at identical viewport sizes. Cross-page screenshots and geometry checks are in `output/portfolio-shells/`.
+
+
+`portfolio-entrance.js` shares Projects' progressive fade/rise reveal with the Game Design index: 520ms easing with a capped 45ms stagger, triggered as content enters view. Projects and Game Design configure their own content groups; gallery initialization remains independent. Reduced motion, missing animation/observer APIs, and disabled JavaScript leave content visible. The existing cross-page fade in `navigation.js` and Writing's entrance sequence remain intact. Animation review captures and checks are in `output/game-design-entrance/`.
+
+
+Portfolio index pages show a temporary bottom-edge gradient when first loaded at the top with more content below. The cue uses the page background color, ignores pointer input, and is dismissed on the first downward scroll (or focus entering its area), without returning when scrolling back up. Direct hashes/restored scroll positions skip it; pages that already fit the viewport do not show it. Reduced motion skips the fade transition. `portfolio-entrance.js` now reveals targets at the full viewport edge rather than withholding the last 8%, so partially visible lower cards can be previewed beneath the gradient. Review captures and checks are in `output/scroll-preview/`.
