@@ -1,6 +1,6 @@
-# Game Design portfolio
+# Minecraft Work portfolio
 
-Sixteen static, crawlable GitHub Pages routes live under `/game-design/`. Directory indexes support direct navigation and refreshes, including redirects from slashless URLs. Publishing remains the repository's existing static deployment; there is no production build dependency.
+Sixteen static, crawlable GitHub Pages routes live under `/minecraft-work/`. Directory indexes support direct navigation and refreshes, including redirects from slashless URLs. Publishing remains the repository's existing static deployment; there is no production build dependency.
 
 ## Authoring
 
@@ -15,8 +15,8 @@ After content or shared-template changes:
 ```powershell
 node scripts/build-game-design.mjs
 node scripts/check-game-design.mjs
-node --check game-design/content.mjs
-node --check game-design/game-design.js
+node --check minecraft-work/content.mjs
+node --check minecraft-work/game-design.js
 node --check scripts/build-game-design.mjs
 node --check navigation.js
 node --check project-image-viewer.js
@@ -46,9 +46,9 @@ Vaeron, Shapescape, clients, and Dr_Bond retain their distinct relationships. St
 
 ## Shared integration
 
-Game Design appears in desktop/mobile navigation on the homepage, Projects, Writing, article reader and Tools index. The phone menu uses root-relative links for nested routes. One image-led card reuses the homepage selected-work card, and both existing Shapescape presentations link to the portfolio. Keyboard activation of links inside experience cards is preserved.
+Minecraft Work appears in desktop/mobile navigation on the homepage, Projects, Writing, article reader and Tools index. The phone menu uses root-relative links for nested routes. One image-led card reuses the homepage selected-work card, and both existing Shapescape presentations link to the portfolio. Keyboard activation of links inside experience cards is preserved.
 
-The current site intentionally disables its Simple/Enhanced switch and forces Enhanced mode. This implementation uses that same loader and does not enable the switch. Simple mode was inspected by setting the existing mode attribute during local validation. The shared viewer is enabled for Game Design in both modes; additional collection-viewer styling and keyboard handling are page-scoped.
+The current site intentionally disables its Simple/Enhanced switch and forces Enhanced mode. This implementation uses that same loader and does not enable the switch. Simple mode was inspected by setting the existing mode attribute during local validation. The shared viewer is enabled for Minecraft Work in both modes; additional collection-viewer styling and keyboard handling are page-scoped.
 
 No publishing, commits, or production deployment are performed by the generator.
 
@@ -72,7 +72,7 @@ Moneywars and Autumn Wind now lead the five-card Selected Work grid. All six pro
 
 OPBlocks copy describes the verified commission and visible Free World/Mines entrances. Moneywars copy describes the central island, surrounding platforms and tiered landmarks. No project-specific WorldEdit/VoxelSniper usage, production-speed improvements, combat-flow rationale, visibility testing or optimization claims were added. No process breakdowns were enabled, and no additional tools were introduced.
 
-Changed source files: `content.mjs`, `game-design.css`, `../scripts/build-game-design.mjs`, `../scripts/check-game-design.mjs`, and this guide. Generated `index.html` contains the new layout/copy/metadata. The six generated detail-page HTML files only received the shared Game Design stylesheet cache-version update; their content is byte-identical after normalizing that version. Shared navigation, homepage, gallery scripts, asset manifest, and sitemap were verified unchanged from the start of this refinement.
+Changed source files: `content.mjs`, `game-design.css`, `../scripts/build-game-design.mjs`, `../scripts/check-game-design.mjs`, and this guide. Generated `index.html` contains the new layout/copy/metadata. The six generated detail-page HTML files only received the shared Minecraft Work stylesheet cache-version update; their content is byte-identical after normalizing that version. Shared navigation, homepage, gallery scripts, asset manifest, and sitemap were verified unchanged from the start of this refinement.
 
 Validation passed: generator, static integrity checks, relevant JavaScript syntax checks, and `git diff --check`. Chromium and Axe WCAG 2/2.1 A/AA checks at 1440, 1024, 768 and 390 px reported no violations, broken local image loads, horizontal overflow, page errors or failed local responses. Verified the engineering link using Enter, keyboard order from feature to capabilities, all six direct project routes/reloads and gallery focus restoration, all four study viewers, the mobile menu, and Simple/reduced-motion rendering. The existing homepage sidebar issue was not modified.
 
@@ -108,7 +108,7 @@ Validation for this refinement:
 
 ## Writing-based opening composition — October 6, 2026
 
-The introduction now uses the existing `portfolio-page-hero` component with the shorter “Game Design” title, requested description and publishing alias, and the original action destinations. The game page overrides only title scale and context alignment; mobile replaces the vertical separator with a horizontal divider. The index loads the existing `writing.css` to reuse `writing-featured-heading` and `writing-featured-card__footer` directly. Writing/homepage files and shared CSS were not edited.
+The introduction now uses the existing `portfolio-page-hero` component with the shorter “Minecraft Work” title, requested description and publishing alias, and the original action destinations. The game page overrides only title scale and context alignment; mobile replaces the vertical separator with a horizontal divider. The index loads the existing `writing.css` to reuse `writing-featured-heading` and `writing-featured-card__footer` directly. Writing/homepage files and shared CSS were not edited.
 
 Featured Work & Capabilities introduces a top-aligned 60/40 grid with a 24px gap. OPBlocks retains its full image and original content; a separated “View project” footer remains within the single card link. The capabilities outer card contains a heading, three bordered inset subcards, and a separated action footer. Each subcard presents heading, description, and a quieter tools row. The existing shared type, color, surface, divider and spacing tokens are used. No fixed heights or forced matching bottoms are applied. The existing 1024px stacking breakpoint remains.
 

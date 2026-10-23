@@ -2,7 +2,7 @@
 export const sourceUrl = 'https://bassfreerunning.weebly.com/builds.html';
 // Landing-page positioning supplied by the author. Capability evidence stays in source only.
 export const landing = {
-  title: 'Game Design',
+  title: 'Minecraft Work',
   featuredSlugs: ['moneywars-map', 'autumn-wind', 'castle-spawn', 'pokemeadows-spawn', 'strandbeest-study', 'organics-study'],
   summary: 'Minecraft environments, commissioned builds, and multiplayer server systems, from world creation to gameplay configuration.',
   description: 'Minecraft environments, level design, and server systems by Lawrence Dinh, published as BassFreerunning.'

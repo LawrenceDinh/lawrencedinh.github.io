@@ -39,7 +39,7 @@ for group in groups:
     slug = re.search(r'Slug: (.+)',group).group(1).strip()
     for i,url in enumerate(re.findall(r'https://bassfreerunning.weebly.com/uploads/\S+',group),1): tasks.append((slug,i,url))
 with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool: records=list(pool.map(download,tasks))
-(ROOT/'game-design/assets.json').write_text(json.dumps(records,indent=2)+'\n',encoding='utf-8')
+(ROOT/'minecraft-work/assets.json').write_text(json.dumps(records,indent=2)+'\n',encoding='utf-8')
 preview=ROOT/'output/game-design-review'
 preview.mkdir(parents=True,exist_ok=True)
 for group in groups:

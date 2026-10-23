@@ -2,13 +2,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { projects, studies, toolGroups, breakdowns, sourceUrl, landing, technicalCapabilities } from '../game-design/content.mjs';
+import { projects, studies, toolGroups, breakdowns, sourceUrl, landing, technicalCapabilities } from '../minecraft-work/content.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = p => fs.readFileSync(path.join(root,p),'utf8').replace(/^\uFEFF/,'');
 const write = (p,s) => { fs.mkdirSync(path.dirname(path.join(root,p)),{recursive:true}); fs.writeFileSync(path.join(root,p),s.replace(/[\t ]+$/gm,'')+'\n'); };
 const esc = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-const assets = JSON.parse(read('game-design/assets.json'));
-const referenceAssets = JSON.parse(read('game-design/autumn-wind/reference-assets.json'));
+const assets = JSON.parse(read('minecraft-work/assets.json'));
+const referenceAssets = JSON.parse(read('minecraft-work/autumn-wind/reference-assets.json'));
 const referenceImages = p => referenceAssets.filter(a=>a.slug===p.slug);
 const allBuilds = [...projects, ...studies].map(p=>({...p,platform:p.platform || 'Minecraft'}));
 const home = read('index.html');
@@ -21,11 +21,11 @@ let header = projectPage.match(/<header class="nav"[\s\S]*?<\/header>/)[0]
   .replace(/href="([^"#/:][^"]*)"/g,(_,href)=>`href="/${href}"`)
   .replaceAll('/index.html#','/#').replaceAll('href="/index.html"','href="/"')
   .replace(/href="#(featured-case-study|current-projects|academic-projects)"/g,'href="/projects.html#$1"')
-  .replaceAll('href="/game-design/"','href="/game-design/" aria-current="page"')
+  .replaceAll('href="/minecraft-work/"','href="/minecraft-work/" aria-current="page"')
   .replace('class="nav-about-link nav-primary-destination nav-projects-link"','class="nav-about-link nav-primary-destination nav-projects-link" aria-current="location"');
 const footer = home.match(/<footer>\s*©[\s\S]*?<\/footer>/)[0];
 const topButton = projectPage.match(/<button class="back-to-top"[\s\S]*?<\/button>/)[0];
-const url = p => `/game-design/${p.slug}/`;
+const url = p => `/minecraft-work/${p.slug}/`;
 function images(p) {
   const records = assets.filter(a=>a.slug===p.slug && !a.error);
   if (!records.length) throw new Error(`No assets for ${p.slug}`);
@@ -89,19 +89,19 @@ function frame({title,description,route,preview,content,galleries={}}) {
 <meta property="og:url" content="https://lawrencedinh.com${route}"><meta property="og:image" content="https://lawrencedinh.com${preview.variants.at(-1).src}"><meta property="og:image:alt" content="${esc(preview.alt)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)} | Lawrence Dinh"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://lawrencedinh.com${preview.variants.at(-1).src}"><meta name="twitter:image:alt" content="${esc(preview.alt)}">
 <link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/style.css?v=20261022-2">${route==='/game-design/'?'<link rel="stylesheet" href="/writing.css?v=20261021-3">':''}<link rel="stylesheet" href="/game-design/game-design.css?v=20261023-35">
+<link rel="stylesheet" href="/style.css?v=20261022-2">${route==='/minecraft-work/'?'<link rel="stylesheet" href="/writing.css?v=20261021-3">':''}<link rel="stylesheet" href="/minecraft-work/game-design.css?v=20261023-35">
 <script src="/display-mode.js?v=20260818-2"></script>
-</head><body class="game-design-page${route==='/game-design/'?' portfolio-index-page':''}">
+</head><body class="game-design-page${route==='/minecraft-work/'?' portfolio-index-page':''}">
 <a class="gd-skip" href="#game-content">Skip to game design content</a>
 ${header}
 ${topButton}
-<main class="gd-shell${route==='/game-design/'?' portfolio-page-shell':''}" id="game-content">${content}${endActions()}</main>
-${route==='/game-design/'?footer.replace('</footer>',`<small class="gd-archive-credit">Build archive: <a href="${sourceUrl}">BassFreerunning &#8599;</a></small></footer>`):footer}
+<main class="gd-shell${route==='/minecraft-work/'?' portfolio-page-shell':''}" id="game-content">${content}${endActions()}</main>
+${route==='/minecraft-work/'?footer.replace('</footer>',`<small class="gd-archive-credit">Build archive: <a href="${sourceUrl}">BassFreerunning &#8599;</a></small></footer>`):footer}
 <script id="game-galleries" type="application/json">${JSON.stringify(galleries).replaceAll('<','\\u003c')}</script>
-<script src="/navigation.js?v=20261023-1"></script>
+<script src="/navigation.js?v=20261023-2"></script>
 <script src="/project-image-viewer.js?v=20261023-4"></script>
-${route==='/game-design/'?'<script src="/portfolio-entrance.js?v=20261021-2"></script>':''}
-<script src="/game-design/game-design.js?v=20261023-16"></script>
+${route==='/minecraft-work/'?'<script src="/portfolio-entrance.js?v=20261021-2"></script>':''}
+<script src="/minecraft-work/game-design.js?v=20261023-16"></script>
 <script src="/analytics.js?v=20260720-1" defer></script>
 </body></html>`;
 }
@@ -152,11 +152,11 @@ const indexContent = `<div id="overview"></div>
 <section class="gd-tools gd-section" id="tools-workflow" tabindex="-1" data-game-section="Tools & workflows" aria-labelledby="tools-heading"><h2 id="tools-heading">Tools &amp; Workflows</h2><div class="gd-tool-groups">${toolGroups.filter(g=>g.tools.length&&g.showInInventory!==false).map(g=>`<section class="gd-tool-group" data-tool-group="${esc(g.id)}" aria-labelledby="tool-group-${esc(g.id)}"><div class="gd-tool-group-heading"><h3 id="tool-group-${esc(g.id)}">${esc(g.label)}</h3></div><ul>${g.tools.map(tool=>`<li>${toolNames([tool.id])}</li>`).join('')}</ul></section>`).join('')}</div></section>
 ${breakdowns.length?`<section class="gd-section" aria-labelledby="approach-heading"><h2 id="approach-heading">How I Approach the Work</h2>${breakdowns.filter(b=>b.text&&b.image&&b.sourceUrl).slice(0,2).map(b=>`<article class="gd-related"><img src="${esc(b.image)}" alt="${esc(b.alt)}" loading="lazy"><div><h3>${esc(b.title)}</h3>${b.retrospective?'<p class="gd-meta">Retrospective review</p>':''}<p>${esc(b.text)}</p><a href="${esc(b.sourceUrl)}">Source notes ↗</a></div></article>`).join('')}</section>`:''}
 <section class="gd-section" aria-labelledby="related-heading"><div class="gd-section-heading"><p class="gd-eyebrow">From game design to editing tools for reality</p><h2 id="related-heading">Related Project</h2></div><a class="gd-related" href="/${driftDestination}"><div>${driftImage}</div><div><p class="gd-meta">Spatial editing &amp; layout tools</p><h3>Drift Course Designer <span aria-hidden="true">↗</span></h3><p>${driftDescription}</p><span class="gd-text-link">View project details →</span></div></a></section>`;
-write('game-design/index.html',frame({title:landing.title,description:landing.description,route:'/game-design/',preview:cover(featuredProjects[0]),content:indexContent,galleries:buildGalleries}));
+write('minecraft-work/index.html',frame({title:landing.title,description:landing.description,route:'/minecraft-work/',preview:cover(featuredProjects[0]),content:indexContent,galleries:buildGalleries}));
 for(const [i,p] of allBuilds.entries()) {
  const all=images(p),hero=cover(p),other=all.filter(a=>a.id!==hero.id),next=allBuilds[(i+1)%allBuilds.length];
  const facts=[['Type',p.projectType],['Platform',p.platform],['Commission context',p.studio?`${p.studio} commission`:null],['Client named in archive',p.client],['Collaboration',p.credits?null:p.collaborationCredits],['Year',p.year],['Published',p.published],['Status',p.status],['Role',p.role]].filter(([,v])=>v);
- const content=`<nav class="gd-breadcrumb" aria-label="Breadcrumb"><a href="/game-design/">← Game Design</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span></nav><section class="gd-detail-intro" id="overview" data-game-section="Project overview">${(p.detailContext||p.context)?`<p class="gd-eyebrow">${esc(p.detailContext||p.context)}</p>`:''}<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p></section>
+ const content=`<nav class="gd-breadcrumb" aria-label="Breadcrumb"><a href="/minecraft-work/">← Minecraft Work</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span></nav><section class="gd-detail-intro" id="overview" data-game-section="Project overview">${(p.detailContext||p.context)?`<p class="gd-eyebrow">${esc(p.detailContext||p.context)}</p>`:''}<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p></section>
  ${detailSlideshow(p)}
  <dl class="gd-facts">${facts.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
  ${p.contribution?`<section class="gd-section"><h2>My contribution</h2><p>${esc(p.contribution)}</p></section>`:''}
@@ -167,10 +167,16 @@ for(const [i,p] of allBuilds.entries()) {
  ${p.outcome?`<section class="gd-section"><h2>Outcome</h2><p>${esc(p.outcome)}</p></section>`:''}
  ${referenceSection(p)}
  <section class="gd-sources gd-section"><h2>Sources &amp; Credits</h2>${projectCredits(p)}${p.sourceAlbum||p.sourceProject?`<nav class="gd-links" aria-label="Project sources">${p.sourceAlbum?`<a href="${esc(p.sourceAlbum)}">Source album &#8599;</a>`:''}${p.sourceProject?`<a href="${esc(p.sourceProject)}">${p.credits?'PlanetMinecraft project page':'Original project'} &#8599;</a>`:''}</nav>`:''}</section>
- <nav class="gd-next" aria-label="Project navigation"><a href="/game-design/">← All game projects</a><a href="${url(next)}">Next: ${esc(next.title)} →</a></nav>`;
- write(`game-design/${p.slug}/index.html`,frame({title:p.title,description:p.summary,route:url(p),preview:hero,content,galleries:{[p.slug]:galleryData(p),...(referenceImages(p).length?{[p.slug+'-references']:referenceData(p)}:{})}}));
+ <nav class="gd-next" aria-label="Project navigation"><a href="/minecraft-work/">← All game projects</a><a href="${url(next)}">Next: ${esc(next.title)} →</a></nav>`;
+ write(`minecraft-work/${p.slug}/index.html`,frame({title:p.title,description:p.summary,route:url(p),preview:hero,content,galleries:{[p.slug]:galleryData(p),...(referenceImages(p).length?{[p.slug+'-references']:referenceData(p)}:{})}}));
 }
-let sitemap=read('sitemap.xml').replace(/\s*<url>\s*<loc>https:\/\/lawrencedinh.com\/game-design\/[^<]*<\/loc>\s*<\/url>/g,'');
-sitemap=sitemap.replace('</urlset>',['/game-design/',...allBuilds.map(url)].map(route=>`  <url><loc>https://lawrencedinh.com${route}</loc></url>`).join('\n')+'\n</urlset>');
+let sitemap=read('sitemap.xml').replace(/\s*<url>\s*<loc>https:\/\/lawrencedinh.com\/(?:game-design|minecraft-work)\/[^<]*<\/loc>\s*<\/url>/g,'');
+sitemap=sitemap.replace('</urlset>',['/minecraft-work/',...allBuilds.map(url)].map(route=>`  <url><loc>https://lawrencedinh.com${route}</loc></url>`).join('\n')+'\n</urlset>');
 write('sitemap.xml',sitemap.trim());
 console.log(`Generated index and ${allBuilds.length} project pages; sitemap updated.`);
+
+// Preserve old bookmarks on static GitHub Pages, including query strings and fragments.
+for (const route of ['/minecraft-work/', ...allBuilds.map(url)]) {
+ const legacy = route.replace('/minecraft-work/', '/game-design/');
+ write(legacy + 'index.html', `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Minecraft Work | Lawrence Dinh</title><link rel="canonical" href="https://lawrencedinh.com${route}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${route}"><script>location.replace(${JSON.stringify(route)} + location.search + location.hash);</script></head><body><p>This page has moved to <a href="${route}">Minecraft Work</a>.</p></body></html>`);
+}

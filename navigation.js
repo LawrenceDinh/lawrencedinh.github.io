@@ -303,7 +303,7 @@
     const isProjects = body.classList.contains('projects-page');
     const homePrefix = isProjects || isWriting ? '/index.html' : '';
     if (body.classList.contains('game-design-page')) {
-      return { label: 'On this page', rows: Array.from(document.querySelectorAll('[data-game-section]')).map(section => ({ label: section.dataset.gameSection, href: '#' + section.id })), current: 'Game Design', secondary: true };
+      return { label: 'On this page', rows: Array.from(document.querySelectorAll('[data-game-section]')).map(section => ({ label: section.dataset.gameSection, href: '#' + section.id })), current: 'Minecraft Work', secondary: true };
     }
 
     if (isArticle) {
@@ -421,7 +421,7 @@
     const page = getPhoneDrawerPage();
     const projectRows = [
       { label: 'Projects', href: '/projects.html', current: page.current === 'Projects' },
-      { label: 'Game Design', href: '/game-design/', current: page.current === 'Game Design' }
+      { label: 'Minecraft Work', href: '/minecraft-work/', current: page.current === 'Minecraft Work' }
     ];
     const portfolioRows = [
       { label: 'Writing', href: '/writing.html', current: page.current === 'Writing' }
