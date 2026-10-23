@@ -18,7 +18,7 @@
 .game-design-page .gd-card-link { display:flex; flex-direction:column; height:100%; }
 .game-design-page .gd-card-image { aspect-ratio: 16/9; overflow:hidden; background:var(--glass); }
 .game-design-page .gd-card-image img { width:100%; height:100%; object-fit:cover; }
-.game-design-page .gd-card--lead .gd-card-image { flex:none; aspect-ratio:16/9; margin:0 20px; border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px); }
+.game-design-page .gd-card--lead .gd-card-image { flex:none; width:calc(100% - 40px); aspect-ratio:16/9; margin:0 20px; border:1px solid var(--gd-border); border-radius:var(--enhanced-radius-sm,2px); }
 .game-design-page .gd-card-copy { padding:13px 16px 15px; }
 .game-design-page .gd-card-copy p:not(.gd-meta) { margin:0; font-size:.86rem; line-height:1.45; color:var(--gd-copy); }
 .game-design-page .gd-meta { margin:0 0 4px; font:600 .72rem/1.5 var(--mono); color:var(--accent); }
@@ -104,7 +104,7 @@ html[data-portfolio-mode="simple"] .game-design-page .project-image-viewer { --e
  .game-design-page .gd-feature-footer .gd-text-link, .game-design-page .gd-capabilities-footer a { min-height:36px; }
 
  .game-design-page .gd-feature-heading { margin:16px 16px 8px; padding-bottom:8px; }
- .game-design-page .gd-card--lead .gd-card-image { margin-inline:16px; }
+ .game-design-page .gd-card--lead .gd-card-image { width:calc(100% - 32px); margin-inline:16px; }
  .game-design-page .gd-capabilities { padding:16px; }
  .game-design-page .gd-capabilities-header { padding-bottom:8px; }
  .game-design-page .gd-capability-list { margin:8px 0; }
@@ -160,7 +160,9 @@ html[data-portfolio-mode="simple"] .game-design-page .project-image-viewer { --e
 
 
 /* Slides share a grid cell so longer project titles do not shift the page. */
-.game-design-page .gd-feature-slides { display:grid; }
+/* Zero-minimum tracks prevent WebKit from sizing slides to intrinsic image widths. */
+.game-design-page .gd-feature-slides { display:grid; grid-template-columns:minmax(0,1fr); min-width:0; }
+.game-design-page .gd-feature-slides > .gd-card-link { min-width:0; }
 .game-design-page [data-feature-slide] { grid-area:1 / 1; visibility:hidden; }
 .game-design-page [data-feature-slide][aria-hidden="true"] { pointer-events:none; }
 .game-design-page [data-feature-slide]:not([aria-hidden="true"]) { visibility:visible; }
