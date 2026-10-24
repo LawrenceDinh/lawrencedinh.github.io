@@ -32,6 +32,8 @@ function images(p) {
   return records.map(a=>({...a,alt:p.captions[Number(a.id.slice(-2))-1],caption:p.captions[Number(a.id.slice(-2))-1],credit:[p.credits?null:p.collaborationCredits,p.galleryCredits??p.sourceCredits,p.imageCredits?.[Number(a.id.slice(-2))] || p.renderCredit].filter(Boolean).join(' · ')}));
 }
 const cover = p => images(p).find(a=>a.id===`view-${String(p.cover).padStart(2,'0')}`) || images(p)[0];
+const galleryImages = p => { const featured=cover(p); return [featured,...images(p).filter(a=>a.id!==featured.id)]; };
+const galleryIndex = (p,a) => galleryImages(p).findIndex(image=>image.id===a.id);
 function img(a,{eager=false,priority=false,sizes='(max-width: 760px) calc(100vw - 40px), (max-width: 1024px) 48vw, 400px',position='50% 50%'}={}) {
   const fallback = a.variants.find(v=>v.width>=960) || a.variants.at(-1);
   if(!a.alt) throw new Error(`Missing image description: ${a.slug}/${a.id}`);
@@ -43,7 +45,7 @@ function linkedTitle(title) {
 }
 function projectLink(p,featured=false,attributes='',eager=featured) {
   const a=cover(p);
-  return `<div class="gd-card-link" ${attributes}><a href="${esc(a.original)}" class="gd-card-image gd-image-preview" data-gallery="${p.slug}" data-image-index="${p.cover-1}" aria-label="Enlarge ${esc(p.title)} image">${img(a,{eager,priority:eager,position:p.coverPosition,sizes:featured?'(max-width: 760px) calc(100vw - 80px), (max-width: 1024px) 90vw, 690px':undefined})}</a><div class="gd-card-copy">${p.context?`<p class="gd-meta">${esc(p.context)}</p>`:''}<h3><a class="gd-build-title-link" href="${url(p)}">${linkedTitle(p.title)}</a></h3><p>${esc(p.cardSummary || p.summary)}</p></div></div>`;
+  return `<div class="gd-card-link" ${attributes}><a href="${esc(a.original)}" class="gd-card-image gd-image-preview" data-gallery="${p.slug}" data-image-index="0" aria-label="Enlarge ${esc(p.title)} image">${img(a,{eager,priority:eager,position:p.coverPosition,sizes:featured?'(max-width: 760px) calc(100vw - 80px), (max-width: 1024px) 90vw, 690px':undefined})}</a><div class="gd-card-copy">${p.context?`<p class="gd-meta">${esc(p.context)}</p>`:''}<h3><a class="gd-build-title-link" href="${url(p)}">${linkedTitle(p.title)}</a></h3><p>${esc(p.cardSummary || p.summary)}</p></div></div>`;
 }
 function workCopy(p,compact=false) {
  const context = compact ? (p.compactContext ?? p.context) : p.context;
@@ -51,7 +53,7 @@ function workCopy(p,compact=false) {
 }
 function card(p) {
  const a=cover(p);
- return `<article class="gd-card gd-work-card"><div class="gd-card-link"><a href="${esc(a.original)}" class="gd-card-image gd-image-preview" data-gallery="${p.slug}" data-image-index="${p.cover-1}" aria-label="Enlarge ${esc(p.title)} image">${img(a,{position:p.coverPosition})}</a>${workCopy(p)}</div></article>`;
+ return `<article class="gd-card gd-work-card"><div class="gd-card-link"><a href="${esc(a.original)}" class="gd-card-image gd-image-preview" data-gallery="${p.slug}" data-image-index="0" aria-label="Enlarge ${esc(p.title)} image">${img(a,{position:p.coverPosition})}</a>${workCopy(p)}</div></article>`;
 }
 const selectedLeadSlugs = ['autumn-wind', 'castle-spawn', 'moneywars-map'];
 const selectedCompactSlugs = ['strandbeest-study', 'pokemeadows-spawn', 'organics-study', 'opblocks-candy-environments', 'tower-study', 'gazamo-trial', 'desert-spawn', 'plan-c2'];
@@ -69,10 +71,9 @@ function featuredSlideshow() {
  return `<article class="gd-card gd-card--lead" aria-labelledby="gd-title" aria-roledescription="carousel"><header class="gd-feature-heading"><h1 id="gd-title">Minecraft Design &amp; Development</h1></header><div class="gd-feature-slides">${featuredProjects.map((p,i)=>projectLink(p,true,`data-feature-slide="${i}"${i?' inert aria-hidden="true"':''}`,i===0)).join('')}</div><div class="gd-feature-project-row"><a class="gd-text-link gd-feature-project" data-feature-project href="${url(featuredProjects[0])}">View project &#8594;</a></div><div class="writing-featured-card__footer gd-feature-footer gd-feature-actions"><nav class="gd-feature-dots" aria-label="Choose featured project" hidden>${featuredProjects.map((p,i)=>`<button type="button" data-feature-dot="${i}" aria-label="Show ${esc(p.title)}" aria-pressed="${i===0}"></button>`).join('')}</nav><div class="gd-slideshow-controls" hidden><button type="button" data-feature-prev aria-label="Previous featured project">&#8592;</button><span data-feature-count>1 / ${featuredProjects.length}</span><button type="button" data-feature-next aria-label="Next featured project">&#8594;</button><button type="button" data-feature-pause aria-label="Pause slideshow" title="Pause slideshow">&#9208;</button></div></div><div class="gd-feature-progress" aria-hidden="true" hidden><span data-feature-progress></span></div><p class="gd-sr" data-feature-status aria-live="polite" aria-atomic="true"></p></article>`;
 }
 function detailSlideshow(p) {
- const original=images(p),featured=cover(p);
- const all=[original.find(a=>a.id===featured.id),...original.filter(a=>a.id!==featured.id)],initial=0;
+ const all=galleryImages(p),initial=0;
  if(all.length===1) return imageLink(p,all[0],0,true);
- return `<section class="gd-detail-slideshow" data-start-index="${initial}" aria-label="${esc(p.title)} images" aria-roledescription="carousel"><div class="gd-detail-slides">${all.map((a,i)=>`<div data-feature-slide="${i}"${i!==initial?' inert aria-hidden="true"':''}>${imageLink(p,a,original.findIndex(image=>image.id===a.id),i===initial)}</div>`).join('')}</div><div class="gd-detail-controls"><p class="gd-detail-caption" data-detail-caption>${esc(all[initial].caption)}</p><nav class="gd-feature-dots" aria-label="Choose project image" hidden>${all.map((a,i)=>`<button type="button" data-feature-dot="${i}" aria-label="Show image ${i+1}: ${esc(a.alt)}" aria-pressed="${i===initial}"></button>`).join('')}</nav><div class="gd-slideshow-controls" hidden><button type="button" data-feature-prev aria-label="Previous image">&#8592;</button><span data-feature-count>${initial+1} / ${all.length}</span><button type="button" data-feature-next aria-label="Next image">&#8594;</button><button type="button" data-feature-pause aria-label="Pause slideshow" title="Pause slideshow">&#9208;</button></div></div><div class="gd-feature-progress" aria-hidden="true" hidden><span data-feature-progress></span></div><p class="gd-sr" data-feature-status aria-live="polite" aria-atomic="true"></p></section>`;
+ return `<section class="gd-detail-slideshow" data-start-index="${initial}" aria-label="${esc(p.title)} images" aria-roledescription="carousel"><div class="gd-detail-slides">${all.map((a,i)=>`<div data-feature-slide="${i}"${i!==initial?' inert aria-hidden="true"':''}>${imageLink(p,a,i,i===initial)}</div>`).join('')}</div><div class="gd-detail-controls"><p class="gd-detail-caption" data-detail-caption>${esc(all[initial].caption)}</p><nav class="gd-feature-dots" aria-label="Choose project image" hidden>${all.map((a,i)=>`<button type="button" data-feature-dot="${i}" aria-label="Show image ${i+1}: ${esc(a.alt)}" aria-pressed="${i===initial}"></button>`).join('')}</nav><div class="gd-slideshow-controls" hidden><button type="button" data-feature-prev aria-label="Previous image">&#8592;</button><span data-feature-count>${initial+1} / ${all.length}</span><button type="button" data-feature-next aria-label="Next image">&#8594;</button><button type="button" data-feature-pause aria-label="Pause slideshow" title="Pause slideshow">&#9208;</button></div></div><div class="gd-feature-progress" aria-hidden="true" hidden><span data-feature-progress></span></div><p class="gd-sr" data-feature-status aria-live="polite" aria-atomic="true"></p></section>`;
 }
 function endActions() {
  return `<section class="gd-contact" aria-labelledby="gd-contact-heading"><div class="gd-contact-intro"><p class="gd-eyebrow">Connect</p><h2 id="gd-contact-heading">Let&#8217;s talk.</h2></div><nav class="gd-contact-actions" aria-label="Portfolio and contact links"><a href="${resume}">Resume PDF &#8599;</a><a href="/projects.html">Engineering work &#8594;</a><a href="${github}">GitHub &#8599;</a><a href="${linkedin}">LinkedIn &#8599;</a><a class="gd-contact-primary" data-open-nav-contact href="/#contact" aria-controls="navContactPanel" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contact</span></a></nav></section>`;
@@ -105,7 +106,7 @@ ${route==='/minecraft-work/'?'<script src="/portfolio-entrance.js?v=20261021-2">
 <script src="/analytics.js?v=20260720-1" defer></script>
 </body></html>`;
 }
-function galleryData(p) { return images(p).map(a=>({src:a.original,thumbnailSrc:a.variants[0].src,sourceUrl:a.originalSourceUrl,sourceAlbum:a.sourceAlbum||p.gallerySource||p.sourceAlbum||'',alt:a.alt,title:p.title,description:a.caption,credit:a.credit,projectUrl:url(p)})); }
+function galleryData(p) { return galleryImages(p).map(a=>({src:a.original,thumbnailSrc:a.variants[0].src,sourceUrl:a.originalSourceUrl,sourceAlbum:a.sourceAlbum||p.gallerySource||p.sourceAlbum||'',alt:a.alt,title:p.title,description:a.caption,credit:a.credit,projectUrl:url(p)})); }
 function referenceData(p) {
  return referenceImages(p).map(a=>({src:a.original,reducedMotionSrc:a.reducedMotionSrc||'',thumbnailSrc:a.variants[0].src,alt:a.alt,title:p.title+' - Reference media',description:a.caption,credit:a.credit,projectUrl:url(p),sourceUrl:a.originalSourceUrl,sourceAlbum:a.sourceProject}));
 }
@@ -122,7 +123,7 @@ function referenceSection(p) {
 function imageLink(p,a,i,hero=false) {
  const imageCredit=p.imageCredits?.[Number(a.id.slice(-2))] || p.renderCredit || '';
  const action=imageCredit?`<span class="gd-image-action gd-image-action--credited"><small class="gd-image-credit">${esc(imageCredit)}</small><span aria-hidden="true">Enlarge &#8599;</span></span>`:'<span class="gd-image-action" aria-hidden="true">Enlarge &#8599;</span>';
- return `<figure class="gd-figure${hero?' gd-hero-image':''}"><a class="gd-enlarge" href="${esc(a.original)}" data-gallery="${p.slug}" data-image-index="${i}" aria-label="Enlarge: ${esc(a.alt)}${imageCredit?', '+esc(imageCredit):''}">${img(a,{eager:hero,priority:hero,sizes:hero?'(max-width: 1280px) calc(100vw - 40px), 1240px':undefined})}${action}</a><figcaption>${esc(a.caption)}</figcaption></figure>`;
+ return `<figure class="gd-figure${hero?' gd-hero-image':''}"><a class="gd-enlarge" href="${esc(a.original)}" data-gallery="${p.slug}" data-image-index="${galleryIndex(p,a)}" aria-label="Enlarge: ${esc(a.alt)}${imageCredit?', '+esc(imageCredit):''}">${img(a,{eager:hero,priority:hero,sizes:hero?'(max-width: 1280px) calc(100vw - 40px), 1240px':undefined})}${action}</a><figcaption>${esc(a.caption)}</figcaption></figure>`;
 }
 function projectCredits(p) {
  const rows = p.credits || [
@@ -146,7 +147,7 @@ function toolNames(ids) {
 }
 function compactWork(p) {
  const destination = cover(p).original;
- const gallery = ` data-gallery="${p.slug}" data-image-index="${p.cover-1}" aria-label="Enlarge ${esc(p.title)} image"`;
+ const gallery = ` data-gallery="${p.slug}" data-image-index="0" aria-label="Enlarge ${esc(p.title)} image"`;
  return `<article class="gd-work-card"><a class="gd-study-link" href="${esc(destination)}"${gallery}>${img(cover(p),{position:p.coverPosition,sizes:'(max-width: 440px) calc(100vw - 28px), (max-width: 1024px) 45vw, 310px'})}</a>${workCopy(p,true)}</article>`;
 }
 const indexContent = `<div id="overview"></div>

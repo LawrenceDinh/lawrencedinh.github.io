@@ -38,6 +38,13 @@ for(const route of routes){
  const html=read(route+'index.html');
  assert.equal((html.match(/<h1\b/g)||[]).length,1);
  const galleryPayload = JSON.parse(html.match(/<script id="game-galleries" type="application\/json">([\s\S]*?)<\/script>/)[1]);
+ for (const match of html.matchAll(/<a[^>]*href="([^"]+)"[^>]*data-gallery="([^"]+)" data-image-index="(\d+)"/g)) {
+  assert.equal(galleryPayload[match[2]]?.[Number(match[3])]?.src,match[1],`Popup must open the clicked image: ${route}`);
+ }
+ for (const build of [...projects,...studies]) if (galleryPayload[build.slug]) {
+  const featured=assets.find(a=>a.slug===build.slug && a.id===`view-${String(build.cover).padStart(2,'0')}`);
+  assert.equal(galleryPayload[build.slug][0].src,featured.original,`Featured popup image must be first: ${build.slug}`);
+ }
  for (const [key,items] of Object.entries(galleryPayload)) for (const image of items) {
   assert.equal(image.projectUrl,`/minecraft-work/${key.replace(/-references$/,'')}/`,'Gallery details must target its own project');
   assert.equal(typeof image.credit,'string','Image attribution is separate from its caption');
@@ -98,7 +105,7 @@ assert.ok(index.indexOf('id="tools-heading"')<index.indexOf('id="related-heading
 assert.ok(!index.includes('How I Approach the Work'));
 assert.equal((read('minecraft-work/pixelmon-town/index.html').match(/data-gallery=/g)||[]).length,1);
 assert.equal((read('minecraft-work/autumn-wind/index.html').match(/Dr_Bond/g)||[]).length,1,'Autumn Wind collaboration credit appears once');
-assert.match(read('minecraft-work/autumn-wind/index.html'), /data-gallery="autumn-wind" data-image-index="6"/);
+assert.match(read('minecraft-work/autumn-wind/index.html'), /data-gallery="autumn-wind" data-image-index="0"/);
 assert.ok(index.includes('href="https://www.linkedin.com/in/lawrence-dinh-profile/"'));
 console.log('Passed: 16 static routes, 67 gallery images plus 3 reference media, local destinations, credits, technical opening, selected-work ordering, featured slideshow, and metadata.');
 
