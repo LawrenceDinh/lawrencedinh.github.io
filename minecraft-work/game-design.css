@@ -600,3 +600,17 @@ html[data-portfolio-mode="simple"] .game-design-page .project-image-viewer { --e
  .game-design-page .project-image-viewer__label { font-size:.5625rem; white-space:nowrap; }
  .game-design-page .project-image-viewer__credit { bottom:8px; left:56px; max-width:calc(100% - 112px); }
 }
+
+/* A brief entrance keeps the native dialog responsive and its final geometry unchanged. */
+@media (prefers-reduced-motion:no-preference) {
+ .game-design-page .project-image-viewer[open] { animation:none; }
+ .game-design-page .project-image-viewer[open] .project-image-viewer__panel {
+  transform-origin:center; animation:gd-popup-in 180ms cubic-bezier(.2,.85,.3,1.08) both;
+ }
+ .game-design-page .project-image-viewer[open]::backdrop { animation:gd-popup-backdrop-in 140ms ease-out both; }
+}
+@keyframes gd-popup-in {
+ from { opacity:0; transform:translateY(6px) scale(.98); }
+ to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes gd-popup-backdrop-in { from { opacity:0; } to { opacity:1; } }

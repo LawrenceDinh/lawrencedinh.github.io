@@ -90,7 +90,7 @@ function frame({title,description,route,preview,content,galleries={}}) {
 <meta property="og:url" content="https://lawrencedinh.com${route}"><meta property="og:image" content="https://lawrencedinh.com${preview.variants.at(-1).src}"><meta property="og:image:alt" content="${esc(preview.alt)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)} | Lawrence Dinh"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://lawrencedinh.com${preview.variants.at(-1).src}"><meta name="twitter:image:alt" content="${esc(preview.alt)}">
 <link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/style.css?v=20261022-2">${route==='/minecraft-work/'?'<link rel="stylesheet" href="/writing.css?v=20261021-3">':''}<link rel="stylesheet" href="/minecraft-work/game-design.css?v=20261023-37">
+<link rel="stylesheet" href="/style.css?v=20261022-2">${route==='/minecraft-work/'?'<link rel="stylesheet" href="/writing.css?v=20261021-3">':''}<link rel="stylesheet" href="/minecraft-work/game-design.css?v=20261023-38">
 <script src="/display-mode.js?v=20260818-2"></script>
 </head><body class="game-design-page${route==='/minecraft-work/'?' portfolio-index-page':''}">
 <a class="gd-skip" href="#game-content">Skip to game design content</a>
@@ -100,7 +100,7 @@ ${topButton}
 ${route==='/minecraft-work/'?footer.replace('</footer>',`<small class="gd-archive-credit">Build archive: <a href="${sourceUrl}">BassFreerunning &#8599;</a></small></footer>`):footer}
 <script id="game-galleries" type="application/json">${JSON.stringify(galleries).replaceAll('<','\\u003c')}</script>
 <script src="/navigation.js?v=20261023-2"></script>
-<script src="/project-image-viewer.js?v=20261023-6"></script>
+<script src="/project-image-viewer.js?v=20261023-7"></script>
 ${route==='/minecraft-work/'?'<script src="/portfolio-entrance.js?v=20261021-2"></script>':''}
 <script src="/minecraft-work/game-design.js?v=20261023-16"></script>
 <script src="/analytics.js?v=20260720-1" defer></script>

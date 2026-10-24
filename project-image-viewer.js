@@ -194,6 +194,7 @@
       </div>`;
     document.body.append(dialog);
     panel = dialog.querySelector('.project-image-viewer__panel');
+    panel.addEventListener('animationend', scheduleCenterFrame);
     thumbnailStrip = dialog.querySelector('.project-image-viewer__thumbnails');
     frame = dialog.querySelector('.project-image-viewer__image-frame');
     image = dialog.querySelector('img');
