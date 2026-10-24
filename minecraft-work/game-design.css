@@ -614,3 +614,39 @@ html[data-portfolio-mode="simple"] .game-design-page .project-image-viewer { --e
  to { opacity:1; transform:translateY(0) scale(1); }
 }
 @keyframes gd-popup-backdrop-in { from { opacity:0; } to { opacity:1; } }
+
+/* Small hover and press cues for the archive toggle and related project. */
+.game-design-page .gd-see-more {
+ transition:transform 160ms ease,color 160ms ease;
+}
+.game-design-page .gd-see-more::before,
+.game-design-page .gd-see-more::after {
+ opacity:.65; transform:scaleX(.94); transition:transform 200ms ease,opacity 160ms ease;
+}
+.game-design-page .gd-see-more::before { transform-origin:left; }
+.game-design-page .gd-see-more::after { transform-origin:right; }
+.game-design-page a.gd-related {
+ transition:transform 200ms cubic-bezier(.2,.75,.25,1),border-color 160ms ease,box-shadow 200ms ease;
+}
+.game-design-page a.gd-related .gd-text-link { transition:transform 160ms ease; }
+@media (hover:hover) and (pointer:fine) {
+ .game-design-page .gd-see-more:hover:not(:disabled) { transform:translateY(-2px); }
+ .game-design-page .gd-see-more:hover::before,
+ .game-design-page .gd-see-more:hover::after { opacity:1; transform:scaleX(1); }
+ .game-design-page a.gd-related:hover {
+  transform:translateY(-3px); border-color:var(--accent);
+  box-shadow:0 8px 20px rgba(0,0,0,.22),0 0 18px rgba(43,184,196,.07);
+ }
+ .game-design-page a.gd-related:hover .gd-text-link { transform:translateX(3px); }
+}
+.game-design-page .gd-see-more:active:not(:disabled) { transform:translateY(0) scale(.985); transition-duration:80ms; }
+.game-design-page a.gd-related:active { transform:translateY(0) scale(.995); transition-duration:80ms; }
+.game-design-page .gd-see-more:focus-visible::before,
+.game-design-page .gd-see-more:focus-visible::after { opacity:1; transform:scaleX(1); }
+@media (prefers-reduced-motion:reduce) {
+ .game-design-page .gd-see-more,
+ .game-design-page .gd-see-more::before,
+ .game-design-page .gd-see-more::after,
+ .game-design-page a.gd-related,
+ .game-design-page a.gd-related .gd-text-link { transform:none !important; }
+}
