@@ -76,7 +76,7 @@ export const projects = [
     'In-game aerial view of striped towers around the central pink tree.',
     'Ground-level view toward the Free World entrance beneath pink foliage.'
   ], sourceAlbum:'http://imgur.com/a/0rB7u' },
-  { slug:'moneywars-map', cardSummary:"Japanese-style Moneywars map created for YouTuber BajanCanadian as a Vaeron commission.", title:"Japanese Styled Moneywars Map", summary:"Japanese-style Moneywars map created for YouTuber BajanCanadian as a Vaeron commission.", projectType:'Multiplayer map', client:'BajanCanadian', studio:'Vaeron', context:'Vaeron commission · BajanCanadian', cover:1, captions:[
+  { slug:'moneywars-map', cardSummary:"Japanese-style Moneywars map created for YouTuber BajanCanadian as a Vaeron commission.", title:"Japanese Styled Moneywars Map", summary:"Japanese-style Moneywars map created for YouTuber BajanCanadian as a Vaeron commission.", projectType:'Multiplayer map', client:'BajanCanadian', clientLabel:'Client', studio:'Vaeron', context:'Vaeron commission · BajanCanadian', cover:1, captions:[
     'Floating islands with tiered buildings, red gates and a ring of red structures around the center.',
     'Close view of a floating island with dark tiered roofs, white walls and greenery.',
     'Overhead view of the central island and surrounding islands beneath red gate-like structures.',

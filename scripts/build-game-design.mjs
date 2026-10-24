@@ -155,7 +155,7 @@ ${breakdowns.length?`<section class="gd-section" aria-labelledby="approach-headi
 write('minecraft-work/index.html',frame({title:landing.title,description:landing.description,route:'/minecraft-work/',preview:cover(featuredProjects[0]),content:indexContent,galleries:buildGalleries}));
 for(const [i,p] of allBuilds.entries()) {
  const all=images(p),hero=cover(p),other=all.filter(a=>a.id!==hero.id),next=allBuilds[(i+1)%allBuilds.length];
- const facts=[['Type',p.projectType],['Platform',p.platform],['Commission context',p.studio?`${p.studio} commission`:null],['Client named in archive',p.client],['Collaboration',p.credits?null:p.collaborationCredits],['Year',p.year],['Published',p.published],['Status',p.status],['Role',p.role]].filter(([,v])=>v);
+ const facts=[['Type',p.projectType],['Platform',p.platform],['Commission context',p.studio?`${p.studio} commission`:null],[p.clientLabel || 'Client named in archive',p.client],['Collaboration',p.credits?null:p.collaborationCredits],['Year',p.year],['Published',p.published],['Status',p.status],['Role',p.role]].filter(([,v])=>v);
  const content=`<nav class="gd-breadcrumb" aria-label="Breadcrumb"><a href="/minecraft-work/">← Minecraft Work</a><span aria-hidden="true">/</span><span aria-current="page">${esc(p.title)}</span></nav><section class="gd-detail-intro" id="overview" data-game-section="Project overview">${(p.detailContext||p.context)?`<p class="gd-eyebrow">${esc(p.detailContext||p.context)}</p>`:''}<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p></section>
  ${detailSlideshow(p)}
  <dl class="gd-facts">${facts.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
