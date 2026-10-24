@@ -125,8 +125,11 @@ function imageLink(p,a,i,hero=false) {
  return `<figure class="gd-figure${hero?' gd-hero-image':''}"><a class="gd-enlarge" href="${esc(a.original)}" data-gallery="${p.slug}" data-image-index="${i}" aria-label="Enlarge: ${esc(a.alt)}${imageCredit?', '+esc(imageCredit):''}">${img(a,{eager:hero,priority:hero,sizes:hero?'(max-width: 1280px) calc(100vw - 40px), 1240px':undefined})}${action}</a><figcaption>${esc(a.caption)}</figcaption></figure>`;
 }
 function projectCredits(p) {
- if (p.credits) return `<dl class="gd-source-credits">${p.credits.map(row=>`<div><dt>${esc(row.label)}</dt><dd>${esc(row.value)}</dd></div>`).join('')}</dl>`;
- return `${p.context?`<p>${esc(p.context)}.</p>`:''}${p.sourceCredits?`<p>${esc(p.sourceCredits)}</p>`:''}`;
+ const rows = p.credits || [
+  ...(p.studio ? [{label:'Commission',value:p.studio}] : [{label:'Project',value:p.compactContext || p.context}]),
+  ...(p.client ? [{label:'Client',value:p.client}] : []),
+ ];
+ return `<dl class="gd-source-credits">${rows.filter(row=>row.value).map(row=>`<div><dt>${esc(row.label)}</dt><dd>${esc(row.value)}</dd></div>`).join('')}</dl>`;
 }
 
 const buildGalleries = Object.fromEntries(allBuilds.map(p=>[p.slug,galleryData(p)]));

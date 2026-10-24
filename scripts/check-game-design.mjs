@@ -37,6 +37,13 @@ const routes=['/minecraft-work/',...[...projects,...studies].map(p=>`/minecraft-
 for(const route of routes){
  const html=read(route+'index.html');
  assert.equal((html.match(/<h1\b/g)||[]).length,1);
+ if (route !== '/minecraft-work/') {
+  const credits = html.match(/<section class="gd-sources gd-section">([\s\S]*?)<\/section>/)?.[1];
+  assert.ok(credits?.includes('<dl class="gd-source-credits">'), `Missing structured credits: ${route}`);
+  assert.equal((credits.match(/<dt>/g)||[]).length,(credits.match(/<dd>/g)||[]).length,`Unpaired credit labels: ${route}`);
+  assert.ok(!credits.includes('<p>'), `Unstructured credit paragraph: ${route}`);
+ }
+
  assert.ok(html.includes(`rel="canonical" href="https://lawrencedinh.com${route}"`));
  assert.ok(read('sitemap.xml').includes(`https://lawrencedinh.com${route}`));
  for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)){
