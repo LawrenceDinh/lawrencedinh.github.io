@@ -37,6 +37,12 @@ const routes=['/minecraft-work/',...[...projects,...studies].map(p=>`/minecraft-
 for(const route of routes){
  const html=read(route+'index.html');
  assert.equal((html.match(/<h1\b/g)||[]).length,1);
+ const galleryPayload = JSON.parse(html.match(/<script id="game-galleries" type="application\/json">([\s\S]*?)<\/script>/)[1]);
+ for (const [key,items] of Object.entries(galleryPayload)) for (const image of items) {
+  assert.equal(image.projectUrl,`/minecraft-work/${key.replace(/-references$/,'')}/`,'Gallery details must target its own project');
+  assert.equal(typeof image.credit,'string','Image attribution is separate from its caption');
+ }
+
  if (route !== '/minecraft-work/') {
   const credits = html.match(/<section class="gd-sources gd-section">([\s\S]*?)<\/section>/)?.[1];
   assert.ok(credits?.includes('<dl class="gd-source-credits">'), `Missing structured credits: ${route}`);

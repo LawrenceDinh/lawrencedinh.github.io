@@ -583,3 +583,20 @@ html[data-portfolio-mode="simple"] .game-design-page .project-image-viewer { --e
  .game-design-page .gd-detail-controls .gd-feature-dots { grid-column:1; grid-row:2; }
  .game-design-page .gd-detail-controls .gd-slideshow-controls { grid-column:2; grid-row:2; }
 }
+
+/* Keep per-image attribution within the stage, without reserving another image row. */
+.game-design-page .project-image-viewer__stage { position:relative; }
+.game-design-page .project-image-viewer__credit {
+ position:absolute; bottom:12px; left:64px; max-width:calc(100% - 128px); z-index:1;
+ padding:4px 8px; border-radius:var(--enhanced-radius-sm,2px);
+ background:rgba(5,15,22,.88); color:var(--muted); font:500 .6875rem/1.4 var(--mono);
+ pointer-events:none;
+}
+.game-design-page .project-image-viewer__credit[hidden] { display:none; }
+@media (max-width:600px) {
+ .game-design-page .project-image-viewer .project-image-viewer__header { gap:4px; padding-left:8px; }
+ .game-design-page .project-image-viewer__source-actions { padding-left:0; border-left:0; }
+ .game-design-page .project-image-viewer__source-link { padding-inline:5px; letter-spacing:0; }
+ .game-design-page .project-image-viewer__label { font-size:.5625rem; white-space:nowrap; }
+ .game-design-page .project-image-viewer__credit { bottom:8px; left:56px; max-width:calc(100% - 112px); }
+}

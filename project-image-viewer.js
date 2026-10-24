@@ -10,6 +10,7 @@
   let title;
   let description;
   let sourceActions;
+  let imageCredit;
   let previous;
   let next;
   let closeButton;
@@ -42,6 +43,8 @@
       title: item.title || '',
       thumbnailSrc: item.thumbnailSrc || source.thumbnailSrc || '',
       description: item.description || '',
+      credit: item.credit || '',
+      projectUrl: item.projectUrl || '',
       sourceUrl: item.sourceUrl || '',
       reducedMotionSrc: item.reducedMotionSrc || '',
       sourceAlbum: item.sourceAlbum || ''
@@ -54,12 +57,26 @@
     frame.scrollTop = Math.max(0, (frame.scrollHeight - frame.clientHeight) / 2);
   };
 
+  const positionImageCredit = () => {
+    if (!dialog?.open || imageCredit?.hidden) return;
+    const stageBounds = frame.parentElement.getBoundingClientRect();
+    const frameBounds = frame.getBoundingClientRect();
+    const imageBounds = image.getBoundingClientRect();
+    const left = Math.max(frameBounds.left, imageBounds.left);
+    const right = Math.min(frameBounds.right, imageBounds.right);
+    const bottom = Math.min(frameBounds.bottom, imageBounds.bottom);
+    imageCredit.style.left = `${left - stageBounds.left + 8}px`;
+    imageCredit.style.bottom = `${stageBounds.bottom - bottom + 8}px`;
+    imageCredit.style.maxWidth = `${Math.max(0, right - left - 16)}px`;
+  };
+
   const scheduleCenterFrame = () => {
     if (centerFrameRequest) window.cancelAnimationFrame(centerFrameRequest);
     centerFrameRequest = window.requestAnimationFrame(() => {
       centerFrameRequest = window.requestAnimationFrame(() => {
         centerFrameRequest = 0;
         centerFrame();
+        positionImageCredit();
       });
     });
   };
@@ -133,11 +150,12 @@
       <div class="project-image-viewer__panel">
         <header class="project-image-viewer__header">
           <span class="project-image-viewer__label">Image Detail</span>
-          <nav class="project-image-viewer__source-actions" aria-label="Image sources" hidden></nav>
+          <nav class="project-image-viewer__source-actions" aria-label="Project and image links" hidden></nav>
           <button class="project-image-viewer__close" type="button" aria-label="Close enlarged image">&times;</button>
         </header>
         <div class="project-image-viewer__stage">
           <div class="project-image-viewer__image-frame"><img alt=""></div>
+          <small class="project-image-viewer__credit" hidden></small>
         </div>
         <nav class="project-image-viewer__thumbnails" aria-label="Choose a gallery image" hidden></nav>
         <footer class="project-image-viewer__caption">
@@ -154,6 +172,7 @@
     title = dialog.querySelector('#project-image-viewer-title');
     description = dialog.querySelector('#project-image-viewer-description');
     sourceActions = dialog.querySelector('.project-image-viewer__source-actions');
+    imageCredit = dialog.querySelector('.project-image-viewer__credit');
     closeButton = dialog.querySelector('.project-image-viewer__close');
     closeButton.addEventListener('click', () => forceReset());
     dialog.addEventListener('cancel', event => { event.preventDefault(); forceReset(); });
@@ -192,6 +211,7 @@
     if (typeof ResizeObserver === 'function') {
       viewerResizeObserver = new ResizeObserver(() => scheduleCenterFrame());
       viewerResizeObserver.observe(panel);
+      viewerResizeObserver.observe(image);
     }
   };
 
@@ -275,8 +295,11 @@
     image.alt = item.alt;
     title.textContent = item.title;
     description.textContent = item.description;
+    imageCredit.textContent = item.credit;
+    imageCredit.hidden = !item.credit;
     sourceActions.replaceChildren();
     for (const [href, text, kind] of [
+      [item.projectUrl, 'Project details', 'project'],
       [item.sourceUrl, 'Full resolution', 'image'],
       [item.sourceAlbum, 'Source album', 'album']
     ]) {
@@ -288,16 +311,18 @@
       link.className = 'project-image-viewer__source-link';
       link.dataset.imageSource = kind;
       link.href = destination.href;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.setAttribute('aria-label', `${text} (opens in a new tab)`);
+      if (kind !== 'project') {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
+      link.setAttribute('aria-label', kind === 'project' ? text : `${text} (opens in a new tab)`);
       const fullLabel = document.createElement('span');
       fullLabel.className = 'project-image-viewer__source-label';
       fullLabel.textContent = text;
       const compactLabel = document.createElement('span');
       compactLabel.className = 'project-image-viewer__source-label--compact';
       compactLabel.setAttribute('aria-hidden', 'true');
-      compactLabel.textContent = kind === 'image' ? 'Original' : 'Album';
+      compactLabel.textContent = kind === 'project' ? 'Details' : kind === 'image' ? 'Original' : 'Album';
       link.append(fullLabel, compactLabel, document.createTextNode(' \u2197'));
       sourceActions.append(link);
     }
