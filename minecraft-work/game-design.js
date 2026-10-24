@@ -22,7 +22,7 @@
       const dots = [...carousel.querySelectorAll('[data-feature-dot]')];
       const dotNav = carousel.querySelector('.gd-feature-dots');
       const duration = 6500;
-      let index = Number(carousel.dataset.startIndex || 0), paused = motion.matches, playThroughInteraction = false, timer, elapsed = 0, lastFrame = null;
+      let index = Number(carousel.dataset.startIndex || 0), paused = motion.matches, playThroughFocus = false, timer, elapsed = 0, lastFrame = null;
       const sync = () => {
         cancelAnimationFrame(timer);
         lastFrame = null;
@@ -30,7 +30,7 @@
         const pauseLabel = paused ? 'Play slideshow' : 'Pause slideshow';
         pause.setAttribute('aria-label', pauseLabel);
         pause.title = pauseLabel;
-        if (!paused && !document.hidden && (playThroughInteraction || !carousel.matches(':hover, :focus-within'))) {
+        if (!paused && !document.hidden && (playThroughFocus || !carousel.matches(':focus-within'))) {
           timer = requestAnimationFrame(tick);
         }
       };
@@ -91,15 +91,13 @@
       }
       pause.addEventListener('click', () => {
         paused = !paused;
-        // An explicit Play request takes precedence over pointer hover and retained focus.
-        playThroughInteraction = !paused;
+        // An explicit Play request takes precedence over retained keyboard focus.
+        playThroughFocus = !paused;
         sync();
       });
-      carousel.addEventListener('mouseenter', sync);
-      carousel.addEventListener('mouseleave', sync);
       carousel.addEventListener('focusin', event => {
         // Focusing the toggle must not change the state before its click handler runs.
-        if (event.target !== pause) { paused = true; playThroughInteraction = false; }
+        if (event.target !== pause) { paused = true; playThroughFocus = false; }
         sync();
       });
       carousel.addEventListener('focusout', () => setTimeout(sync, 0));

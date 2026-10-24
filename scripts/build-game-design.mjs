@@ -102,7 +102,7 @@ ${route==='/minecraft-work/'?footer.replace('</footer>',`<small class="gd-archiv
 <script src="/navigation.js?v=20261023-2"></script>
 <script src="/project-image-viewer.js?v=20261023-7"></script>
 ${route==='/minecraft-work/'?'<script src="/portfolio-entrance.js?v=20261021-2"></script>':''}
-<script src="/minecraft-work/game-design.js?v=20261023-16"></script>
+<script src="/minecraft-work/game-design.js?v=20261023-17"></script>
 <script src="/analytics.js?v=20260720-1" defer></script>
 </body></html>`;
 }
