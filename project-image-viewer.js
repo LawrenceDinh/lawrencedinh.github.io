@@ -51,6 +51,33 @@
     };
   };
 
+  const loadSelectedImage = item => {
+    // Use a fresh element so the browser cannot paint the previous decoded bitmap
+    // while fetching a different source, including across gallery openings.
+    const selectedImage = new Image();
+    selectedImage.alt = item.alt;
+    selectedImage.style.visibility = 'hidden';
+    selectedImage.decoding = 'async';
+    selectedImage.sizes = item.sizes;
+    selectedImage.srcset = item.srcset;
+    selectedImage.src = item.reducedMotionSrc && matchMedia('(prefers-reduced-motion: reduce)').matches ? item.reducedMotionSrc : item.src;
+    viewerResizeObserver?.unobserve(image);
+    image.replaceWith(selectedImage);
+    image = selectedImage;
+    viewerResizeObserver?.observe(image);
+    frame.setAttribute('aria-busy', 'true');
+    imageCredit.hidden = true;
+    const reveal = () => {
+      // A slower earlier request must never reveal over a newer selection.
+      if (image !== selectedImage || !dialog.open) return;
+      frame.setAttribute('aria-busy', 'false');
+      selectedImage.style.visibility = 'visible';
+      imageCredit.hidden = !item.credit || !selectedImage.naturalWidth;
+      scheduleCenterFrame();
+    };
+    selectedImage.decode().then(reveal, reveal);
+  };
+
   const centerFrame = () => {
     if (!dialog?.open || !isCurrentImageMode(activeGallery) || manualFrameInteraction) return;
     frame.scrollLeft = Math.max(0, (frame.scrollWidth - frame.clientWidth) / 2);
@@ -93,6 +120,8 @@
     dialogPointer = null;
     manualFrameInteraction = false;
     frame?.scrollTo({ left: 0, top: 0, behavior: 'auto' });
+    if (image) image.style.visibility = 'hidden';
+    frame?.setAttribute('aria-busy', 'false');
     if (galleryToResume?.resume) galleryToResume.resume();
     if (restoreFocus && focusTarget?.isConnected) focusTarget.focus({ preventScroll: true });
   };
@@ -289,14 +318,10 @@
       previous.hidden = next.hidden = items.length < 2;
     }
     renderThumbnails(items, index);
-    image.src = item.reducedMotionSrc && matchMedia('(prefers-reduced-motion: reduce)').matches ? item.reducedMotionSrc : item.src;
-    image.srcset = item.srcset;
-    image.sizes = item.sizes;
-    image.alt = item.alt;
+    loadSelectedImage(item);
     title.textContent = item.title;
     description.textContent = item.description;
     imageCredit.textContent = item.credit;
-    imageCredit.hidden = !item.credit;
     sourceActions.replaceChildren();
     for (const [href, text, kind] of [
       [item.projectUrl, 'Project details', 'project'],

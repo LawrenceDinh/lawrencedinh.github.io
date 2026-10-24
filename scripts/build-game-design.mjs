@@ -100,7 +100,7 @@ ${topButton}
 ${route==='/minecraft-work/'?footer.replace('</footer>',`<small class="gd-archive-credit">Build archive: <a href="${sourceUrl}">BassFreerunning &#8599;</a></small></footer>`):footer}
 <script id="game-galleries" type="application/json">${JSON.stringify(galleries).replaceAll('<','\\u003c')}</script>
 <script src="/navigation.js?v=20261023-2"></script>
-<script src="/project-image-viewer.js?v=20261023-5"></script>
+<script src="/project-image-viewer.js?v=20261023-6"></script>
 ${route==='/minecraft-work/'?'<script src="/portfolio-entrance.js?v=20261021-2"></script>':''}
 <script src="/minecraft-work/game-design.js?v=20261023-16"></script>
 <script src="/analytics.js?v=20260720-1" defer></script>
