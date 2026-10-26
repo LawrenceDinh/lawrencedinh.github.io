@@ -42,7 +42,7 @@
   }
   </script>
   <link rel="stylesheet" href="style.css?v=20261022-2" />
-  <link rel="stylesheet" href="projects.css?v=20261025-3" />
+  <link rel="stylesheet" href="projects.css?v=20261025-4" />
   <script src="display-mode.js?v=20260818-2"></script>
 </head>
 <body class="projects-page portfolio-index-page">
@@ -119,13 +119,13 @@
   </button>
 
   <main id="projects-content" class="projects-shell portfolio-page-shell">
-    <header class="projects-intro">
-      <h1 id="projects-heading">Projects</h1>
-      <p>Software, electronics, data, and applied systems.</p>
-    </header>
+    <h1 class="portfolio-page-title" id="projects-heading">Projects</h1>
 
     <section id="featured-case-study" class="projects-featured" aria-labelledby="featured-case-studies-heading">
-      <h2 class="projects-section-title" id="featured-case-studies-heading">Featured Work</h2>
+      <header class="projects-featured__heading">
+        <h2 class="projects-section-title" id="featured-case-studies-heading">Featured Work</h2>
+        <span class="projects-featured__count" data-featured-project-count></span>
+      </header>
       <div class="projects-featured__records">
         <article id="drift-course-designer" class="projects-record" data-project-record aria-labelledby="drift-course-title">
           <header class="projects-record__overview">
@@ -150,36 +150,41 @@
                     <div class="projects-application-capture__viewport">
                       <img data-project-feature-image decoding="async" draggable="false" alt="" />
                     </div>
-                    <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
                   </figure>
                   <div class="projects-feature-explorer__rail">
                     <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
                     <h4 data-project-feature-title></h4>
                     <p data-project-feature-description></p>
-                  </div>
-                  <div class="projects-feature-explorer__navigation">
-                    <button type="button" data-project-feature-previous>&larr; Previous</button>
-                    <div class="projects-feature-explorer__navigation-center">
-                      <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Evidence position"></div>
-                      <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+                    <div class="projects-feature-explorer__navigation">
+                      <button type="button" data-project-feature-previous>&larr; Previous</button>
+                      <div class="projects-feature-explorer__navigation-center">
+                        <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Evidence position"></div>
+                        <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+                      </div>
+                      <button type="button" data-project-feature-next>Next &rarr;</button>
+                      <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
                     </div>
-                    <button type="button" data-project-feature-next>Next &rarr;</button>
-                    <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
                   </div>
                 </section>
                 <div class="projects-feature-explorer__index" role="tablist" aria-label="Course Designer evidence"></div>
               </div>
               <aside class="projects-record__information" aria-label="Drift Course Designer capabilities and technologies">
-                <h4>Capabilities</h4>
-                <ul class="projects-record__capabilities">
-                  <li>Define the driving line</li>
-                  <li>Edit without rebuilding</li>
-                  <li>Add operational detail</li>
-                  <li>Produce a reviewable plan</li>
-                </ul>
-                <h4>Technologies</h4>
-                <p>React &middot; TypeScript &middot; Canvas 2D &middot; IndexedDB</p>
-                <a class="projects-action projects-action--launch" href="/tools/drift-course-designer/">Launch Tool <span aria-hidden="true">&#8599;</span></a>
+                <div class="projects-record__group">
+                  <h4>Capabilities</h4>
+                  <ul class="projects-record__capabilities">
+                    <li>Define the driving line</li>
+                    <li>Edit without rebuilding</li>
+                    <li>Add operational detail</li>
+                    <li>Produce a reviewable plan</li>
+                  </ul>
+                </div>
+                <div class="projects-record__group">
+                  <h4>Technologies</h4>
+                  <p>React &middot; TypeScript &middot; Canvas 2D &middot; IndexedDB</p>
+                </div>
+                <div class="projects-record__group">
+                  <a class="projects-action projects-action--launch" href="/tools/drift-course-designer/">Launch Tool <span aria-hidden="true">&#8599;</span></a>
+                </div>
               </aside>
             </div>
             <details class="projects-technical">
@@ -218,6 +223,10 @@
                     <li><span>04</span><strong>Annotate and export</strong><small>Add clipping points, gates, zones, boundaries, direction markers, and labels before exporting the completed layout.</small></li>
                   </ol>
                 </section>
+                <section class="projects-screenshot-notes" aria-label="Additional screenshot details">
+                  <h4>Screenshot notes</h4>
+                  <dl data-project-feature-notes></dl>
+                </section>
               </div>
             </details>
           </div>
@@ -245,35 +254,38 @@
                     <div class="projects-application-capture__viewport">
                       <img data-project-feature-image decoding="async" draggable="false" alt="" />
                     </div>
-                    <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
                   </figure>
                   <div class="projects-feature-explorer__rail">
                     <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
                     <h4 data-project-feature-title></h4>
                     <p data-project-feature-description></p>
-                  </div>
-                  <div class="projects-feature-explorer__navigation">
-                    <button type="button" data-project-feature-previous>← Previous</button>
-                    <div class="projects-feature-explorer__navigation-center">
-                      <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Feature position"></div>
-                      <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+                    <div class="projects-feature-explorer__navigation">
+                      <button type="button" data-project-feature-previous>← Previous</button>
+                      <div class="projects-feature-explorer__navigation-center">
+                        <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Feature position"></div>
+                        <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+                      </div>
+                      <button type="button" data-project-feature-next>Next →</button>
+                      <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
                     </div>
-                    <button type="button" data-project-feature-next>Next →</button>
-                    <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
                   </div>
                 </section>
                 <div class="projects-feature-explorer__index" role="tablist" aria-label="Operational features"></div>
               </div>
               <aside class="projects-record__information" aria-label="Local Driving Intelligence capabilities and technologies">
-                <h4>Capabilities</h4>
-                <ul class="projects-record__capabilities">
-                  <li>Review conditions before departure</li>
-                  <li>Normalize regional data</li>
-                  <li>Retain recent context</li>
-                  <li>Expose data reliability</li>
-                </ul>
-                <h4>Technologies</h4>
-                <p>React &middot; Express &middot; SQLite</p>
+                <div class="projects-record__group">
+                  <h4>Capabilities</h4>
+                  <ul class="projects-record__capabilities">
+                    <li>Review conditions before departure</li>
+                    <li>Normalize regional data</li>
+                    <li>Retain recent context</li>
+                    <li>Expose data reliability</li>
+                  </ul>
+                </div>
+                <div class="projects-record__group">
+                  <h4>Technologies</h4>
+                  <p>React &middot; Express &middot; SQLite</p>
+                </div>
 
               </aside>
             </div>
@@ -312,6 +324,10 @@
                     <li><span>03</span><strong>Save</strong><small>Keep recent results and imagery available between updates.</small></li>
                     <li><span>04</span><strong>Display</strong><small>Show timestamps, source status, saved results, and recent history in the dashboard.</small></li>
                   </ol>
+                </section>
+                <section class="projects-screenshot-notes" aria-label="Additional screenshot details">
+                  <h4>Screenshot notes</h4>
+                  <dl data-project-feature-notes></dl>
                 </section>
               </div>
             </details>
@@ -396,7 +412,7 @@
 <script src="carousel-interaction.js?v=20260720-4"></script>
 <script src="project-image-viewer.js?v=20261023-7"></script>
 <script src="portfolio-entrance.js?v=20261021-2"></script>
-<script src="projects-explorer.js?v=20261025-3"></script>
+<script src="projects-explorer.js?v=20261025-4"></script>
 <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>

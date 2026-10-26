@@ -2,7 +2,7 @@
   'use strict';
 
   const explorerControllers = new WeakMap();
-  const mobileFeatureQuery = window.matchMedia('(max-width: 760px)');
+  const mobileFeatureQuery = window.matchMedia('(max-width: 767px)');
 
   // These ordered sources drive each explorer's index, viewer, counter,
   // controls, image preloading, and accessible selected state.
@@ -164,6 +164,11 @@
     drift: driftCourseFeatures
   };
 
+  function screenshotSummary(feature) {
+    const sentenceEnd = feature.description.indexOf('. ');
+    return sentenceEnd < 0 ? feature.description : feature.description.slice(0, sentenceEnd + 1);
+  }
+
   function initializeFeatureExplorer(explorer) {
     const projectFeatures = featureSets[explorer.dataset.projectFeatureExplorer];
     if (!projectFeatures?.length) return;
@@ -175,7 +180,6 @@
     const counter = explorer.querySelector('[data-project-feature-counter]');
     const title = explorer.querySelector('[data-project-feature-title]');
     const description = explorer.querySelector('[data-project-feature-description]');
-    const caption = explorer.querySelector('[data-project-feature-caption]');
     const dots = explorer.querySelector('[data-project-feature-dots]');
     const previous = explorer.querySelector('[data-project-feature-previous]');
     const next = explorer.querySelector('[data-project-feature-next]');
@@ -194,7 +198,6 @@
       counter,
       title,
       description,
-      caption,
       dots,
       previous,
       next,
@@ -212,6 +215,25 @@
       console.error('[Projects Feature Explorer] Missing required elements:', missingElements);
       explorer.dataset.featureExplorerReady = 'false';
       return;
+    }
+
+    // Keep additional context in the native disclosure instead of a second visible caption.
+    const notes = record?.querySelector('[data-project-feature-notes]');
+    if (notes && !notes.childElementCount) {
+      projectFeatures.forEach(feature => {
+        const summary = screenshotSummary(feature);
+        const additionalDescription = feature.description.slice(summary.length).trim();
+        const additionalCaption = feature.caption === summary ? '' : feature.caption;
+        const text = [additionalDescription, additionalCaption].filter(Boolean).join(' ');
+        if (!text) return;
+        const entry = document.createElement('div');
+        const term = document.createElement('dt');
+        const detail = document.createElement('dd');
+        term.textContent = feature.title;
+        detail.textContent = text;
+        entry.append(term, detail);
+        notes.append(entry);
+      });
     }
 
     let activeIndex = 0;
@@ -258,9 +280,6 @@
       return button;
     });
 
-    const mobileStatus = document.createElement('span');
-    mobileStatus.className = 'mobile-feature-carousel__status';
-    mobileStatus.setAttribute('aria-live', 'polite');
     previous.setAttribute('aria-label', 'Show previous feature');
     next.setAttribute('aria-label', 'Show next feature');
 
@@ -310,15 +329,15 @@
         viewer.removeAttribute('aria-labelledby');
         viewer.setAttribute('role', 'region');
         viewer.setAttribute('aria-label', 'Projects feature slideshow');
-        previous.textContent = '←';
-        next.textContent = '→';
+        previous.textContent = '\u2190';
+        next.textContent = '\u2192';
         navigationCenter.hidden = true;
-        navigation.replaceChildren(previous, mobileStatus, dots, next, playback, progressTrack);
+        navigation.replaceChildren(previous, dots, next, playback, progressTrack);
       } else {
         viewer.setAttribute('role', 'tabpanel');
         viewer.removeAttribute('aria-label');
-        previous.textContent = '← Previous';
-        next.textContent = 'Next →';
+        previous.textContent = '\u2190';
+        next.textContent = '\u2192';
         navigationCenter.hidden = false;
         navigationCenter.replaceChildren(dots, playback);
         navigation.replaceChildren(previous, navigationCenter, next, progressTrack);
@@ -331,10 +350,8 @@
       const feature = projectFeatures[normalizedIndex];
       domain.textContent = `${String(normalizedIndex + 1).padStart(2, '0')} / ${feature.domain}`;
       counter.textContent = `${String(normalizedIndex + 1).padStart(2, '0')} / ${String(projectFeatures.length).padStart(2, '0')}`;
-      mobileStatus.textContent = counter.textContent;
       title.textContent = feature.title;
-      description.textContent = feature.description;
-      caption.textContent = feature.caption;
+      description.textContent = screenshotSummary(feature);
       initialImage.src = feature.src;
       initialImage.srcset = feature.srcset;
       initialImage.sizes = '(max-width: 1199px) 94vw, 60vw';
@@ -568,6 +585,10 @@
   // Cards own expansion; an explorer is initialized once, after its workspace is visible.
   const records = [...document.querySelectorAll('[data-project-record]')];
   const recordsById = new Map(records.map(record => [record.id, record]));
+  const featuredCount = document.querySelector('[data-featured-project-count]');
+  if (featuredCount) {
+    featuredCount.textContent = String(records.length).padStart(2, '0') + (records.length === 1 ? ' Project' : ' Projects');
+  }
 
   function projectFromUrl() {
     const hashProject = window.location.hash.slice(1);
@@ -642,7 +663,7 @@
   });
 
   if (window.PortfolioEntrance) {
-    const groups = [[document.querySelector('.projects-intro'), document.querySelector('.projects-section-title'), ...records]];
+    const groups = [[document.querySelector('.projects-featured__heading'), ...records]];
     document.querySelectorAll('.projects-registry').forEach(registry => {
       groups.push([registry.querySelector('.projects-section-header'), ...registry.querySelectorAll('.projects-card')]);
     });
