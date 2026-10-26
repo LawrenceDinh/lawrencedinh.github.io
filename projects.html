@@ -42,7 +42,7 @@
   }
   </script>
   <link rel="stylesheet" href="style.css?v=20261022-2" />
-  <link rel="stylesheet" href="projects.css?v=20261021-3" />
+  <link rel="stylesheet" href="projects.css?v=20261025-1" />
   <script src="display-mode.js?v=20260818-2"></script>
 </head>
 <body class="projects-page portfolio-index-page">
@@ -140,13 +140,47 @@
       <div class="projects-case-study__lead">
         <div class="projects-case-study__summary">
           <div class="projects-case-study__summary-intro">
-            <p class="projects-section-label">Regional planning dashboard</p>
-            <div class="projects-case-study__title-row">
-              <span class="projects-case-study__title-index" aria-label="Project 02">02</span>
-              <h2 id="local-driving-title">Local Driving Intelligence</h2>
-            </div>
+            <h2 id="local-driving-title">Local Driving Intelligence</h2>
             <p class="projects-case-study__purpose">Local Driving Intelligence unifies weather, road activity, traffic cameras, event information, and preparation workflows in one regional planning dashboard.</p>
           </div>
+          <span class="projects-status">Active Development</span>
+        </div>
+      </div>
+
+      <section class="projects-osint-evidence" aria-labelledby="osint-evidence-heading">
+
+        <div class="projects-feature-explorer" data-project-feature-explorer="local">
+          <section class="projects-feature-explorer__viewer" id="osint-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
+            <figure class="projects-feature-explorer__media projects-application-capture">
+              <div class="projects-application-capture__viewport">
+                <img data-project-feature-image decoding="async" draggable="false" alt="" />
+              </div>
+              <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
+            </figure>
+            <div class="projects-feature-explorer__rail">
+              <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
+              <h4 data-project-feature-title></h4>
+              <p data-project-feature-description></p>
+            </div>
+            <div class="projects-feature-explorer__navigation">
+              <button type="button" data-project-feature-previous>← Previous</button>
+              <div class="projects-feature-explorer__navigation-center">
+                <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Feature position"></div>
+                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+              </div>
+              <button type="button" data-project-feature-next>Next →</button>
+              <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
+            </div>
+          </section>
+          <div class="projects-feature-explorer__index" role="tablist" aria-label="Operational features"></div>
+        </div>
+      </section>
+
+      <div class="projects-case-study__technical">
+        <header>
+          <h3 id="osint-evidence-heading">Inside the Dashboard</h3>
+          <p>Browse the dashboard tools and see how each one supports planning before a drive.</p>
+        </header>
           <dl class="projects-facts">
             <div><dt>Type</dt><dd>Regional planning dashboard</dd></div>
             <div><dt>Interface</dt><dd>React</dd></div>
@@ -156,7 +190,6 @@
             <div><dt>Status</dt><dd>Active development</dd></div>
             <div><dt>Current work</dt><dd>Expanding coverage and improving data reliability.</dd></div>
           </dl>
-        </div>
       </div>
 
       <section class="projects-case-study__detail projects-case-study__detail--capabilities" aria-label="Local Driving Intelligence capabilities">
@@ -182,39 +215,6 @@
         </article>
       </section>
 
-      <section class="projects-osint-evidence" aria-labelledby="osint-evidence-heading">
-        <header>
-          <h3 id="osint-evidence-heading">Inside the Dashboard</h3>
-          <p>Browse the dashboard tools and see how each one supports planning before a drive.</p>
-        </header>
-
-        <div class="projects-feature-explorer" data-project-feature-explorer="local">
-          <div class="projects-feature-explorer__index" role="tablist" aria-label="Operational features"></div>
-          <section class="projects-feature-explorer__viewer" id="osint-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
-            <div class="projects-feature-explorer__rail">
-              <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
-              <h4 data-project-feature-title></h4>
-              <p data-project-feature-description></p>
-            </div>
-            <figure class="projects-feature-explorer__media projects-application-capture">
-              <div class="projects-application-capture__viewport">
-                <img data-project-feature-image decoding="async" draggable="false" alt="" />
-              </div>
-              <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
-            </figure>
-            <div class="projects-feature-explorer__navigation">
-              <button type="button" data-project-feature-previous>← Previous</button>
-              <div class="projects-feature-explorer__navigation-center">
-                <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Feature position"></div>
-                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
-              </div>
-              <button type="button" data-project-feature-next>Next →</button>
-              <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
-            </div>
-          </section>
-        </div>
-      </section>
-
       <section class="projects-architecture" aria-labelledby="architecture-heading">
         <div>
           <p class="projects-section-label">From Source to Dashboard</p>
@@ -230,23 +230,53 @@
     </article>
     <article id="drift-course-designer" class="projects-case-study" role="tabpanel" tabindex="0" aria-labelledby="featured-tab-drift drift-course-title" data-featured-panel>
       <div class="projects-case-study__lead">
-        <div class="projects-case-study__summary projects-case-study__summary--drift">
+        <div class="projects-case-study__summary">
           <div class="projects-case-study__summary-intro">
-            <p class="projects-section-label">Interactive course-planning tool</p>
-            <div class="projects-case-study__title-row">
-              <span class="projects-case-study__title-index" aria-label="Project 01">01</span>
-              <h2 id="drift-course-title">Drift Course Designer</h2>
-            </div>
-            <p class="projects-case-study__purpose">Drift Course Designer helps drift event organizers explore course layouts, review ideas together, and refine a plan before setup at the venue.</p>
-            <a class="projects-case-study__launch" href="/tools/drift-course-designer/">
-              <span class="projects-case-study__launch-copy">
-                <small>Open the browser tool</small>
-                <strong>Launch Course Designer</strong>
-              </span>
-              <span class="projects-case-study__launch-arrow" aria-hidden="true">&rarr;</span>
-            </a>
-            <p class="projects-case-study__requirement">Desktop or laptop recommended for precise pointer-based editing.</p>
+            <h2 id="drift-course-title">Drift Course Designer</h2>
+            <p class="projects-case-study__purpose">Design and refine drift course layouts over venue imagery.</p>
           </div>
+          <span class="projects-status">Live Tool</span>
+          <a class="projects-case-study__launch" href="/tools/drift-course-designer/">
+            <span class="projects-case-study__launch-copy"><strong>Launch Tool</strong></span>
+            <span class="projects-case-study__launch-arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
+      </div>
+
+      <section class="projects-osint-evidence" aria-labelledby="drift-evidence-heading">
+
+        <div class="projects-feature-explorer" data-project-feature-explorer="drift">
+          <section class="projects-feature-explorer__viewer" id="drift-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
+            <figure class="projects-feature-explorer__media projects-application-capture">
+              <div class="projects-application-capture__viewport">
+                <img data-project-feature-image decoding="async" draggable="false" alt="" />
+              </div>
+              <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
+            </figure>
+            <div class="projects-feature-explorer__rail">
+              <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
+              <h4 data-project-feature-title></h4>
+              <p data-project-feature-description></p>
+            </div>
+            <div class="projects-feature-explorer__navigation">
+              <button type="button" data-project-feature-previous>&larr; Previous</button>
+              <div class="projects-feature-explorer__navigation-center">
+                <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Evidence position"></div>
+                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
+              </div>
+              <button type="button" data-project-feature-next>Next &rarr;</button>
+              <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
+            </div>
+          </section>
+          <div class="projects-feature-explorer__index" role="tablist" aria-label="Course Designer evidence"></div>
+        </div>
+      </section>
+
+      <div class="projects-case-study__technical">
+        <header>
+          <h3 id="drift-evidence-heading">Course Design Interface</h3>
+          <p>The interface supports a continuous workflow from initial path creation through geometry refinement, annotation, and export.</p>
+        </header>
           <dl class="projects-facts">
             <div><dt>Type</dt><dd>Browser-based course planner</dd></div>
             <div><dt>Interface</dt><dd>React</dd></div>
@@ -256,7 +286,7 @@
             <div><dt>Status</dt><dd>Public release / Active development</dd></div>
             <div><dt>Current work</dt><dd>Improving editing, venue support, and onboarding.</dd></div>
           </dl>
-        </div>
+            <p class="projects-case-study__requirement">Desktop or laptop recommended for precise pointer-based editing.</p>
       </div>
 
       <section class="projects-case-study__detail projects-case-study__detail--capabilities" aria-label="Course Designer capabilities">
@@ -280,39 +310,6 @@
           <h3>Produce a reviewable plan</h3>
           <p>Combine venue context, course geometry, and annotations into a clear layout for review and sharing.</p>
         </article>
-      </section>
-
-      <section class="projects-osint-evidence" aria-labelledby="drift-evidence-heading">
-        <header>
-          <h3 id="drift-evidence-heading">Course Design Interface</h3>
-          <p>The interface supports a continuous workflow from initial path creation through geometry refinement, annotation, and export.</p>
-        </header>
-
-        <div class="projects-feature-explorer" data-project-feature-explorer="drift">
-          <div class="projects-feature-explorer__index" role="tablist" aria-label="Course Designer evidence"></div>
-          <section class="projects-feature-explorer__viewer" id="drift-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
-            <div class="projects-feature-explorer__rail">
-              <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
-              <h4 data-project-feature-title></h4>
-              <p data-project-feature-description></p>
-            </div>
-            <figure class="projects-feature-explorer__media projects-application-capture">
-              <div class="projects-application-capture__viewport">
-                <img data-project-feature-image decoding="async" draggable="false" alt="" />
-              </div>
-              <p class="projects-feature-explorer__caption" data-project-feature-caption></p>
-            </figure>
-            <div class="projects-feature-explorer__navigation">
-              <button type="button" data-project-feature-previous>&larr; Previous</button>
-              <div class="projects-feature-explorer__navigation-center">
-                <div class="projects-feature-explorer__dots" data-project-feature-dots aria-label="Evidence position"></div>
-                <button class="carousel-playback-toggle" type="button" data-project-feature-playback aria-label="Pause slideshow" aria-pressed="false"><svg class="carousel-playback-icon carousel-playback-icon--pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="4" y="3" width="2.5" height="10"></rect><rect x="9.5" y="3" width="2.5" height="10"></rect></svg><svg class="carousel-playback-icon carousel-playback-icon--play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5 12 8l-7 4.5z"></path></svg></button>
-              </div>
-              <button type="button" data-project-feature-next>Next &rarr;</button>
-              <span class="carousel-progress" aria-hidden="true"><span data-project-feature-progress></span></span>
-            </div>
-          </section>
-        </div>
       </section>
 
       <section class="projects-architecture" aria-labelledby="course-planning-flow-heading">
