@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "page": "projects.html",
+    "headingId": "projects-heading"
+  },
+  "game-design": {
+    "page": "game-design/index.html",
+    "headingId": "gd-title"
+  },
+  "writing": {
+    "page": "writing.html",
+    "headingId": "writing-heading"
+  }
+}

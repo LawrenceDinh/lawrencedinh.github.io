@@ -1,0 +1,20 @@
+Portfolio page-header backup — 2026-10-21
+
+The three *.header.html files preserve the exact removed visible header panels,
+including titles, descriptions, subsection links and divided layout classes.
+shared-header.css preserves their shared component styles and responsive rules.
+game-design-header.template.html preserves the templated Game Design header.
+
+To restore:
+1. Replace the visually hidden page title in projects.html and writing.html with
+   the corresponding header fragment. Do not duplicate the page h1 IDs.
+2. In scripts/build-game-design.mjs, replace the indexContent leading overview
+   wrapper/hidden title with game-design-header.template.html, then run:
+   node scripts/build-game-design.mjs
+3. Reinsert shared-header.css before .projects-section-nav-arrival in style.css.
+4. Add the header back to the entrance groups in projects-explorer.js and
+   game-design/game-design.js if its loading animation is wanted.
+5. Refresh the stylesheet version in the affected pages/template and validate.
+
+The original Writing-specific header entrance rule remains in writing.css.
+Existing content sections, global navigation and section IDs were preserved.

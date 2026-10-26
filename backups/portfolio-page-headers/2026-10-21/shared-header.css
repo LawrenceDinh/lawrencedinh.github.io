@@ -1,0 +1,108 @@
+/* Shared portfolio header: title beside a description-and-navigation group. */
+.portfolio-page-header {
+  --page-header-divider: var(--enhanced-divider,rgba(154,164,178,.25));
+  --page-header-accent: var(--enhanced-accent-detail,var(--accent));
+  margin:0 0 var(--enhanced-space-5,24px);
+  border:1px solid var(--page-header-divider);
+  border-radius:var(--enhanced-radius-sm,var(--radius));
+  /* Composite the translucent surface over the same base on every page. */
+  background:linear-gradient(var(--enhanced-surface,var(--card)),var(--enhanced-surface,var(--card))),var(--bg);
+}
+.portfolio-page-header__body {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  gap:var(--enhanced-space-3,12px) var(--enhanced-space-6,32px);
+  padding:var(--enhanced-space-4,16px) var(--enhanced-space-5,24px);
+}
+.portfolio-page-header .portfolio-page-header__title {
+  flex:1 1 12ch;
+  min-inline-size:max-content;
+  margin:0;
+  color:var(--enhanced-text-heading,var(--text));
+  font:750 clamp(2rem,2.7vw,2.6rem)/1.1 var(--enhanced-font-ui,Inter,system-ui,sans-serif);
+  letter-spacing:-.045em;
+}
+.portfolio-page-header__context {
+  display:grid;
+  flex:1 1 36rem;
+  min-width:0;
+  gap:var(--enhanced-space-1,4px);
+}
+.portfolio-page-header .portfolio-page-header__description {
+  max-width:68ch;
+  margin:0;
+  color:var(--enhanced-text-body,var(--text));
+  font-size:var(--enhanced-type-body,.94rem);
+  font-weight:400;
+  line-height:var(--enhanced-body-leading,1.6);
+}
+.portfolio-page-header__nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:0 var(--enhanced-space-4,16px);
+  margin:0;
+  padding:0;
+}
+.portfolio-page-header__nav a {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:var(--enhanced-space-2,8px) 0;
+  border-bottom:2px solid transparent;
+  color:var(--enhanced-text-body,var(--muted));
+  font:650 var(--enhanced-type-label,.72rem)/1.4 var(--mono);
+  letter-spacing:.045em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  transition:color var(--enhanced-fast,140ms ease-out),background var(--enhanced-fast,140ms ease-out);
+}
+.portfolio-page-header__nav a:hover {
+  color:var(--page-header-accent);
+  background:var(--enhanced-accent-soft,var(--glass));
+}
+.portfolio-page-header__nav a[aria-current="location"] {
+  color:var(--page-header-accent);
+  border-bottom-color:var(--accent);
+}
+.portfolio-page-header__nav a:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:4px;
+}
+/* Divided composition shared by the Projects, Game Design and Writing headers. */
+.portfolio-page-header--divided { container:portfolio-header / inline-size; }
+.portfolio-page-header--divided .portfolio-page-header__title {
+  display:flex;
+  align-self:stretch;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.portfolio-page-header--divided .portfolio-page-header__context {
+  position:relative;
+  row-gap:calc(var(--enhanced-space-1,4px) - 1px);
+}
+.portfolio-page-header--divided .portfolio-page-header__context::before {
+  content:"";
+  position:absolute;
+  inset-block:0;
+  inset-inline-start:calc(-1 * var(--enhanced-space-4,16px));
+  border-inline-start:1px solid var(--page-header-divider);
+}
+.portfolio-page-header--divided .portfolio-page-header__nav {
+  border-top:1px solid var(--page-header-divider);
+}
+/* The shared flex layout wraps near this content width; remove the column rule
+   in that range while retaining the description/navigation divider. */
+@container portfolio-header (max-width:54rem) {
+  .portfolio-page-header--divided .portfolio-page-header__title {
+    justify-content:flex-start;
+    text-align:start;
+  }
+  .portfolio-page-header--divided .portfolio-page-header__context::before { content:none; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .portfolio-page-header__nav a { transition:none; }
+}
+
