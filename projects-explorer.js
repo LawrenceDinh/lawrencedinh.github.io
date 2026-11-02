@@ -172,7 +172,8 @@
   function initializeFeatureExplorer(explorer) {
     const projectFeatures = featureSets[explorer.dataset.projectFeatureExplorer];
     if (!projectFeatures?.length) return;
-    const record = explorer.closest('[data-project-record]');
+    const projectDialog = explorer.closest('.projects-record__dialog');
+    const record = document.getElementById(projectDialog?.dataset.projectRecordId);
     const index = explorer.querySelector('[role="tablist"]');
     const viewer = explorer.querySelector('[role="tabpanel"]');
     const initialImage = explorer.querySelector('[data-project-feature-image]');
@@ -218,7 +219,7 @@
     }
 
     // Keep additional context in the native disclosure instead of a second visible caption.
-    const notes = record?.querySelector('[data-project-feature-notes]');
+    const notes = projectDialog?.querySelector('[data-project-feature-notes]');
     if (notes && !notes.childElementCount) {
       projectFeatures.forEach(feature => {
         const summary = screenshotSummary(feature);
@@ -519,7 +520,7 @@
           progress,
           isTrackReady: () => projectTrackReady,
           keyboard: false,
-          isEnabled: () => (!record || record.classList.contains('is-expanded'))
+          isEnabled: () => (!record || record.dataset.projectOpen === 'true')
             && document.documentElement.getAttribute('data-portfolio-mode') === 'enhanced'
         });
         if (!interaction) throw new Error('Shared carousel controller did not initialize.');
@@ -582,13 +583,63 @@
     };
   }
 
-  // Cards own expansion; an explorer is initialized once, after its workspace is visible.
+  // A record keeps its gallery footprint; the existing workspace opens in a native dialog.
   const records = [...document.querySelectorAll('[data-project-record]')];
   const recordsById = new Map(records.map(record => [record.id, record]));
-  const featuredCount = document.querySelector('[data-featured-project-count]');
-  if (featuredCount) {
-    featuredCount.textContent = String(records.length).padStart(2, '0') + (records.length === 1 ? ' Project' : ' Projects');
-  }
+  const projectDialogs = new Map();
+  const projectOpeners = new WeakMap();
+
+  records.forEach(record => {
+    const dialog = record.querySelector('.projects-record__dialog');
+    if (!dialog) return;
+    const header = document.createElement('header');
+    header.className = 'projects-record__overview';
+    const intro = record.querySelector('.projects-record__intro').cloneNode(true);
+    const originalTitle = intro.querySelector('h3');
+    const title = document.createElement('h2');
+    title.id = record.id + '-dialog-title';
+    title.textContent = originalTitle.textContent;
+    originalTitle.replaceWith(title);
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'projects-action';
+    closeButton.textContent = 'Close \u00d7';
+    closeButton.setAttribute('aria-label', 'Close ' + title.textContent + ' project');
+    intro.querySelector('.projects-record__actions').replaceChildren(closeButton);
+    header.append(intro);
+    dialog.prepend(header);
+    dialog.dataset.projectRecordId = record.id;
+    dialog.setAttribute('aria-labelledby', title.id);
+    document.body.append(dialog);
+    projectDialogs.set(record.id, dialog);
+    closeButton.addEventListener('click', () => setExpandedProject(null, { updateHistory: true }));
+    dialog.addEventListener('cancel', event => {
+      event.preventDefault();
+      setExpandedProject(null, { updateHistory: true });
+    });
+    dialog.addEventListener('close', () => {
+      if (!dialog.open && record.dataset.projectOpen === 'true') setExpandedProject(null, { updateHistory: true });
+    });
+    let backdropPointer = false;
+    const outside = event => {
+      const bounds = dialog.getBoundingClientRect();
+      return event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+    };
+    dialog.addEventListener('pointerdown', event => { backdropPointer = event.target === dialog && outside(event); });
+    dialog.addEventListener('click', event => {
+      if (backdropPointer && event.target === dialog && outside(event)) setExpandedProject(null, { updateHistory: true });
+      backdropPointer = false;
+    });
+    record.querySelectorAll('[data-project-toggle]').forEach(button => {
+      button.setAttribute('aria-haspopup', 'dialog');
+      const icon = button.querySelector('[data-project-toggle-icon]');
+      if (icon) icon.textContent = '\u2197';
+      button.addEventListener('click', () => {
+        projectOpeners.set(dialog, button);
+        setExpandedProject(record.id, { updateHistory: true });
+      });
+    });
+  });
 
   function projectFromUrl() {
     const hashProject = window.location.hash.slice(1);
@@ -597,7 +648,7 @@
   }
 
   function refreshExplorer(record, expanded) {
-    const explorer = record.querySelector('[data-project-feature-explorer]');
+    const explorer = projectDialogs.get(record.id)?.querySelector('[data-project-feature-explorer]');
     if (!explorer) return;
     if (expanded && !explorerControllers.has(explorer)) {
       explorerControllers.set(explorer, initializeFeatureExplorer(explorer));
@@ -605,28 +656,32 @@
     explorerControllers.get(explorer)?.refresh();
   }
 
-  function setExpandedProject(projectId, { scroll = false, updateHistory = false } = {}) {
+  function setExpandedProject(projectId, { updateHistory = false } = {}) {
     const selected = recordsById.get(projectId);
     records.forEach(record => {
+      const dialog = projectDialogs.get(record.id);
+      if (!dialog) return;
       const expanded = record === selected;
-      const body = record.querySelector('.projects-record__body');
-      const toggle = record.querySelector('.projects-record__actions [data-project-toggle]');
-      // Do not strand keyboard focus in content that is about to become hidden.
-      if ((!expanded && body.contains(document.activeElement))
-        || (expanded && document.activeElement === record.querySelector('.projects-record__preview'))) {
-        toggle.focus({ preventScroll: true });
+      record.dataset.projectOpen = String(expanded);
+      record.querySelectorAll('[data-project-toggle]').forEach(button => button.setAttribute('aria-expanded', String(expanded)));
+      if (!expanded && dialog.open) {
+        window.ProjectImageViewer?.close();
+        dialog.close();
+        refreshExplorer(record, false);
+        if (!selected) {
+          const opener = projectOpeners.get(dialog) || record.querySelector('.projects-record__actions [data-project-toggle]');
+          opener.focus({ preventScroll: true });
+        }
       }
-      record.classList.toggle('is-expanded', expanded);
-      body.hidden = !expanded;
-      body.inert = !expanded;
-      record.querySelectorAll('[data-project-toggle]').forEach(button => {
-        button.setAttribute('aria-expanded', String(expanded));
-      });
-      toggle.querySelector('[data-project-toggle-label]').textContent = expanded ? 'Collapse' : 'Explore Project';
-      toggle.querySelector('[data-project-toggle-icon]').textContent = expanded ? '\u2191' : '\u2193';
-      refreshExplorer(record, expanded);
     });
-
+    const dialog = selected && projectDialogs.get(selected.id);
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+      dialog.scrollTop = 0;
+      refreshExplorer(selected, true);
+      dialog.querySelector('.projects-record__actions button').focus({ preventScroll: true });
+    }
+    document.documentElement.classList.toggle('projects-project-dialog-open', Boolean(dialog?.open));
     if (updateHistory) {
       const url = new URL(window.location.href);
       if (selected) url.hash = selected.id;
@@ -636,34 +691,20 @@
       }
       window.history.pushState({ ...(window.history.state || {}), featuredProject: selected?.id || null }, '', url.pathname + url.search + url.hash);
     }
-    if (scroll && selected) {
-      window.requestAnimationFrame(() => selected.scrollIntoView({
-        block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-      }));
-    }
   }
 
-  records.forEach(record => {
-    record.querySelectorAll('[data-project-toggle]').forEach(button => {
-      button.addEventListener('click', () => {
-        const expanded = !record.classList.contains('is-expanded');
-        setExpandedProject(expanded ? record.id : null, { updateHistory: true, scroll: expanded });
-      });
-    });
-  });
-
   const initialProject = projectFromUrl();
-  setExpandedProject(initialProject, { scroll: Boolean(initialProject) });
+  setExpandedProject(initialProject);
   window.history.replaceState({ ...(window.history.state || {}), featuredProject: initialProject }, '', window.location.href);
-  window.addEventListener('hashchange', () => setExpandedProject(projectFromUrl(), { scroll: Boolean(projectFromUrl()) }));
+  window.addEventListener('hashchange', () => setExpandedProject(projectFromUrl()));
   window.addEventListener('popstate', event => {
     const id = Object.prototype.hasOwnProperty.call(event.state || {}, 'featuredProject')
       ? event.state.featuredProject : projectFromUrl();
-    setExpandedProject(id, { scroll: Boolean(id) });
+    setExpandedProject(id);
   });
 
   if (window.PortfolioEntrance) {
-    const groups = [[document.querySelector('.projects-featured__heading'), ...records]];
+    const groups = [records];
     document.querySelectorAll('.projects-registry').forEach(registry => {
       groups.push([registry.querySelector('.projects-section-header'), ...registry.querySelectorAll('.projects-card')]);
     });

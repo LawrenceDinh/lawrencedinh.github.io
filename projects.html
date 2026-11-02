@@ -42,7 +42,7 @@
   }
   </script>
   <link rel="stylesheet" href="style.css?v=20261022-2" />
-  <link rel="stylesheet" href="projects.css?v=20261025-4" />
+  <link rel="stylesheet" href="projects.css?v=20261102-5" />
   <script src="display-mode.js?v=20260818-2"></script>
 </head>
 <body class="projects-page portfolio-index-page">
@@ -67,7 +67,7 @@
             <div class="nav-about nav-projects-menu" data-projects-menu>
               <a class="nav-about-link nav-primary-destination nav-projects-link" href="projects.html" aria-current="page">Projects</a>
               <button class="nav-about-toggle" type="button" aria-label="Open Project destinations" aria-expanded="false" aria-controls="projectsMenuDesktop"><span class="nav-about-chevron" aria-hidden="true"></span></button>
-              <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="#featured-case-study">Featured Projects</a><a href="#current-projects">Active Work</a><a href="#academic-projects">Earlier Work</a><a href="/minecraft-work/">Minecraft Work</a></div>
+              <div class="nav-about-menu" id="projectsMenuDesktop" hidden><a href="#featured-case-study">Featured Projects</a><a href="/minecraft-work/">Minecraft Work</a></div>
             </div>
 
       <a class="nav-primary-destination" href="writing.html">Writing</a>
@@ -122,27 +122,26 @@
     <h1 class="portfolio-page-title" id="projects-heading">Projects</h1>
 
     <section id="featured-case-study" class="projects-featured" aria-labelledby="featured-case-studies-heading">
-      <header class="projects-featured__heading">
-        <h2 class="projects-section-title" id="featured-case-studies-heading">Featured Work</h2>
-        <span class="projects-featured__count" data-featured-project-count></span>
+      <header class="projects-section-header">
+        <h2 id="featured-case-studies-heading">Featured Projects</h2>
       </header>
       <div class="projects-featured__records">
         <article id="drift-course-designer" class="projects-record" data-project-record aria-labelledby="drift-course-title">
           <header class="projects-record__overview">
             <button type="button" class="projects-record__preview" data-project-toggle aria-expanded="false" aria-controls="drift-course-designer-body" aria-label="Explore Drift Course Designer">
-              <img src="web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-960.webp" srcset="web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/complete-event-layout-1600.webp 1600w" sizes="(max-width: 767px) calc(100vw - 28px), 40vw" alt="Completed drift event layout showing the driving line, clipping points, judging zones, and venue annotations" width="1600" height="836" decoding="async" fetchpriority="high" />
+              <img src="web/imgsrc/projects/drift-course-designer/optimized/course-analysis-1600.webp" srcset="web/imgsrc/projects/drift-course-designer/optimized/course-analysis-960.webp 960w, web/imgsrc/projects/drift-course-designer/optimized/course-analysis-1600.webp 1600w" sizes="(max-width: 767px) calc(100vw - 28px), 40vw" alt="Drift Course Designer analysis overlays identifying turns, transitions, setup, and judging sections" width="1600" height="844" decoding="async" fetchpriority="high" />
             </button>
             <div class="projects-record__intro">
               <p class="projects-record__meta"><span>01 / Software</span><span class="projects-status">Live Tool</span></p>
               <h3 id="drift-course-title">Drift Course Designer</h3>
-              <p class="projects-record__description">Design and refine drift course layouts over venue imagery.</p>
+              <p class="projects-record__description">Design and refine drift course layouts over venue imagery, edit driving lines, add clipping points and operational zones, and export annotated plans for event setup and review.</p>
               <div class="projects-record__actions">
                 <button type="button" class="projects-action" data-project-toggle aria-expanded="false" aria-controls="drift-course-designer-body"><span data-project-toggle-label>Explore Project</span> <span data-project-toggle-icon aria-hidden="true">&#8595;</span><span class="projects-sr">: Drift Course Designer</span></button>
                 <a class="projects-action projects-action--launch" href="/tools/drift-course-designer/">Launch Tool <span aria-hidden="true">&#8599;</span></a>
               </div>
             </div>
           </header>
-          <div id="drift-course-designer-body" class="projects-record__body" role="region" aria-labelledby="drift-course-title" hidden inert>
+          <dialog id="drift-course-designer-body" class="projects-record__body projects-record projects-record__dialog is-expanded">
             <div class="projects-record__workspace">
               <div class="projects-feature-explorer" data-project-feature-explorer="drift">
                 <section class="projects-feature-explorer__viewer" id="drift-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
@@ -153,7 +152,7 @@
                   </figure>
                   <div class="projects-feature-explorer__rail">
                     <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
-                    <h4 data-project-feature-title></h4>
+                    <h3 data-project-feature-title></h3>
                     <p data-project-feature-description></p>
                     <div class="projects-feature-explorer__navigation">
                       <button type="button" data-project-feature-previous>&larr; Previous</button>
@@ -170,7 +169,7 @@
               </div>
               <aside class="projects-record__information" aria-label="Drift Course Designer capabilities and technologies">
                 <div class="projects-record__group">
-                  <h4>Capabilities</h4>
+                  <h3>Capabilities</h3>
                   <ul class="projects-record__capabilities">
                     <li>Define the driving line</li>
                     <li>Edit without rebuilding</li>
@@ -179,7 +178,7 @@
                   </ul>
                 </div>
                 <div class="projects-record__group">
-                  <h4>Technologies</h4>
+                  <h3>Technologies</h3>
                   <p>React &middot; TypeScript &middot; Canvas 2D &middot; IndexedDB</p>
                 </div>
                 <div class="projects-record__group">
@@ -229,7 +228,7 @@
                 </section>
               </div>
             </details>
-          </div>
+          </dialog>
         </article>
         <article id="local-driving-intelligence" class="projects-record" data-project-record aria-labelledby="local-driving-title">
           <header class="projects-record__overview">
@@ -239,14 +238,14 @@
             <div class="projects-record__intro">
               <p class="projects-record__meta"><span>02 / Data Platform</span><span class="projects-status">Active Development</span></p>
               <h3 id="local-driving-title">Local Driving Intelligence</h3>
-              <p class="projects-record__description">Local Driving Intelligence unifies weather, road activity, traffic cameras, event information, and preparation workflows in one regional planning dashboard.</p>
+              <p class="projects-record__description">Unifies weather, road activity, traffic cameras, event information, and preparation workflows in one regional planning dashboard.</p>
               <div class="projects-record__actions">
                 <button type="button" class="projects-action" data-project-toggle aria-expanded="false" aria-controls="local-driving-intelligence-body"><span data-project-toggle-label>Explore Project</span> <span data-project-toggle-icon aria-hidden="true">&#8595;</span><span class="projects-sr">: Local Driving Intelligence</span></button>
 
               </div>
             </div>
           </header>
-          <div id="local-driving-intelligence-body" class="projects-record__body" role="region" aria-labelledby="local-driving-title" hidden inert>
+          <dialog id="local-driving-intelligence-body" class="projects-record__body projects-record projects-record__dialog is-expanded">
             <div class="projects-record__workspace">
               <div class="projects-feature-explorer" data-project-feature-explorer="local">
                 <section class="projects-feature-explorer__viewer" id="osint-feature-panel" role="tabpanel" tabindex="0" aria-live="polite">
@@ -257,7 +256,7 @@
                   </figure>
                   <div class="projects-feature-explorer__rail">
                     <div class="projects-feature-explorer__meta"><span data-project-feature-domain></span><span data-project-feature-counter></span></div>
-                    <h4 data-project-feature-title></h4>
+                    <h3 data-project-feature-title></h3>
                     <p data-project-feature-description></p>
                     <div class="projects-feature-explorer__navigation">
                       <button type="button" data-project-feature-previous>← Previous</button>
@@ -274,7 +273,7 @@
               </div>
               <aside class="projects-record__information" aria-label="Local Driving Intelligence capabilities and technologies">
                 <div class="projects-record__group">
-                  <h4>Capabilities</h4>
+                  <h3>Capabilities</h3>
                   <ul class="projects-record__capabilities">
                     <li>Review conditions before departure</li>
                     <li>Normalize regional data</li>
@@ -283,7 +282,7 @@
                   </ul>
                 </div>
                 <div class="projects-record__group">
-                  <h4>Technologies</h4>
+                  <h3>Technologies</h3>
                   <p>React &middot; Express &middot; SQLite</p>
                 </div>
 
@@ -331,7 +330,7 @@
                 </section>
               </div>
             </details>
-          </div>
+          </dialog>
         </article>
       </div>
     </section>
@@ -339,7 +338,7 @@
     <section id="current-projects" class="projects-registry" aria-labelledby="current-projects-heading">
       <header class="projects-section-header">
         <div>
-          <h2 id="current-projects-heading">Current Work</h2>
+          <h2 id="current-projects-heading">Current Projects in Progress</h2>
         </div>
         <p>Prototypes and applied practice exploring embedded sensing, vehicle spacing, telemetry, and closed-course validation.</p>
       </header>
@@ -369,7 +368,7 @@
     <section id="academic-projects" class="projects-registry projects-registry--academic" aria-labelledby="academic-projects-heading">
       <header class="projects-section-header">
         <div>
-          <h2 id="academic-projects-heading">Earlier / Academic Work</h2>
+          <h2 id="academic-projects-heading">Earlier / Academic Projects</h2>
         </div>
         <p>Selected academic work in computational biology, network analysis, and software engineering.</p>
       </header>
@@ -412,7 +411,7 @@
 <script src="carousel-interaction.js?v=20260720-4"></script>
 <script src="project-image-viewer.js?v=20261023-7"></script>
 <script src="portfolio-entrance.js?v=20261021-2"></script>
-<script src="projects-explorer.js?v=20261025-4"></script>
+<script src="projects-explorer.js?v=20261102-1"></script>
 <script src="analytics.js?v=20260720-1" defer></script>
 </body>
 </html>
