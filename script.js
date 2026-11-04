@@ -3035,7 +3035,10 @@
         candidate.setAttribute('aria-selected', String(selected));
         candidate.tabIndex = selected ? 0 : -1;
         const panel = document.getElementById(candidate.getAttribute('aria-controls'));
-        if (panel) panel.hidden = !selected;
+        if (panel) {
+          panel.hidden = !selected;
+          panel.inert = !selected;
+        }
       });
 
       const activePanel = document.getElementById(targetId);

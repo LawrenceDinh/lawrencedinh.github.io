@@ -261,7 +261,9 @@
       button.setAttribute('aria-controls', viewer.id);
       button.setAttribute('aria-selected', 'false');
       button.tabIndex = -1;
-      button.innerHTML = `<span>${String(featureIndex + 1).padStart(2, '0')} / ${feature.domain}</span><strong>${feature.title}</strong>`;
+      const number = String(featureIndex + 1).padStart(2, '0');
+      const label = explorer.dataset.projectFeatureExplorer === 'local' ? number : `${number} / ${feature.domain}`;
+      button.innerHTML = `<span>${label}</span><strong>${feature.title}</strong>`;
       button.addEventListener('click', () => {
         requestFeature(featureIndex, 'index');
       });

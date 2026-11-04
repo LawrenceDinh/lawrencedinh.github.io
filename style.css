@@ -3244,10 +3244,6 @@ html[data-portfolio-mode="enhanced"] body {
 [data-portfolio-mode="enhanced"] .career-footer-metrics { justify-content: flex-end; font-family: var(--mono); }
 [data-portfolio-mode="enhanced"] .career-footer-metrics strong { color: var(--enhanced-accent-detail); font-size: 1rem; }
 
-@media (min-width: 701px) and (max-width: 1000px) {
-  [data-portfolio-mode="enhanced"] .career-overview-companies { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
 @media (max-width: 700px) {
   [data-portfolio-mode="enhanced"] .career-snapshot .section-header { align-items: flex-start; flex-direction: column; }
   [data-portfolio-mode="enhanced"] .career-tabs { justify-content: flex-start; margin-left: 0; }
@@ -6484,7 +6480,7 @@ html[data-portfolio-mode="enhanced"] body {
 
 /* Enhanced overview company cards: identity rail on the left, role record on the right. */
 [data-portfolio-mode="enhanced"] .career-overview-company {
-  grid-template-columns: minmax(105px, 36%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 36%) minmax(0, 1fr);
   column-gap: 12px;
   align-items: stretch;
   min-height: 128px;
@@ -6533,7 +6529,9 @@ html[data-portfolio-mode="enhanced"] body {
 
 [data-portfolio-mode="enhanced"] .career-company-name {
   align-self: start;
+  min-width: 0;
   max-width: 100%;
+  overflow-wrap: anywhere;
   color: var(--enhanced-text-secondary);
   font-family: var(--mono);
   font-size: .65rem;
@@ -6547,6 +6545,7 @@ html[data-portfolio-mode="enhanced"] body {
 [data-portfolio-mode="enhanced"] .career-overview-company__content {
   display: grid;
   align-content: start;
+  overflow-wrap: anywhere;
   gap: 7px;
   padding-top: 10px;
 }
@@ -6700,6 +6699,11 @@ html[data-portfolio-mode="enhanced"] body {
     --hero-portrait-inset: 16px;
     --hero-portrait-width: 124px;
     --hero-identity-divider-clearance: 24px;
+  }
+
+  /* Reserve the absolute portrait's footprint so identity text wraps beside it. */
+  [data-portfolio-mode="enhanced"] .hero-main .hero-top {
+    padding-right: calc(var(--hero-portrait-width) + var(--hero-portrait-inset) + 36px + var(--hero-identity-divider-clearance));
   }
 
   [data-portfolio-mode="enhanced"] .hero-portrait-cluster {
@@ -7360,8 +7364,8 @@ html[data-portfolio-mode="enhanced"] body {
 
   @media (min-width: 1300px) {
     [data-portfolio-mode="enhanced"] .hero-identity-summary {
-      max-width: min(92ch, calc(100% - 240px));
-      white-space: nowrap;
+      max-width: 92ch;
+      white-space: normal;
     }
   }
 
@@ -11971,3 +11975,92 @@ body.career-preview-open {
 .game-work-link:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 .game-work-card .career-project-card-link > img { width:100%; max-height:180px; object-fit:cover; object-position:50% 50%; margin-bottom:12px; border-radius:var(--radius); }
 .game-work-card .career-project-card-link > img { object-fit:contain; }
+
+/* Overview establishes the snapshot height at each width. Detail tabs scroll
+   within that same space, while the hidden Overview stays out of focus and AT. */
+html[data-portfolio-mode="enhanced"] #career-snapshot .career-dossier {
+  position: relative;
+  display: flow-root;
+  flex: 0 0 auto;
+  padding-bottom: 0;
+}
+html[data-portfolio-mode="enhanced"] #career-panel-overview[hidden] {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  transition: none;
+}
+html[data-portfolio-mode="enhanced"] #career-panel-overview .career-footer-strip { display: grid; }
+html[data-portfolio-mode="enhanced"] #career-snapshot .career-panel:not(.career-panel--overview):not([hidden]) {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+}
+html[data-portfolio-mode="enhanced"] #career-panel-projects .career-project-support-grid {
+  grid-template-rows: none;
+  grid-auto-rows: auto;
+  align-content: start;
+  align-items: start;
+}
+html[data-portfolio-mode="enhanced"] #career-panel-projects .career-project-column--featured { gap: 8px; }
+/* Keep three jobs on one row; four jobs form two balanced rows at every width. */
+html[data-portfolio-mode="enhanced"] body .career-panel--overview .career-overview-companies {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+}
+html[data-portfolio-mode="enhanced"] body .career-panel--overview .career-overview-companies:has(> .career-overview-company:nth-child(4):last-child) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 761px) {
+  /* Share title and description tracks across each row, regardless of wrapping. */
+  html[data-portfolio-mode="enhanced"] body .career-panel--overview .career-overview-company {
+    grid-row: span 2;
+    grid-template-columns: minmax(72px, 36%) minmax(0, 1fr);
+    grid-template-rows: subgrid;
+    row-gap: 7px;
+  }
+  html[data-portfolio-mode="enhanced"] body .career-panel--overview .career-company-identity {
+    grid-column: 1;
+    grid-row: span 2;
+    align-content: start;
+    min-height: 0;
+    padding-inline: 0 6px;
+  }
+  html[data-portfolio-mode="enhanced"] body .career-panel--overview .career-company-name {
+    font-size: .58rem;
+  }
+  html[data-portfolio-mode="enhanced"] body .career-panel--overview .career-overview-company__content {
+    grid-column: 2;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 7px;
+  }
+}
+html[data-portfolio-mode="enhanced"] #career-panel-projects .game-work-card .career-project-card-link {
+  grid-template-columns: 96px minmax(0, 1fr);
+  column-gap: 12px;
+}
+html[data-portfolio-mode="enhanced"] #career-panel-projects .game-work-card .career-project-card-link > img {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  align-self: center;
+  width: 96px;
+  height: 72px;
+  margin: 0;
+}
+@media (min-width: 901px) {
+  html[data-portfolio-mode="enhanced"] #career-snapshot {
+    flex: 0 0 auto;
+    margin-top: 12px;
+    padding: 12px 14px;
+  }
+  html[data-portfolio-mode="enhanced"] #career-snapshot > .section-header { margin-bottom: 8px; }
+}
+@media (max-width: 440px) {
+  html[data-portfolio-mode="enhanced"] #career-panel-projects .game-work-card .career-project-card-link { grid-template-columns: 64px minmax(0, 1fr); column-gap: 8px; }
+  html[data-portfolio-mode="enhanced"] #career-panel-projects .game-work-card .career-project-card-link > img { width: 64px; height: 48px; }
+}
